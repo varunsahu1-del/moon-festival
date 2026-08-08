@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Place — Moon Festival 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal; font-style: normal;
+    }
+
+    .book-hero {
+      background: #7A3A18;
+      padding-top: calc(var(--s-24) + 60px);
+      padding-bottom: var(--s-16);
+      text-align: center;
+    }
+    .book-hero-eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.55rem, 0.8vw, 0.65rem);
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.5);
+      margin: 0 0 0.5rem;
+    }
+    .book-hero-back {
+      display: block;
+      text-align: center;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B06030;
+      text-decoration: none;
+      margin-top: -2rem;
+      padding: 0 0 var(--s-16);
+      transition: color 0.2s;
+    }
+    .book-hero-back:hover { color: #EDD4B2; }
+    .book-hero-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: #EDD4B2;
+      letter-spacing: 0.22em;
+      line-height: 1;
+      margin: 0 0 0.4rem;
+      text-transform: uppercase;
+    }
+    .book-hero-sub {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.58rem, 0.85vw, 0.7rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.7);
+    }
+
+    .book-body {
+      background: var(--ink);
+      padding: clamp(3rem, 7vw, 5rem) 0 clamp(5rem, 12vw, 9rem);
+    }
+    .book-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    /* Sidebar layout */
+    .book-layout {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+      display: flex;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: flex-start;
+    }
+    .book-form-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .book-sidebar-col {
+      width: clamp(220px, 30%, 280px);
+      flex-shrink: 0;
+      position: sticky;
+      top: 80px;
+    }
+    /* Sidebar card */
+    .sidebar-card {
+      border: 0.5px solid rgba(176,96,48,0.35);
+    }
+    .sc-header {
+      background: rgba(176,96,48,0.09);
+      padding: 0.9rem 1rem 0.85rem;
+      border-bottom: 0.5px solid rgba(176,96,48,0.2);
+    }
+    .sc-eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 300;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 0 0 0.3rem;
+    }
+    .sc-venue {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0 0 0.15rem;
+      line-height: 1.25;
+    }
+    .sc-room {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.64rem;
+      font-weight: 300;
+      color: rgba(237,212,178,0.38);
+      margin: 0;
+    }
+    .sc-includes {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px dashed rgba(176,96,48,0.25);
+    }
+    .sc-includes-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.5rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(176,96,48,0.65);
+      margin: 0 0 0.45rem;
+    }
+    .sc-price {
+      padding: 0.85rem 1rem;
+    }
+    .sc-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.35rem;
+    }
+    .sc-price-key {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.35);
+    }
+    .sc-price-val {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(237,212,178,0.5);
+    }
+    .sc-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 0.5px solid rgba(176,96,48,0.3);
+    }
+    .sc-total-key {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.4);
+    }
+    .sc-total-val {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #B06030;
+      line-height: 1;
+    }
+    @media (max-width: 580px) {
+      .book-layout { flex-direction: column; }
+      .book-sidebar-col { width: 100%; position: static; }
+    }
+
+    /* Summary pill */
+    .book-summary {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.6rem, 0.88vw, 0.7rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.5);
+      border: 0.5px solid rgba(176,96,48,0.3);
+      padding: 0.55em 1.1em;
+      display: inline-block;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Price breakdown — tight inline */
+    .book-price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .book-price-total-amt {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #EDD4B2;
+      line-height: 1;
+    }
+    .book-price-breakdown-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.7rem, 1vw, 0.76rem);
+      font-weight: 300;
+      color: rgba(237,212,178,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* Person section */
+    .booking-person-section + .booking-person-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid rgba(176,96,48,0.2);
+    }
+    .booking-person-heading {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 0 0 1.4rem;
+    }
+
+    /* Form fields — matches apply form style */
+    .booking-form { display: flex; flex-direction: column; }
+    .booking-field { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.4rem 0; }
+    #bookingPersons .booking-field:first-child { padding-top: 0.4rem; }
+    .booking-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.68rem, 1vw, 0.78rem);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      display: block;
+      margin-bottom: 0;
+    }
+    .booking-input {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.82rem, 1.3vw, 0.9rem);
+      font-weight: 300;
+      color: #EDD4B2;
+      background: transparent;
+      border: none;
+      border-bottom: 0.5px solid rgba(237,212,178,0.2);
+      padding: 0.5em 0;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .booking-input:focus { border-color: #B06030; }
+    .booking-input::placeholder { color: rgba(237,212,178,0.2); }
+    .booking-input.input-error { border-color: #c0392b; }
+    .field-error {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.72rem;
+      color: #e74c3c;
+      margin-top: 0.25em;
+    }
+
+    /* WhatsApp row */
+    .wa-row { display: flex; gap: 0; align-items: flex-end; }
+
+    /* Custom country code picker */
+    .cc-wrap { position: relative; flex-shrink: 0; }
+    .wa-cc-input {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.82rem, 1.3vw, 0.9rem);
+      font-weight: 300;
+      color: #B06030;
+      background: transparent;
+      border: none;
+      border-bottom: 0.5px solid rgba(237,212,178,0.2);
+      padding: 0.5em 0.5em 0.5em 0;
+      outline: none;
+      width: 72px;
+      cursor: pointer;
+    }
+    .wa-cc-input:focus { border-bottom-color: #B06030; color: #EDD4B2; }
+    .cc-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 180px;
+      background: #1a1007;
+      border: 0.5px solid rgba(176,96,48,0.4);
+      z-index: 100;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .cc-dropdown.open { display: block; }
+    .cc-option {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.75rem, 1.1vw, 0.82rem);
+      font-weight: 300;
+      color: rgba(237,212,178,0.7);
+      padding: 0.5em 0.9em;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
+    .cc-option:hover, .cc-option.highlighted { background: rgba(176,96,48,0.18); color: #EDD4B2; }
+
+    /* GST checkbox */
+    #gstToggle:checked { background: #B06030; border-color: #B06030; }
+    #gstToggle:checked::after { content: ''; display: block; width: 4px; height: 8px; border: 1.5px solid #EDD4B2; border-top: none; border-left: none; transform: rotate(45deg) translate(2px, -1px); position: absolute; top: 1px; left: 4px; }
+
+    /* Custom state picker */
+    .state-picker-wrap { position: relative; }
+    .state-picker-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 0.5px solid rgba(237,212,178,0.2);
+      padding: 0.5em 0;
+      cursor: pointer;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.35);
+      transition: border-color 0.2s, color 0.2s;
+      outline: none;
+      text-align: left;
+    }
+    .state-picker-btn.has-value { color: #EDD4B2; }
+    .state-picker-btn:focus, .state-picker-btn.open { border-color: #B06030; }
+    .state-picker-btn svg { flex-shrink: 0; transition: transform 0.2s; color: rgba(176,96,48,0.6); }
+    .state-picker-btn.open svg { transform: rotate(180deg); }
+    .state-picker-dd {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #1a1007;
+      border: 0.5px solid rgba(176,96,48,0.4);
+      z-index: 200;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .state-picker-dd.open { display: block; }
+    .state-picker-opt {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.65);
+      padding: 0.65em 1em;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
+    .state-picker-opt:hover, .state-picker-opt.highlighted { background: rgba(176,96,48,0.18); color: #EDD4B2; }
+    .state-picker-opt.selected { color: #B06030; }
+
+    /* Gender radios — custom brown/orange */
+    .gender-options { display: flex; gap: 2rem; margin-top: 0.4rem; }
+    .gender-label {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.8rem, 1.2vw, 0.88rem);
+      font-weight: 300;
+      color: rgba(237,212,178,0.7);
+      cursor: pointer;
+    }
+    .gender-label input[type="radio"] { display: none; }
+    .gender-radio-circle {
+      width: 17px; height: 17px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(176,96,48,0.5);
+      background: transparent;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.15s;
+    }
+    .gender-label input[type="radio"]:checked + .gender-radio-circle {
+      border-color: #B06030;
+      background: rgba(176,96,48,0.15);
+      box-shadow: inset 0 0 0 4px #B06030;
+    }
+    .gender-label:hover .gender-radio-circle { border-color: #B06030; }
+
+    /* City autocomplete */
+    .city-autocomplete { position: relative; }
+    .city-suggestions {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: #1e1a0e;
+      border: 0.5px solid rgba(176,96,48,0.35);
+      z-index: 10;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .city-suggestions.open { display: block; }
+    .city-suggestion {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.78rem, 1.2vw, 0.85rem);
+      font-weight: 300;
+      color: rgba(237,212,178,0.7);
+      padding: 0.55em 0.8em;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .city-suggestion:hover, .city-suggestion.highlighted {
+      background: rgba(176,96,48,0.15);
+      color: #EDD4B2;
+    }
+
+    /* GST section */
+    .gst-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid rgba(176,96,48,0.15);
+    }
+    .gst-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 0 0 0.3rem;
+    }
+    .gst-optional {
+      font-weight: 300;
+      color: rgba(237,212,178,0.4);
+      letter-spacing: 0.1em;
+      text-transform: none;
+      font-size: 0.6rem;
+    }
+
+    /* Submit */
+    .book-submit-row {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .booking-submit {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.65rem, 0.95vw, 0.75rem);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: #B06030;
+      color: #EDD4B2;
+      border: none;
+      padding: 1.1rem 2.5rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      align-self: flex-start;
+    }
+    .booking-submit:hover { opacity: 0.85; }
+    .booking-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .book-terms-note {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(237,212,178,0.55);
+      line-height: 1.6;
+    }
+    .book-terms-note a { color: #B06030; text-decoration: underline; text-underline-offset: 3px; }
+    .book-terms-note a:hover { color: #EDD4B2; }
+
+    /* Confirmation screen */
+    .book-confirmation {
+      display: none;
+      text-align: center;
+      padding: clamp(3rem, 8vw, 6rem) 0;
+    }
+    .book-confirmation.show { display: block; }
+    .book-confirmation-icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0 auto 1.5rem;
+      opacity: 0.8;
+    }
+    .book-confirmation-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0 0 0.6rem;
+    }
+    .book-confirmation-ref {
+      font-family: monospace;
+      font-size: 1rem;
+      color: #B06030;
+      letter-spacing: 0.08em;
+      margin: 0 0 1.2rem;
+    }
+    .book-confirmation-sub {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.8rem, 1.3vw, 0.88rem);
+      font-weight: 300;
+      color: rgba(237,212,178,0.5);
+      line-height: 1.75;
+      max-width: 380px;
+      margin: 0 auto 2.5rem;
+    }
+    .book-back-btn {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.6rem, 0.88vw, 0.7rem);
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B06030;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(176,96,48,0.5);
+      padding-bottom: 0.15em;
+      transition: color 0.2s;
+    }
+    .book-back-btn:hover { color: #EDD4B2; }
+
+    /* Error state */
+    #bookErrorMsg {
+      display: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.82rem;
+      color: #e74c3c;
+      background: rgba(231,76,60,0.08);
+      border: 0.5px solid rgba(231,76,60,0.3);
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.2rem;
+    }
+  </style>
+  <style>
+    .pay-overlay { display:none; position:fixed; inset:0; background:rgba(15,10,2,0.92); z-index:1100; overflow-y:auto; padding:2rem 1rem; }
+    .pay-overlay.open { display:flex; align-items:center; justify-content:center; }
+    .pay-modal { background:#191406; border:0.5px solid rgba(176,96,48,0.35); max-width:480px; width:100%; padding:clamp(1.6rem,4vw,2.4rem) clamp(1.4rem,4vw,2.2rem); position:relative; margin:auto; }
+    .pay-modal-eyebrow { font-family:'Josefin Sans',sans-serif; font-size:0.6rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:#B06030; margin:0 0 0.4rem; }
+    .pay-modal-title { font-family:'Josefin Sans',sans-serif; font-size:clamp(1.2rem,3vw,1.6rem); color:#EDD4B2; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 0.3rem; line-height:1.1; }
+    .pay-modal-ref { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:rgba(237,212,178,0.4); margin:0 0 1.6rem; }
+    .pay-method-card { border:0.5px solid rgba(176,96,48,0.28); padding:1rem 1.2rem; margin-bottom:0.75rem; cursor:pointer; transition:border-color 0.2s,background 0.2s; background:rgba(176,96,48,0.03); }
+    .pay-method-card:last-child { margin-bottom:0; }
+    .pay-method-card:hover { border-color:rgba(176,96,48,0.6); background:rgba(176,96,48,0.07); }
+    .pay-method-card.selected { border-color:#B06030; background:rgba(176,96,48,0.1); }
+    .pay-method-top { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.35rem; }
+    .pay-method-name { font-family:'Josefin Sans',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#B06030; }
+    .pay-method-badge { font-family:'Josefin Sans',sans-serif; font-size:0.55rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:#8FAF7E; border:0.5px solid rgba(143,175,126,0.4); padding:0.2em 0.6em; white-space:nowrap; }
+    .pay-method-desc { font-family:'Open Sans',sans-serif; font-size:0.78rem; font-weight:300; color:#EDD4B2; line-height:1.6; margin:0; }
+    .pay-method-desc strong { color:rgba(237,212,178,0.8); }
+    .pay-method-detail { display:none; margin-top:0.9rem; padding-top:0.9rem; border-top:0.5px solid rgba(176,96,48,0.2); }
+    .pay-method-card.selected .pay-method-detail { display:block; }
+    .pay-upi-save-note { font-family:'Josefin Sans',sans-serif; font-size:0.58rem; letter-spacing:0.16em; text-transform:uppercase; color:#8FAF7E; margin-bottom:0.8rem; }
+    .pay-action-btn { font-family:'Open Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#EDD4B2; background:rgba(176,96,48,0.15); border:0.5px solid rgba(176,96,48,0.5); padding:0.65em 1.5em; cursor:pointer; transition:background 0.2s; width:100%; margin-top:0.6rem; }
+    .pay-action-btn:hover { background:rgba(176,96,48,0.28); }
+    .pay-action-btn.primary { background:#B06030; border:none; border-radius:0; color:#ffffff; padding:1.1rem 1.5em; font-size:0.82rem; }
+    .pay-action-btn.primary:hover { background:#C47D52; }
+    .pay-wa-link { display:block; text-align:center; font-family:'Josefin Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#EDD4B2; background:#8FAF7E; border:none; padding:0.55em 1.4em; cursor:pointer; text-decoration:none; transition:opacity 0.2s; width:100%; margin-top:0.6rem; }
+    .pay-wa-link:hover { opacity:0.85; }
+  </style>
+</head>
+<body>
+
+<!-- Nav Drawer -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<!-- Nav -->
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="book-hero">
+  <div style="padding: 0 var(--pad);">
+    <h1 class="book-hero-title">Your Booking</h1>
+    <p class="book-hero-sub">Complete your details to confirm your place</p>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="book-body">
+  <div class="book-inner">
+    <a href="tickets.html" class="book-hero-back" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">← Back to Tickets</a>
+
+    <!-- Confirmation screen (hidden until payment) -->
+    <div class="book-confirmation" id="bookConfirmation">
+      <svg class="book-confirmation-icon" viewBox="0 0 24 24" fill="none" stroke="#B06030" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="7 12 10.5 15.5 17 9"/></svg>
+      <h2 class="book-confirmation-title">You're on the Moon!</h2>
+      <p class="book-confirmation-ref" id="confirmRef"></p>
+      <p class="book-confirmation-sub" id="confirmSub"></p>
+      <a href="tickets.html" class="book-back-btn">← Back to Tickets</a>
+    </div>
+
+    <!-- Booking form -->
+    <div id="bookFormWrap">
+      <p class="book-summary" id="bookSummary" style="display:none;">Loading…</p>
+
+      <!-- Expandable booking summary card -->
+      <div id="bookSummaryCard" style="display:none;border:0.5px solid rgba(176,96,48,0.35);margin-bottom:3.5rem;cursor:pointer;" onclick="toggleBookingSummary()">
+
+        <!-- Always-visible header row -->
+        <div style="padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;">
+          <div style="flex:1;min-width:0;">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.6rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:rgba(176,96,48,0.8);margin:0 0 0.3rem;">Your Booking</p>
+            <p id="bsVenueLine" style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.4vw,1.05rem);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.2;"></p>
+            <p id="bsRoomLine" style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#C07040;margin:0 0 0.2rem;"></p>
+            <p id="bsDateLine" style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,212,178,0.65);margin:0;"></p>
+          </div>
+          <div style="text-align:right;flex-shrink:0;display:flex;align-items:center;gap:0.75rem;">
+            <div>
+              <p id="bpTotal" style="font-family:'Open Sans',sans-serif;font-size:clamp(1.1rem,2.5vw,1.3rem);font-weight:700;letter-spacing:0.02em;color:#EDD4B2;margin:0;line-height:1;"></p>
+              <p id="bpBreakdown" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0.18rem 0 0;"></p>
+            </div>
+            <!-- Chevron -->
+            <svg id="bsChevron" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;flex-shrink:0;stroke:#C07040;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.25s;"><polyline points="3 6 8 11 13 6"/></svg>
+          </div>
+        </div>
+
+        <!-- Expandable details (hidden by default) -->
+        <div id="bsDetails" style="max-height:0;overflow:hidden;transition:max-height 0.35s ease;">
+          <div style="border-top:0.5px solid rgba(176,96,48,0.2);padding:1rem 1.2rem 1.3rem;">
+            <p id="bsRoomNote" style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.45);margin:0 0 1rem;display:none;"></p>
+
+            <!-- Paid items -->
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;">Selected</p>
+            <ul id="bsPaidList" style="list-style:none;padding:0;margin:0 0 1.2rem;display:flex;flex-direction:column;gap:0;"></ul>
+
+            <!-- Included items -->
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;border-top:0.5px solid rgba(176,96,48,0.2);padding-top:0.85rem;">Also Included</p>
+            <ul id="bsSummaryList" style="list-style:none;padding:0;margin:0 0 1rem;display:flex;flex-direction:column;gap:0;"></ul>
+
+            <!-- GST + Total -->
+            <div style="border-top:0.5px solid rgba(176,96,48,0.25);padding-top:0.8rem;display:flex;flex-direction:column;gap:0.45rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,212,178,0.5);">GST (5%)</span>
+                <span id="bpGstLine" style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.55);"></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:0.5px solid rgba(176,96,48,0.3);padding-top:0.6rem;">
+                <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#EDD4B2;">Total</span>
+                <span id="bpTotalLine" style="font-family:'Open Sans',sans-serif;font-size:1.15rem;font-weight:700;color:#EDD4B2;"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="book-price-box" id="bookPriceBox" style="display:none;"></div>
+      <div id="bookErrorMsg"></div>
+
+      <form id="bookingForm" class="booking-form" novalidate>
+
+        <div style="margin-bottom:0;">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2vw,1.15rem);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#B06030;margin:0;">Your Details</p>
+        </div>
+
+        <!-- DEV ONLY — remove before launch -->
+        <button type="button" onclick="devAutofill()" style="margin-bottom:1.2rem;background:#B06030;color:#EDD4B2;border:none;border-radius:6px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;cursor:pointer;width:100%;">FILL TEST DATA</button>
+        <div id="bookingPersons"></div>
+
+        <!-- Notes to organizer -->
+        <div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid rgba(176,96,48,0.15);">
+          <label class="booking-label" for="bf-organizer-note" style="display:block;margin-bottom:0.5rem;">Notes to Organizer <span style="font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.06em;text-transform:none;font-size:0.6rem;">(optional)</span></label>
+          <textarea class="booking-input" id="bf-organizer-note" rows="3" placeholder="Roommate requests, dietary requirements, accessibility needs, special requests…" style="resize:vertical;min-height:72px;line-height:1.5;"></textarea>
+        </div>
+
+        <!-- GST checkbox toggle -->
+        <div style="margin-top:2rem;">
+          <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;">
+            <input type="checkbox" id="gstToggle" onchange="document.getElementById('gstFields').style.display=this.checked?'block':'none'" style="appearance:none;-webkit-appearance:none;width:16px;height:16px;border:0.5px solid rgba(176,96,48,0.5);background:transparent;cursor:pointer;flex-shrink:0;position:relative;" />
+            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.55);">I have a GST number</span>
+          </label>
+          <div id="gstFields" style="display:none;margin-top:1.2rem;">
+            <div class="booking-field">
+              <label class="booking-label" for="bf-gst-number">GSTIN</label>
+              <input class="booking-input" id="bf-gst-number" type="text" placeholder="22AAAAA0000A1Z5" maxlength="15" style="text-transform:uppercase;" />
+            </div>
+            <div class="booking-field">
+              <label class="booking-label" for="bf-gst-name">Company / Legal Name</label>
+              <input class="booking-input" id="bf-gst-name" type="text" placeholder="As per GST registration" />
+            </div>
+          </div>
+        </div>
+
+        <div class="book-submit-row">
+          <div id="bookErrorMsg2" style="display:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;color:#e74c3c;"></div>
+          <button type="submit" class="booking-submit" id="bookSubmitBtn">Proceed to Payment →</button>
+          <p class="book-terms-note">By proceeding you agree to our <a href="terms.html">Terms &amp; Conditions</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  </div>
+</div>
+
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li>
+        <li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow + Stay Connected -->
+    <style>.footer-social-row{display:contents;}@media(max-width:680px){.footer-social-row{display:grid;grid-column:1/-1;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,2rem);}}</style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- bottom bar -->
+  <div style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+
+</footer>
+
+<datalist id="cc-datalist">
+  <option value="+91">+91 India</option>
+  <option value="+1">+1 US / Canada</option>
+  <option value="+44">+44 UK</option>
+  <option value="+61">+61 Australia</option>
+  <option value="+64">+64 New Zealand</option>
+  <option value="+353">+353 Ireland</option>
+  <option value="+65">+65 Singapore</option>
+  <option value="+60">+60 Malaysia</option>
+  <option value="+66">+66 Thailand</option>
+  <option value="+62">+62 Indonesia</option>
+  <option value="+63">+63 Philippines</option>
+  <option value="+84">+84 Vietnam</option>
+  <option value="+81">+81 Japan</option>
+  <option value="+82">+82 South Korea</option>
+  <option value="+971">+971 UAE</option>
+  <option value="+974">+974 Qatar</option>
+  <option value="+966">+966 Saudi Arabia</option>
+  <option value="+92">+92 Pakistan</option>
+  <option value="+94">+94 Sri Lanka</option>
+  <option value="+977">+977 Nepal</option>
+  <option value="+880">+880 Bangladesh</option>
+  <option value="+49">+49 Germany</option>
+  <option value="+33">+33 France</option>
+  <option value="+39">+39 Italy</option>
+  <option value="+34">+34 Spain</option>
+  <option value="+31">+31 Netherlands</option>
+  <option value="+41">+41 Switzerland</option>
+  <option value="+46">+46 Sweden</option>
+  <option value="+47">+47 Norway</option>
+  <option value="+45">+45 Denmark</option>
+  <option value="+7">+7 Russia</option>
+  <option value="+27">+27 South Africa</option>
+  <option value="+254">+254 Kenya</option>
+  <option value="+234">+234 Nigeria</option>
+  <option value="+55">+55 Brazil</option>
+  <option value="+52">+52 Mexico</option>
+  <option value="+54">+54 Argentina</option>
+</datalist>
+
+<script>
+// ── Nav ──────────────────────────────────────────────────────────────────────
+const toggle = document.getElementById('navToggle');
+const drawer = document.getElementById('navDrawer');
+toggle.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.setAttribute('aria-expanded', open);
+  drawer.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  drawer.classList.remove('open');
+  toggle.classList.remove('open');
+  toggle.setAttribute('aria-expanded', false);
+  drawer.setAttribute('aria-hidden', true);
+  document.body.style.overflow = '';
+}));
+
+// ── GST rate from server (falls back to 5%) ──────────────────────────────────
+window._GST_RATE = 0.05;
+fetch('/api/public/pricing').then(r => r.json()).then(d => { if (d.gst_rate) window._GST_RATE = d.gst_rate; }).catch(() => {});
+
+// ── Read URL params ───────────────────────────────────────────────────────────
+const params = new URLSearchParams(location.search);
+const venue      = params.get('venue') || '';
+const roomType   = params.get('room') || '';
+const priceStr   = params.get('price') || '';
+const guestCount = Math.max(1, parseInt(params.get('guests') || '1', 10));
+const addonsRaw  = params.get('addons') || '';
+
+// Parse add-on names from "price:name|price:name" format
+const addonNames = addonsRaw ? addonsRaw.split('|').map(a => a.split(':').slice(1).join(':').trim().toLowerCase()) : [];
+const hasExtraDay   = addonNames.some(n => n.includes('extra day') || n.includes('26 nov'));
+const hasMeals      = addonNames.some(n => n.includes('meal'));
+const hasTribalLunch   = addonNames.some(n => n.includes('tribal'));
+const hasAyurveda      = addonNames.some(n => n.includes('ayurvedic'));
+
+if (!venue || !roomType || !priceStr) {
+  document.getElementById('bookSummary').style.display = 'inline-block';
+  document.getElementById('bookSummary').textContent = 'No room selected.';
+} else {
+  const base  = parseInt(priceStr, 10);
+  const gst   = Math.round(base * (window._GST_RATE || 0.05));
+  const total = base + gst;
+  const fmt   = n => '₹' + n.toLocaleString('en-IN');
+
+  const isFestivalOnly = venue === 'Festival Access';
+  const checkIn  = hasExtraDay ? '26 Nov' : '27 Nov';
+
+  document.getElementById('bsVenueLine').textContent = venue;
+  document.getElementById('bsRoomLine').textContent  = roomType;
+  document.getElementById('bsDateLine').textContent  = isFestivalOnly ? '' : checkIn + ' – 30 Nov';
+  document.getElementById('bpTotal').textContent     = fmt(total);
+  document.getElementById('bpBreakdown').textContent = fmt(base) + ' + GST';
+  document.getElementById('bookSummaryCard').style.display = 'block';
+  document.getElementById('bpGstLine').textContent   = fmt(gst);
+  document.getElementById('bpTotalLine').textContent = fmt(total);
+
+  const ROOM_NOTES = {
+    'Triple Sharing': '1 bed in a 3-bed room',
+    'Double Sharing': '1 bed in a 2-bed room',
+    'Private Room': 'Entire room for yourself',
+    'Private Room': 'Entire room for yourself',
+    '4 Bed Dorm': '1 bed in a 4-bed dorm · females only',
+    '6 Bed Dorm': '1 bed in a 6-bed dorm · mixed',
+  };
+  const noteEl = document.getElementById('bsRoomNote');
+  const roomNote = ROOM_NOTES[roomType];
+  if (roomNote) { noteEl.textContent = roomNote; noteEl.style.display = 'block'; }
+
+  // Parse addons into {price, name} pairs
+  const addonItems = addonsRaw
+    ? addonsRaw.split('|').map(a => {
+        const idx = a.indexOf(':');
+        return { price: parseInt(a.slice(0, idx), 10) || 0, name: a.slice(idx + 1).trim() };
+      })
+    : [];
+
+  // Paid row: name left, price right
+  const row = (label, amt) => {
+    return `<li style="display:flex;justify-content:space-between;align-items:baseline;padding:0.55rem 0;border-bottom:0.5px solid rgba(176,96,48,0.12);">
+      <span style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.8);padding-right:1rem;">${label}</span>
+      <span style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:600;color:rgba(237,212,178,0.75);white-space:nowrap;">${fmt(amt)}</span>
+    </li>`;
+  };
+  // Included row: name only, no price column
+  const includedRow = (label) => {
+    return `<li style="padding:0.55rem 0;border-bottom:0.5px solid rgba(176,96,48,0.12);">
+      <span style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.6);">${label}</span>
+    </li>`;
+  };
+
+  const isDayPass = isFestivalOnly && roomType.toLowerCase().includes('day pass');
+  const stayLabel = hasExtraDay ? '4N / 5D Stay · 26–30 Nov' : '3N / 4D Stay · 27–30 Nov';
+
+  // Paid items (priced)
+  let paidRows = '';
+  if (!isFestivalOnly) paidRows += row(roomType + ' — ' + venue, base);
+  addonItems.forEach(a => {
+    const isFlat = a.name.toLowerCase().includes('scooter');
+    paidRows += row(a.name, isFlat ? a.price : a.price * guestCount);
+  });
+
+  // Included items (zero cost)
+  let includedRows = '';
+  if (isDayPass) {
+    const dayMatch = roomType.match(/(\d+\s+Nov)/i);
+    const dayStr = dayMatch ? dayMatch[1] : '';
+    includedRows += includedRow('Full Festival Access' + (dayStr ? ' — ' + dayStr : ''));
+    includedRows += includedRow('All Workshops, Ceremonies &amp; Talks');
+  } else {
+    if (!isFestivalOnly) includedRows += includedRow(stayLabel);
+    includedRows += includedRow('Full Festival Access');
+    includedRows += includedRow('All Workshops, Ceremonies &amp; Talks');
+  }
+  const is3DayPass = isFestivalOnly && roomType.toLowerCase().includes('3-day');
+  const includesBus = !isFestivalOnly || is3DayPass || roomType.includes('28 Nov');
+  if (includesBus) includedRows += includedRow('Festival Bus · Beach Evening');
+
+  document.getElementById('bsPaidList').innerHTML     = paidRows;
+  document.getElementById('bsSummaryList').innerHTML  = includedRows;
+}
+
+// ── City autocomplete ─────────────────────────────────────────────────────────
+const cities = [
+  'Agra','Ahmedabad','Aizawl','Ajmer','Aligarh','Allahabad','Amritsar','Aurangabad',
+  'Bangalore','Bhopal','Bhubaneswar','Chandigarh','Chennai','Coimbatore','Cuttack',
+  'Dehradun','Delhi','Dhanbad','Faridabad','Ghaziabad','Goa','Guwahati','Gwalior',
+  'Howrah','Hyderabad','Imphal','Indore','Itanagar','Jaipur','Jalandhar','Jammu',
+  'Jamshedpur','Jodhpur','Kanpur','Kochi','Kolkata','Kota','Kozhikode','Lucknow',
+  'Ludhiana','Madurai','Mangalore','Meerut','Mumbai','Mysore','Nagpur','Nashik',
+  'Navi Mumbai','Patna','Pune','Raipur','Rajkot','Ranchi','Surat','Thiruvananthapuram',
+  'Tiruchirappalli','Udaipur','Vadodara','Varanasi','Vijayawada','Visakhapatnam','Warangal',
+  'Amsterdam','Bangkok','Berlin','Dubai','London','Melbourne','New York','Paris',
+  'Singapore','Sydney','Tokyo','Toronto','Vancouver','Zurich'
+];
+
+function attachCityAutocomplete(input) {
+  const wrap = input.closest('.city-autocomplete');
+  if (!wrap) return;
+  let box = wrap.querySelector('.city-suggestions');
+  if (!box) { box = document.createElement('div'); box.className = 'city-suggestions'; wrap.appendChild(box); }
+  let highlighted = -1;
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) { box.classList.remove('open'); return; }
+    const matches = cities.filter(c => c.toLowerCase().startsWith(q)).slice(0, 8);
+    if (!matches.length) { box.classList.remove('open'); return; }
+    highlighted = -1;
+    box.innerHTML = matches.map(c => `<div class="city-suggestion">${c}</div>`).join('');
+    box.querySelectorAll('.city-suggestion').forEach(el => {
+      el.addEventListener('mousedown', () => { input.value = el.textContent; box.classList.remove('open'); });
+    });
+    box.classList.add('open');
+  });
+
+  input.addEventListener('keydown', e => {
+    const items = box.querySelectorAll('.city-suggestion');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); highlighted = Math.min(highlighted + 1, items.length - 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); highlighted = Math.max(highlighted - 1, 0); }
+    else if (e.key === 'Enter' && highlighted >= 0) { e.preventDefault(); input.value = items[highlighted].textContent; box.classList.remove('open'); return; }
+    else if (e.key === 'Escape') { box.classList.remove('open'); return; }
+    items.forEach((el, i) => el.classList.toggle('highlighted', i === highlighted));
+  });
+
+  input.addEventListener('blur', () => setTimeout(() => box.classList.remove('open'), 150));
+}
+
+// ── Build guest fields ────────────────────────────────────────────────────────
+const CC_OPTIONS = [
+  '+91','+1','+44','+61','+65','+971','+974','+966',
+  '+49','+33','+39','+34','+31','+41','+46','+47','+45',
+  '+81','+82','+60','+66','+62','+63','+84','+94',
+  '+977','+880','+92','+27','+254','+234',
+  '+55','+52','+54','+64','+353','+7','+82',
+];
+
+function buildPersonFields(count) {
+  const container = document.getElementById('bookingPersons');
+  container.innerHTML = '';
+
+  for (let i = 1; i <= count; i++) {
+    const sec = document.createElement('div');
+    sec.className = 'booking-person-section';
+    const heading = count > 1 ? '<p class="booking-person-heading">Guest ' + i + '</p>' : '';
+    sec.innerHTML = heading
+      + '<div class="booking-field">'
+      + '<label class="booking-label" for="bf-name-' + i + '">Full Name</label>'
+      + '<input class="booking-input" id="bf-name-' + i + '" type="text" placeholder="Full name" autocomplete="name" />'
+      + '</div>'
+      + '<div class="booking-field">'
+      + '<label class="booking-label" for="bf-whatsapp-' + i + '">WhatsApp Number</label>'
+      + '<div class="wa-row">'
+      + '<div class="cc-wrap"><input class="wa-cc-input" id="bf-cc-' + i + '" type="text" placeholder="+91" value="+91" autocomplete="off" readonly /><div class="cc-dropdown" id="bf-cc-dd-' + i + '"></div></div>'
+      + '<input class="booking-input" id="bf-whatsapp-' + i + '" type="tel" placeholder="00000 00000" autocomplete="tel" style="flex:1;" />'
+      + '</div></div>'
+      + '<div class="booking-field">'
+      + '<label class="booking-label" for="bf-email-' + i + '">Email</label>'
+      + '<input class="booking-input" id="bf-email-' + i + '" type="email" placeholder="your@email.com" autocomplete="email" />'
+      + '</div>'
+      + '<div class="booking-field">'
+      + '<label class="booking-label" for="bf-city-' + i + '">City</label>'
+      + '<div class="city-autocomplete"><input class="booking-input" id="bf-city-' + i + '" type="text" placeholder="Where are you based?" autocomplete="off" /></div>'
+      + '</div>'
+      + '<div class="booking-field">'
+      + '<label class="booking-label" for="bf-age-' + i + '">Age</label>'
+      + '<input class="booking-input" id="bf-age-' + i + '" type="number" placeholder="Age (18+)" min="18" max="99" />'
+      + '</div>'
+      + (i === 1 ? (
+          '<div class="booking-field">'
+        + '<label class="booking-label" for="bf-address-1">Address <span style="font-weight:300;color:rgba(237,212,178,0.4);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(for invoice)</span></label>'
+        + '<input class="booking-input" id="bf-address-1" type="text" placeholder="Flat / Building / Street" />'
+        + '</div>'
+        + '<div class="booking-field"><label class="booking-label">State</label>'
+        + '<div class="state-picker-wrap" id="bf-state-wrap-1">'
+        + '<button type="button" class="state-picker-btn" id="bf-state-btn-1" aria-haspopup="listbox">'
+        + '<span id="bf-state-label-1">Select state</span>'
+        + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>'
+        + '</button>'
+        + '<input type="hidden" id="bf-state-1" />'
+        + '<div class="state-picker-dd" id="bf-state-dd-1" role="listbox">'
+        + ['Outside India','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Delhi'].map(s => '<div class="state-picker-opt" data-value="' + s + '">' + s + '</div>').join('')
+        + '</div></div></div>'
+        + '<div class="booking-field">'
+        + '<label class="booking-label" for="bf-pin-1">PIN Code</label>'
+        + '<input class="booking-input" id="bf-pin-1" type="text" placeholder="400052" maxlength="6" />'
+        + '</div>'
+      ) : '')
+      + '<div class="booking-field" id="bf-gender-wrap-' + i + '">'
+      + '<label class="booking-label">Gender</label>'
+      + '<div class="gender-options">'
+      + '<label class="gender-label"><input type="radio" name="bf-gender-' + i + '" id="bf-gender-' + i + '-m" value="Male" /><span class="gender-radio-circle"></span>Male</label>'
+      + '<label class="gender-label"><input type="radio" name="bf-gender-' + i + '" id="bf-gender-' + i + '-f" value="Female" /><span class="gender-radio-circle"></span>Female</label>'
+      + '</div></div>';
+    container.appendChild(sec);
+    attachCityAutocomplete(sec.querySelector('#bf-city-' + i));
+
+    const waInput = sec.querySelector('#bf-whatsapp-' + i);
+    waInput.addEventListener('input', function() {
+      const cleaned = waInput.value.replace(/[^\d+\s\-]/g, '');
+      if (waInput.value !== cleaned) waInput.value = cleaned;
+    });
+  }
+}
+
+const CC_LIST = [
+  ['+91','India'],['+1','US / Canada'],['+44','UK'],['+61','Australia'],['+64','New Zealand'],
+  ['+353','Ireland'],['+65','Singapore'],['+60','Malaysia'],['+66','Thailand'],['+62','Indonesia'],
+  ['+63','Philippines'],['+84','Vietnam'],['+81','Japan'],['+82','South Korea'],
+  ['+971','UAE'],['+974','Qatar'],['+966','Saudi Arabia'],['+92','Pakistan'],
+  ['+94','Sri Lanka'],['+977','Nepal'],['+880','Bangladesh'],
+  ['+49','Germany'],['+33','France'],['+39','Italy'],['+34','Spain'],
+  ['+31','Netherlands'],['+41','Switzerland'],['+46','Sweden'],['+47','Norway'],['+45','Denmark'],
+  ['+7','Russia'],['+27','South Africa'],['+254','Kenya'],['+234','Nigeria'],
+  ['+55','Brazil'],['+52','Mexico'],['+54','Argentina'],
+];
+
+function initCCPicker(i) {
+  const input = document.getElementById('bf-cc-' + i);
+  const dd    = document.getElementById('bf-cc-dd-' + i);
+  if (!input || !dd) return;
+
+  function renderOptions(filter) {
+    const q = (filter || '').toLowerCase();
+    const matches = q
+      ? CC_LIST.filter(([code, name]) => code.includes(q) || name.toLowerCase().includes(q))
+      : CC_LIST;
+    dd.innerHTML = matches.map(([code, name]) =>
+      '<div class="cc-option" data-code="' + code + '">' + code + ' <span style="color:rgba(237,212,178,0.4);font-size:0.78em;">' + name + '</span></div>'
+    ).join('');
+    dd.querySelectorAll('.cc-option').forEach(el => {
+      el.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        input.value = el.dataset.code;
+        input.readOnly = true;
+        dd.classList.remove('open');
+      });
+    });
+  }
+
+  input.addEventListener('click', function() {
+    input.readOnly = false;
+    input.select();
+    renderOptions('');
+    dd.classList.add('open');
+  });
+
+  input.addEventListener('input', function() {
+    renderOptions(input.value);
+    dd.classList.add('open');
+  });
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      dd.classList.remove('open');
+      input.readOnly = true;
+    }
+    if (e.key === 'Escape') {
+      dd.classList.remove('open');
+      input.readOnly = true;
+    }
+  });
+
+  input.addEventListener('blur', function() {
+    setTimeout(() => { dd.classList.remove('open'); input.readOnly = true; }, 160);
+  });
+
+  renderOptions('');
+}
+
+function initStatePicker(i) {
+  const btn  = document.getElementById('bf-state-btn-' + i);
+  const dd   = document.getElementById('bf-state-dd-' + i);
+  const inp  = document.getElementById('bf-state-1');
+  const lbl  = document.getElementById('bf-state-label-' + i);
+  if (!btn || !dd) return;
+
+  function open() {
+    dd.classList.add('open');
+    btn.classList.add('open');
+  }
+  function close() {
+    dd.classList.remove('open');
+    btn.classList.remove('open');
+  }
+
+  btn.addEventListener('click', () => dd.classList.contains('open') ? close() : open());
+
+  dd.querySelectorAll('.state-picker-opt').forEach(opt => {
+    opt.addEventListener('mousedown', e => {
+      e.preventDefault();
+      const val = opt.dataset.value;
+      inp.value = val;
+      lbl.textContent = val;
+      btn.classList.add('has-value');
+      dd.querySelectorAll('.state-picker-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      close();
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!btn.contains(e.target) && !dd.contains(e.target)) close();
+  });
+}
+
+buildPersonFields(guestCount);
+
+for (let _i = 1; _i <= guestCount; _i++) { initCCPicker(_i); }
+if (guestCount >= 1) initStatePicker(1);
+
+// ── Validation helpers ────────────────────────────────────────────────────────
+function showFieldError(input, msg) {
+  input.classList.add('input-error');
+  let err = input.parentElement.querySelector('.field-error');
+  if (!err) { err = document.createElement('span'); err.className = 'field-error'; input.parentElement.appendChild(err); }
+  err.textContent = msg;
+  input.addEventListener('input', () => { input.classList.remove('input-error'); if (err) err.textContent = ''; }, { once: true });
+}
+
+// ── Dev auto-fill ────────────────────────────────────────────────────────────
+function devAutofill() {
+  for (let n = 1; n <= guestCount; n++) {
+    const names   = ['Varun Sahu', 'Karan Mehta', 'Anika Sharma'];
+    const emails  = ['varunsahu1@gmail.com', 'karan@example.com', 'anika@example.com'];
+    const cities  = ['Mumbai', 'Delhi', 'Bangalore'];
+    const ages    = ['32', '29', '27'];
+    const phones  = ['9820791100', '9930920313', '9876543210'];
+    const nameEl  = document.getElementById('bf-name-' + n);
+    const emailEl = document.getElementById('bf-email-' + n);
+    const cityEl  = document.getElementById('bf-city-' + n);
+    const ageEl   = document.getElementById('bf-age-' + n);
+    const waEl    = document.getElementById('bf-whatsapp-' + n);
+    if (nameEl)  nameEl.value  = names[n - 1]  || 'Test Guest ' + n;
+    if (emailEl) emailEl.value = emails[n - 1] || 'test' + n + '@example.com';
+    if (cityEl)  cityEl.value  = cities[n - 1] || 'Mumbai';
+    if (ageEl)   ageEl.value   = ages[n - 1]   || '25';
+    if (waEl)    waEl.value    = phones[n - 1] || '9999999999';
+    const maleRadio = document.getElementById('bf-gender-' + n + '-m');
+    if (maleRadio) maleRadio.checked = true;
+  }
+  const addr     = document.getElementById('bf-address-1');
+  const stateInp = document.getElementById('bf-state-1');
+  const stateLbl = document.getElementById('bf-state-label-1');
+  const stateBtn = document.getElementById('bf-state-btn-1');
+  const pin      = document.getElementById('bf-pin-1');
+  if (addr)  addr.value = 'B/202 Shree Amrit CHS, Carter Road';
+  if (stateInp) {
+    stateInp.value = 'Maharashtra';
+    if (stateLbl) stateLbl.textContent = 'Maharashtra';
+    if (stateBtn) stateBtn.classList.add('has-value');
+    document.querySelectorAll('#bf-state-dd-1 .state-picker-opt')
+      .forEach(o => o.classList.toggle('selected', o.dataset.value === 'Maharashtra'));
+  }
+  if (pin) pin.value = '400052';
+}
+
+// ── Form submit ───────────────────────────────────────────────────────────────
+let _bookingSubmitted = false;
+document.getElementById('bookingForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (_bookingSubmitted) return;
+
+  const sections = document.querySelectorAll('#bookingPersons .booking-person-section');
+  let valid = true;
+
+  sections.forEach((_, i) => {
+    const n = i + 1;
+    const name = document.getElementById('bf-name-' + n);
+    if (!name.value.trim() || name.value.trim().length < 2) { showFieldError(name, 'Please enter the full name.'); valid = false; }
+    const wa = document.getElementById('bf-whatsapp-' + n);
+    if (wa.value.replace(/\D/g, '').length < 10) { showFieldError(wa, 'Please enter a valid WhatsApp number (min 10 digits).'); valid = false; }
+    const em = document.getElementById('bf-email-' + n);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { showFieldError(em, 'Please enter a valid email address.'); valid = false; }
+    const city = document.getElementById('bf-city-' + n);
+    if (!city.value.trim()) { showFieldError(city, 'Please enter your city.'); valid = false; }
+    const age = document.getElementById('bf-age-' + n);
+    const ageVal = parseInt(age.value, 10);
+    if (!age.value || isNaN(ageVal) || ageVal < 18 || ageVal > 99) { showFieldError(age, 'Please enter a valid age (18 or above).'); valid = false; }
+    const genderSelected = document.querySelector(`input[name="bf-gender-${n}"]:checked`);
+    if (!genderSelected) {
+      const genderWrap = document.getElementById(`bf-gender-wrap-${n}`);
+      let err = genderWrap.querySelector('.field-error');
+      if (!err) { err = document.createElement('span'); err.className = 'field-error'; genderWrap.appendChild(err); }
+      err.textContent = 'Please select a gender.';
+      valid = false;
+    }
+  });
+
+  if (!valid) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+
+  const submitBtn = document.getElementById('bookSubmitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Processing…';
+
+  const guests = Array.from(sections).map((_, i) => {
+    const n = i + 1;
+    return {
+      full_name: document.getElementById('bf-name-' + n).value.trim(),
+      whatsapp:  (document.getElementById('bf-cc-' + n).value || '+91') + ' ' + document.getElementById('bf-whatsapp-' + n).value.trim(),
+      email:     document.getElementById('bf-email-' + n).value.trim(),
+      city:      document.getElementById('bf-city-' + n).value.trim(),
+      age:       document.getElementById('bf-age-' + n).value,
+      gender:    (document.querySelector(`input[name="bf-gender-${n}"]:checked`) || {}).value || '',
+      address:   n === 1 ? (document.getElementById('bf-address-1') || {}).value?.trim() || null : null,
+      state:     n === 1 ? (document.getElementById('bf-state-1') || {}).value || null : null,
+      pin:       n === 1 ? (document.getElementById('bf-pin-1') || {}).value?.trim() || null : null,
+    };
+  });
+
+  // Client-side gender check
+  const ROOM_SIZES = { 'Double Sharing': 2, 'Triple Sharing': 3, '4 Bed Female Dorm': 4, '6 Bed Mixed Dorm': 6, '10 Bed Female Dorm': 10 };
+  const roomSize = ROOM_SIZES[roomType];
+  const isFullRoom = roomSize && guests.length >= roomSize;
+  const isFemaleOnly = roomType === '4 Bed Female Dorm' || roomType === '10 Bed Female Dorm';
+  if (isFemaleOnly && guests.some(g => g.gender === 'Male')) {
+    alert('This dorm is for female guests only.');
+    submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
+  }
+  const requiresSameGender = !isFullRoom && roomType !== '6 Bed Mixed Dorm' && roomType !== 'Private Room';
+  if (requiresSameGender && guests.length > 1) {
+    const genders = guests.map(g => g.gender).filter(Boolean);
+    if (genders.includes('Male') && genders.includes('Female')) {
+      alert('When sharing a room with others, all guests must be the same gender.\n\nIf you are booking the entire room for your group, please select enough guests to fill it.');
+      submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
+    }
+  }
+
+  const base  = parseInt(priceStr, 10);
+  const gst   = Math.round(base * (window._GST_RATE || 0.05));
+  const total = base + gst;
+
+  submitBtn.textContent = 'Creating booking…';
+
+  let bookingData;
+  try {
+    const res = await fetch('/api/bookings/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        venue, roomType,
+        totalPrice: '₹' + base.toLocaleString('en-IN'),
+        guests,
+        addons: addonsRaw || null,
+        organizerNote: document.getElementById('bf-organizer-note')?.value?.trim() || null,
+        gstNumber: document.getElementById('bf-gst-number').value || null,
+        gstName:   document.getElementById('bf-gst-name').value || null,
+      })
+    });
+    bookingData = await res.json();
+    if (!res.ok) {
+      const errEl = document.getElementById('bookErrorMsg');
+      errEl.style.display = 'block';
+      errEl.textContent = bookingData.error || 'Could not create booking. Please try again.';
+      errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
+    }
+  } catch (_) {
+    const errEl = document.getElementById('bookErrorMsg');
+    errEl.style.display = 'block';
+    errEl.textContent = 'Server error. Please check your connection and try again.';
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
+  }
+
+  _bookingSubmitted = true;
+  submitBtn.textContent = 'Booking created';
+  submitBtn.disabled = true;
+
+  openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
+});
+
+function toggleBookingSummary() {
+  const details = document.getElementById('bsDetails');
+  const chevron = document.getElementById('bsChevron');
+  const isOpen  = details.style.maxHeight && details.style.maxHeight !== '0px';
+  if (isOpen) {
+    details.style.maxHeight = '0';
+    chevron.style.transform = '';
+  } else {
+    details.style.maxHeight = details.scrollHeight + 'px';
+    chevron.style.transform = 'rotate(180deg)';
+  }
+}
+</script>
+
+<!-- ── Payment method overlay ──────────────────────────────── -->
+<div class="pay-overlay" id="payOverlay">
+  <div class="pay-modal">
+    <button onclick="document.getElementById('payOverlay').classList.remove('open')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:rgba(237,212,178,0.35);font-size:1.4rem;line-height:1;padding:0.25rem 0.4rem;" aria-label="Close">×</button>
+    <div class="pay-modal-eyebrow">Choose how to pay</div>
+    <div class="pay-modal-title">Payment</div>
+    <div class="pay-modal-ref" id="payModalRef"></div>
+
+    <div style="margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;">
+      UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.
+    </div>
+
+    <div class="pay-method-card" id="payCardUpi" onclick="selectPayMethod('upi')">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h2"/><path d="M11 15h4"/></svg>
+          UPI Transfer
+        </span>
+      </div>
+      <p id="payUpiSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);"></p>
+      <p id="payUpiLimitWarn" style="display:none;margin:0.5rem 0 0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.55);line-height:1.5;">Your total exceeds ₹1 lakh — most UPI apps will block this transaction. Use <strong style="color:#EDD4B2;">Bank Transfer</strong> or <strong style="color:#EDD4B2;">Razorpay</strong> instead.</p>
+      <div class="pay-method-detail" id="payDetailUpi">
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin-bottom:0.5rem;">Your UPI ID</div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+          <input id="payUpiInput" type="text" placeholder="yourname@okicici" autocomplete="off" spellcheck="false"
+            style="flex:1;background:rgba(237,212,178,0.05);border:0.5px solid rgba(237,212,178,0.18);border-radius:6px;padding:0.65rem 0.8rem;font-family:'Open Sans',sans-serif;font-size:0.92rem;color:#EDD4B2;outline:none;"
+            oninput="onUpiInput()" />
+        </div>
+        <div id="payUpiError" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:#c0604080;margin-bottom:0.5rem;display:none;">Please enter a valid UPI ID (e.g. name@okicici)</div>
+        <a id="payUpiDeepLink" href="#" onclick="return launchUpiPay(event)" class="pay-action-btn primary" style="display:block;text-align:center;text-decoration:none;">Pay ₹<span id="payUpiAmountLabel"></span> via UPI →</a>
+      </div>
+    </div>
+
+    <div class="pay-method-card" id="payCardBank" onclick="selectPayMethod('bank')">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 10v11M12 10v11M16 10v11"/></svg>
+          Bank Transfer
+        </span>
+      </div>
+      <p id="payBankSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;"></p>
+      <p class="pay-method-desc" style="margin-top:0.35rem;"><strong style="color:#EDD4B2;font-weight:600;">Ideal for payments over ₹1,00,000</strong> — no fees, no limit. NEFT / IMPS / RTGS.</p>
+      <div class="pay-method-detail" id="payDetailBank">
+        <button class="pay-action-btn primary" onclick="reserveBankSpot()" id="bankReserveBtn">Reserve my spot →</button>
+      </div>
+      <div id="bankConfirmed" style="display:none;padding:1.4rem 0 0.4rem;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.1rem;">
+          <div style="width:2px;height:2rem;background:#B06030;flex-shrink:0;"></div>
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7aba7a;margin:0;">Your spot is reserved for 24 hours</p>
+        </div>
+        <div style="background:rgba(176,96,48,0.06);border:0.5px solid rgba(176,96,48,0.22);border-radius:6px;padding:0.05rem 0;margin-bottom:1.1rem;overflow:hidden;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Bank</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;">HDFC Bank</span></div>
+          <div style="height:0.5px;background:rgba(176,96,48,0.12);"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Account</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;letter-spacing:0.04em;">50200053890710</span></div>
+          <div style="height:0.5px;background:rgba(176,96,48,0.12);"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">IFSC</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;">HDFC0000016</span></div>
+          <div style="height:0.5px;background:rgba(176,96,48,0.12);"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Name</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;">Bharatvarun Sahu</span></div>
+          <div style="height:0.5px;background:rgba(176,96,48,0.25);"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;background:rgba(176,96,48,0.08);"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Your Ref</span><span id="bankBookingRef" style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#B06030;letter-spacing:0.04em;"></span></div>
+        </div>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.5);margin:0 0 0.9rem;line-height:1.65;">Transfer the amount and send us the <strong style="color:rgba(237,212,178,0.85);">UTR / transaction ID</strong> — or upload a payment screenshot below.</p>
+
+        <!-- Screenshot upload -->
+        <div id="bankScreenshotWrap" style="margin-bottom:1rem;">
+          <label style="display:block;border:0.5px dashed rgba(176,96,48,0.4);border-radius:6px;padding:0.8rem 1rem;cursor:pointer;text-align:center;background:rgba(176,96,48,0.04);transition:background 0.2s;" onmouseover="this.style.background='rgba(176,96,48,0.09)'" onmouseout="this.style.background='rgba(176,96,48,0.04)'">
+            <input type="file" id="bankScreenshotInput" accept="image/*" style="display:none;" onchange="handleBankScreenshot(this)">
+            <span id="bankScreenshotLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.45);">↑ Upload payment screenshot</span>
+          </label>
+          <p id="bankScreenshotStatus" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:rgba(143,175,126,0.8);margin:0.4rem 0 0;display:none;"></p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <a id="bankWaVarun" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;">Message Varun →</a>
+          <a id="bankWaKaran" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;background:#8FAF7E;">Message Karan →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-method-card" id="payCardRazorpay" onclick="selectPayMethod('razorpay')">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Card / Net Banking / UPI
+        </span>
+      </div>
+      <p style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:#EDD4B2;"><strong style="color:#EDD4B2;font-weight:600;">Razorpay secure gateway</strong> · ~2–3% platform fee (varies by payment method)</p>
+      <div class="pay-method-detail" id="payDetailRazorpay">
+        <button class="pay-action-btn primary" onclick="launchRazorpay()">Continue to Razorpay →</button>
+      </div>
+    </div>
+
+    <div class="pay-method-card" id="payCardCash" onclick="selectPayMethod('cash')">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></svg>
+          Cash / WhatsApp
+        </span>
+      </div>
+      <p id="payCashSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;"></p>
+      <p class="pay-method-desc" style="margin-top:0.35rem;"><strong style="color:#EDD4B2;font-weight:600;">Pay in cash</strong> — we'll confirm your spot over WhatsApp.</p>
+      <div class="pay-method-detail" id="payDetailCash">
+        <button class="pay-action-btn primary" onclick="reserveCashSpot()" id="cashReserveBtn">Reserve my spot →</button>
+      </div>
+
+      <!-- Shown after reservation is logged -->
+      <div id="cashConfirmed" style="display:none;padding:1.4rem 0 0.4rem;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;">Your spot is reserved for 24 hours</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.7);margin:0 0 1.2rem;line-height:1.6;">Send your booking reference <strong id="cashBookingRef" style="color:#EDD4B2;font-weight:600;"></strong> to either of us on WhatsApp to confirm your cash payment.</p>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <a id="cashWaVarun" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;">Message Varun →</a>
+          <a id="cashWaKaran" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;background:#8FAF7E;">Message Karan →</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;padding-top:1.1rem;border-top:0.5px solid rgba(176,96,48,0.15);text-align:center;">
+      <a href="https://wa.me/919820791100" target="_blank" rel="noopener"
+        style="font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:rgba(237,212,178,0.4);text-decoration:none;transition:color 0.2s;"
+        onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.4)'">
+        Questions? WhatsApp Varun → +91 98207 91100
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+let _payState = null;
+let _pubConfig = null;
+
+async function getPublicConfig() {
+  if (_pubConfig) return _pubConfig;
+  try { const r = await fetch('/api/bookings/public-config'); _pubConfig = await r.json(); }
+  catch { _pubConfig = { upi_vpa: 'moonholisticfestival@upi', admin_whatsapp: '919820791100' }; }
+  return _pubConfig;
+}
+
+async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, totalWithGst, guests }) {
+  const cfg = await getPublicConfig();
+  _payState = { bookingData, venue, roomType, baseAmount, gst, totalWithGst, guests, cfg };
+  const saving = Math.round(totalWithGst * 0.02);
+  document.getElementById('payModalRef').textContent = 'Booking ' + bookingData.booking_ref + '  ·  ₹' + totalWithGst.toLocaleString('en-IN') + ' incl. GST';
+  document.getElementById('payUpiSaveSub').innerHTML = '<span style="color:#EDD4B2;font-weight:600;">Pay us directly via UPI</span><span style="color:#EDD4B2;"> and </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> in gateway charges</span>';
+  document.getElementById('payBankSaveSub').innerHTML = '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>';
+  document.getElementById('payCashSaveSub').innerHTML = '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>';
+  document.getElementById('payUpiAmountLabel').textContent = totalWithGst.toLocaleString('en-IN');
+  document.getElementById('payUpiInput').value = '';
+  document.getElementById('payUpiError').style.display = 'none';
+  // Hide UPI entirely if total > ₹1 lakh (UPI apps block transactions above this limit)
+  const upiCard = document.getElementById('payCardUpi');
+  if (totalWithGst > 100000) {
+    upiCard.style.display = 'none';
+  } else {
+    upiCard.style.display = '';
+    document.getElementById('payUpiLimitWarn').style.display = 'none';
+  }
+
+  // Reset cash flow state
+  document.getElementById('cashReserveBtn').style.display = '';
+  document.getElementById('cashReserveBtn').disabled = false;
+  document.getElementById('cashReserveBtn').textContent = 'Reserve my spot →';
+  document.getElementById('cashConfirmed').style.display = 'none';
+
+  // Reset bank transfer flow state
+  document.getElementById('bankReserveBtn').style.display = '';
+  document.getElementById('bankReserveBtn').disabled = false;
+  document.getElementById('bankReserveBtn').textContent = 'Reserve my spot →';
+  document.getElementById('bankConfirmed').style.display = 'none';
+  document.getElementById('bankScreenshotInput').value = '';
+  document.getElementById('bankScreenshotLabel').textContent = '↑ Upload payment screenshot';
+  document.getElementById('bankScreenshotStatus').style.display = 'none';
+
+  selectPayMethod(null);
+  document.getElementById('payOverlay').classList.add('open');
+}
+
+function selectPayMethod(method) {
+  ['upi','razorpay','bank','cash'].forEach(m => {
+    document.getElementById('payCard' + m.charAt(0).toUpperCase() + m.slice(1))
+      ?.classList.toggle('selected', m === method);
+  });
+}
+
+function onUpiInput() { document.getElementById('payUpiError').style.display = 'none'; }
+
+function isValidVpa(v) { return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/.test(v.trim()); }
+
+function launchUpiPay(e) {
+  e.preventDefault();
+  if (!_payState) return;
+  const vpa = document.getElementById('payUpiInput').value.trim();
+  if (!isValidVpa(vpa)) { document.getElementById('payUpiError').style.display = 'block'; return; }
+  const { bookingData, totalWithGst } = _payState;
+  document.getElementById('payOverlay').classList.remove('open');
+  window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
+}
+
+async function reserveCashSpot() {
+  if (!_payState) return;
+  const { bookingData, totalWithGst } = _payState;
+  const btn = document.getElementById('cashReserveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Reserving…';
+
+  try {
+    await fetch('/api/bookings/upi-pending', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ booking_ref: bookingData.booking_ref, payment_method: 'cash' }),
+    });
+  } catch (_) {}
+
+  const ref = bookingData.booking_ref;
+  const msg = encodeURIComponent(`Hi! I'd like to pay cash for my Moon Festival 2026 booking — ${ref}, ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}. Please let me know how to proceed.`);
+  document.getElementById('cashBookingRef').textContent = ref;
+  const confirmedUrl = `booking-confirmed.html?ref=${ref}&method=cash`;
+  function openCashWa(waUrl) {
+    window.open(waUrl, '_blank');
+    window.location.href = confirmedUrl;
+  }
+  document.getElementById('cashWaVarun').href = '#';
+  document.getElementById('cashWaVarun').onclick = (e) => { e.preventDefault(); openCashWa(`https://wa.me/919820791100?text=${msg}`); };
+  document.getElementById('cashWaKaran').href = '#';
+  document.getElementById('cashWaKaran').onclick = (e) => { e.preventDefault(); openCashWa(`https://wa.me/919930920313?text=${msg}`); };
+
+  btn.style.display = 'none';
+  document.getElementById('cashConfirmed').style.display = 'block';
+}
+
+async function reserveBankSpot() {
+  if (!_payState) return;
+  const { bookingData, totalWithGst } = _payState;
+  const btn = document.getElementById('bankReserveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Reserving…';
+
+  const ref = bookingData.booking_ref;
+  const { venue, roomType, totalWithGst: twg } = _payState;
+  const msg = encodeURIComponent(`Hi! I'd like to pay via bank transfer for my Moon Festival 2026 booking — ${ref}, ${venue}, ${roomType}, ₹${twg.toLocaleString('en-IN')}. I've done the transfer and am sharing the UTR number.`);
+  document.getElementById('bankBookingRef').textContent = ref;
+  document.getElementById('bankWaVarun').href = `https://wa.me/919820791100?text=${msg}`;
+  document.getElementById('bankWaKaran').href = `https://wa.me/919930920313?text=${msg}`;
+
+  window.location.href = `bank-pay.html?ref=${bookingData.booking_ref}&amount=${_payState.totalWithGst}`;
+}
+
+async function handleBankScreenshot(input) {
+  if (!input.files || !input.files[0] || !_payState) return;
+  const label = document.getElementById('bankScreenshotLabel');
+  const status = document.getElementById('bankScreenshotStatus');
+  label.textContent = 'Uploading…';
+  status.style.display = 'none';
+  const formData = new FormData();
+  formData.append('screenshot', input.files[0]);
+  formData.append('booking_ref', _payState.bookingData.booking_ref);
+  try {
+    const r = await fetch('/api/bookings/upi-screenshot', { method: 'POST', body: formData });
+    if (r.ok) {
+      label.textContent = '✓ ' + input.files[0].name;
+      status.textContent = 'Screenshot uploaded — we\'ll confirm once we verify the transfer.';
+      status.style.display = 'block';
+    } else {
+      label.textContent = '↑ Upload payment screenshot';
+      status.textContent = 'Upload failed — please send on WhatsApp instead.';
+      status.style.color = 'rgba(192,96,64,0.8)';
+      status.style.display = 'block';
+    }
+  } catch (_) {
+    label.textContent = '↑ Upload payment screenshot';
+    status.textContent = 'Upload failed — please send on WhatsApp instead.';
+    status.style.color = 'rgba(192,96,64,0.8)';
+    status.style.display = 'block';
+  }
+}
+
+// Reset pay buttons when user navigates back (bfcache restore)
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    const bankBtn = document.getElementById('bankReserveBtn');
+    if (bankBtn) { bankBtn.disabled = false; bankBtn.textContent = 'Reserve my spot →'; }
+    const cashBtn = document.getElementById('cashReserveBtn');
+    if (cashBtn) { cashBtn.disabled = false; cashBtn.textContent = 'Reserve my spot →'; }
+    const upiBtn = document.getElementById('payUpiDeepLink');
+    if (upiBtn) { upiBtn.style.pointerEvents = ''; upiBtn.style.opacity = ''; }
+  }
+});
+
+function launchRazorpay() {
+  if (!_payState) return;
+  const { bookingData, venue, roomType, baseAmount, gst, totalWithGst, guests } = _payState;
+  document.getElementById('payOverlay').classList.remove('open');
+  const options = {
+    key: bookingData.razorpay_key || 'rzp_test_TDxk7L5UmieAgm',
+    amount: totalWithGst * 100,
+    currency: 'INR',
+    order_id: bookingData.razorpay_order_id || undefined,
+    name: 'Moon Festival 2026',
+    description: venue + ' · ' + roomType,
+    prefill: { name: guests[0].full_name, email: guests[0].email, contact: guests[0].whatsapp },
+    theme: { color: '#B06030' },
+    handler: async function(response) {
+      try {
+        await fetch('/api/bookings/verify', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          }),
+        });
+      } catch (_) {}
+      window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay';
+    },
+    modal: { ondismiss: function() { document.getElementById('payOverlay').classList.add('open'); } },
+  };
+  try { new window.Razorpay(options).open(); }
+  catch(_) { alert('Could not open payment. Please try again.'); document.getElementById('payOverlay').classList.add('open'); }
+}
+</script>
+
+</body>
+</html>

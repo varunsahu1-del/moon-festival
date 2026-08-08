@@ -1,0 +1,5 @@
+Change white png image to specific color.
+
+This can be easily achieved if you go to the layers panel in Photoshop and select your object layer. If the object has a transparent background then select the FX button from the bottom of the layers panel and select "color overlay" or go to the menu at the top of the Photoshop screen and select Layer > Layer Style > Color Overlay. From the options box select the color box and put in your color code instead of the ffffff you have.
+
+This should give you a colored object as desired. If this doesn't work let me know and I'll try to help.

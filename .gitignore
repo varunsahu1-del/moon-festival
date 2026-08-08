@@ -1,0 +1,26 @@
+node_modules/
+data/moonfestival.db
+.env
+
+# Media folders — too large for git, uploaded directly to server
+About Page Images/
+Favicons/
+Gallery Page Images/
+Home Page Images/
+Meals Page Images/
+Moon Web Videos/
+Schedule Page Images/
+Stall PAge Images/
+Stay Page Images/
+Venue Page Images/
+server/moonfestival.db
+data/moonfestival.db-shm
+data/moonfestival.db-wal
+
+# Video files
+*.mov
+*.MOV
+*.mp4
+*.MP4
+Making of moon/
+Moon Facilitators Pics/

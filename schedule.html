@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule — Moon Festival 2026</title>
+  <meta name="description" content="Full schedule for Moon Festival 2026 — 70+ workshops, ceremonies, and music across 3 days. 27–30 November · South Goa, India." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.woff2') format('woff2'),
+           url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .schedule-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
+    .day-tab { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1rem, 1.8vw, 1.3rem) !important; font-weight: 700 !important; letter-spacing: 0.28em !important; color: rgba(237,212,178,0.55) !important; border-bottom: none !important; padding: 0 !important; }
+    .day-tab.active { color: #EDD4B2 !important; }
+    .day-tab-row { gap: 0; }
+    .day-tab-sep { font-family: 'Josefin Sans', sans-serif; font-size: clamp(1rem, 1.8vw, 1.3rem); color: rgba(176,96,48,0.5); margin: 0 1rem; user-select:none; }
+
+    /* tribal hourglass animation */
+    @keyframes sandDrop {
+      0%   { transform: translateY(0px); opacity: 0; }
+      15%  { opacity: 0.9; }
+      85%  { opacity: 0.9; }
+      100% { transform: translateY(17px); opacity: 0; }
+    }
+    @keyframes sandPile {
+      0%,40% { transform: scaleX(0.4); opacity: 0.3; }
+      100%   { transform: scaleX(1); opacity: 0.8; }
+    }
+    .hourglass-sand-1 { animation: sandDrop 2.4s ease-in infinite; }
+    .hourglass-sand-2 { animation: sandDrop 2.4s ease-in 0.6s infinite; }
+    .hourglass-sand-3 { animation: sandDrop 2.4s ease-in 1.2s infinite; }
+    .hourglass-sand-4 { animation: sandDrop 2.4s ease-in 1.8s infinite; }
+    .hourglass-pile   { animation: sandPile 2.4s ease-out infinite; transform-origin: center bottom; }
+
+    /* hide facilitator name and shala — re-enable when 2026 schedule is ready */
+    .workshop-row .w-venue,
+    .workshop-row .w-venue + *,
+    .schedule-detail { display: none; }
+    .workshop-row { color: transparent; text-align: left; }
+    .workshop-row .w-name { color: #EDD4B2; }
+    .workshop-row .w-name::after { content: " | TBA"; color: rgba(237,212,178,0.45); font-weight: 300; }
+    .workshop-pills { align-items: center; }
+    .workshop-row { text-align: center !important; }
+  </style>
+</head>
+<body style="background: #120d05;">
+
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+      <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Schedule Hero -->
+<div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
+  <h1 class="schedule-hero-title">Schedule</h1>
+  <p class="schedule-hero-sub">27 – 30 November 2026</p>
+</div>
+
+<!-- DAY TABS + SCHEDULE -->
+<section class="section schedule-section" style="padding-top: var(--s-16); background: var(--ink); color: #EDD4B2;">
+  <div class="container">
+
+    <!-- WELCOME TO THE FOREST -->
+    <div style="text-align:center;padding:clamp(3rem,6vw,5rem) 0 clamp(2.5rem,5vw,4rem);max-width:680px;margin:0 auto;">
+      <svg width="44" height="52" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 2rem;">
+        <rect x="10" y="6" width="24" height="36" rx="2" stroke="#B06030" stroke-width="1.5" fill="none"/>
+        <path d="M10 8 C10 5 6 3 4 5 C2 7 4 10 6 10 L10 10" stroke="#B06030" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M10 40 C10 43 6 45 4 43 C2 41 4 38 6 38 L10 38" stroke="#B06030" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <line x1="15" y1="16" x2="29" y2="16" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        <line x1="15" y1="22" x2="29" y2="22" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        <line x1="15" y1="28" x2="25" y2="28" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+      <h2 style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.1rem);font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Last Year's Schedule (2025)</h2>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.62rem,1vw,0.75rem);font-weight:300;letter-spacing:0.25em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 1.6rem;">2026 Schedule TBA</p>
+      <div style="width:5rem;height:0.5px;background:rgba(237,212,178,0.25);margin:0 auto 2rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;line-height:2.2;color:rgba(237,212,178,0.75);margin:0;"><strong style="font-weight:600;">Three days of yoga, dance, music, healing, and art.</strong> All workshops, ceremonies, and performances take place across <strong style="font-weight:600;">27, 28 &amp; 29 November.</strong> <strong style="font-weight:600;">Arrive on 26 November</strong> — check in from 2pm, inauguration ceremony at 7:30pm. <strong style="font-weight:600;">Leave on 30 November</strong> with a full heart. <strong style="font-weight:600;">The schedule below is from Moon Festival 2025</strong> — <strong style="font-weight:600;">the 2026 programme will be announced soon.</strong></p>
+    <div style="text-align:center;padding:1.5rem 0 0;">
+      <svg width="100%" height="28" viewBox="0 0 320 28" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="14" x2="116" y2="14" stroke="#B06030" stroke-width="0.5" opacity="0.3"/>
+        <line x1="204" y1="14" x2="320" y2="14" stroke="#B06030" stroke-width="0.5" opacity="0.3"/>
+        <g transform="translate(160,14)" stroke="#B06030">
+          <line x1="-18" y1="0" x2="-14" y2="0" stroke-width="0.6" opacity="0.5"/>
+          <line x1="14" y1="0" x2="18" y2="0" stroke-width="0.6" opacity="0.5"/>
+          <line x1="-26" y1="0" x2="-22" y2="0" stroke-width="0.5" opacity="0.3"/>
+          <line x1="22" y1="0" x2="26" y2="0" stroke-width="0.5" opacity="0.3"/>
+        </g>
+      </svg>
+    </div>
+    </div>
+
+    <div class="day-tab-row">
+      <button class="day-tab active" data-panel="panel-day1">Day 1</button>
+      <span class="day-tab-sep">|</span>
+      <button class="day-tab" data-panel="panel-day2">Day 2</button>
+      <span class="day-tab-sep">|</span>
+      <button class="day-tab" data-panel="panel-day3">Day 3</button>
+    </div>
+
+    <!-- PRE-FESTIVAL PANEL -->
+    <div class="schedule-panel" id="panel-pre">
+      <h2 class="schedule-day-heading">Pre-Festival &nbsp;|&nbsp; 13 Nov &nbsp;|&nbsp; Thu</h2>
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:30 pm</span><span class="schedule-pipe">|</span><span class="schedule-event">Opening Ceremony &amp; Open Mic</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+    </div>
+
+    <!-- DAY 1 PANEL -->
+    <div class="schedule-panel active" id="panel-day1">
+      <h2 class="schedule-day-heading">Day 1 &nbsp;|&nbsp; 27 Nov &nbsp;|&nbsp; Fri</h2>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">7:15 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Orientation</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:15 – 9:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Mudgar Abhyas</span> | Shifali | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Conscious Connected Breathwork</span> | Ankur | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Aerial Yoga</span> | Sonia | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Hatha Yoga</span> | Varun Sahu | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">10:00 – 11:15 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Sensual Bollywood Dance</span> | Dhanisa | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Belly Dancing</span> | Aakriti | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Ananda Kirtan</span> | Ananda Flow | <span class="w-venue">Space</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">11:30 AM – 12:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">12:30 – 2:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Talks – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Use of Senses &amp; Illness</span> | Ayurvedic Dr Kanchan | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Towards a Healthier You</span> | Malhar | <span class="w-venue">Space</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">2:15 – 3:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Trippy Yoga Nidra &amp; Acupuncture</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun, Ankit &amp; Prateek | Asteroid</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">4:00 – 5:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Kathak</span> | Mruga | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Tote Bag Painting</span> | Shreya | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Forest Sound Journey</span> | Gunehr | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">5:30 – 7:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Cacao &amp; Ecstatic Dance</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Martin Dubois | Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">7:30 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:30 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">The Elevate Show</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris Fitchew | Space</span></p>
+      </div>
+
+    </div>
+
+    <!-- DAY 2 PANEL -->
+    <div class="schedule-panel" id="panel-day2">
+      <h2 class="schedule-day-heading">Day 2 &nbsp;|&nbsp; 28 Nov &nbsp;|&nbsp; Sat</h2>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">6:45 – 7:20 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Meditation with Flute</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun Sahu &amp; Antriksh | Stardust</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">7:30 – 8:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Mudgar Abhyas</span> | Shifali | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Conscious Connected Breathwork</span> | Ankur | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Aerial Yoga</span> | Sonia | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">9:15 – 10:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Soul Kirtan</span> | Vicky | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Forest Sound Journey</span> | Gunehr | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Indo Contemporary</span> | Dhanisa | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Belly Dancing</span> | Aakriti | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Cyanotype Art</span> | Shreya | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Trippy Om Chanting &amp; Acupuncture</span> | Varun, Antriksh, Prateek | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">10:45 AM – 12:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">12:15 – 1:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Joy Alchemy</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris Fitchew | Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">1:30 – 3:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Discourse: Meditation &amp; the Mind</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun | Sky</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">3:00 – 3:45 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Ayurveda for Women's Health</span> | Dr Kanchan | <span class="w-venue">Space</span></div>
+          <div class="workshop-row"><span class="w-name">Towards a Healthier You</span> | Malhar | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Drum Circle</span> | Aditya | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Pan &amp; Paint</span> | Mukki | <span class="w-venue">Maya</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">4:00 – 5:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Contact Improvisation</span> | Kaprila | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Kathak</span> | Mruga | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">5:15 – 7:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Beach Trip</span><span class="schedule-dash"> |</span><span class="schedule-detail"> By bus</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">7:30 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:00 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Chris Fitchew</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:30 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Notesic</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">10:30 PM onwards</span><span class="schedule-pipe">|</span><span class="schedule-event">Dark Side of the Moon 🌑</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Fuzulu &amp; Essio B2B | La La Land</span></p>
+      </div>
+
+    </div>
+
+    <!-- DAY 3 PANEL -->
+    <div class="schedule-panel" id="panel-day3">
+      <h2 class="schedule-day-heading">Day 3 &nbsp;|&nbsp; 29 Nov &nbsp;|&nbsp; Sun</h2>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">6:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Meditation with Flute &amp; Acupuncture</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun, Ankit &amp; Prateek | Stardust</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">7:30 – 8:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Mudgar Abhyas</span> | Shifali | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">9:15 – 10:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Mongolian Throat Singing</span> | Martin Dubois | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Ananda Kirtan</span> | Ananda Flow | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Conscious Connected Breathwork</span> | Ankur | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Sensual Bollywood Dance</span> | Dhanisa | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Hatha Yoga</span> | Varun | <span class="w-venue">Sky</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">10:45 AM – 12:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">12:30 – 2:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Divine Unity Circle</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris Fitchew | Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">2:30 – 3:45 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Kathak</span> | Mruga | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Contact Improvisation</span> | Kaprila | <span class="w-venue">Nebula</span></div>
+          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Pan &amp; Paint</span> | Mukki | <span class="w-venue">Maya</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">4:00 – 5:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <div class="workshop-pills">
+          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Asteroid</span></div>
+          <div class="workshop-row"><span class="w-name">Somatic Movement</span> | Sonia | <span class="w-venue">Comet</span></div>
+          <div class="workshop-row"><span class="w-name">Art Movement</span> | Shreya | <span class="w-venue">Stardust</span></div>
+          <div class="workshop-row"><span class="w-name">Belly Dancing</span> | Aakriti | <span class="w-venue">Meteor</span></div>
+          <div class="workshop-row"><span class="w-name">Forest Sound Journey</span> | Gunehr | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Drum Circle</span> | Aditya | <span class="w-venue">Crater</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">5:00 – 7:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Cacao &amp; Ecstatic Dance</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Annida | Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">7:00 – 8:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:00 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Chris Fitchew</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">8:30 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">YOURCHIN ✨</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<div style="text-align: center; padding: var(--s-12) 0; background: var(--ink);">
+  <a href="facilitators.html" style="font-family: 'Josefin Sans', sans-serif; font-size: 0.95rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(237,212,178,0.8); text-decoration: none; border-bottom: 1.5px solid #B06030; padding-bottom: 0.25em; transition: color 0.2s;">Know Your Facilitators</a>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+<script>
+/* --- Nav scroll state --- */
+const nav = document.getElementById('mainNav');
+nav.classList.add('scrolled');
+
+/* --- Mobile drawer --- */
+const toggle = document.getElementById('navToggle');
+const drawer = document.getElementById('navDrawer');
+toggle.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.setAttribute('aria-expanded', open);
+  drawer.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  drawer.classList.remove('open');
+  toggle.classList.remove('open');
+  toggle.setAttribute('aria-expanded', false);
+  drawer.setAttribute('aria-hidden', true);
+  document.body.style.overflow = '';
+}));
+
+/* --- Reveal on scroll --- */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* --- Day tab switching --- */
+document.querySelectorAll('.day-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.schedule-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+  });
+});
+
+/* --- Inclusions toggle (future use) --- */
+document.querySelectorAll('.inclusions-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('open', !expanded);
+  });
+});
+</script>
+</body>
+</html>

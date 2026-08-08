@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Payment — Moon Festival 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { background: #191406; min-height: 100svh; display: flex; flex-direction: column; }
+
+    .upi-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem var(--pad) 3rem;
+    }
+
+    .upi-card {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(237,212,178,0.04);
+      border: 0.5px solid rgba(237,212,178,0.1);
+      border-radius: 12px;
+      padding: 2.2rem 2rem;
+    }
+
+    .upi-eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin-bottom: 0.5rem;
+    }
+
+    .upi-heading {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: #EDD4B2;
+      margin: 0 0 0.25rem;
+    }
+
+    .upi-ref {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(237,212,178,0.4);
+      margin-bottom: 2rem;
+    }
+
+    .upi-steps { display: flex; flex-direction: column; gap: 1.4rem; margin-bottom: 2rem; }
+
+    .upi-step { display: flex; gap: 1rem; align-items: flex-start; }
+
+    .upi-step-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(176,96,48,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #B06030;
+      margin-top: 1px;
+    }
+
+    .upi-step-body { flex: 1; }
+
+    .upi-step-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.4);
+      margin-bottom: 0.45rem;
+    }
+
+    .upi-amount-box {
+      background: rgba(176,96,48,0.08);
+      border: 0.5px solid rgba(176,96,48,0.2);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+    .upi-amount-num {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #EDD4B2;
+      letter-spacing: -0.02em;
+    }
+    .upi-amount-gst {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.68rem;
+      color: rgba(237,212,178,0.4);
+    }
+
+    /* Bank details */
+    .bank-details { display: flex; flex-direction: column; gap: 0.55rem; }
+    .bank-item {
+      background: rgba(237,212,178,0.05);
+      border: 0.5px solid rgba(237,212,178,0.1);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .bank-item.ref-item {
+      border-color: rgba(176,96,48,0.35);
+      background: rgba(176,96,48,0.08);
+    }
+    .bank-lbl {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.7);
+      flex-shrink: 0;
+    }
+    .bank-val {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #EDD4B2;
+      text-align: right;
+    }
+    .bank-val.ref { color: #B06030; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; }
+    .bank-copy-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .bank-copy-btn {
+      flex-shrink: 0;
+      background: rgba(176,96,48,0.15);
+      border: 0.5px solid rgba(176,96,48,0.3);
+      border-radius: 4px;
+      color: #C07040;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .bank-copy-btn:hover { background: rgba(176,96,48,0.25); }
+
+    .upi-upload-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(237,212,178,0.03);
+      border: 0.5px dashed rgba(237,212,178,0.18);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .upi-upload-label.has-file {
+      border-color: rgba(176,96,48,0.5);
+      background: rgba(176,96,48,0.05);
+    }
+    .upi-upload-label.error {
+      border-color: #B06030;
+      background: rgba(176,96,48,0.08);
+    }
+    .upi-upload-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      color: rgba(237,212,178,0.45);
+    }
+    .upi-upload-label.has-file .upi-upload-text { color: #C07040; }
+    .upi-upload-label.error .upi-upload-text { color: #C07040; }
+
+    .upi-submit-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: #B06030;
+      border: none;
+      border-radius: 8px;
+      color: #EDD4B2;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .upi-submit-btn:hover { background: #C07040; }
+    .upi-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+</nav>
+
+<div class="upi-wrap">
+  <div class="upi-card">
+    <div class="upi-eyebrow">Bank Transfer</div>
+    <h1 class="upi-heading">Complete Payment</h1>
+    <p class="upi-ref" id="pageRef">—</p>
+
+    <div class="upi-steps">
+
+      <!-- Step 1: Amount -->
+      <div class="upi-step">
+        <div class="upi-step-num">1</div>
+        <div class="upi-step-body">
+          <div class="upi-step-label">Send this exact amount</div>
+          <div class="upi-amount-box">
+            <span class="upi-amount-num" id="pageAmount">—</span>
+            <span class="upi-amount-gst">incl. 5% GST</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Bank details -->
+      <div class="upi-step">
+        <div class="upi-step-num">2</div>
+        <div class="upi-step-body">
+          <div class="upi-step-label">To this bank account</div>
+          <div class="bank-details">
+            <div class="bank-item">
+              <span class="bank-lbl">Bank</span>
+              <span class="bank-val">HDFC Bank</span>
+            </div>
+            <div class="bank-item">
+              <span class="bank-lbl">Ac No</span>
+              <div class="bank-copy-wrap">
+                <span class="bank-val">50200053890710</span>
+                <button class="bank-copy-btn" onclick="copyText('50200053890710', this)">Copy</button>
+              </div>
+            </div>
+            <div class="bank-item">
+              <span class="bank-lbl">IFSC</span>
+              <div class="bank-copy-wrap">
+                <span class="bank-val">HDFC0000016</span>
+                <button class="bank-copy-btn" onclick="copyText('HDFC0000016', this)">Copy</button>
+              </div>
+            </div>
+            <div class="bank-item">
+              <span class="bank-lbl">Name</span>
+              <span class="bank-val">Bharatvarun Sahu</span>
+            </div>
+            <div class="bank-item ref-item">
+              <span class="bank-lbl">Your Ref</span>
+              <span class="bank-val ref" id="pageBookingRef">—</span>
+            </div>
+          </div>
+          <p style="margin:0.6rem 0 0;font-family:'Open Sans',sans-serif;font-size:0.78rem;color:rgba(237,212,178,0.4);line-height:1.6;">Use NEFT, IMPS, or RTGS. Add your booking ref in the transfer remarks.</p>
+        </div>
+      </div>
+
+      <!-- Step 3: Screenshot -->
+      <div class="upi-step">
+        <div class="upi-step-num">3</div>
+        <div class="upi-step-body">
+          <div class="upi-step-label">Upload payment screenshot <span style="color:#B06030;">*</span></div>
+          <label class="upi-upload-label" id="uploadLabel">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;opacity:0.5;"><path d="M2 13 L5.5 9 L8 12 L11 9.5 L16 13Z" stroke="#EDD4B2" stroke-width="1" fill="none" stroke-linejoin="round"/><rect x="1.5" y="2" width="15" height="12" rx="1.5" stroke="#EDD4B2" stroke-width="1" fill="none"/><circle cx="13" cy="5.5" r="1.2" stroke="#EDD4B2" stroke-width="0.8" fill="none"/></svg>
+            <span class="upi-upload-text" id="uploadText">Tap to upload payment screenshot</span>
+            <input id="screenshotInput" type="file" accept="image/*" style="display:none;" onchange="onFileChange()" />
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="upi-submit-btn" onclick="submitPayment()">Complete Booking</button>
+    <a onclick="history.back(); return false;" href="#" style="display:block;margin-top:1.2rem;font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:#B06030;text-decoration:none;text-align:center;">← Back</a>
+  </div>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const bookingRef = params.get('ref');
+  const amount = params.get('amount');
+
+  document.getElementById('pageRef').textContent = bookingRef ? 'Booking ' + bookingRef : '';
+  document.getElementById('pageBookingRef').textContent = bookingRef || '—';
+  document.getElementById('pageAmount').textContent = amount
+    ? '₹' + Number(amount).toLocaleString('en-IN')
+    : '—';
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1800);
+    });
+  }
+
+  function onFileChange() {
+    const file = document.getElementById('screenshotInput').files[0];
+    const label = document.getElementById('uploadLabel');
+    const text = document.getElementById('uploadText');
+    if (file) {
+      label.classList.remove('error');
+      label.classList.add('has-file');
+      text.textContent = file.name;
+    }
+  }
+
+  async function submitPayment() {
+    const file = document.getElementById('screenshotInput').files[0];
+    if (!file) {
+      const label = document.getElementById('uploadLabel');
+      const text = document.getElementById('uploadText');
+      label.classList.add('error');
+      text.textContent = 'Please upload your payment screenshot to continue';
+      return;
+    }
+
+    const btn = document.querySelector('.upi-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    try {
+      const fd = new FormData();
+      fd.append('booking_ref', bookingRef);
+      fd.append('screenshot', file);
+      await fetch('/api/bookings/upi-screenshot', { method: 'POST', body: fd });
+
+      await fetch('/api/bookings/upi-pending', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ booking_ref: bookingRef, payment_method: 'bank_transfer' }),
+      });
+
+      window.location.href = 'booking-confirmed.html?ref=' + bookingRef + '&method=bank';
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'I\'ve Transferred — Complete Booking';
+      alert('Something went wrong. Please try again.');
+    }
+  }
+</script>
+</body>
+</html>

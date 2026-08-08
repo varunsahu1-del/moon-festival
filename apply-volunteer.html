@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — Moon Crew · Moon Festival 2026</title>
+  <meta name="description" content="Volunteer at Moon Festival 2026. Join the crew for logistics, stage management, guest welcome, kitchen support, or general crew." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    .apply-form { text-align: left; }
+    .apply-form .form-group { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.4rem 0; margin-bottom: 0; }
+    .apply-form .form-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.68rem, 1vw, 0.78rem);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      display: block;
+      margin-bottom: 0;
+    }
+    .apply-form .form-input,
+    .apply-form .form-textarea {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.8rem, 1.3vw, 0.88rem);
+      font-weight: 300;
+      color: #EDD4B2;
+      background: transparent;
+      border: none;
+      border-bottom: 0.5px solid rgba(237,212,178,0.2);
+      border-radius: 0;
+      padding: 0.5em 0;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .apply-form .form-input:focus,
+    .apply-form .form-textarea:focus { border-bottom-color: #B06030; }
+    .apply-form .form-input::placeholder,
+    .apply-form .form-textarea::placeholder { color: rgba(237,212,178,0.2); }
+    .apply-form .form-textarea { min-height: 120px; resize: vertical; }
+    .apply-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
+
+    .custom-select-option {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.62rem, 0.9vw, 0.72rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.7);
+      padding: 0.65em 1.2em;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+    .custom-select-option:hover { color: #EDD4B2; background: rgba(176,96,48,0.12); }
+  </style>
+</head>
+<body>
+
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
+  <h1 class="gallery-hero-title apply-hero-title">Moon Crew</h1>
+  <p class="gallery-hero-sub">Be at the heart of it.</p>
+</div>
+
+<section class="section" style="background: var(--ink-2); text-align:center;">
+  <div class="container-text">
+
+    <div style="text-align:left;">
+      <a href="participation.html" class="back-link reveal" style="display:block;text-align:center;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;margin-top:-2rem;padding:0 0 var(--s-16);transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">← Back to Participation</a>
+    </div>
+
+    <!-- Welcome -->
+    <div class="reveal" style="margin-bottom:4rem;">
+      <!-- Hands / crew icon: interlocking circles suggesting connection -->
+      <svg width="52" height="52" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1.2rem;opacity:0.9;">
+        <!-- three connected nodes -->
+        <circle cx="28" cy="10" r="5" stroke="#B06030" stroke-width="0.9" fill="none"/>
+        <circle cx="12" cy="38" r="5" stroke="#B06030" stroke-width="0.9" fill="none"/>
+        <circle cx="44" cy="38" r="5" stroke="#B06030" stroke-width="0.9" fill="none"/>
+        <!-- connecting lines -->
+        <path d="M24 14 L15 34" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
+        <path d="M32 14 L41 34" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
+        <path d="M17 38 L39 38" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
+        <!-- centre dot where lines converge -->
+        <circle cx="28" cy="28" r="2" stroke="#B06030" stroke-width="0.6" fill="none" opacity="0.4"/>
+        <!-- soft radial lines from centre -->
+        <path d="M28 26 L28 15" stroke="#B06030" stroke-width="0.4" stroke-linecap="round" opacity="0.2"/>
+        <path d="M26.5 27 L17 33" stroke="#B06030" stroke-width="0.4" stroke-linecap="round" opacity="0.2"/>
+        <path d="M29.5 27 L39 33" stroke="#B06030" stroke-width="0.4" stroke-linecap="round" opacity="0.2"/>
+        <!-- small dots at mid-points -->
+        <circle cx="19" cy="24" r="0.8" fill="#B06030" opacity="0.35"/>
+        <circle cx="37" cy="24" r="0.8" fill="#B06030" opacity="0.35"/>
+        <circle cx="28" cy="38" r="0.8" fill="#B06030" opacity="0.35"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.8rem;">Moon Crew · 27–30 Nov 2026</p>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;margin:0;">Moon doesn't happen by itself — it happens because of the people who show up early, stay late, and hold it all together with care. If you want to give your time and presence to something that genuinely matters, we'd love to have you.</p>
+    </div>
+
+    <!-- How to Apply -->
+    <div class="reveal" style="text-align:center;margin-bottom:2rem;">
+      <div style="height:0.5px;background:rgba(176,96,48,0.3);margin:0 auto 2rem;width:60%;"></div>
+      <svg width="48" height="52" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1.2rem;">
+        <rect x="6" y="8" width="36" height="40" rx="2" stroke="#B06030" stroke-width="1" fill="none"/>
+        <rect x="16" y="4" width="16" height="8" rx="2" stroke="#B06030" stroke-width="0.9" fill="none"/>
+        <circle cx="24" cy="8" r="2" stroke="#B06030" stroke-width="0.7" fill="none" opacity="0.6"/>
+        <path d="M13 20 L35 20" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+        <path d="M13 27 L35 27" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+        <path d="M13 34 L35 34" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+        <path d="M13 17 L22 17" stroke="#B06030" stroke-width="0.55" stroke-linecap="round" opacity="0.4"/>
+        <path d="M13 24 L22 24" stroke="#B06030" stroke-width="0.55" stroke-linecap="round" opacity="0.4"/>
+        <path d="M13 31 L22 31" stroke="#B06030" stroke-width="0.55" stroke-linecap="round" opacity="0.4"/>
+        <path d="M13 42 L30 42" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.55"/>
+        <path d="M32 40 L35 43 L32 44 Z" stroke="#B06030" stroke-width="0.7" stroke-linejoin="round" fill="none" opacity="0.6"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.4rem;">How to Apply</p>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;margin:0 0 2rem;">Submit your application by filling the form below before <strong style="color:#EDD4B2;font-weight:600;">5 September 2026</strong>. Successful applicants will be notified by <strong style="color:#EDD4B2;font-weight:600;">25 September 2026</strong>.</p>
+    </div>
+
+    <!-- Deadlines -->
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4rem;">
+      <div style="background:rgba(176,96,48,0.03);padding:10px 14px;text-align:center;border:0.5px solid rgba(176,96,48,0.5);box-shadow:0 0 0 3px rgba(176,96,48,0.08),inset 0 0 0 1px rgba(176,96,48,0.12);clip-path:polygon(6px 0%,calc(100% - 6px) 0%,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0% calc(100% - 6px),0% 6px);">
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.7);margin-bottom:5px;">Application Deadline</div>
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:1rem;letter-spacing:0.06em;color:#EDD4B2;font-weight:500;">5 September 2026</div>
+      </div>
+      <div style="background:rgba(176,96,48,0.03);padding:10px 14px;text-align:center;border:0.5px solid rgba(176,96,48,0.5);box-shadow:0 0 0 3px rgba(176,96,48,0.08),inset 0 0 0 1px rgba(176,96,48,0.12);clip-path:polygon(6px 0%,calc(100% - 6px) 0%,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0% calc(100% - 6px),0% 6px);">
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.7);margin-bottom:5px;">Notification By</div>
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:1rem;letter-spacing:0.06em;color:#EDD4B2;font-weight:500;">25 September 2026</div>
+      </div>
+    </div>
+
+    <!-- Application Form -->
+    <div class="reveal" style="text-align:center;margin:4rem 0 2rem;">
+      <svg width="48" height="44" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1.2rem;">
+        <path d="M8 6 C8 4 10 3 12 4 L36 4 C38 3 40 4 40 6 L40 36 C40 38 38 39 36 38 L12 38 C10 39 8 38 8 36 Z" stroke="#B06030" stroke-width="0.9" fill="none"/>
+        <path d="M8 6 C8 3 11 1 14 3 C11 3 10 5 12 6" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <path d="M8 36 C8 39 11 41 14 39 C11 39 10 37 12 36" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <path d="M14 12 L34 12" stroke="#B06030" stroke-width="0.65" stroke-linecap="round" opacity="0.5"/>
+        <path d="M14 17 L34 17" stroke="#B06030" stroke-width="0.65" stroke-linecap="round" opacity="0.5"/>
+        <path d="M14 22 L28 22" stroke="#B06030" stroke-width="0.65" stroke-linecap="round" opacity="0.5"/>
+        <path d="M38 2 C44 6 46 14 42 24 L30 30" stroke="#B06030" stroke-width="0.85" stroke-linecap="round" fill="none"/>
+        <path d="M30 30 L28 36 L32 32 Z" stroke="#B06030" stroke-width="0.75" stroke-linejoin="round" fill="none"/>
+        <path d="M38 2 C36 8 34 14 30 20" stroke="#B06030" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+        <path d="M40 5 C38 10 36 16 33 22" stroke="#B06030" stroke-width="0.45" stroke-linecap="round" fill="none" opacity="0.3"/>
+        <path d="M19 27 L22 24 L25 27 L22 30 Z" stroke="#B06030" stroke-width="0.6" fill="none" opacity="0.55"/>
+        <circle cx="14" cy="9" r="0.8" stroke="#B06030" stroke-width="0.5" fill="none" opacity="0.4"/>
+        <circle cx="34" cy="9" r="0.8" stroke="#B06030" stroke-width="0.5" fill="none" opacity="0.4"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.2rem;">Application Form</p>
+      <div style="height:0.5px;background:rgba(176,96,48,0.3);margin:0 auto 2rem;width:60%;"></div>
+    </div>
+
+    <div class="apply-form reveal">
+      <form name="apply-volunteer" method="POST" data-netlify="true" action="/participation.html">
+        <input type="hidden" name="form-name" value="apply-volunteer" />
+
+        <div class="form-group">
+          <label class="form-label" for="fullName">Full Name</label>
+          <input class="form-input" type="text" id="fullName" name="fullName" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone / WhatsApp</label>
+          <div style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.2);gap:0.5rem;">
+            <input id="phoneCC" name="phoneCC" type="text" list="cc-datalist" value="+91" placeholder="+91" autocomplete="off" style="background:transparent;border:none;border-bottom:0.5px solid rgba(237,212,178,0.2);outline:none;font-family:'Open Sans',sans-serif;font-size:clamp(0.8rem,1.3vw,0.88rem);font-weight:300;color:#EDD4B2;letter-spacing:0.04em;padding:0.5em 0.4em 0.5em 0;flex-shrink:0;width:76px;" />
+            <input class="form-input" type="tel" id="phone" name="phoneNumber" placeholder="00000 00000" style="border-bottom:none;flex:1;padding-left:0.4rem;" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="location">City / Country</label>
+          <input class="form-input" type="text" id="location" name="location" placeholder="e.g. Delhi, India" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Area of interest</label>
+          <input type="hidden" id="areaOfInterest" name="areaOfInterest" required />
+          <div class="custom-select-wrap" style="position:relative;">
+            <button type="button" class="custom-select-trigger" onclick="toggleCustomSelect(this)" style="display:flex;align-items:center;justify-content:space-between;width:100%;background:transparent;border:none;border-bottom:0.5px solid rgba(237,212,178,0.2);padding:0.5em 0;cursor:pointer;transition:border-color 0.2s;">
+              <span class="custom-select-label" style="font-family:'Open Sans',sans-serif;font-size:clamp(0.8rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.2);letter-spacing:0.02em;">Select an area</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(237,212,178,0.4)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="custom-select-menu" style="display:none;position:absolute;top:100%;left:0;right:0;background:#1a1007;border:0.5px solid rgba(176,96,48,0.3);z-index:10;">
+              <div class="custom-select-option" data-value="logistics" onclick="selectOption(this,'areaOfInterest')">Logistics</div>
+              <div class="custom-select-option" data-value="stage-management" onclick="selectOption(this,'areaOfInterest')">Stage Management</div>
+              <div class="custom-select-option" data-value="guest-welcome" onclick="selectOption(this,'areaOfInterest')">Guest Welcome</div>
+              <div class="custom-select-option" data-value="sales" onclick="selectOption(this,'areaOfInterest')">Sales</div>
+              <div class="custom-select-option" data-value="marketing" onclick="selectOption(this,'areaOfInterest')">Marketing</div>
+              <div class="custom-select-option" data-value="crowd-control" onclick="selectOption(this,'areaOfInterest')">Crowd Control</div>
+              <div class="custom-select-option" data-value="general-crew" onclick="selectOption(this,'areaOfInterest')">General Crew</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">How long can you commit?</label>
+          <input type="hidden" id="daysAvailable" name="daysAvailable" required />
+          <div class="custom-select-wrap" style="position:relative;">
+            <button type="button" class="custom-select-trigger" onclick="toggleCustomSelect(this)" style="display:flex;align-items:center;justify-content:space-between;width:100%;background:transparent;border:none;border-bottom:0.5px solid rgba(237,212,178,0.2);padding:0.5em 0;cursor:pointer;transition:border-color 0.2s;">
+              <span class="custom-select-label" style="font-family:'Open Sans',sans-serif;font-size:clamp(0.8rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.2);letter-spacing:0.02em;">Select duration</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(237,212,178,0.4)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="custom-select-menu" style="display:none;position:absolute;top:100%;left:0;right:0;background:#1a1007;border:0.5px solid rgba(176,96,48,0.3);z-index:10;">
+              <div class="custom-select-option" data-value="1-month-prior" onclick="selectOption(this,'daysAvailable')">1 Month Prior</div>
+              <div class="custom-select-option" data-value="2-months-prior" onclick="selectOption(this,'daysAvailable')">2 Months Prior</div>
+              <div class="custom-select-option" data-value="full-festival" onclick="selectOption(this,'daysAvailable')">Full Festival Only</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="skills">Any relevant skills</label>
+          <textarea class="form-textarea" id="skills" name="skills" rows="4" placeholder="e.g. event production, first aid, languages, driving, sound engineering, cooking, photography..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="about">Tell us about yourself</label>
+          <textarea class="form-textarea" id="about" name="about" rows="5" placeholder="Share why you want to volunteer at Moon and what you hope to give and receive from the experience..." required></textarea>
+        </div>
+
+        <div style="margin-top:var(--s-6);display:flex;align-items:flex-start;gap:0.75rem;">
+          <input type="checkbox" id="agreeTerms" required style="margin-top:3px;flex-shrink:0;accent-color:#B06030;width:14px;height:14px;cursor:pointer;" />
+          <label for="agreeTerms" style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.6);letter-spacing:0.04em;line-height:1.7;cursor:pointer;">I have read and agree to the <a href="terms.html" style="color:#B06030;text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">Terms &amp; Conditions</a></label>
+        </div>
+
+        <div style="margin-top: var(--s-8);">
+          <button type="submit" style="width:100%;font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.88vw,0.7rem);font-weight:300;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;background:#B06030;border:1px solid #B06030;border-radius:2px;padding:0.9em 2em;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Submit Application</button>
+
+        </div>
+
+        <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.8rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.7);letter-spacing:0.04em;line-height:1.7;margin:1.5rem 0 0;">We will review your application & only successful applicants will be notified by 25 September 2026.</p>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+<script>
+  const nav = document.getElementById('mainNav');
+  nav.classList.add('scrolled');
+  const toggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('navDrawer');
+  toggle.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open'); toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false); drawer.setAttribute('aria-hidden', true);
+    document.body.style.overflow = '';
+  }));
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  function toggleCustomSelect(btn) {
+    const menu = btn.nextElementSibling;
+    const arrow = btn.querySelector('svg');
+    const isOpen = menu.style.display === 'block';
+    document.querySelectorAll('.custom-select-menu').forEach(m => m.style.display = 'none');
+    document.querySelectorAll('.custom-select-trigger svg').forEach(a => a.style.transform = '');
+    if (!isOpen) { menu.style.display = 'block'; arrow.style.transform = 'rotate(180deg)'; }
+  }
+  function selectOption(el, fieldId) {
+    const wrap = el.closest('.custom-select-wrap');
+    const trigger = wrap.querySelector('.custom-select-trigger');
+    const label = trigger.querySelector('.custom-select-label');
+    label.textContent = el.textContent;
+    label.style.color = '#EDD4B2';
+    document.getElementById(fieldId).value = el.dataset.value;
+    el.parentElement.style.display = 'none';
+    trigger.querySelector('svg').style.transform = '';
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-select-wrap')) {
+      document.querySelectorAll('.custom-select-menu').forEach(m => m.style.display = 'none');
+      document.querySelectorAll('.custom-select-trigger svg').forEach(a => a.style.transform = '');
+    }
+  });
+</script>
+
+
+<script>
+(function() {
+  var form = document.querySelector('form[data-netlify]');
+  if (!form) return;
+  // Remove netlify attributes so browser doesn't try to POST to action
+  form.removeAttribute('data-netlify');
+  form.removeAttribute('action');
+  form.removeAttribute('method');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('[type=submit]');
+    var originalText = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+    var formData = new FormData(form);
+    // Combine country code + phone number into a single field
+    var cc = form.querySelector('#phoneCC');
+    var num = form.querySelector('#phoneNumber');
+    if (cc && num && num.value.trim()) {
+      formData.set('phone', cc.value + ' ' + num.value.trim());
+      formData.delete('phoneCC');
+      formData.delete('phoneNumber');
+    }
+
+    try {
+      var res = await fetch('/api/applications/submit', {
+        method: 'POST',
+        body: formData
+      });
+      var data = await res.json();
+      if (res.ok) {
+        form.innerHTML = '<div style="text-align:center;padding:3rem 0;"><p style="font-family:\'Josefin Sans\',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#B06030;margin:0 0 1rem;">Application Received</p><p style="font-family:\'Open Sans\',sans-serif;font-size:0.95rem;font-weight:300;color:rgba(237,212,178,0.75);line-height:1.8;margin:0;">Thank you! We\'ll review your application and get back to you by 25 September 2026.</p></div>';
+      } else {
+        if (btn) { btn.disabled = false; btn.textContent = originalText; }
+        alert(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      if (btn) { btn.disabled = false; btn.textContent = originalText; }
+      alert('Could not submit. Please check your connection and try again.');
+    }
+  });
+})();
+</script>
+
+<datalist id="cc-datalist">
+  <option value="+91">+91 India</option>
+  <option value="+1">+1 US / Canada</option>
+  <option value="+44">+44 UK</option>
+  <option value="+61">+61 Australia</option>
+  <option value="+64">+64 New Zealand</option>
+  <option value="+353">+353 Ireland</option>
+  <option value="+65">+65 Singapore</option>
+  <option value="+60">+60 Malaysia</option>
+  <option value="+66">+66 Thailand</option>
+  <option value="+62">+62 Indonesia</option>
+  <option value="+63">+63 Philippines</option>
+  <option value="+84">+84 Vietnam</option>
+  <option value="+81">+81 Japan</option>
+  <option value="+82">+82 South Korea</option>
+  <option value="+971">+971 UAE</option>
+  <option value="+974">+974 Qatar</option>
+  <option value="+966">+966 Saudi Arabia</option>
+  <option value="+92">+92 Pakistan</option>
+  <option value="+94">+94 Sri Lanka</option>
+  <option value="+977">+977 Nepal</option>
+  <option value="+880">+880 Bangladesh</option>
+  <option value="+49">+49 Germany</option>
+  <option value="+33">+33 France</option>
+  <option value="+39">+39 Italy</option>
+  <option value="+34">+34 Spain</option>
+  <option value="+31">+31 Netherlands</option>
+  <option value="+41">+41 Switzerland</option>
+  <option value="+46">+46 Sweden</option>
+  <option value="+47">+47 Norway</option>
+  <option value="+45">+45 Denmark</option>
+  <option value="+7">+7 Russia</option>
+  <option value="+27">+27 South Africa</option>
+  <option value="+254">+254 Kenya</option>
+  <option value="+234">+234 Nigeria</option>
+  <option value="+55">+55 Brazil</option>
+  <option value="+52">+52 Mexico</option>
+  <option value="+54">+54 Argentina</option>
+</datalist>
+</body>
+</html>

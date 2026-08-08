@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Moon Festival 2026</title>
+  <meta name="description" content="Moon Festival is an intimate gathering of yoga, dance, music, art, healing and human connection. 3 days, 75 workshops, South Goa." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal; font-style: normal;
+    }
+    @media (max-width: 640px) {
+      #aboutStatsFlex > span { display: none !important; }
+      #aboutStatsFlex { gap: 1rem 1.5rem !important; justify-content: space-evenly !important; }
+      #aboutYouGrid { grid-template-columns: repeat(2, 1fr) !important; }
+      #aboutHeroPhotoGrid { grid-template-columns: repeat(2, 1fr) !important; }
+      #aboutPriceGrid1 { grid-template-columns: 1fr !important; }
+      #aboutPriceGrid2 { grid-template-columns: 1fr !important; max-width: 100% !important; }
+      #aboutShalaGrid { grid-template-columns: repeat(2, 1fr) !important; }
+      #aboutTeamGrid1 { grid-template-columns: repeat(2, 1fr) !important; }
+      #aboutTeamGrid2 { grid-template-columns: repeat(2, 1fr) !important; }
+      #aboutTeamGrid2 img:nth-child(3) { grid-column: 1 / -1 !important; }
+      #aboutTeamGrid3 { grid-template-columns: repeat(2, 1fr) !important; }
+      #aboutTeamGrid3 img:nth-child(3) { grid-column: 1 / -1 !important; }
+      #aboutQuote { font-size: 0.82rem !important; }
+      #aboutAlien { width: 36px !important; height: 43px !important; margin-top: 0.5rem !important; }
+      #aboutWhenYouLandWrap { margin-top: 1.5rem !important; }
+      #aboutShalasSpacer { padding-top: 4rem !important; }
+    }
+    @media (max-width: 400px) {
+      #aboutYouGrid { grid-template-columns: 1fr !important; }
+      #aboutShalaGrid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      #aboutHeroTitle { font-size: 1.35rem !important; letter-spacing: 0.14em !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV DRAWER ─────────────────────────────────────────── -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<!-- ── NAV ────────────────────────────────────────────────── -->
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<div style="position:relative;margin-top:60px;">
+  <img
+    src="About Page Images/Hero.jpg"
+    alt="Moon Festival"
+    loading="eager"
+    class="page-hero-img"
+    style="width:100%;height:75vh;min-height:520px;object-fit:cover;object-position:center;display:block;"
+  />
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.65) 0%,rgba(15,10,4,0) 45%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:clamp(1.2rem,3vw,2.2rem);left:clamp(1.4rem,4vw,3rem);">
+    <p id="aboutHeroTitle" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.4rem;line-height:1.2;">Forest Gathering</p>
+    <p id="aboutHeroSub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.72rem,1.2vw,0.9rem);font-weight:300;letter-spacing:0.25em;text-transform:uppercase;color:#EDD4B2;margin:0;">27 · 28 · 29 Nov'26 · South Goa</p>
+  </div>
+</div>
+
+<!-- ── STATS BAR ──────────────────────────────────────────── -->
+<div style="background:var(--ink-2);border-bottom:0.5px solid rgba(237,212,178,0.08);padding:clamp(1.2rem,2.5vw,1.8rem) var(--pad);">
+  <div id="aboutStatsFlex" style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(1.2rem,3vw,2.5rem);">
+    <div style="text-align:center;">
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;letter-spacing:0.1em;color:#EDD4B2;margin:0;line-height:1;">3</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0.3rem 0 0;">Days</p>
+    </div>
+    <span style="width:1px;height:2rem;background:rgba(237,212,178,0.12);display:block;"></span>
+    <div style="text-align:center;">
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;letter-spacing:0.1em;color:#EDD4B2;margin:0;line-height:1;">75+</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0.3rem 0 0;">Workshops</p>
+    </div>
+    <span style="width:1px;height:2rem;background:rgba(237,212,178,0.12);display:block;"></span>
+    <div style="text-align:center;">
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;letter-spacing:0.1em;color:#EDD4B2;margin:0;line-height:1;">25</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0.3rem 0 0;">Facilitators</p>
+    </div>
+    <span style="width:1px;height:2rem;background:rgba(237,212,178,0.12);display:block;"></span>
+    <div style="text-align:center;">
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;letter-spacing:0.1em;color:#EDD4B2;margin:0;line-height:1;">20</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0.3rem 0 0;">Musicians</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── INTRO TEXT ─────────────────────────────────────────── -->
+<section style="background:var(--ink-2);padding:clamp(4rem,8vw,7rem) var(--pad);">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="text-align:center;">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.8rem;opacity:0.7;"><path d="M18 30 C18 30 5 21 5 12.5 C5 8.4 8.4 5 12.5 5 C15 5 17.2 6.3 18 8.2 C18.8 6.3 21 5 23.5 5 C27.6 5 31 8.4 31 12.5 C31 21 18 30 18 30 Z" stroke="#B06030" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M18 24 C18 24 10 18.5 10 13.5 C10 11.3 11.8 9.5 14 9.5 C15.5 9.5 16.9 10.3 17.7 11.5 C18.5 10.3 19.9 9.5 21.4 9.5 C23.6 9.5 25.4 11.3 25.4 13.5 C25.4 18.5 18 24 18 24 Z" fill="#B06030" opacity="0.4"/></svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Moon Runs on Love</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">Forest Gathering</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">Moon Festival is an intimate gathering of <strong style="font-weight:600;">yoga, fitness, dance, movement, music, art, healing &amp; human connection.</strong> For <strong style="font-weight:600;">three days each year,</strong> a quiet forest in Palolem, South Goa becomes home to <strong style="font-weight:600;">300 people.</strong> Born from a simple idea among <strong style="font-weight:600;">close friends</strong> — a place to genuinely <strong style="font-weight:600;">grow, connect &amp; belong</strong>.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;">
+        <a href="gallery.html" style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">Five Years of Memories &nbsp;→</a>
+      </div>
+  </div>
+</section>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;" id="aboutHeroPhotoGrid">
+  <div style="position:relative;overflow:hidden;aspect-ratio:1/1;">
+    <img src="About Page Images/Moon Festival-169.jpg" alt="Moon Festival" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);" />
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 50%);pointer-events:none;"></div>
+  </div>
+  <div style="position:relative;overflow:hidden;aspect-ratio:1/1;">
+    <img src="About Page Images/Moon Festival-167.jpg" alt="Moon Festival" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);" />
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 50%);pointer-events:none;"></div>
+  </div>
+</div>
+
+<!-- ── THE TEAM ───────────────────────────────────────────── -->
+<section style="background:var(--ink-2);padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <svg width="52" height="32" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.7;">
+      <ellipse cx="10" cy="17" rx="6" ry="8" stroke="#B06030" stroke-width="1.3" fill="none"/>
+      <ellipse cx="10" cy="14" rx="4" ry="5" stroke="#B06030" stroke-width="1.3" fill="none"/>
+      <ellipse cx="8" cy="13" rx="1.5" ry="2" fill="#B06030" opacity="0.8"/>
+      <ellipse cx="12" cy="13" rx="1.5" ry="2" fill="#B06030" opacity="0.8"/>
+      <line x1="6" y1="10" x2="4" y2="7" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6.5" r="1" fill="#B06030"/>
+      <line x1="14" y1="10" x2="16" y2="7" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="16" cy="6.5" r="1" fill="#B06030"/>
+      <ellipse cx="26" cy="16" rx="7" ry="9" stroke="#B06030" stroke-width="1.3" fill="none"/>
+      <ellipse cx="26" cy="12" rx="5" ry="6" stroke="#B06030" stroke-width="1.3" fill="none"/>
+      <ellipse cx="23.5" cy="11" rx="1.8" ry="2.2" fill="#B06030" opacity="0.8"/>
+      <ellipse cx="28.5" cy="11" rx="1.8" ry="2.2" fill="#B06030" opacity="0.8"/>
+      <line x1="22" y1="7" x2="20" y2="4" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="19.5" cy="3.5" r="1.1" fill="#B06030"/>
+      <line x1="30" y1="7" x2="32" y2="4" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="32.5" cy="3.5" r="1.1" fill="#B06030"/>
+      <ellipse cx="42" cy="17" rx="6" ry="8" stroke="#B06030" stroke-width="1.3" fill="none"/>
+      <ellipse cx="42" cy="14" rx="4" ry="5" stroke="#B06030" stroke-width="1.3" fill="none"/>
+      <ellipse cx="40" cy="13" rx="1.5" ry="2" fill="#B06030" opacity="0.8"/>
+      <ellipse cx="44" cy="13" rx="1.5" ry="2" fill="#B06030" opacity="0.8"/>
+      <line x1="38" y1="10" x2="36" y2="7" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="36" cy="6.5" r="1" fill="#B06030"/>
+      <line x1="46" y1="10" x2="48" y2="7" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="48" cy="6.5" r="1" fill="#B06030"/>
+    </svg>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">The Team.</p>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">The People Behind Moon</p>
+    <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+    <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">Moon is built by <strong style="font-weight:600;">a small team</strong> of close childhood friends.</p>
+  </div>
+  <div id="aboutTeamGrid1" style="max-width:860px;margin:2.8rem auto 0;display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+    <img src="Making of Moon/_DSC2099.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+    <img src="Making of moon/_DSC2007-2.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+  </div>
+  <div id="aboutTeamGrid2" style="max-width:860px;margin:3px auto 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;">
+    <img src="Making of moon/Moon Festival-36.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+    <img src="Making of moon/_DSC2111-2.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+    <img src="Making of moon/_DSC2136-2.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+  </div>
+  <div id="aboutTeamGrid3" style="max-width:860px;margin:3px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+    <img src="Making of moon/_DSC1903-2.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center top;display:block;filter:brightness(0.88);" />
+    <img src="Making of moon/_DSC2112-2.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center top;display:block;filter:brightness(0.88);" />
+  </div>
+</section>
+
+<section style="background:var(--ink-2);padding:clamp(2rem,4vw,3rem) var(--pad) 0;">
+  <div style="max-width:720px;margin:0 auto;">
+      <div style="padding:2rem 0 0;">
+        <div style="border-top:0.5px solid rgba(237,212,178,0.08);"></div>
+      </div>
+    </div>
+
+    <!-- Photo gallery 9-18 -->
+    <div id="aboutWhenYouLandWrap" style="margin-top:6rem;">
+      <svg id="aboutAlien" width="60" height="71" viewBox="0 0 52 62" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:3rem auto 1rem;opacity:0.85;">
+        <!-- left antenna -->
+        <line x1="18" y1="8" x2="13" y2="2" stroke="#B06030" stroke-width="0.9" stroke-linecap="round"/>
+        <circle cx="12.5" cy="1.5" r="1.5" fill="#B06030" opacity="0.8"/>
+        <!-- right antenna -->
+        <line x1="34" y1="8" x2="39" y2="2" stroke="#B06030" stroke-width="0.9" stroke-linecap="round"/>
+        <circle cx="39.5" cy="1.5" r="1.5" fill="#B06030" opacity="0.8"/>
+        <!-- head -->
+        <ellipse cx="26" cy="18" rx="16" ry="14" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.07)"/>
+        <!-- left eye -->
+        <ellipse cx="19" cy="16" rx="4.5" ry="5.5" stroke="#B06030" stroke-width="0.9" fill="rgba(176,96,48,0.12)"/>
+        <ellipse cx="19" cy="17" rx="2" ry="3" fill="#B06030" opacity="0.5"/>
+        <circle cx="20" cy="15.5" r="0.8" fill="rgba(237,212,178,0.6)"/>
+        <!-- right eye -->
+        <ellipse cx="33" cy="16" rx="4.5" ry="5.5" stroke="#B06030" stroke-width="0.9" fill="rgba(176,96,48,0.12)"/>
+        <ellipse cx="33" cy="17" rx="2" ry="3" fill="#B06030" opacity="0.5"/>
+        <circle cx="34" cy="15.5" r="0.8" fill="rgba(237,212,178,0.6)"/>
+        <!-- smile -->
+        <path d="M20 24 Q26 28 32 24" stroke="#B06030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+        <!-- body -->
+        <path d="M18 31 Q12 33 12 40 Q12 46 18 47 L34 47 Q40 46 40 40 Q40 33 34 31 Z" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.07)"/>
+        <!-- left arm (waving) -->
+        <path d="M14 35 Q6 30 4 25" stroke="#B06030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+        <circle cx="3.5" cy="24" r="2" stroke="#B06030" stroke-width="0.8" fill="rgba(176,96,48,0.1)"/>
+        <!-- right arm -->
+        <path d="M38 35 Q46 32 48 28" stroke="#B06030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+        <circle cx="48.5" cy="27" r="2" stroke="#B06030" stroke-width="0.8" fill="rgba(176,96,48,0.1)"/>
+        <!-- left leg -->
+        <line x1="20" y1="47" x2="17" y2="56" stroke="#B06030" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M13 56 L21 56" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <!-- right leg -->
+        <line x1="32" y1="47" x2="35" y2="56" stroke="#B06030" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M31 56 L39 56" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;text-align:center;">When You Land</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;text-align:center;">On the Moon</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.6rem;"></div>
+      <div id="aboutYouGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/50.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Dance</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/51.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Sing</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/52.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Listen</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/53.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Practice</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/54.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Jam</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/55.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Colour</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/56.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Rest</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/57.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Heal</p></div></div>
+        <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/58.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Become Family</p></div></div>
+      </div>
+      <div style="display:flex;gap:1rem;justify-content:center;margin-top:2.5rem;">
+        <a href="schedule.html" style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">Schedule &nbsp;→</a>
+        <span style="color:rgba(237,212,178,0.2);font-size:0.8rem;">|</span>
+        <a href="facilitators.html" style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">Facilitators &nbsp;→</a>
+      </div>
+    </div>
+    <p id="aboutQuote" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.2vw,1.6rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;text-align:center;margin:clamp(2rem,4vw,3.5rem) auto 0;max-width:700px;line-height:1.6;">"Moon is not a festival you attend<br>it is one you <span style="color:#B06030;">become part of</span>"</p>
+  </div>
+</section>
+<div style="background:var(--ink-2);padding:clamp(2.5rem,5vw,4rem) 0 0;"></div>
+
+<!-- separator -->
+<div style="border-top:0.5px solid rgba(237,212,178,0.08);background:var(--ink-2);"></div>
+
+<!-- ── THE SHALAS CARDS ────────────────────────────────────── -->
+<section style="background:var(--ink-2);padding:clamp(2rem,4vw,3.5rem) var(--pad);">
+  <div style="max-width:960px;margin:0 auto;">
+
+    <!-- header -->
+    <div style="text-align:center;margin-bottom:clamp(1.25rem,2.5vw,2rem);">
+      <svg width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:0.9rem;opacity:0.9;">
+        <!-- 16-petal outer lotus circle -->
+        <circle cx="50" cy="50" r="38" stroke="#B06030" stroke-width="0.5" fill="none" opacity="0.2"/>
+        <!-- 8-petal inner lotus circle -->
+        <circle cx="50" cy="50" r="30" stroke="#B06030" stroke-width="0.4" fill="none" opacity="0.2"/>
+        <!-- 8 inner lotus petals (ellipses rotated) -->
+        <g opacity="0.25" stroke="#B06030" stroke-width="0.45" fill="none">
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(0 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(45 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(90 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(135 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(180 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(225 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(270 50 50)"/>
+          <ellipse cx="50" cy="36" rx="4" ry="7" transform="rotate(315 50 50)"/>
+        </g>
+        <!-- 9 interlocking triangles — 4 upward (Shiva), 5 downward (Shakti) -->
+        <!-- Downward Shakti triangles (5) -->
+        <polygon points="50,14 81,67 19,67" stroke="#B06030" stroke-width="0.8" fill="none" opacity="0.9"/>
+        <polygon points="50,21 76,63 24,63" stroke="#B06030" stroke-width="0.7" fill="none" opacity="0.75"/>
+        <polygon points="50,29 70,58 30,58" stroke="#B06030" stroke-width="0.6" fill="none" opacity="0.6"/>
+        <polygon points="50,35 65,54 35,54" stroke="#B06030" stroke-width="0.55" fill="none" opacity="0.5"/>
+        <polygon points="50,41 60,50 40,50" stroke="#B06030" stroke-width="0.5" fill="none" opacity="0.4"/>
+        <!-- Upward Shiva triangles (4) -->
+        <polygon points="50,86 81,33 19,33" stroke="#B06030" stroke-width="0.8" fill="none" opacity="0.9"/>
+        <polygon points="50,79 76,37 24,37" stroke="#B06030" stroke-width="0.7" fill="none" opacity="0.75"/>
+        <polygon points="50,71 70,42 30,42" stroke="#B06030" stroke-width="0.6" fill="none" opacity="0.6"/>
+        <polygon points="50,64 64,46 36,46" stroke="#B06030" stroke-width="0.55" fill="none" opacity="0.5"/>
+        <!-- bindu -->
+        <circle cx="50" cy="50" r="1.8" fill="#B06030" opacity="0.85"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">9 Sacred Shalas</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">Where the magic lives</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto;">The <strong style="font-weight:600;">nine shalas</strong> are the <strong style="font-weight:600;">heart</strong> of Moon. <strong style="font-weight:600;">Asteroid, Sky, Comet, Nebula, Stardust, Maya, Meteor, Space &amp; Crater.</strong> Every <strong style="font-weight:600;">workshop, ceremony, and performance</strong> at Moon happens inside one of these nine spaces.</p>
+    </div>
+
+    <!-- 3×2 shala cards -->
+    <div id="aboutShalaGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Asteroid 3.jpg" alt="Asteroid Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Asteroid</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Sky 2.jpg" alt="Sky Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Sky</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Comet 2.jpg" alt="Comet Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Comet</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Nebula.jpg" alt="Nebula Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Nebula</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Stardust 3.jpg" alt="Stardust Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Stardust</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Maya.jpg" alt="Maya Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Maya</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Meteor 2.jpg" alt="Meteor Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Meteor</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Space.jpg" alt="Space Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Space</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;">
+        <div style="width:100%;aspect-ratio:3/2;overflow:hidden;">
+          <img src="About Page Images/Crater.jpg" alt="Crater Shala" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+        </div>
+        <div style="padding:clamp(1rem,2vw,1.4rem);">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">Crater</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div id="aboutShalasSpacer" style="background:var(--ink-2);padding:clamp(2.5rem,5vw,4rem) 0 0;"></div>
+
+<!-- separator -->
+<div style="border-top:0.5px solid rgba(237,212,178,0.08);background:var(--ink-2);"></div>
+
+<!-- ── MAKING MOON ────────────────────────────────────────── -->
+<section style="background:var(--ink-2);padding:clamp(3rem,5vw,5rem) var(--pad);">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+
+    <svg width="32" height="52" viewBox="0 0 32 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1.2rem;opacity:0.65;">
+      <line x1="9" y1="2" x2="9" y2="50" stroke="#B06030" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="23" y1="6" x2="23" y2="50" stroke="#B06030" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="6" y1="14" x2="12" y2="14" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="6" y1="28" x2="12" y2="28" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="6" y1="42" x2="12" y2="42" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="20" y1="20" x2="26" y2="20" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="20" y1="34" x2="26" y2="34" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="20" y1="48" x2="26" y2="48" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M9 14 Q2 10 4 4" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <path d="M9 28 Q16 22 14 16" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <path d="M23 20 Q30 16 28 10" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <path d="M23 34 Q16 28 18 22" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+    </svg>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Handmade · From the Earth</p>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">Built With Love</p>
+    <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+    <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 2.5rem;">All shalas, stages &amp; spaces at Moon are <strong style="font-weight:600;">built by hand</strong>. Bamboo from local farms, canopies woven from dried coconut leaves, <strong style="font-weight:600;">decorations crafted from the land.</strong> Nothing rented — everything made by team Moon and Bhakti Kutir.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-bottom:2rem;">
+      <img src="Making of Moon/_DSC2130.jpg" alt="Moon Festival" loading="lazy"
+        style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;" />
+      <img src="Making of moon/_DSC2115.jpg" alt="Moon Festival" loading="lazy"
+        style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;" />
+      <img src="Making of Moon/_DSC2159.jpg" alt="Moon Festival" loading="lazy"
+        style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;" />
+      <img src="Making of Moon/IMG_2238.jpg" alt="Moon Festival" loading="lazy"
+        style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;" />
+    </div>
+
+    <a href="making-of-moon.html" style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">The Making of Moon &nbsp;→</a>
+
+  </div>
+</section>
+
+<!-- separator -->
+<div style="border-top:0.5px solid rgba(237,212,178,0.08);background:var(--ink-2);"></div>
+
+<!-- ── ONE PRICE ──────────────────────────────────────────── -->
+<section style="background:var(--ink-2);padding:clamp(2rem,4vw,3.5rem) var(--pad);">
+  <div style="max-width:960px;margin:0 auto;">
+
+    <!-- centred header -->
+    <div style="text-align:center;margin-bottom:clamp(1.25rem,2.5vw,2rem);">
+      <svg width="60" height="60" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1rem;opacity:0.85;">
+        <path d="M28 20 C28 26.6 22.6 32 16 32 C13.2 32 10.6 31 8.6 29.4 C11 30.4 13.6 31 16.4 31 C23.6 31 29.4 25.2 29.4 18 C29.4 12.4 25.8 7.6 20.8 5.6 C25.2 8 28 13.6 28 20 Z" fill="#B06030" opacity="0.15"/>
+        <path d="M28 20 C28 26.6 22.6 32 16 32 C13.2 32 10.6 31 8.6 29.4 C11 30.4 13.6 31 16.4 31 C23.6 31 29.4 25.2 29.4 18 C29.4 12.4 25.8 7.6 20.8 5.6 C25.2 8 28 13.6 28 20 Z" stroke="#B06030" stroke-width="1.2" fill="none"/>
+        <!-- stars -->
+        <circle cx="32" cy="10" r="1" fill="#B06030" opacity="0.7"/>
+        <circle cx="35" cy="20" r="0.7" fill="#B06030" opacity="0.5"/>
+        <circle cx="30" cy="30" r="0.8" fill="#B06030" opacity="0.4"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Build Your Moon</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.7rem,1vw,0.8rem);letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.65);margin:0 0 0.7rem;">Start with the stay. Add what calls you.</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto;">Your ticket starts with what matters most — a <strong style="font-weight:600;">3-night stay and full access</strong> to every workshop, act, and ceremony at Moon. From there, <strong style="font-weight:600;">build your experience:</strong> arrive a day early, add meals, join the tribal lunch, book an Ayurvedic massage. <em>Everything prebooked, nothing left to chance.</em></p>
+
+    </div>
+
+    <!-- 3+2 cards -->
+    <div id="aboutPriceGrid1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;">
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.5);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.12);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1.2rem,2.5vw,2rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 var(--s-4,0.75rem);">All Workshops</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.9rem;font-weight:400;letter-spacing:0.01em;line-height:1.75;color:rgba(237,212,178,0.6);margin:0 0 var(--s-4,0.75rem);flex:1;">Access to all workshops &amp; sessions for all 3 days — 27, 28 &amp; 29 Nov.</p>
+        <a href="schedule.html" style="font-family:var(--font-mono,'Josefin Sans',sans-serif);font-size:0.72rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#B06030;text-decoration:none;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">See More →</a>
+      </div>
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.5);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.12);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1.2rem,2.5vw,2rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 var(--s-4,0.75rem);">All Acts &amp; Music</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.9rem;font-weight:400;letter-spacing:0.01em;line-height:1.75;color:rgba(237,212,178,0.6);margin:0 0 var(--s-4,0.75rem);flex:1;">Live music, ceremonies, talks, performances and evening events.</p>
+        <a href="schedule.html" style="font-family:var(--font-mono,'Josefin Sans',sans-serif);font-size:0.72rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#B06030;text-decoration:none;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">See More →</a>
+      </div>
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.5);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.12);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1.2rem,2.5vw,2rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 var(--s-4,0.75rem);">3N / 4D Stay</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.9rem;font-weight:400;letter-spacing:0.01em;line-height:1.75;color:rgba(237,212,178,0.6);margin:0 0 var(--s-4,0.75rem);flex:1;">Stay from 27 to 30 Nov. Check in 27 Nov from 2pm. Festival workshops begin 27 Nov.</p>
+        <a href="tickets.html" style="font-family:var(--font-mono,'Josefin Sans',sans-serif);font-size:0.72rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#B06030;text-decoration:none;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">See More →</a>
+      </div>
+    </div>
+    <!-- Add-ons divider -->
+    <div style="display:flex;align-items:center;gap:1rem;margin:1.8rem 0 1rem;">
+      <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.12);"></div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0;white-space:nowrap;">Optional Add-ons · Prebook at Checkout</p>
+      <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.12);"></div>
+    </div>
+
+    <div id="aboutPriceGrid2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.25);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.08);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1rem,2vw,1.5rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.7);margin:0 0 0.5rem;">Early Check-in</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;line-height:1.65;color:rgba(237,212,178,0.5);margin:0;flex:1;">Come in on 26 Nov. Inauguration at 7pm.</p>
+      </div>
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.25);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.08);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1rem,2vw,1.5rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.7);margin:0 0 0.5rem;">Meals</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;line-height:1.65;color:rgba(237,212,178,0.5);margin:0;flex:1;">Satvik brunch &amp; dinner, 27–29 Nov. First 70 only.</p>
+      </div>
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.25);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.08);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1rem,2vw,1.5rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.7);margin:0 0 0.5rem;">Tribal Lunch</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;line-height:1.65;color:rgba(237,212,178,0.5);margin:0;flex:1;">Cooked by tribal women. 30 per day, any of the 3 days.</p>
+      </div>
+      <div style="background:rgba(176,96,48,0.03);border:0.5px solid rgba(176,96,48,0.25);box-shadow:inset 0 0 0 1px rgba(176,96,48,0.08);clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);padding:clamp(1rem,2vw,1.5rem);display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.7);margin:0 0 0.5rem;">Ayurvedic Massage</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;line-height:1.65;color:rgba(237,212,178,0.5);margin:0;flex:1;">Full-body massage. Save ₹300 vs on-site.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:clamp(2.5rem,5vw,4rem);">
+      <a href="tickets.html" class="btn btn-primary" style="color:#fff;">Get Your Ticket</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ─────────────────────────────────────────────── -->
+<script>
+  const nav = document.getElementById('mainNav');
+  nav.classList.add('scrolled');
+
+  const toggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('navDrawer');
+
+  toggle.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    drawer.setAttribute('aria-hidden', true);
+    document.body.style.overflow = '';
+  }));
+
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>

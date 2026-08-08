@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Making of Moon · Moon Festival 2026</title>
+  <meta name="description" content="Behind the scenes of Moon Festival — the planning, the decor, the setup, the people who build it." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal; font-style: normal;
+    }
+    body { background: var(--ink-2); }
+    @media (max-width: 480px) {
+      #makingHeroTitle { font-size: 1.35rem !important; letter-spacing: 0.14em !important; }
+      #stagesGrid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV DRAWER ─────────────────────────────────────────── -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<!-- ── NAV ────────────────────────────────────────────────── -->
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<div style="position:relative;margin-top:60px;">
+  <img src="Making of Moon/_DSC2139.jpg" alt="The Making of Moon" loading="eager" class="page-hero-img" style="width:100%;height:90svh;min-height:520px;object-fit:cover;object-position:center 65%;display:block;" />
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.65) 0%,rgba(15,10,4,0) 45%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:clamp(1.2rem,3vw,2.2rem);left:clamp(1.4rem,4vw,3rem);">
+    <p id="makingHeroTitle" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.4rem;line-height:1.2;">Making of Moon</p>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.72rem,1.2vw,0.9rem);font-weight:300;letter-spacing:0.25em;text-transform:uppercase;color:#EDD4B2;margin:0;">Five Years in the Making</p>
+  </div>
+</div>
+
+
+<!-- ── BLOG ENTRIES ───────────────────────────────────────── -->
+<section style="background:var(--ink-2);padding:0 0 clamp(5rem,10vw,9rem);">
+
+  <!-- Entry 1 -->
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+    <div style="max-width:600px;margin:0 auto 2.8rem;text-align:center;">
+      <svg width="36" height="72" viewBox="0 0 36 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.7;">
+        <!-- left stalk -->
+        <line x1="10" y1="4" x2="10" y2="68" stroke="#B06030" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- right stalk -->
+        <line x1="26" y1="4" x2="26" y2="68" stroke="#B06030" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- nodes left -->
+        <line x1="6" y1="20" x2="14" y2="20" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="40" x2="14" y2="40" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="60" x2="14" y2="60" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <!-- nodes right -->
+        <line x1="22" y1="30" x2="30" y2="30" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="50" x2="30" y2="50" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <!-- leaves left -->
+        <path d="M10 20 Q2 14 4 8" stroke="#B06030" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M10 40 Q2 34 4 28" stroke="#B06030" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- leaves right -->
+        <path d="M26 30 Q34 24 32 18" stroke="#B06030" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M26 50 Q34 44 32 38" stroke="#B06030" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">It Starts With a Blank Forest.</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">The Beginning</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">Every year it begins the same way — <strong style="font-weight:600;">an empty stretch of forest, a notebook full of sketches,</strong> and a few months to turn it into something.</p>
+    </div>
+    <img src="Making of Moon/IMG_2217-2.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+  </div>
+
+  <!-- The Details -->
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+    <div style="max-width:600px;margin:0 auto 2.8rem;text-align:center;">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.7;">
+        <!-- radial spokes -->
+        <line x1="18" y1="18" x2="18" y2="2" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="30" y2="7" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="34" y2="18" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="30" y2="29" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="18" y2="34" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="6" y2="29" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="2" y2="18" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="6" y2="7" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+        <!-- concentric rings -->
+        <path d="M18 7 L26 11 L29 18 L26 25 L18 29 L10 25 L7 18 L10 11 Z" stroke="#B06030" stroke-width="0.9" fill="none" opacity="0.8"/>
+        <path d="M18 12 L23 14.5 L25 18 L23 21.5 L18 24 L13 21.5 L11 18 L13 14.5 Z" stroke="#B06030" stroke-width="0.9" fill="none" opacity="0.8"/>
+        <circle cx="18" cy="18" r="3" stroke="#B06030" stroke-width="0.9" fill="none" opacity="0.8"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">The Main Stage.</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">Born From The Forest</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">Every year, <strong style="font-weight:600;">the main stage is built</strong> <strong style="font-weight:600;">around a creature from nature.</strong> Last year, was a <strong style="font-weight:600;">horned bird stage,</strong> before that, <strong style="font-weight:600;">the owl,</strong> before that was <strong style="font-weight:600;">the moon.</strong> <strong style="font-weight:600;">This year — the fox.</strong></p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <div id="stagesGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+        <div style="position:relative;overflow:hidden;aspect-ratio:3/2;">
+          <img src="Making of Moon/2025 Stage-2.jpg" alt="2025 Stage" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 95%;display:block;filter:none;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(25,20,6,0.75) 0%,transparent 55%);"></div>
+          <div style="position:absolute;bottom:1.8rem;left:1.8rem;">
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,1rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EDD4B2;margin:0;">Horned Bird Stage</p>
+          </div>
+        </div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:3/2;">
+          <img src="Making of Moon/2024 stage.jpg" alt="2024 Stage" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:none;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(25,20,6,0.75) 0%,transparent 55%);"></div>
+          <div style="position:absolute;bottom:1.8rem;left:1.8rem;">
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,1rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EDD4B2;margin:0;">Owl Stage</p>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;aspect-ratio:16/7;">
+        <img src="Making of Moon/2023 stage.jpg" alt="2023 Stage" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:none;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(25,20,6,0.75) 0%,transparent 55%);"></div>
+        <div style="position:absolute;bottom:1.8rem;left:1.8rem;">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,1rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EDD4B2;margin:0;">Crescent Stage</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Entry 1b: Made by Hand -->
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+    <div style="max-width:600px;margin:0 auto 2.8rem;text-align:center;">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.7;">
+        <!-- palm -->
+        <path d="M17 28 C12 28 8 24 8 19 L8 13 C8 11.9 8.9 11 10 11 C11.1 11 12 11.9 12 13 L12 18" stroke="#B06030" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <!-- fingers -->
+        <line x1="12" y1="13" x2="12" y2="7" stroke="#B06030" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="15" y1="12" x2="15" y2="6" stroke="#B06030" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="18" y1="12" x2="18" y2="6.5" stroke="#B06030" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="21" y1="13" x2="21" y2="8" stroke="#B06030" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- thumb -->
+        <path d="M8 16 C6 15 5 13 6 11 C7 9.5 9 9.5 10 11" stroke="#B06030" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <!-- wrist -->
+        <path d="M8 19 L8 22 C8 25 12 28 17 28 C22 28 26 25 26 22 L26 14 C26 12.9 25.1 12 24 12 C22.9 12 22 12.9 22 14 L22 18" stroke="#B06030" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Made by Hand.</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">The Craft</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">Everything you see at Moon passed through someone's hands. Stages, installations, the entrance arch, the signages, the little touches at each shala entrance — made over months.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+      <img src="Making of Moon/_DSC2008.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+      <img src="Making of Moon/_DSC2109.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+      <img src="Making of Moon/_DSC2090-2.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+      <img src="Making of Moon/_DSC2159.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+    </div>
+    <div style="overflow:hidden;margin-top:3px;aspect-ratio:15/8;"><img src="Making of Moon/14.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;filter:brightness(0.88);" /></div>
+  </div>
+
+  <!-- Dressing the Forest -->
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+    <div style="max-width:600px;margin:0 auto 2.8rem;text-align:center;">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.7;">
+        <!-- string line -->
+        <path d="M2 20 Q9 16 18 20 Q27 24 34 20" stroke="#B06030" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <!-- bulbs hanging down -->
+        <line x1="7" y1="18" x2="7" y2="22" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+        <ellipse cx="7" cy="25" rx="2.5" ry="3" fill="#B06030" opacity="0.9"/>
+        <line x1="7" y1="22" x2="7" y2="22.5" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <line x1="15" y1="20" x2="15" y2="24" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+        <ellipse cx="15" cy="27" rx="2.5" ry="3" fill="#B06030" opacity="0.9"/>
+        <line x1="15" y1="24" x2="15" y2="24.5" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <line x1="23" y1="21" x2="23" y2="25" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/>
+        <ellipse cx="23" cy="28" rx="2.5" ry="3" fill="#B06030" opacity="0.9"/>
+        <line x1="23" y1="25" x2="23" y2="25.5" stroke="#B06030" stroke-width="2" stroke-linecap="round"/>
+        <!-- sparkles -->
+        <line x1="7" y1="10" x2="7" y2="14" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        <line x1="5" y1="12" x2="9" y2="12" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        <line x1="18" y1="6" x2="18" y2="9" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <line x1="16.5" y1="7.5" x2="19.5" y2="7.5" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <line x1="29" y1="10" x2="29" y2="14" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        <line x1="27" y1="12" x2="31" y2="12" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">When the Sun Goes Down.</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">The Moon Lights Up</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">The forest at night looks like magic.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <img src="Making of Moon/_DSC2031.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+        <img src="Making of Moon/_DSC2040.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+        <img src="Making of Moon/_DSC2050.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;filter:brightness(0.88);" />
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Entry 7 -->
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+    <div style="max-width:600px;margin:0 auto;text-align:center;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.7;">
+        <path d="M20 6 A12 12 0 1 0 20 26 A8 8 0 1 1 20 6 Z" fill="#B06030"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">The Night Before.</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">Almost Ready</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 1rem;">The night before Moon opens, <strong style="font-weight:600;">the main stage comes alive. Lights are tested, sound is checked,</strong> and the stage that will hold music, movement, and fire for three nights is finally ready.</p>
+    </div>
+  </div>
+
+  <!-- Entry 8 — two images -->
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:clamp(4rem,7vw,6rem) var(--pad) 0;">
+    <img src="Making of Moon/_DSC2198.jpg" alt="" loading="lazy" style="width:100%;height:auto;display:block;filter:brightness(0.88);" />
+  </div>
+
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  nav.classList.add('scrolled');
+
+  const toggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('navDrawer');
+
+  toggle.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    drawer.setAttribute('aria-hidden', true);
+    document.body.style.overflow = '';
+  }));
+
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>

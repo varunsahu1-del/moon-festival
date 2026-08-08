@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facilitators — Moon Festival 2026</title>
+  <meta name="description" content="Meet the facilitators of Moon Festival 2026 — yoga, dance, music, healing, art and more. 27–30 November · South Goa, India." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal; font-style: normal;
+    }
+
+    /* ── SECTIONS ──────────────────────────────────────── */
+    .fac-section { background: var(--ink); padding: var(--s-12) 0 var(--s-4); text-align: center; }
+    .fac-section .container { display: flex; flex-direction: column; align-items: center; }
+    .fac-section + .fac-section { padding-top: var(--s-6); }
+
+    .fac-category-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #EDD4B2;
+      text-transform: uppercase;
+      margin: 0 0 0.5rem;
+      text-align: center;
+    }
+    .fac-category-count {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.75);
+      margin: 0 0 1.1rem;
+      text-align: center;
+    }
+    .fac-category-rule {
+      width: clamp(2.5rem, 6vw, 4rem);
+      height: 0.5px;
+      background: rgba(237,212,178,0.25);
+      margin: 0 auto 0.5rem;
+    }
+
+    /* ── CATEGORY ICONS ───────────────────────────────── */
+    .cat-icon {
+      width: clamp(2rem, 3.5vw, 2.8rem);
+      height: clamp(2rem, 3.5vw, 2.8rem);
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 0.15em;
+    }
+    .fac-category-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6em;
+    }
+
+    @keyframes iconSpin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1);    opacity: 1; }
+      50%       { transform: scale(1.12); opacity: 0.75; }
+    }
+    @keyframes iconSway {
+      0%, 100% { transform: rotate(-8deg); }
+      50%       { transform: rotate(8deg); }
+    }
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      40%       { transform: translateY(-4px); }
+      60%       { transform: translateY(-2px); }
+    }
+    @keyframes iconBreath {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.08); }
+    }
+    @keyframes iconFlicker {
+      0%, 90%, 100% { opacity: 1; }
+      95%            { opacity: 0.4; }
+    }
+
+    .cat-icon-yoga  { animation: iconBreath 4s ease-in-out infinite; }
+    .cat-icon-dance { animation: iconSway   3.5s ease-in-out infinite; }
+    .cat-icon-music { animation: iconPulse  3s   ease-in-out infinite; }
+    .cat-icon-art   { animation: iconSpin   12s  linear infinite; }
+    .cat-icon-bands { animation: iconBounce 1.6s ease-in-out infinite; }
+    .cat-icon-talks { animation: iconFlicker 5s  ease-in-out infinite; }
+
+    .fac-divider {
+      width: 3rem; height: 0.5px;
+      background: rgba(237,212,178,0.1);
+      margin: var(--s-10) auto 0;
+    }
+
+    /* ── FACILITATOR TILE GRID ─────────────────────────── */
+    .fac-thumb-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3px;
+      width: 100%;
+    }
+    .fac-thumb-card {
+      width: calc(25% - 3px);
+    }
+    @media (max-width: 700px) {
+      .fac-thumb-card { width: calc(33.33% - 2px); }
+      .fac-thumb-info { padding: 0.8rem 0.5rem 0.6rem; }
+      .fac-thumb-name { font-size: 0.5rem; letter-spacing: 0.12em; }
+      .fac-thumb-role { font-size: 0.65rem; letter-spacing: 0.06em; }
+      .fac-thumb-more { font-size: 0.5rem; letter-spacing: 0.14em; }
+    }
+    @media (max-width: 480px) {
+      .fac-thumb-card { width: calc(50% - 2px); }
+      .fac-thumb-info { padding: 0.8rem 0.5rem 0.6rem; }
+      .fac-thumb-name { font-size: 0.6rem; letter-spacing: 0.12em; }
+      .fac-thumb-role { font-size: 0.7rem; letter-spacing: 0.06em; }
+      .fac-thumb-more { font-size: 0.55rem; letter-spacing: 0.14em; }
+    }
+
+    .fac-thumb-card {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .fac-thumb-img {
+      position: absolute;
+      inset: 0;
+    }
+    .fac-thumb-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+    .fac-thumb-card:hover .fac-thumb-img img {
+      transform: scale(1.05);
+    }
+
+    .fac-thumb-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,7,2,0.88) 0%, rgba(10,7,2,0.35) 50%, transparent 100%);
+    }
+
+    .fac-thumb-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.4rem 1.2rem 1.1rem;
+    }
+
+    .fac-thumb-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.65);
+      margin: 0 0 0.25rem;
+      /* hide name — re-enable when 2026 facilitators are ready */
+      display: none;
+    }
+
+    .fac-thumb-role {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1rem, 1.6vw, 1.3rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0 0 0.55rem;
+      line-height: 1.2;
+    }
+
+    .fac-thumb-more {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B06030;
+      transition: letter-spacing 0.3s;
+    }
+    .fac-thumb-card:hover .fac-thumb-more {
+      letter-spacing: 0.3em;
+    }
+
+    /* ── POPUP MODAL ───────────────────────────────────── */
+    .fac-modal-backdrop {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(8,7,5,0.88);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .fac-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .fac-modal {
+      background: var(--ink);
+      border: 0.5px solid rgba(237,212,178,0.12);
+      max-width: 860px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 42% 1fr;
+      transform: translateY(28px) scale(0.97);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .fac-modal-backdrop.open .fac-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .fac-modal-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .fac-modal-img img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+    }
+    .fac-modal-img-tint {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--ink) 100%);
+    }
+
+    .fac-modal-body {
+      padding: 2.5rem 2rem 2rem 1.8rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .fac-modal-role {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .fac-modal-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.78rem, 1.2vw, 0.9rem);
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.6);
+      margin: 0;
+    }
+    .fac-modal-divider {
+      width: 3rem; height: 0.5px;
+      background: rgba(237,212,178,0.35);
+      margin: 0.4rem 0;
+    }
+    .fac-modal-desc {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.82rem, 1.2vw, 0.9rem);
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(237,212,178,0.82);
+      margin: 0;
+      flex: 1;
+    }
+    .fac-modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: none; border: none;
+      color: rgba(237,212,178,0.5);
+      cursor: pointer;
+      padding: 0.3rem;
+      transition: color 0.2s;
+      font-size: 1.2rem;
+      line-height: 1;
+      z-index: 10;
+    }
+    .fac-modal-close:hover { color: #EDD4B2; }
+
+    @media (max-width: 640px) {
+      .fac-modal { grid-template-columns: 1fr; grid-template-rows: 260px 1fr; max-height: 92vh; }
+      .fac-modal-img { height: 260px; }
+      .fac-modal-body { padding: 1.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+      <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
+  <h1 class="schedule-hero-title" style="font-family: 'Josefin Sans', sans-serif; font-weight: 700; letter-spacing: 0.22em; color: #EDD4B2;">Facilitators</h1>
+  <p class="schedule-hero-sub">Moonbeings From Across This Galaxy</p>
+</div>
+
+<!-- ── CARD SECTIONS (rendered by JS) ──────────────────── -->
+<div id="facSections" style="background: var(--ink);"></div>
+
+
+
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+</div>
+
+<!-- ── POPUP MODAL ───────────────────────────────────────── -->
+<div class="fac-modal-backdrop" id="facModal" role="dialog" aria-modal="true">
+  <div class="fac-modal" id="facModalInner">
+    <button class="fac-modal-close" id="facModalClose" aria-label="Close">✕</button>
+    <div class="fac-modal-img">
+      <img id="facModalImg" src="" alt="" />
+      <div class="fac-modal-img-tint"></div>
+    </div>
+    <div class="fac-modal-body">
+      <p class="fac-modal-role" id="facModalRole"></p>
+      <p class="fac-modal-name" id="facModalName"></p>
+      <div class="fac-modal-divider"></div>
+      <p class="fac-modal-desc" id="facModalDesc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- shared placeholder svg -->
+<svg style="display:none"><symbol id="ph" viewBox="0 0 60 60"><circle cx="30" cy="22" r="10" stroke="#EDD4B2" stroke-width="1.2" fill="none"/><path d="M10 56 C10 42 50 42 50 56" stroke="#EDD4B2" stroke-width="1.2" fill="none" stroke-linecap="round"/></symbol></svg>
+
+<script>
+const FAC = [
+  {
+    category: 'yoga', name: 'Varun', role: 'Yoga & Meditation',
+    img: 'Facilitator Photos/varun 2.jpg', pos: '50% 30%', city: 'Mumbai',
+    desc: 'These yoga sessions with Varun will be a meditative experience of asanas with synchronisation of movement and breath. We will practice powerful pranayama together to energise and calm the body and mind, while awakening the senses and improving focus and concentration. In the past 10 years, Varun has been teaching yoga across India, China, France, Spain, Singapore, Bali & Vietnam. In 2019 Varun started the concept of Yoga Adventures, taking students deep into the jungles of India for meditation adventures.'
+  },
+  {
+    category: 'yoga', name: 'Pooja', role: 'Mat Pilates',
+    city: 'Goa',
+    img: 'Facilitator Photos/pooja 2.jpg', pos: '50% 40%',
+    desc: 'Pilates pro, coffee lover and all round mover — Pooja is a certified pilates instructor passionate about mindful movement, strength and creating a feel-good energy in all her sessions. Come thru for a mix of power, play & balance — Goa style! The mat Pilates class will be a blend of playful energy & powerful movement, using light props, music and a whole lot of good vibes. Think of a slow burn stemming from your core. Come flow, laugh & strengthen.'
+  },
+  {
+    category: 'yoga', name: 'Ankur', role: 'Conscious Breathing',
+    city: 'Mumbai',
+    img: 'Facilitator Photos/ankur 3.jpg', pos: '50% 25%',
+    desc: 'Ankur left the bustling city life and traveled across India to uncover the transformative power of breathwork. Today, he has co-founded a conscious community and provides his expertise to BreathSphere, dedicating his journey to empowering others with the art of conscious breathwork. Breathing consciously is a way of experiencing being present, through specific guided breathing techniques that increase the flow of energy inside us and expand consciousness.'
+  },
+  {
+    category: 'yoga', name: 'Shifali', role: 'Mudgar Abhyas',
+    city: 'Goa',
+    img: 'Facilitator Photos/shifali.png', pos: '50% 20%',
+    desc: 'Shifali is a devoted Mudgar practitioner and an instructor now leading classes in the North Goa region. The traditional club is the heart of her daily practice and she is thrilled to share this journey with you. This workshop is your introduction to the art of mudgar swinging — we will focus on mastering foundational movements and learning to use the club safely and effectively. It is an opportunity to discover the importance of full-range motion and intentional movement.'
+  },
+  {
+    category: 'yoga', name: 'Hinoki', role: 'Tai Chi & Qi Gong',
+    city: 'Goa',
+    img: 'Facilitator Photos/hinoki 2.jpg', pos: '50% 35%',
+    desc: 'Hinoki — Founder of Hinoki Dojo Institute of Qigong / Taichi / Self Healing, Akash — Teacher of Hinoki Dojo, Sound therapist and musician (Throat singing / Chant / Didgeridoo). Hinoki Dojo opens a sacred gate within. Breath becomes prayer, movement becomes mantra, silence becomes power. The body turns into a vessel of heaven and earth\'s embrace. A soul-path awakens — rooted, radiant, and eternal.'
+  },
+  {
+    category: 'yoga', name: 'Tre', role: 'Kalaripayattu',
+    city: 'Goa',
+    img: 'Facilitator Photos/tre 2.jpg', pos: '50% 25%',
+    desc: 'Tre is a seeker of ancient wisdom and a devotee to traditional practices such as Kalaripayattu, a 3000+ year old tradition originating in Kerala, South India. In this workshop he will cover entry level elements of lower body essentials, animal avatars and a fun flow routine. Immerse into the South Indian warrior art through drills, postures and sequences that activate the shushumna nadi. Animal inspired movements will bring out your wild side.'
+  },
+  {
+    category: 'yoga', name: 'Sonia', role: 'Aerial Yoga',
+    city: 'Mumbai',
+    img: 'Facilitator Photos/sonia 3.jpg', pos: '50% 25%',
+    desc: 'Sonia Jain is a prolific and accomplished yogi with more than 15 years of experience, who believes in one key ingredient to a healthy, long life — movement. She is a certified yoga instructor and a trained contemporary dancer. This class invites you to move beyond form and perfection, and instead connect deeply with your body through mindful exploration. Together, we\'ll tap into awareness, softness, and strength — discovering movement as a journey of self-expression and inner connection.'
+  },
+  {
+    category: 'dance', name: 'Dhanisa', role: 'Bollywood Bliss',
+    city: 'Goa',
+    img: 'Facilitator Photos/dhanisa.jpg', pos: '50% 30%',
+    desc: 'Dhanisa has a profound love for dance that defies all constraints! As a choreographer, dance artist, yoga teacher and aspiring environmental advocate, she channels her experience in movement throughout North Goa. She is highly influenced by the 90\'s and 2000\'s along with some new age Bollywood surprises. This workshop aims to make you shimmy and sweat, laugh and jump. Expect LATKAS, JHATKAS and lots of THUMKAS. So come on, let\'s unleash those Madhuris, Katrinas, Shahrukhs and Ranveers.'
+  },
+  {
+    category: 'dance', name: 'Folking Desi', role: 'Bhangra',
+    city: 'Delhi',
+    img: 'Facilitator Photos/folking desi 2.jpg', pos: '50% 35%',
+    desc: 'Bhangra is a fun-filled, high energy dance workshop of popular Punjabi folk dance. Folking Desi is a Bhangra crew from Delhi where they have their own studio space. They also teach and perform all over the country.'
+  },
+  {
+    category: 'dance', name: 'Aakriti', role: 'Belly Dance',
+    city: 'Goa',
+    img: 'Facilitator Photos/aakriti 2.jpg', pos: '50% 25%',
+    desc: 'Aakriti Gandhi is an Egyptian Oriental and Fusion Dancer. She is passionate about spreading the joy of dancing and inspires people to move. Her approach and vision involve elements and concept-based therapeutic movement practices and improvisation tools. Belly dancing is a very empowering and liberating practice — the Raqs flow design focuses on every individual\'s unique rhythm and expression.'
+  },
+  {
+    category: 'dance', name: 'Mruga', role: 'Kathak',
+    city: 'Mumbai',
+    img: 'Facilitator Photos/mruga 3.jpg', pos: '50% 25%',
+    desc: 'Mruga is a Kathak dance teacher, performer and movement practitioner hailing from a family of dance gurus. She has bagged the internationally acclaimed ALLEYNE dance mentorship programme — UK, and has performed nationally and internationally at TEDx, Natarani, ISKCON, and Embassies of India in Armenia and South Africa. Kathak Jam is all about jamming Kathak vocabulary to world music and expanding the boundaries.'
+  },
+  {
+    category: 'dance', name: 'Alice', role: 'Clownery',
+    city: 'Goa',
+    img: 'Facilitator Photos/alice 2.jpg', pos: '50% 25%',
+    desc: 'Alice is an Italian girl with strong training in dance and juggling. She approached the world of clownery to deepen her work on stage presence and bodily expression. Open to all levels — a lesson to explore, through group play, the uniqueness of one\'s character. We will move between emotions, improvisations and listening to the body, to discover how it transforms and responds when it is crossed by what we feel.'
+  },
+  {
+    category: 'dance', name: 'Maya', role: 'Bachata',
+    city: 'Goa',
+    img: 'Facilitator Photos/maya 5].jpg', pos: '50% 30%',
+    desc: 'Maya is a Latin dance instructor, flow artist and movement practitioner. She will be conducting a fun Bachata workshop to fill your soul with passion and joy. Bachata is a romantic, sensual dance that involves close body contact and fluid hip movements. This workshop is designed for absolute beginners to advanced beginners — covering essential techniques, rhythm, basic partner work and stylish solo moves.'
+  },
+  {
+    category: 'dance', name: 'Kaprila', role: 'Contact Improvisation',
+    city: 'Goa',
+    img: 'Facilitator Photos/kaprila.jpg', pos: '50% 25%',
+    desc: 'A multi disciplinary artist, Kaprila is a movement artist, yoga practitioner and a singer. Her background in contact improvisation is almost 8 years old — mix that with somatic and body enquiry and she aims to share what the body already knows through intuition, curiosity and a lot of play. In this workshop we will dive deep into the inquiry of the body, tapping into our most intuitive self through physics and our ability to listen.'
+  },
+  {
+    category: 'music', name: 'Anoushaw', role: 'Sufi & Classical Singing',
+    city: 'Pune',
+    img: 'Facilitator Photos/anoushaw 2.jpg', pos: '50% 25%',
+    desc: 'Anusha is a singer of Indian-Iranian origin whose voice bridges worlds and traditions. Rooted in the depth of Hindustani classical music, she weaves timeless melodies with contemporary soul. Through her music, Anusha creates a soundscape that is both personal and universal. Learn the basics of Hindustani Classical — exercises, Raags & practical application in music.'
+  },
+  {
+    category: 'music', name: 'Varun, Ankit & Prateek', role: 'Trippy Yoga Nidra',
+    city: 'Goa',
+    img: 'Facilitator Photos/Trippy yoga nidra.jpg', pos: '20% 25%',
+    desc: 'Life is busy. Take a deep, loving breath with us in a grounding Yoga Nidra, guided by Varun\'s heart-centred meditation, alongside the soothing tones of Ankit\'s flute, soft vocals and acupuncture for harmony and deep rest.'
+  },
+  {
+    category: 'music', name: 'Anoop & Revati', role: 'Gunehr Sound Journey',
+    city: 'Himachal',
+    img: 'Facilitator Photos/gunehr 3.jpg', pos: '50% 30%',
+    desc: 'Anoop & Revati collect sounds from indigenous tribes and forests of Himachal and perform those live with spoken and Indian classical fusion. A lying down listening session in the space — live soundscape samples from Himachal, tribal wisdom and Indian classical vocals transporting you to a forest in Himachal.'
+  },
+  {
+    category: 'music', name: 'Ananda Flow', role: 'Kirtan',
+    city: 'London',
+    img: 'Facilitator Photos/ananda flow 2.jpg', pos: '50% 25%',
+    desc: 'Ananda Flow is a duo from London playing traditional and digital instruments, sharing mantras and sacred songs. Their music is transcendental, relaxing and mystical. They use music as a tool to connect with deeper meaning and inner states of calm and creativity. Ananda Kirtan is an opportunity to connect with the Divine through sound, movement and voice — uplifting and joyous!'
+  },
+  {
+    category: 'music', name: 'Vicky', role: 'Soul Kirtan',
+    city: 'Rishikesh',
+    img: 'Facilitator Photos/vicky 2.jpg', pos: '50% 25%',
+    desc: 'Vicky Sarkar is a kirtan musician and Hatha yoga teacher from India. With his band Gouranga\'s, he has shared devotional music across the Himalayas and Europe. His kirtans are a blend of rhythm, love, and mantra — inviting everyone to sing, connect, and celebrate together. The session will be a soulful journey of mantra, rhythm, and togetherness. Expect an uplifting space where our voices unite and joy flows freely.'
+  },
+  {
+    category: 'music', name: 'Ankit', role: 'Flute Meditation',
+    img: 'Facilitator Photos/ankit 2.jpg', pos: '50% 25%',
+    desc: ''
+  },
+  {
+    category: 'art', name: 'Mukki', role: 'Pan & Paint',
+    city: 'Goa',
+    img: 'Facilitator Photos/mukki.jpg', pos: '50% 30%',
+    desc: 'Mukki curates performances and experiences that blend diverse artistic styles. This class is a collective art experience where participants paint their emotions on a shared canvas, while immersed in the live, shifting moods of the handpan. Prepare for an unforgettable experience where art and music merge in the most unexpected and magical ways. Mukki was born in Delhi, spent 20 years as a creative director, and now runs Vairaagi — a collective supporting nomadic artists in South Goa.'
+  },
+  {
+    category: 'art', name: 'Shreya', role: 'Cyanotype & Tote Bag Printing',
+    city: 'Goa',
+    img: 'Facilitator Photos/shreya 3.jpg', pos: '50% 25%',
+    desc: 'Cyanotype: Create your own indigo masterpiece using sunlight and nature\'s patterns. Tote Bag Printing: Express your individuality through colours and brushstrokes as you paint your own wearable art piece. Body Art Movement: Experience freedom and flow as art meets movement through mindful body gestures and paint. Shreya is an art therapist and founder of Therapeutic — bringing creativity, colour and connection to life.'
+  },
+  {
+    category: 'bands', name: 'Chris Fitchew', role: 'Joy Alchemist',
+    img: 'Facilitator Photos/chris 2.jpg', pos: '50% 25%',
+    desc: ''
+  },
+  {
+    category: 'bands', name: 'Annida', role: 'Ecstatic Ceremony',
+    img: 'Facilitator Photos/annida 3.jpg', pos: '50% 25%',
+    desc: ''
+  },
+  {
+    category: 'bands', name: 'Bageecha', role: 'Hindi Film Retro Band',
+    img: 'Facilitator Photos/bageecha.jpg', pos: '50% 25%',
+    desc: ''
+  },
+  {
+    category: 'bands', name: 'Martin', role: 'Cacao & Ecstatic Ceremony',
+    city: 'Goa',
+    img: 'Facilitator Photos/martin 2.jpg', pos: '50% 25%',
+    desc: 'Martin Dubois — M\'dub — multi-instrumentalist, offers a journey through sounds and emotions: Percussions, Hand-Pan, Kora (African Harp), Vocals, Mongolian Throat Singing, Flutes, Drums and Human Beat Effects! He has followed the path of a musician\'s life through jazz, African music, funk, rock, reggae and world music. Martin offers you to discover the basic techniques to penetrate the universe of Mongolian throat singing — an "Overtone massage" for your voice, body & mind.'
+  },
+  {
+    category: 'music', name: 'Aditya', role: 'Drum Circle & Afro Jam',
+    city: 'Mumbai',
+    img: 'Facilitator Photos/aditya 2.jpg', pos: '50% 40%',
+    desc: 'Aditya Prabhu is a dedicated Djembe enthusiast, trained for the past four years under renowned West African master Babara Bangoura. With over 500 community drum circles and 300 corporate sessions facilitated in the last three years, Aditya specializes in therapeutic rhythm. This is an immersive group drumming session designed to foster connection, mindfulness, and inner balance through synchronized rhythms.'
+  },
+  {
+    category: 'talks', name: 'Dr. Kanchan', role: 'Ayurveda',
+    city: 'Mumbai',
+    img: 'Facilitator Photos/Kanchan 2.jpg', pos: '50% 25%',
+    desc: 'Dr. Kanchan — MD Ayurveda — is extremely passionate about the science of Ayurveda and helping people heal and understand themselves better. She has two talks: "Overuse of senses and Illness" — understanding the panchamahabhoot as a gateway to the mind and the imbalance caused by misuse; and "Ayurveda for Women\'s Health" — how Ayurveda views women, various health issues and their care at different stages of life.'
+  },
+  {
+    category: 'talks', name: 'Varun', role: 'Meditation & the Mind',
+    city: 'Mumbai',
+    img: 'Facilitator Photos/varun 2.jpg', pos: '50% 30%',
+    desc: 'An exploration of meditation from first principles — what is the mind, where does thought come from, and how do ancient practices map to modern understanding. A grounded, curious conversation open to all levels, inviting you to see your own experience in a new light.'
+  }
+];
+
+// tribal SVG icons per category (animated via CSS)
+const CAT_ICONS = {
+  // Levitating meditator with third eye & energy rays below
+  yoga: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- aura glow rings -->
+    <circle cx="24" cy="20" r="16" stroke="#EDD4B2" stroke-width="0.5" opacity="0.12"/>
+    <circle cx="24" cy="20" r="11" stroke="#EDD4B2" stroke-width="0.5" opacity="0.18"/>
+    <!-- head -->
+    <circle cx="24" cy="9" r="4.2" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- third eye -->
+    <circle cx="24" cy="8" r="1" fill="#B06030"/>
+    <circle cx="24" cy="8" r="0.4" fill="#EDD4B2"/>
+    <!-- torso -->
+    <path d="M21 13 Q24 12.5 27 13 L26.5 20 Q24 21 21.5 20 Z" stroke="#EDD4B2" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+    <!-- arms in mudra -->
+    <path d="M21.5 14.5 Q17 15.5 14 19" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M26.5 14.5 Q31 15.5 34 19" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <!-- hands open upward -->
+    <path d="M14 19 Q13 21 15 21.5" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M34 19 Q35 21 33 21.5" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <!-- crossed legs floating -->
+    <path d="M21.5 20 Q19 23 14 24 Q16 26 21 25" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M26.5 20 Q29 23 34 24 Q32 26 27 25" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M21 25 Q24 26.5 27 25" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <!-- levitation energy rays below -->
+    <line x1="24" y1="29" x2="24" y2="44" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+    <line x1="20" y1="30" x2="17" y2="43" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+    <line x1="28" y1="30" x2="31" y2="43" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+    <line x1="16" y1="32" x2="11" y2="43" stroke="#B06030" stroke-width="0.6" stroke-linecap="round" opacity="0.35"/>
+    <line x1="32" y1="32" x2="37" y2="43" stroke="#B06030" stroke-width="0.6" stroke-linecap="round" opacity="0.35"/>
+    <!-- ground line -->
+    <path d="M8 45 Q24 43 40 45" stroke="#EDD4B2" stroke-width="0.6" stroke-linecap="round" opacity="0.25" stroke-dasharray="2 2"/>
+  </svg>`,
+
+  // Expressive dancer — raised arms, flowing skirt, kick
+  dance: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- flowing hair -->
+    <path d="M21 6 Q16 3 13 7 Q11 10 14 11" stroke="#EDD4B2" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <!-- head -->
+    <circle cx="24" cy="8" r="4" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- neck + torso -->
+    <path d="M24 12 L23 20" stroke="#EDD4B2" stroke-width="1.3" stroke-linecap="round"/>
+    <!-- arm raised high (left) -->
+    <path d="M22 14 Q16 10 11 6" stroke="#EDD4B2" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <!-- open hand -->
+    <path d="M11 6 Q9 5 9 7" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <!-- arm out (right) curved -->
+    <path d="M23 15 Q29 17 34 14" stroke="#EDD4B2" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <path d="M34 14 Q36 13 36 15" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <!-- flared skirt -->
+    <path d="M23 20 Q17 28 9 38" stroke="#EDD4B2" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <path d="M23 20 Q25 30 28 38" stroke="#EDD4B2" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <!-- skirt hem curve -->
+    <path d="M9 38 Q18 35 28 38" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <!-- skirt folds (tribal lines) -->
+    <path d="M23 20 Q20 29 18 36" stroke="#EDD4B2" stroke-width="0.6" stroke-linecap="round" fill="none" opacity="0.45"/>
+    <path d="M23 20 Q24 29 26 36" stroke="#EDD4B2" stroke-width="0.6" stroke-linecap="round" fill="none" opacity="0.45"/>
+    <!-- kick leg up to right -->
+    <path d="M23 20 Q30 18 37 13" stroke="#EDD4B2" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <path d="M37 13 Q39 12 38 14" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <!-- sparkle stars -->
+    <circle cx="38" cy="5" r="1.2" fill="#B06030"/>
+    <circle cx="8" cy="15" r="0.8" fill="#EDD4B2" opacity="0.5"/>
+    <circle cx="40" cy="22" r="0.7" fill="#EDD4B2" opacity="0.4"/>
+  </svg>`,
+
+  // Bansuri (flute) with floating music notes
+  music: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- flute body — diagonal tube -->
+    <path d="M6 38 Q24 24 42 10" stroke="#EDD4B2" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M6 38 Q24 24 42 10" stroke="#191406" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <!-- flute end bell -->
+    <ellipse cx="7.5" cy="37" rx="2.5" ry="1.5" stroke="#EDD4B2" stroke-width="1" fill="none" transform="rotate(-40 7.5 37)"/>
+    <!-- finger holes along flute -->
+    <circle cx="16" cy="32" r="1.3" stroke="#EDD4B2" stroke-width="0.9" fill="#191406"/>
+    <circle cx="20.5" cy="28.5" r="1.3" stroke="#EDD4B2" stroke-width="0.9" fill="#191406"/>
+    <circle cx="25" cy="25" r="1.3" stroke="#EDD4B2" stroke-width="0.9" fill="#191406"/>
+    <circle cx="29.5" cy="21.5" r="1.3" stroke="#EDD4B2" stroke-width="0.9" fill="#191406"/>
+    <circle cx="34" cy="18" r="1.3" stroke="#EDD4B2" stroke-width="0.9" fill="#191406"/>
+    <!-- musical notes floating -->
+    <text x="30" y="10" font-size="9" fill="#EDD4B2" opacity="0.8" font-family="serif">♩</text>
+    <text x="38" y="20" font-size="7" fill="#B06030" opacity="0.8" font-family="serif">♪</text>
+    <text x="20" y="8" font-size="7" fill="#EDD4B2" opacity="0.5" font-family="serif">♫</text>
+  </svg>`,
+
+  // Paintbrush making a mandala spiral
+  art: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- brush handle -->
+    <path d="M36 4 L14 36" stroke="#EDD4B2" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- ferrule (metal band) -->
+    <path d="M18 31 Q16 34 14 36" stroke="#EDD4B2" stroke-width="3.2" stroke-linecap="round"/>
+    <!-- bristles -->
+    <path d="M14 36 Q11 40 10 44" stroke="#B06030" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M14 36 Q12 41 13 45" stroke="#EDD4B2" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+    <!-- paint stroke spiral coming from brush tip -->
+    <path d="M10 44 Q7 38 14 33 Q22 27 26 33 Q30 39 24 42 Q18 45 16 40" stroke="#B06030" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.7"/>
+    <!-- decorative dots from the stroke -->
+    <circle cx="30" cy="12" r="1.5" fill="#B06030" opacity="0.6"/>
+    <circle cx="36" cy="20" r="1" fill="#EDD4B2" opacity="0.4"/>
+    <circle cx="38" cy="10" r="0.8" fill="#B06030" opacity="0.5"/>
+    <!-- small triangle marks (tribal) -->
+    <path d="M32 28 L35 23 L38 28 Z" stroke="#EDD4B2" stroke-width="0.7" fill="none" opacity="0.4"/>
+  </svg>`,
+
+  // Acoustic guitar — tribal style
+  bands: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- guitar neck -->
+    <path d="M22 3 L22 21" stroke="#EDD4B2" stroke-width="2.8" stroke-linecap="round"/>
+    <!-- headstock -->
+    <path d="M19.5 3 Q19.5 1 22 1 Q24.5 1 24.5 3" stroke="#EDD4B2" stroke-width="1.2" fill="none"/>
+    <!-- frets -->
+    <line x1="20.5" y1="8"  x2="23.5" y2="8"  stroke="#191406" stroke-width="1.2"/>
+    <line x1="20.5" y1="12" x2="23.5" y2="12" stroke="#191406" stroke-width="1.2"/>
+    <line x1="20.5" y1="16" x2="23.5" y2="16" stroke="#191406" stroke-width="1.2"/>
+    <!-- nut -->
+    <line x1="20.5" y1="4.5" x2="23.5" y2="4.5" stroke="#EDD4B2" stroke-width="1"/>
+    <!-- upper bout -->
+    <path d="M16 21 Q10 21 10 28 Q10 33 14 34" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <path d="M28 21 Q38 21 38 28 Q38 33 34 34" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- waist -->
+    <path d="M14 34 Q12 36 14 39" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <path d="M34 34 Q36 36 34 39" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- lower bout -->
+    <path d="M14 39 Q10 40 10 44 Q10 47 22 47 Q34 47 38 44 Q38 40 34 39" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- bridge -->
+    <path d="M17 43 L31 43" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round"/>
+    <!-- sound hole -->
+    <circle cx="24" cy="35" r="4.5" stroke="#EDD4B2" stroke-width="1.1" fill="none"/>
+    <!-- tribal detail in hole -->
+    <circle cx="24" cy="35" r="1.8" stroke="#B06030" stroke-width="0.8" fill="none"/>
+    <circle cx="24" cy="35" r="0.7" fill="#B06030"/>
+    <!-- strings (subtle) -->
+    <line x1="21" y1="20" x2="21" y2="43" stroke="#EDD4B2" stroke-width="0.4" opacity="0.35"/>
+    <line x1="22.5" y1="20" x2="22.5" y2="43" stroke="#EDD4B2" stroke-width="0.4" opacity="0.35"/>
+    <line x1="24" y1="20" x2="24" y2="43" stroke="#EDD4B2" stroke-width="0.4" opacity="0.35"/>
+    <line x1="25.5" y1="20" x2="25.5" y2="43" stroke="#EDD4B2" stroke-width="0.4" opacity="0.35"/>
+  </svg>`,
+
+  // Microphone with sound waves — bold & clean
+  talks: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- mic capsule -->
+    <rect x="18" y="4" width="12" height="20" rx="6" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- tribal capsule lines -->
+    <line x1="18" y1="11" x2="30" y2="11" stroke="#EDD4B2" stroke-width="0.7" opacity="0.4"/>
+    <line x1="18" y1="15" x2="30" y2="15" stroke="#EDD4B2" stroke-width="0.7" opacity="0.4"/>
+    <line x1="18" y1="19" x2="30" y2="19" stroke="#EDD4B2" stroke-width="0.7" opacity="0.4"/>
+    <!-- dot at top of capsule (vintage style) -->
+    <circle cx="24" cy="8" r="1.5" fill="#B06030"/>
+    <!-- boom arm curve -->
+    <path d="M24 24 Q24 31 24 33" stroke="#EDD4B2" stroke-width="1.3" stroke-linecap="round"/>
+    <!-- base stand -->
+    <path d="M18 33 L30 33" stroke="#EDD4B2" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M15 38 L33 38" stroke="#EDD4B2" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M18 33 L15 38" stroke="#EDD4B2" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M30 33 L33 38" stroke="#EDD4B2" stroke-width="1.3" stroke-linecap="round"/>
+    <!-- sound waves right side -->
+    <path d="M34 10 Q38 14 34 18" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M37 7 Q43 14 37 21" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.55"/>
+    <!-- small star -->
+    <circle cx="8" cy="12" r="1.2" fill="#EDD4B2" opacity="0.4"/>
+    <circle cx="10" cy="6" r="0.8" fill="#B06030" opacity="0.6"/>
+  </svg>`
+};
+
+const CATEGORIES = [
+  { key: 'yoga',   label: 'Yoga, Movement &amp; Fitness' },
+  { key: 'dance',  label: 'Dance &amp; Play' },
+  { key: 'music',  label: 'Music, Singing &amp; Kirtan' },
+  { key: 'art',    label: 'Art' },
+  { key: 'bands',  label: 'Bands, Ceremonies &amp; Acts' },
+  { key: 'talks',  label: 'Talks' }
+];
+
+function phSVG() {
+  return `<svg width="40" height="40"><use href="#ph"/></svg>`;
+}
+
+function buildGrid() {
+  const container = document.getElementById('facSections');
+  CATEGORIES.forEach((cat, ci) => {
+    const members = FAC.filter(f => f.category === cat.key);
+    if (!members.length) return;
+    const cards = members.map((f, i) => {
+      const imgHTML = f.img
+        ? `<img src="${f.img}" alt="${f.name}" style="object-position:${f.pos};" loading="lazy" />`
+        : phSVG();
+      return `
+        <div class="fac-thumb-card reveal" data-idx="${FAC.indexOf(f)}" tabindex="0" role="button" aria-label="Learn more about ${f.name}">
+          <div class="fac-thumb-img">${imgHTML}</div>
+          <div class="fac-thumb-overlay"></div>
+          <div class="fac-thumb-info">
+            <p class="fac-thumb-name">${f.name.toUpperCase()}</p>
+            <p class="fac-thumb-role">${f.role}</p>
+            <p class="fac-thumb-more">TBA &nbsp;→</p>
+          </div>
+        </div>`;
+    }).join('');
+
+    const divider = ci < CATEGORIES.length - 1 ? '<div class="fac-divider"></div>' : '';
+    const ptop = ci === 0 ? '' : 'padding-top: var(--s-6);';
+    const pbot = ci === CATEGORIES.length - 1 ? 'padding-bottom: var(--s-16);' : '';
+    container.insertAdjacentHTML('beforeend', `
+      <section class="fac-section" style="${ptop}${pbot}">
+        <div class="container">
+          <p class="fac-category-label reveal">${cat.label}</p>
+          <p class="fac-category-count">${members.length} Facilitator${members.length !== 1 ? 's' : ''}</p>
+          <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0.8rem auto 1.4rem;"></div>
+
+          <div class="fac-thumb-grid">${cards}</div>
+          ${divider}
+        </div>
+      </section>`);
+  });
+
+  // attach click/keyboard/hover handlers
+  // modal disabled — re-enable when 2026 facilitators are ready
+  document.querySelectorAll('.fac-thumb-card').forEach(card => {
+    // card.addEventListener('click', () => openModal(parseInt(card.dataset.idx)));
+    // card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(parseInt(card.dataset.idx)); }});
+  });
+}
+
+// ── MODAL ──────────────────────────────────────────────
+const backdrop = document.getElementById('facModal');
+const modalImg = document.getElementById('facModalImg');
+const modalRole = document.getElementById('facModalRole');
+const modalName = document.getElementById('facModalName');
+const modalDesc = document.getElementById('facModalDesc');
+
+function openModal(idx) {
+  const f = FAC[idx];
+  modalImg.src = f.img || '';
+  modalImg.alt = f.name;
+  modalImg.style.objectPosition = f.pos;
+  modalRole.textContent = f.role;
+  modalName.textContent = f.name;
+  modalDesc.textContent = f.desc;
+  backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  backdrop.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('facModalClose').addEventListener('click', closeModal);
+backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── NAV ───────────────────────────────────────────────
+const navToggle = document.getElementById('navToggle');
+const navDrawer = document.getElementById('navDrawer');
+navToggle.addEventListener('click', () => {
+  const isOpen = navDrawer.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+  navDrawer.setAttribute('aria-hidden', !isOpen);
+});
+navDrawer.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navDrawer.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+    navDrawer.setAttribute('aria-hidden', true);
+  });
+});
+
+// ── REVEAL ────────────────────────────────────────────
+buildGrid();
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

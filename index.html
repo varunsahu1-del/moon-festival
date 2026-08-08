@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moon Festival 2026 — South Goa</title>
+  <meta name="description" content="Moon Festival 2026 — 3 days of yoga, dance, music, healing & art. 27–30 November · South Goa, India." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.6rem,3.5vw,2.6rem) !important; font-weight: 700 !important; letter-spacing: 0.2em !important; text-transform: uppercase !important; color: #EDD4B2 !important; line-height: 1.2 !important; }
+  </style>
+</head>
+<body>
+
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+      <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-media" id="heroSlideshow" aria-hidden="true">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-title" id="hero-heading">5 Years of Moon</h1>
+    <p id="heroStats" style="font-family: 'Josefin Sans', sans-serif; font-size: clamp(0.6rem, 1.1vw, 0.8rem); font-weight: 300; letter-spacing: 0.25em; text-transform: uppercase; color: #EDD4B2; margin: 0.2rem 0 0.8rem; animation: heroFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s both;">Yoga &nbsp;|&nbsp; Dance &nbsp;|&nbsp; Music &nbsp;|&nbsp; Arts &nbsp;|&nbsp; Healing</p>
+    <div class="hero-cta-row">
+      <a href="tickets.html" class="btn btn-primary" style="color: #fff;">Get Tickets</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
+</section>
+
+
+<div style="background:var(--ink);padding:clamp(2rem,4vw,3rem) var(--pad) 0;text-align:center;">
+  <svg width="60" height="60" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.85;">
+    <!-- sun -->
+    <circle cx="18" cy="12" r="4" stroke="#B06030" stroke-width="1.2" fill="none"/>
+    <line x1="18" y1="5" x2="18" y2="7" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+    <line x1="23.5" y1="6.5" x2="22.4" y2="7.5" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+    <line x1="25" y1="12" x2="27" y2="12" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+    <line x1="12.5" y1="6.5" x2="13.6" y2="7.5" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+    <line x1="11" y1="12" x2="9" y2="12" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
+    <!-- palm tree trunk -->
+    <path d="M18 18 Q17 24 16 30" stroke="#B06030" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <!-- palm leaves -->
+    <path d="M18 18 Q14 14 8 16" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M18 18 Q20 13 26 13" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M18 18 Q16 15 12 13" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M18 18 Q21 15 24 17" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <!-- waves -->
+    <path d="M4 31 Q7 29 10 31 Q13 33 16 31 Q19 29 22 31 Q25 33 28 31 Q31 29 34 31" stroke="#EDD4B2" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <path d="M6 34 Q9 32 12 34 Q15 36 18 34 Q21 32 24 34 Q27 36 30 34" stroke="#EDD4B2" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.35"/>
+  </svg>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">27.28.29 Nov 2026</p>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.9rem;">South Goa</p>
+  <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.25);margin:0 auto 1.6rem;"></div>
+</div>
+
+<section style="background:var(--ink);padding:0;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <!-- 5-card grid: 6-col desktop (ticket+about = 3col each, venue+participate+making = 2col each), 2-col mobile -->
+    <div id="homeCardGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:3px;">
+
+      <!-- Get Your Ticket -->
+      <a id="homeCardTicket" href="tickets.html" style="display:block;text-decoration:none;position:relative;overflow:hidden;aspect-ratio:1/1;grid-column:span 3;">
+        <img src="Home Page Images/ChatGPT Image Jul 16, 2026 at 04_50_00 AM.png" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);transition:filter 0.4s;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 55%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:clamp(1rem,2.5vw,2rem);left:clamp(1rem,2.5vw,2rem);">
+          <p class="home-card-sub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.7rem,1.1vw,0.85rem);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 0.3rem;">27–30 Nov 2026</p>
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.2rem,2.5vw,2rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;line-height:1.2;" class="home-card-title">Get Your Ticket</p>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;">Explore &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- About Moon -->
+      <a href="about.html" style="display:block;text-decoration:none;position:relative;overflow:hidden;aspect-ratio:1/1;grid-column:span 3;">
+        <img src="Making of Moon/IMG_2217-2.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;filter:brightness(0.82);transition:filter 0.4s;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 50%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:clamp(1rem,2.5vw,2rem);left:clamp(1rem,2.5vw,2rem);">
+          <p class="home-card-sub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.7rem,1.1vw,0.85rem);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 0.3rem;">Who We Are</p>
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;line-height:1.2;" class="home-card-title">About Moon</p>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;">Explore &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- Venue -->
+      <a href="venue.html" style="display:block;text-decoration:none;position:relative;overflow:hidden;aspect-ratio:1/1;grid-column:span 2;">
+        <img src="Venue Page Images/22.jpeg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);transition:filter 0.4s;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 50%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:clamp(1rem,2.5vw,2rem);left:clamp(1rem,2.5vw,2rem);">
+          <p class="home-card-sub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.7rem,1.1vw,0.85rem);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 0.3rem;">Bhakti Kutir</p>
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;line-height:1.2;" class="home-card-title">The Venue</p>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;">Explore &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- Participate -->
+      <a href="participation.html" style="display:block;text-decoration:none;position:relative;overflow:hidden;aspect-ratio:1/1;grid-column:span 2;">
+        <img src="Gallery Page Images/2025 Goa/moongoa2025-118.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);transition:filter 0.4s;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 50%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:clamp(1rem,2.5vw,2rem);left:clamp(1rem,2.5vw,2rem);">
+          <p class="home-card-sub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.7rem,1.1vw,0.85rem);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 0.3rem;">Join Moon</p>
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;line-height:1.2;" class="home-card-title">Participate</p>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;">Explore &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- Making of Moon -->
+      <a href="making-of-moon.html" style="display:block;text-decoration:none;position:relative;overflow:hidden;aspect-ratio:1/1;grid-column:span 2;">
+        <img src="Making of Moon/_DSC2139.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);transition:filter 0.4s;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,4,0.7) 0%,transparent 50%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:clamp(1rem,2.5vw,2rem);left:clamp(1rem,2.5vw,2rem);">
+          <p class="home-card-sub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.7rem,1.1vw,0.85rem);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 0.3rem;">Handmade</p>
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;line-height:1.2;" class="home-card-title">Making of Moon</p>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;">Explore &nbsp;→</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+const heroImages = [
+  'Home Page Images/1.jpg','Home Page Images/2.jpg','Home Page Images/3.jpg',
+  'Home Page Images/4.jpg','Home Page Images/5.jpg','Home Page Images/6.jpg',
+  'Home Page Images/7.jpg','Home Page Images/8.jpg','Home Page Images/9.jpg',
+  'Home Page Images/10.jpg','Home Page Images/11.jpg','Home Page Images/12.jpg',
+  'Home Page Images/13.jpg',
+];
+(function initSlideshow() {
+  const container = document.getElementById('heroSlideshow');
+  const dotsEl = document.getElementById('heroDots');
+  if (!container || !heroImages.length) return;
+  const overlay = container.querySelector('.hero-overlay');
+  const slides = heroImages.map((src, i) => {
+    const div = document.createElement('div');
+    div.className = 'hero-slide';
+    const img = document.createElement('img');
+    img.src = src; img.alt = ''; img.loading = i === 0 ? 'eager' : 'lazy';
+    div.appendChild(img); container.insertBefore(div, overlay); return div;
+  });
+  const dots = heroImages.map((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'hero-dot'; btn.setAttribute('aria-label', 'Slide ' + (i+1));
+    btn.addEventListener('click', () => goTo(i)); dotsEl.appendChild(btn); return btn;
+  });
+  let current = 0;
+  function goTo(n) {
+    slides[current].classList.remove('active'); dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active'); dots[current].classList.add('active');
+  }
+  goTo(0);
+  let timer = setInterval(() => goTo(current + 1), 3000);
+  document.addEventListener('visibilitychange', () => { clearInterval(timer); if (!document.hidden) timer = setInterval(() => goTo(current + 1), 3000); });
+})();
+
+const nav = document.getElementById('mainNav');
+const heroEl = document.querySelector('.hero');
+if (heroEl) { const o = new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', !e.isIntersecting), {threshold:0}); o.observe(heroEl); }
+else { nav.classList.add('scrolled'); }
+
+const toggle = document.getElementById('navToggle');
+const drawer = document.getElementById('navDrawer');
+toggle.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.setAttribute('aria-expanded', open);
+  drawer.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  drawer.classList.remove('open'); toggle.classList.remove('open');
+  toggle.setAttribute('aria-expanded', false); drawer.setAttribute('aria-hidden', true);
+  document.body.style.overflow = '';
+}));
+
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+<div style="background:var(--ink);padding:clamp(4rem,8vw,6rem) 0 0;"><div style="border-top:0.5px solid rgba(237,212,178,0.08);"></div></div>
+
+<!-- ── MOON IN FILM ─────────────────────────────────────── -->
+<section style="background:var(--ink);padding:clamp(2rem,4vw,3rem) var(--pad) clamp(4rem,8vw,7rem);">
+  <div style="max-width:960px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <svg width="64" height="56" viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.85;">
+        <!-- film reel top left -->
+        <circle cx="12" cy="10" r="7" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.03)"/>
+        <circle cx="12" cy="10" r="2.5" stroke="#B06030" stroke-width="0.8" fill="rgba(176,96,48,0.15)"/>
+        <line x1="12" y1="3" x2="12" y2="7" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="12" y1="13" x2="12" y2="17" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="5" y1="10" x2="9" y2="10" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="15" y1="10" x2="19" y2="10" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="7" y1="5" x2="10" y2="8" stroke="#B06030" stroke-width="0.7" opacity="0.6"/>
+        <line x1="14" y1="12" x2="17" y2="15" stroke="#B06030" stroke-width="0.7" opacity="0.6"/>
+        <line x1="17" y1="5" x2="14" y2="8" stroke="#B06030" stroke-width="0.7" opacity="0.6"/>
+        <line x1="10" y1="12" x2="7" y2="15" stroke="#B06030" stroke-width="0.7" opacity="0.6"/>
+        <!-- film reel top right -->
+        <circle cx="52" cy="10" r="7" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.03)"/>
+        <circle cx="52" cy="10" r="2.5" stroke="#B06030" stroke-width="0.8" fill="rgba(176,96,48,0.15)"/>
+        <line x1="52" y1="3" x2="52" y2="7" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="52" y1="13" x2="52" y2="17" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="45" y1="10" x2="49" y2="10" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="55" y1="10" x2="59" y2="10" stroke="#B06030" stroke-width="0.8"/>
+        <line x1="47" y1="5" x2="50" y2="8" stroke="#B06030" stroke-width="0.7" opacity="0.6"/>
+        <line x1="54" y1="12" x2="57" y2="15" stroke="#B06030" stroke-width="0.7" opacity="0.6"/>
+        <!-- camera body -->
+        <rect x="6" y="18" width="52" height="32" rx="3" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.03)"/>
+        <!-- lens -->
+        <circle cx="32" cy="34" r="10" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.03)"/>
+        <circle cx="32" cy="34" r="6" stroke="#B06030" stroke-width="0.8" fill="rgba(176,96,48,0.1)"/>
+        <circle cx="32" cy="34" r="2.5" fill="#B06030" opacity="0.3"/>
+        <!-- viewfinder -->
+        <rect x="44" y="21" width="10" height="7" rx="1" stroke="#B06030" stroke-width="0.8" fill="rgba(176,96,48,0.1)"/>
+        <!-- film strip top -->
+        <rect x="6" y="18" width="52" height="5" rx="0" fill="rgba(176,96,48,0.12)" stroke="none"/>
+        <rect x="10" y="19" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="18" y="19" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="26" y="19" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="34" y="19" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="42" y="19" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="50" y="19" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <!-- film strip bottom -->
+        <rect x="6" y="45" width="52" height="5" rx="0" fill="rgba(176,96,48,0.12)" stroke="none"/>
+        <rect x="10" y="46" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="18" y="46" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="26" y="46" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="34" y="46" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="42" y="46" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+        <rect x="50" y="46" width="4" height="3" rx="0.5" fill="rgba(176,96,48,0.4)"/>
+      </svg>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Moon in Film</p>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.9rem;">See It for Yourself</p>
+      <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.25);margin:0 auto 1.6rem;"></div>
+    </div>
+
+    <div id="homeVideoGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('ZaCmE7gsoX0')">
+          <img src="https://img.youtube.com/vi/ZaCmE7gsoX0/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Rising with Moon</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('mAAQrTNGXaI')">
+          <img src="https://img.youtube.com/vi/mAAQrTNGXaI/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Healing at Moon</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('qW4hjrnIBMM')">
+          <img src="https://img.youtube.com/vi/qW4hjrnIBMM/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Moon Full Power</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('bNedvqQI-i8')">
+          <img src="https://img.youtube.com/vi/bNedvqQI-i8/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Drums Meet Dance</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('43JK1o75cAY')">
+          <img src="https://img.youtube.com/vi/43JK1o75cAY/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Joy Alchemy</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('onC5gxSVovw')">
+          <img src="https://img.youtube.com/vi/onC5gxSVovw/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Ecstatic Ceremony</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('pICVLT1ZXNU')">
+          <img src="https://img.youtube.com/vi/pICVLT1ZXNU/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Pan & Paint</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('yDdtanL5RT4')">
+          <img src="https://img.youtube.com/vi/yDdtanL5RT4/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Lying on the Moon</p>
+      </div>
+
+      <div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;" onclick="openHomeLightbox('MKadFkOunRg')">
+          <img src="https://img.youtube.com/vi/MKadFkOunRg/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">
+            <svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg>
+          </div>
+        </div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Live Jams</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Lightbox -->
+  <div id="homeLightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;" onclick="closeHomeLightbox()">
+    <div style="width:min(90vw,1100px);position:relative;" onclick="event.stopPropagation()">
+      <iframe id="homeLightboxFrame" style="width:100%;aspect-ratio:16/9;display:block;border:none;border-radius:2px;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      <button onclick="closeHomeLightbox()" style="position:absolute;top:-2.5rem;right:0;background:none;border:none;color:rgba(237,212,178,0.7);font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">✕ Close</button>
+    </div>
+  </div>
+  <script>
+    function openHomeLightbox(id) {
+      if (!id) return;
+      const lb = document.getElementById('homeLightbox');
+      const frame = document.getElementById('homeLightboxFrame');
+      frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+      lb.style.display = 'flex';
+    }
+    function closeHomeLightbox() {
+      const lb = document.getElementById('homeLightbox');
+      const frame = document.getElementById('homeLightboxFrame');
+      frame.src = '';
+      lb.style.display = 'none';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHomeLightbox(); });
+  </script>
+</section>
+
+
+<div style="border-top:0.5px solid rgba(237,212,178,0.08);background:var(--ink);"></div>
+
+<section style="background: var(--ink); padding: clamp(3rem,6vw,5rem) 0;">
+  <style>
+    .home-gallery-header { max-width: 1200px; margin: 0 auto 1.8rem; padding: 0 var(--pad); display: flex; align-items: baseline; justify-content: space-between; }
+    .home-gallery-eyebrow { font-family:'Josefin Sans',sans-serif; font-size:clamp(0.6rem,0.9vw,0.72rem); font-weight:300; letter-spacing:0.28em; text-transform:uppercase; color:rgba(237,212,178,0.5); margin:0; }
+    .home-gallery-link { font-family:'Josefin Sans',sans-serif; font-size:clamp(0.58rem,0.85vw,0.68rem); font-weight:300; letter-spacing:0.22em; text-transform:uppercase; color:rgba(237,212,178,0.75); border-bottom:1px solid #B06030; padding:0 0 0.18em; text-decoration:none; transition:color 0.2s; }
+    .home-gallery-link:hover { color:#EDD4B2; }
+    .home-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: clamp(100px, 14vw, 180px);
+      gap: 3px;
+    }
+    .home-gallery-grid a { display: block; overflow: hidden; }
+    .home-gallery-grid a:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .home-gallery-grid a:nth-child(7) { grid-column: span 2; grid-row: span 2; }
+    .home-gallery-grid img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(0.85); transition:filter 0.4s, transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+    .home-gallery-grid a:hover img { filter:brightness(1); transform:scale(1.04); }
+    @media (max-width: 640px) {
+      #homeCardRow2 { grid-template-columns: 1fr 1fr !important; }
+      #homeCardGrid { grid-template-columns: 1fr 1fr !important; }
+      #homeCardTicket { grid-column: 1 / -1 !important; aspect-ratio: 16/7 !important; }
+      #homeCardGrid a[href="about.html"],
+      #homeCardGrid a[href="venue.html"],
+      #homeCardGrid a[href="participation.html"],
+      #homeCardGrid a[href="making-of-moon.html"] { grid-column: span 1 !important; }
+      #homeVideoGrid { grid-template-columns: 1fr 1fr !important; gap: 0.6rem !important; }
+      .home-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: clamp(110px, 40vw, 160px) !important; }
+      .home-gallery-grid a:nth-child(1),
+      .home-gallery-grid a:nth-child(7) { grid-column: span 1 !important; grid-row: span 1 !important; }
+      .stats-divider { display: none !important; }
+      #footerBottom { flex-direction: column; align-items: flex-start !important; gap: 1.2rem !important; padding: 1.6rem 0 2.4rem !important; }
+      #footerBottom > div:last-child { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; }
+    }
+  </style>
+  <div style="text-align:center;margin:0 auto 2.5rem;padding:0 var(--pad);">
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;opacity:0.85;">
+      <!-- frame -->
+      <rect x="4" y="4" width="44" height="44" rx="2" stroke="#B06030" stroke-width="1.1" fill="rgba(176,96,48,0.03)"/>
+      <!-- inner frame -->
+      <rect x="8" y="8" width="36" height="36" rx="1" stroke="#B06030" stroke-width="0.6" opacity="0.4"/>
+      <!-- sun/circle top right -->
+      <circle cx="38" cy="17" r="4.5" stroke="#B06030" stroke-width="1" fill="rgba(176,96,48,0.08)"/>
+      <!-- landscape hill left -->
+      <path d="M4 36 L16 22 L26 30 L34 20 L48 36" stroke="#B06030" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- ground fill hint -->
+      <path d="M4 36 L16 22 L26 30 L34 20 L48 36 L48 48 L4 48 Z" fill="rgba(176,96,48,0.07)" stroke="none"/>
+    </svg>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Moon 2025 · Moments</p>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.9rem;">Goa · November 2025</p>
+    <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.25);margin:0 auto 0.5rem;"></div>
+  </div>
+  <div class="home-gallery-grid">
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-42.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-1.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-10.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-11.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-100.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-101.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-102.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-103.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-104.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-105.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-106.jpg" alt="" loading="lazy"/></a>
+    <a href="gallery.html"><img src="Gallery Page Images/2025 Goa/moongoa2025-107.jpg" alt="" loading="lazy"/></a>
+  </div>
+  <div style="text-align:center;margin-top:2rem;padding:0 var(--pad);">
+    <a href="gallery.html" style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">View Gallery &nbsp;→</a>
+  </div>
+</section>
+
+
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+
+</footer>
+</body>
+</html>

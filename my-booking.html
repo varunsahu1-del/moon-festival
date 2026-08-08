@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Booking — Moon Festival 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .mb-wrap {
+      min-height: 100vh;
+      background: var(--ink);
+      padding: 7rem 1.5rem 4rem;
+    }
+    .mb-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .mb-eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 0 0 0.5rem;
+    }
+    .mb-ref {
+      font-family: monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #EDD4B2;
+      letter-spacing: 0.1em;
+      margin: 0 0 2.5rem;
+    }
+
+    /* Section */
+    .mb-section {
+      margin-bottom: 2.5rem;
+    }
+    .mb-section-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 0 0 1rem;
+    }
+
+    /* Rows */
+    .mb-row {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(237,212,178,0.1);
+    }
+    .mb-row:last-child { border-bottom: none; }
+    .mb-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.45);
+      margin: 0 0 0.25rem;
+    }
+    .mb-value {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #EDD4B2;
+      margin: 0;
+      line-height: 1.5;
+    }
+    .mb-value.mono {
+      font-family: monospace;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: #B06030;
+    }
+    .mb-value.large {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+
+    /* Guest pill */
+    .mb-guest-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 1.2rem 0 0.4rem;
+    }
+    .mb-guest-label:first-child { margin-top: 0; }
+
+    /* Addon row */
+    .mb-addon-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(237,212,178,0.1);
+    }
+    .mb-addon-row:last-child { border-bottom: none; }
+    .mb-addon-name {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #EDD4B2;
+    }
+    .mb-addon-price {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(237,212,178,0.6);
+      white-space: nowrap;
+      margin-left: 1rem;
+    }
+
+    /* Status badge */
+    .mb-status {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+    }
+    .mb-status.paid    { background: rgba(143,175,126,0.15); color: #8FAF7E; }
+    .mb-status.pending { background: rgba(237,212,178,0.1); color: rgba(237,212,178,0.6); }
+    .mb-status.upi_pending { background: rgba(241,196,15,0.12); color: #f39c12; }
+
+    /* Loading / error */
+    .mb-loading, .mb-error {
+      text-align: center;
+      padding: 5rem 0;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(237,212,178,0.45);
+    }
+    .mb-error { color: rgba(255,100,80,0.7); }
+
+    /* Divider */
+    .mb-divider {
+      height: 1px;
+      background: rgba(237,212,178,0.12);
+      margin: 2rem 0;
+    }
+
+    /* Help */
+    .mb-help {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(237,212,178,0.1);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(237,212,178,0.4);
+      line-height: 1.7;
+    }
+    .mb-help a {
+      color: #B06030;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav"></nav>
+  <div class="mb-wrap">
+    <div class="mb-inner" id="mbContent">
+      <div class="mb-loading">Loading your booking…</div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const ref = params.get('ref');
+
+    if (!ref) {
+      document.getElementById('mbContent').innerHTML =
+        '<div class="mb-error">No booking reference found in URL.</div>';
+    } else {
+      fetch('/api/bookings/lookup?ref=' + encodeURIComponent(ref))
+        .then(r => r.json())
+        .then(render)
+        .catch(() => {
+          document.getElementById('mbContent').innerHTML =
+            '<div class="mb-error">Could not load booking. Please try again or contact us.</div>';
+        });
+    }
+
+    function fmt(n) {
+      return '₹' + Number(n).toLocaleString('en-IN');
+    }
+
+    function statusLabel(s) {
+      if (s === 'paid') return '<span class="mb-status paid">Confirmed</span>';
+      if (s === 'upi_pending' || s === 'pending') return '<span class="mb-status upi_pending">Pending Confirmation</span>';
+      return '<span class="mb-status pending">' + s + '</span>';
+    }
+
+    function render(d) {
+      const arrivalDate = d.arrival_date === '26 Nov' ? '26th November 2026' : '27th November 2026';
+
+      const addonItems = d.addons
+        ? d.addons.split('|').map(a => {
+            const idx = a.indexOf(':');
+            return { price: parseInt(a.slice(0, idx), 10) || 0, name: a.slice(idx + 1).trim() };
+          }).filter(a => a.name)
+        : [];
+
+      // Guests
+      let guestsHtml = '';
+      d.guests.forEach((g, i) => {
+        if (d.guests.length > 1) {
+          guestsHtml += '<p class="mb-guest-label">Guest ' + (i + 1) + '</p>';
+        }
+        guestsHtml += '<div class="mb-row"><p class="mb-label">Name</p><p class="mb-value">' + g.full_name + '</p></div>';
+      });
+
+      // Add-ons
+      let addonsHtml = '';
+      if (addonItems.length) {
+        addonsHtml = '<div class="mb-divider"></div>'
+          + '<p class="mb-section-title">Add-ons</p>'
+          + addonItems.map(a =>
+              '<div class="mb-addon-row">'
+              + '<span class="mb-addon-name">' + a.name + '</span>'
+              + '<span class="mb-addon-price">' + fmt(a.price) + ' per person</span>'
+              + '</div>'
+            ).join('');
+      }
+
+      document.getElementById('mbContent').innerHTML =
+        '<p class="mb-eyebrow">Moon Festival 2026 · Your Booking</p>'
+        + '<p class="mb-ref">' + d.booking_ref + '</p>'
+
+        + '<div class="mb-section">'
+        + '<p class="mb-section-title">Accommodation</p>'
+        + '<div class="mb-row"><p class="mb-value large">' + d.venue + '</p><p class="mb-value" style="color:rgba(237,212,178,0.55);font-size:0.85rem;">' + d.room_type + '</p></div>'
+        + '<div class="mb-row"><p class="mb-label">Arrive</p><p class="mb-value">' + arrivalDate + '</p></div>'
+        + '<div class="mb-row"><p class="mb-label">Check-In</p><p class="mb-value">2:30 PM onwards</p></div>'
+        + '<div class="mb-row"><p class="mb-label">Check-Out</p><p class="mb-value">30th November 2026, 11:00 AM</p></div>'
+        + '</div>'
+
+        + '<div class="mb-divider"></div>'
+
+        + '<p class="mb-section-title">Guests</p>'
+        + guestsHtml
+
+        + '<div class="mb-divider"></div>'
+
+        + '<p class="mb-section-title">Payment</p>'
+        + '<div class="mb-row"><p class="mb-label">Amount Paid</p><p class="mb-value large">' + fmt(d.amount_paid) + ' <span style="font-size:0.75rem;color:rgba(237,212,178,0.45);">incl. 5% GST</span></p></div>'
+        + '<div class="mb-row"><p class="mb-label">Status</p><p class="mb-value">' + statusLabel(d.status) + '</p></div>'
+        + (d.status === 'pending' && d.payment_link_url ? '<div style="margin-top:1.5rem;"><a href="' + d.payment_link_url + '" style="display:inline-block;font-family:\'Josefin Sans\',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;background:#B06030;color:#fff;padding:14px 28px;text-decoration:none;border-radius:2px;">Complete Payment →</a><p style="margin:10px 0 0;font-family:\'Open Sans\',sans-serif;font-size:0.72rem;color:rgba(237,212,178,0.4);line-height:1.6;">Your spot is reserved. Complete payment to confirm your booking.</p></div>' : '')
+
+        + addonsHtml
+
+        + '<div class="mb-help">'
+        + 'Questions? Message us on WhatsApp — '
+        + '<a href="https://wa.me/919820791100">Varun</a> or <a href="https://wa.me/919930920313">Karan</a>, '
+        + 'or email <a href="mailto:moonyogaadventures@gmail.com">moonyogaadventures@gmail.com</a>.'
+        + '</div>';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed — Moon Festival 2026</title>
+  <meta name="description" content="Your Moon Festival 2026 booking is confirmed." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; }
+    .confirmed-page {
+      min-height: 100vh;
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .confirmed-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.4rem;
+      line-height: 1;
+    }
+    .confirmed-eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin: 0 0 0.6rem;
+    }
+    .confirmed-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0 0 0.5rem;
+      line-height: 1.1;
+    }
+    .confirmed-ref {
+      font-family: monospace;
+      font-size: 1rem;
+      color: #B06030;
+      margin: 0 0 1.6rem;
+      letter-spacing: 0.08em;
+    }
+    .confirmed-box {
+      max-width: 460px;
+      width: 100%;
+      border: 0.5px solid rgba(176,96,48,0.35);
+      background: rgba(176,96,48,0.05);
+      padding: 1.4rem 1.6rem;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .confirmed-msg {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(237,212,178,0.65);
+      margin: 0;
+    }
+    .confirmed-msg strong { color: #EDD4B2; font-weight: 600; }
+    .confirmed-status-badge {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.25em 0.8em;
+      margin-bottom: 0.9rem;
+      border-radius: 20px;
+    }
+    .badge-awaiting {
+      background: rgba(230,180,0,0.12);
+      color: #e6b800;
+      border: 0.5px solid rgba(230,180,0,0.35);
+    }
+    .badge-hold {
+      background: rgba(230,126,34,0.12);
+      color: #e67e22;
+      border: 0.5px solid rgba(230,126,34,0.35);
+    }
+    .badge-confirmed {
+      background: rgba(39,174,96,0.12);
+      color: #8FAF7E;
+      border: 0.5px solid rgba(39,174,96,0.35);
+    }
+    .confirmed-back {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B06030;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(176,96,48,0.4);
+      padding-bottom: 0.1em;
+      transition: color 0.2s;
+    }
+    .confirmed-back:hover { color: #EDD4B2; }
+  </style>
+</head>
+<body>
+<div class="confirmed-page">
+  <div class="confirmed-icon" id="confIcon">🌙</div>
+  <div class="confirmed-eyebrow">Moon Festival 2026</div>
+  <div class="confirmed-title" id="confTitle">Booking Received</div>
+  <div class="confirmed-ref" id="confRef"></div>
+
+  <div class="confirmed-box">
+    <div class="confirmed-status-badge" id="confBadge"></div>
+    <p class="confirmed-msg" id="confMsg"></p>
+  </div>
+
+  <a href="tickets.html" class="confirmed-back">← Back to Tickets</a>
+</div>
+
+<script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const ref    = params.get('ref')  || '';
+  const method = params.get('method') || 'razorpay';
+
+  if (ref) document.getElementById('confRef').textContent = ref;
+
+  const icon  = document.getElementById('confIcon');
+  const title = document.getElementById('confTitle');
+  const badge = document.getElementById('confBadge');
+  const msg   = document.getElementById('confMsg');
+
+  if (method === 'upi' || method === 'bank') {
+    icon.textContent  = '🌙';
+    title.textContent = 'Your Spot is Reserved';
+    badge.textContent = 'Payment Submitted';
+    badge.className   = 'confirmed-status-badge badge-awaiting';
+    const proofWord   = method === 'bank' ? 'transfer details' : 'payment screenshot';
+    msg.innerHTML     = `We've received your <strong>${proofWord}</strong> for booking <strong>${ref}</strong> and <strong>your spot is reserved.</strong> We'll verify and send your <strong>confirmation email within 24 hours.</strong> If there's any issue, we'll reach out on WhatsApp.<br><br><span style="color:#8aaa82;">Questions? Message us on WhatsApp — <a href="https://wa.me/919820791100" style="color:#8aaa82;">Varun</a> or <a href="https://wa.me/919930920313" style="color:#8aaa82;">Karan</a>.</span>`;
+  } else if (method === 'cash') {
+    icon.textContent  = '📱';
+    title.textContent = 'Spot Held';
+    badge.textContent = 'Cash Payment Pending';
+    badge.className   = 'confirmed-status-badge badge-hold';
+    msg.innerHTML     = `Your spot for booking <strong>${ref}</strong> is held for <strong>24 hours</strong>.<br><br>Please complete your cash payment via WhatsApp to confirm your place. Once we receive payment, you'll get a confirmation email with all the details.`;
+  } else {
+    // Razorpay — confirmed
+    icon.textContent  = '✓';
+    title.textContent = 'Booking Confirmed';
+    badge.textContent = 'Confirmed';
+    badge.className   = 'confirmed-status-badge badge-confirmed';
+    msg.innerHTML     = `Your booking <strong>${ref}</strong> is confirmed! 🎉<br><br>A confirmation email with all the details has been sent to you. We can't wait to see you at Moon Festival 2026 — 27–30 November, South Goa.`;
+  }
+})();
+</script>
+</body>
+</html>

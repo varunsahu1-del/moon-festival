@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stay — Moon Festival 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .schedule-hero-title, .gallery-hero-title, .stay-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
+  </style>
+  <style>
+    /* ── STAY HERO ────────────────────────────────────────── */
+    .stay-hero {
+      position: relative;
+      overflow: hidden;
+      height: 42vw;
+      max-height: 560px;
+      min-height: 260px;
+    }
+    .stay-hero-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 50%;
+      opacity: 0;
+      animation: galleryFadeIn 1.8s cubic-bezier(0.22,1,0.36,1) forwards,
+                 galleryKenBurns 18s ease-in-out 1.8s infinite alternate;
+    }
+    .stay-hero-content {
+      text-align: center;
+      padding: var(--s-8) 0 var(--s-6);
+      background: var(--ink);
+    }
+    .stay-hero-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      line-height: 1;
+      margin: 0 0 0.4rem;
+    }
+    .stay-hero-title::after { display: none !important; content: none !important; }
+    .stay-hero-sub {
+      font-family: var(--font-sans);
+      font-size: clamp(0.65rem, 1vw, 0.8rem);
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin-top: 0.5rem;
+      padding-bottom: 2rem;
+    }
+
+    /* ── CARD GRID ────────────────────────────────────────── */
+    .stay-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-4);
+      padding: var(--s-12) 0 var(--s-16);
+    }
+    .stay-card {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      transition: opacity 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+    .stay-card:hover { opacity: 0.85; }
+    .stay-card-img-wrap {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      position: relative;
+    }
+    .stay-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .stay-card:hover .stay-card-img { transform: scale(1.06); }
+    .stay-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(12,11,8,0.52);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .stay-card:hover .stay-card-overlay { opacity: 1; }
+    .stay-card-overlay span {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      border-bottom: 0.5px solid rgba(237,212,178,0.6);
+      padding-bottom: 0.2em;
+    }
+    .stay-card-body {
+      padding: var(--s-3) 0 var(--s-2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s-4);
+      background: transparent;
+    }
+    .stay-card-body-text { flex: 1; min-width: 0; }
+    .stay-card-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1rem, 1.8vw, 1.35rem);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0 0 0.2rem;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .stay-card-tag {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: #EDD4B2;
+      margin: 0;
+    }
+    .stay-card-btn {
+      flex-shrink: 0;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.75);
+      background: none;
+      border: none;
+      border-bottom: 1px solid #B06030;
+      padding: 0 0 0.18em;
+      cursor: pointer;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .stay-card-btn:hover { color: #EDD4B2; }
+    .stay-card-desc { display: none; }
+
+    /* ── DETAIL VIEW ──────────────────────────────────────── */
+    .stay-detail {
+      display: none;
+      background: var(--ink);
+      padding-bottom: var(--s-16);
+    }
+    .stay-detail.active { display: block; }
+
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-2);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.6);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--s-6) 0 var(--s-4);
+      transition: color 0.2s;
+    }
+    .detail-back:hover { color: #EDD4B2; }
+
+    .detail-hero-img {
+      width: 100%;
+      height: clamp(240px, 45vw, 520px);
+      object-fit: cover;
+      display: block;
+    }
+
+    .detail-body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 var(--s-6);
+    }
+
+    .detail-header {
+      padding: var(--s-8) 0 var(--s-4);
+      border-bottom: 0.5px solid rgba(237,212,178,0.15);
+      margin-bottom: var(--s-8);
+    }
+    .detail-tag {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.5);
+      margin-bottom: var(--s-2);
+    }
+    .detail-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 100;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      margin: 0;
+    }
+
+    .detail-desc {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      font-weight: 300;
+      color: rgba(237,212,178,0.8);
+      line-height: 2;
+      margin-bottom: var(--s-8);
+    }
+
+    .detail-section-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.4);
+      margin-bottom: var(--s-4);
+    }
+
+    .detail-photos {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--s-2);
+      margin-bottom: var(--s-10);
+    }
+    .detail-photos img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      opacity: 0.9;
+      transition: transform 0.35s ease, opacity 0.3s, z-index 0s;
+      position: relative;
+      z-index: 0;
+      cursor: zoom-in;
+    }
+    .detail-photos img:hover {
+      opacity: 1;
+      transform: scale(2.2);
+      z-index: 10;
+      position: relative;
+    }
+
+    .detail-amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-4) var(--s-8);
+      margin-bottom: var(--s-10);
+    }
+    .detail-amenity {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: rgba(237,212,178,0.7);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .detail-amenity::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #B06030;
+      flex-shrink: 0;
+    }
+
+    .detail-rooms {
+      border-top: 0.5px solid rgba(237,212,178,0.15);
+      margin-bottom: var(--s-8);
+    }
+    .detail-room-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s-4);
+      padding: var(--s-5) 0;
+      border-bottom: 0.5px solid rgba(237,212,178,0.1);
+      flex-wrap: wrap;
+    }
+    .detail-room-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #EDD4B2;
+      font-weight: 300;
+    }
+    .detail-room-note {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(237,212,178,0.45);
+      margin-top: 0.2rem;
+    }
+    .detail-room-price {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 100;
+      letter-spacing: 0.1em;
+      color: #EDD4B2;
+      white-space: nowrap;
+    }
+    .detail-room-price.tbd {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: rgba(237,212,178,0.4);
+    }
+    .detail-tickets-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.6rem, 0.88vw, 0.7rem);
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B06030;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(176,96,48,0.4);
+      padding-bottom: 0.15em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .detail-tickets-link:hover { color: #EDD4B2; border-color: rgba(237,212,178,0.4); }
+    .detail-room-cta {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: #EDD4B2;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .detail-room-cta:hover { opacity: 0.8; }
+    .detail-room-cta.ghost {
+      background: transparent;
+      color: rgba(237,212,178,0.6);
+      border: 0.5px solid rgba(237,212,178,0.3);
+    }
+
+    .detail-inclusions {
+      background: rgba(237,212,178,0.04);
+      border: 0.5px solid rgba(237,212,178,0.12);
+      padding: var(--s-6);
+    }
+    .detail-inclusion {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(237,212,178,0.7);
+      padding: var(--s-2) 0;
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      border-bottom: 0.5px solid rgba(237,212,178,0.08);
+      letter-spacing: 0.02em;
+    }
+    .detail-inclusion:last-child { border-bottom: none; }
+    .detail-inclusion-dot { color: #EDD4B2; font-size: 0.5rem; }
+
+    @media (max-width: 700px) {
+      .stay-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-3); }
+      .detail-photos { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .stay-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV DRAWER ─────────────────────────────────────────── -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<!-- ── NAV ────────────────────────────────────────────────── -->
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+      <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<div class="stay-hero-content schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); background: #7A3A18;">
+  <h1 class="stay-hero-title">Stay</h1>
+  <p class="stay-hero-sub">6 Accommodation Options</p>
+</div>
+
+<!-- ── GRID VIEW ──────────────────────────────────────────── -->
+<div id="stayGrid" style="background: var(--ink);">
+  <div class="container">
+    <div class="stay-grid">
+
+      <div class="stay-card" onclick="openDetail('bhakti')">
+        <div class="stay-card-img-wrap">
+          <img class="stay-card-img" src="Stay Page Images/Bhakti Kutir/2.jpeg" alt="Bhakti Kutir" />
+          <div class="stay-card-overlay"><span>See More</span></div>
+        </div>
+        <div class="stay-card-body"><div class="stay-card-body-text"><h2 class="stay-card-name">Bhakti Kutir</h2><p class="stay-card-tag">Festival Venue · On Site</p></div><button class="stay-card-btn">Details</button></div>
+      </div>
+
+      <div class="stay-card" onclick="openDetail('ourem')">
+                        <div class="stay-card-img-wrap">
+          <img class="stay-card-img" src="Stay Page Images/Ourem Palace 2/DSC02580.jpg" alt="Ourem Palace" />
+          <div class="stay-card-overlay"><span>See More</span></div>
+        </div>
+        <div class="stay-card-body"><div class="stay-card-body-text"><h2 class="stay-card-name">Ourem Palace</h2><p class="stay-card-tag">3 Mins Walk · AC · Palolem Beach</p></div><button class="stay-card-btn">Details</button></div>
+      </div>
+
+      <div class="stay-card" onclick="openDetail('destiny')">
+                        <div class="stay-card-img-wrap">
+          <img class="stay-card-img" src="Stay Page Images/Destiny/IMG_1847.jpg" alt="Destiny" />
+          <div class="stay-card-overlay"><span>See More</span></div>
+        </div>
+        <div class="stay-card-body"><div class="stay-card-body-text"><h2 class="stay-card-name">Destiny</h2><p class="stay-card-tag">1 Min Walk · AC · Private Pools</p></div><button class="stay-card-btn">Details</button></div>
+      </div>
+
+
+      <div class="stay-card" onclick="openDetail('maroon')">
+                        <div class="stay-card-img-wrap">
+          <img class="stay-card-img" src="Home Page Images/2.jpg" alt="Maroon" />
+          <div class="stay-card-overlay"><span>See More</span></div>
+        </div>
+        <div class="stay-card-body"><div class="stay-card-body-text"><h2 class="stay-card-name">Maroon</h2><p class="stay-card-tag">AC · Premium</p></div><button class="stay-card-btn">Details</button></div>
+      </div>
+
+      <div class="stay-card" onclick="openDetail('festival')">
+                        <div class="stay-card-img-wrap">
+          <img class="stay-card-img" src="Home Page Images/4.jpg" alt="Festival Only" />
+          <div class="stay-card-overlay"><span>See More</span></div>
+        </div>
+        <div class="stay-card-body"><div class="stay-card-body-text"><h2 class="stay-card-name">Festival Only</h2><p class="stay-card-tag">No Accommodation · All Access</p></div><button class="stay-card-btn">Details</button></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── DETAIL VIEW ─────────────────────────────────────────── -->
+<div id="stayDetail" class="stay-detail">
+
+  <!-- BHAKTI KUTIR -->
+  <div id="detail-bhakti" class="detail-panel" style="display:none;">
+    <img class="detail-hero-img" src="Stay Page Images/Bhakti Kutir/outside (1).jpeg" alt="Bhakti Kutir" />
+    <div class="detail-body">
+      <button class="detail-back" onclick="closeDetail()">← All Stays</button>
+      <div class="detail-header">
+        <h1 class="detail-name">Bhakti Kutir</h1>
+        <p class="detail-tag">Festival Venue · On Site · Non-AC</p>
+      </div>
+      <p class="detail-desc">Bhakti Kutir has 26 unique cabanas — no two are alike. Fashioned from local materials like rice straw and bamboo, the cabanas are built to include trees, leaves, and to let you see the moon and star-filled skies. Our shared dorms are designed to fit naturally into the tropical forest we've nurtured over the years. Each space is open and airy, with mosquito nets, personal storage, attached washrooms, and thoughtfully arranged beds that allow a little privacy while being part of community.</p>
+
+      <p class="detail-section-label">Photos</p>
+      <div class="detail-photos">
+        <img src="Stay Page Images/Bhakti Kutir/1.JPG" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/2.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/10d.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/4 u (3).jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/5porch.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/DSC00904.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/DSC06161.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/Hut 8up.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/IMG_1603.JPG" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/Number 17.jpeg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/PHOTO-2023-09-08-17-07-07 2.jpg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/PHOTO-2023-09-08-17-07-07.jpg" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/close+up+dorm+bed.jpg.webp" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/dorm+beds+8.jpg.webp" alt="Bhakti Kutir" />
+        <img src="Stay Page Images/Bhakti Kutir/outside (1).jpeg" alt="Bhakti Kutir" />
+      </div>
+
+      <p class="detail-section-label">Amenities</p>
+      <div class="detail-amenities">
+        <span class="detail-amenity">Non-AC</span>
+        <span class="detail-amenity">Mosquito Nets</span>
+        <span class="detail-amenity">Personal Storage</span>
+        <span class="detail-amenity">Attached Washrooms</span>
+        <span class="detail-amenity">Tropical Forest</span>
+        <span class="detail-amenity">Hot Water</span>
+      </div>
+
+      <p class="detail-section-label">Room Options — Per Person, All Inclusive</p>
+      <div class="detail-rooms">
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">10 Bed Mixed Dorm</div>
+            <div class="detail-room-note">Book a Bed · Shared Dorm</div>
+          </div>
+          <span class="detail-room-price">₹25,500</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">6 Bed Mixed Dorm</div>
+            <div class="detail-room-note">Book a Bed · Shared Dorm</div>
+          </div>
+          <span class="detail-room-price tbd">Pricing TBD</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">4 Bed Female Dorm</div>
+            <div class="detail-room-note">Book a Bed · Female Only</div>
+          </div>
+          <span class="detail-room-price">₹28,000</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Triple Sharing</div>
+            <div class="detail-room-note">Book a Bed · 3 Per Room</div>
+          </div>
+          <span class="detail-room-price">₹32,000</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Double Sharing</div>
+            <div class="detail-room-note">Book a Bed · 2 Per Room</div>
+          </div>
+          <span class="detail-room-price">₹36,500</span>
+        </div>
+      </div>
+      <a href="tickets.html" class="detail-tickets-link">View &amp; Book on Tickets Page →</a>
+
+      <p class="detail-section-label">What's Included</p>
+      <div class="detail-inclusions">
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Accommodation 3 Nights / 4 Days</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Access to All Festival Workshops</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> All Music, Ceremonies, Acts & Talks</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Satvic Meals — Brunch & Dinner (3 days)</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Festival Bus for the Beach Evening</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUREM PALACE -->
+  <div id="detail-ourem" class="detail-panel" style="display:none;">
+    <img class="detail-hero-img" src="Home Page Images/5.jpg" alt="Ourem Palace" />
+    <div class="detail-body">
+      <button class="detail-back" onclick="closeDetail()">← All Stays</button>
+      <div class="detail-header">
+        <p class="detail-tag">3 Mins Walk · AC · Palolem Beach</p>
+        <h1 class="detail-name">Ourem Palace</h1>
+      </div>
+      <p class="detail-desc">Semi sea-facing AC cottages located on Palolem Beach, just a 3-minute walk from the festival venue. A heritage property with old Goa character — partial beach-facing AC cottages that combine colonial charm with modern comfort.</p>
+
+      <p class="detail-section-label">Photos</p>
+      <div class="detail-photos">
+        <img src="Home Page Images/6.jpg" alt="Ourem Palace exterior" />
+        <img src="Home Page Images/7.jpg" alt="Ourem Palace cottage" />
+        <img src="Home Page Images/8.jpg" alt="Ourem Palace beach" />
+      </div>
+
+      <p class="detail-section-label">Amenities</p>
+      <div class="detail-amenities">
+        <span class="detail-amenity">AC</span>
+        <span class="detail-amenity">Sea Facing</span>
+        <span class="detail-amenity">Palolem Beach</span>
+        <span class="detail-amenity">3 Mins from Venue</span>
+        <span class="detail-amenity">Heritage Property</span>
+        <span class="detail-amenity">Private Bathroom</span>
+      </div>
+
+      <p class="detail-section-label">Room Options — Per Person, All Inclusive</p>
+      <div class="detail-rooms">
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Double Sharing</div>
+            <div class="detail-room-note">Per Person · 2 Per Room</div>
+          </div>
+          <span class="detail-room-price tbd">Pricing TBD</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Private Room</div>
+            <div class="detail-room-note">Solo Occupancy</div>
+          </div>
+          <span class="detail-room-price tbd">Pricing TBD</span>
+        </div>
+      </div>
+      <a href="tickets.html" class="detail-tickets-link">View &amp; Book on Tickets Page →</a>
+
+      <p class="detail-section-label">What's Included</p>
+      <div class="detail-inclusions">
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Accommodation 3 Nights / 4 Days</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Access to All Festival Workshops</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> All Music, Ceremonies, Acts & Talks</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Satvic Meals — Brunch & Dinner (3 days)</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Festival Bus for the Beach Evening</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESTINY -->
+  <div id="detail-destiny" class="detail-panel" style="display:none;">
+    <img class="detail-hero-img" src="Home Page Images/6.jpg" alt="Destiny" />
+    <div class="detail-body">
+      <button class="detail-back" onclick="closeDetail()">← All Stays</button>
+      <div class="detail-header">
+        <p class="detail-tag">1 Min Walk · AC · Private Pools · Colomb Beach</p>
+        <h1 class="detail-name">Destiny</h1>
+      </div>
+      <p class="detail-desc">Luxury sea-facing AC chalets with private pools on Colomb Beach. Just one minute from the festival venue — the closest off-site accommodation with the highest level of privacy and luxury. Wake up to the Arabian Sea, step into your private pool, and walk to the festival in 60 seconds.</p>
+
+      <p class="detail-section-label">Photos</p>
+      <div class="detail-photos">
+        <img src="Home Page Images/7.jpg" alt="Destiny chalet" />
+        <img src="Home Page Images/8.jpg" alt="Destiny pool" />
+        <img src="Home Page Images/1.jpg" alt="Destiny sea view" />
+      </div>
+
+      <p class="detail-section-label">Amenities</p>
+      <div class="detail-amenities">
+        <span class="detail-amenity">AC</span>
+        <span class="detail-amenity">Private Pool</span>
+        <span class="detail-amenity">Sea Facing</span>
+        <span class="detail-amenity">Colomb Beach</span>
+        <span class="detail-amenity">1 Min from Venue</span>
+        <span class="detail-amenity">Luxury Chalets</span>
+        <span class="detail-amenity">Private Bathroom</span>
+      </div>
+
+      <p class="detail-section-label">Room Options — Per Person, All Inclusive</p>
+      <div class="detail-rooms">
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Double Sharing</div>
+            <div class="detail-room-note">Per Person · 2 Per Chalet</div>
+          </div>
+          <span class="detail-room-price">₹56,500</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Private Chalet</div>
+            <div class="detail-room-note">Solo Occupancy · Full Chalet</div>
+          </div>
+          <span class="detail-room-price tbd">Pricing TBD</span>
+        </div>
+      </div>
+      <a href="tickets.html" class="detail-tickets-link">View &amp; Book on Tickets Page →</a>
+
+      <p class="detail-section-label">What's Included</p>
+      <div class="detail-inclusions">
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Accommodation 3 Nights / 4 Days</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Access to All Festival Workshops</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> All Music, Ceremonies, Acts & Talks</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Satvic Meals — Brunch & Dinner (3 days)</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Festival Bus for the Beach Evening</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MAROON -->
+  <div id="detail-maroon" class="detail-panel" style="display:none;">
+    <img class="detail-hero-img" src="Home Page Images/2.jpg" alt="Maroon" />
+    <div class="detail-body">
+      <button class="detail-back" onclick="closeDetail()">← All Stays</button>
+      <div class="detail-header">
+        <p class="detail-tag">AC · Premium</p>
+        <h1 class="detail-name">Maroon</h1>
+      </div>
+      <p class="detail-desc">Premium AC accommodation for Moon Festival 2026. A refined choice for guests seeking climate-controlled comfort alongside full festival access. Maroon offers well-appointed rooms with private bathrooms and a calm, comfortable base to return to after each day of workshops and music.</p>
+
+      <p class="detail-section-label">Photos</p>
+      <div class="detail-photos">
+        <img src="Home Page Images/4.jpg" alt="Maroon room" />
+        <img src="Home Page Images/5.jpg" alt="Maroon amenities" />
+        <img src="Home Page Images/6.jpg" alt="Maroon exterior" />
+      </div>
+
+      <p class="detail-section-label">Amenities</p>
+      <div class="detail-amenities">
+        <span class="detail-amenity">AC</span>
+        <span class="detail-amenity">Premium</span>
+        <span class="detail-amenity">Private Bathroom</span>
+        <span class="detail-amenity">Climate Controlled</span>
+      </div>
+
+      <p class="detail-section-label">Room Options — Per Person, All Inclusive</p>
+      <div class="detail-rooms">
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Double Sharing</div>
+            <div class="detail-room-note">Per Person · 2 Per Room</div>
+          </div>
+          <span class="detail-room-price tbd">Pricing TBD</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">Single Occupancy</div>
+            <div class="detail-room-note">Solo Room</div>
+          </div>
+          <span class="detail-room-price tbd">Pricing TBD</span>
+        </div>
+      </div>
+      <a href="tickets.html" class="detail-tickets-link">View &amp; Book on Tickets Page →</a>
+
+      <p class="detail-section-label">What's Included</p>
+      <div class="detail-inclusions">
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Accommodation 3 Nights / 4 Days</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Access to All Festival Workshops</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> All Music, Ceremonies, Acts & Talks</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Satvic Meals — Brunch & Dinner (3 days)</div>
+        <div class="detail-inclusion"><span class="detail-inclusion-dot">✓</span> Festival Bus for the Beach Evening</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FESTIVAL ONLY -->
+  <div id="detail-festival" class="detail-panel" style="display:none;">
+    <img class="detail-hero-img" src="Home Page Images/4.jpg" alt="Festival Only" />
+    <div class="detail-body">
+      <button class="detail-back" onclick="closeDetail()">← All Stays</button>
+      <div class="detail-header">
+        <p class="detail-tag">No Accommodation · Full Festival Access</p>
+        <h1 class="detail-name">Festival Only</h1>
+      </div>
+      <p class="detail-desc">Access to all workshops, music, ceremonies, talks, and acts. No accommodation or meals included — ideal for those staying independently nearby in South Goa. The perfect option if you already have your own stay arranged and want full immersion in the Moon Festival experience.</p>
+
+      <p class="detail-section-label">Amenities</p>
+      <div class="detail-amenities">
+        <span class="detail-amenity">All Workshop Access</span>
+        <span class="detail-amenity">All Music & Ceremonies</span>
+        <span class="detail-amenity">All Talks & Acts</span>
+        <span class="detail-amenity">No Accommodation</span>
+        <span class="detail-amenity">No Meals</span>
+      </div>
+
+      <p class="detail-section-label">Ticket Options</p>
+      <div class="detail-rooms">
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">3 Day Pass</div>
+            <div class="detail-room-note">Full Festival Access · 27–30 Nov</div>
+          </div>
+          <span class="detail-room-price">₹21,000</span>
+        </div>
+        <div class="detail-room-row">
+          <div>
+            <div class="detail-room-name">1 Day Pass</div>
+            <div class="detail-room-note">Single Day Access</div>
+          </div>
+          <span class="detail-room-price">₹7,500</span>
+        </div>
+      </div>
+      <a href="tickets.html" class="detail-tickets-link">View &amp; Book on Tickets Page →</a>
+    </div>
+  </div>
+
+</div><!-- /stayDetail -->
+
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+<script>
+  // Nav
+  const nav = document.getElementById('mainNav');
+  nav.classList.add('scrolled');
+  const toggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('navDrawer');
+  toggle.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  function openDetail(id) {
+    document.querySelector('.stay-hero-content').style.display = 'none';
+    document.getElementById('stayGrid').style.display = 'none';
+    document.getElementById('stayDetail').classList.add('active');
+    document.querySelectorAll('.detail-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('detail-' + id).style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeDetail() {
+    document.getElementById('stayDetail').classList.remove('active');
+    document.getElementById('stayGrid').style.display = 'block';
+    document.querySelector('.stay-hero-content').style.display = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

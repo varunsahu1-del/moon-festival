@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Moon Festival 2026</title>
+  <meta name="description" content="Accommodation pricing for Moon Festival 2026 — Early Bird, Phase 2, and Phase 3. 27–29 November · South Goa, India." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    /* ── PRICING TABLE ─────────────────────────────────── */
+    .pricing-wrap {
+      background: var(--ink);
+      padding: var(--s-10) 0 var(--s-16);
+    }
+
+    .pricing-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    .venue-block {
+      margin-bottom: 0;
+      border-bottom: 0.5px solid rgba(237,212,178,0.08);
+    }
+    .venue-block:last-child { border-bottom: none; }
+
+    .venue-block-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 1rem;
+      text-align: left;
+    }
+    .venue-block-toggle:hover .venue-block-label { color: #C47D52; }
+
+    .venue-block-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #B06030;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6em;
+      transition: color 0.15s;
+    }
+
+    .venue-block-note {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      color: rgba(237,212,178,0.4);
+    }
+
+    .venue-chevron {
+      flex-shrink: 0;
+      color: rgba(176,96,48,0.5);
+      transition: transform 0.25s ease;
+    }
+    .venue-block.open .venue-chevron { transform: rotate(180deg); }
+
+    .venue-block-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.32s ease;
+    }
+    .venue-block.open .venue-block-body {
+      max-height: 1200px;
+    }
+    .venue-block-body-inner {
+      padding-bottom: 20px;
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Vertical column dividers */
+    .pricing-table thead th,
+    .pricing-table td {
+      border-right: 0.5px solid rgba(176,96,48,0.13);
+    }
+    .pricing-table thead th:last-child,
+    .pricing-table td:last-child { border-right: none; }
+
+    /* Header row */
+    .pricing-table thead th {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: rgba(237,212,178,0.38);
+      padding: 12px 16px 10px;
+      text-align: right;
+      border-bottom: 0.5px solid rgba(237,212,178,0.1);
+    }
+    .pricing-table thead th:first-child { text-align: left; }
+    .pricing-table thead th.th-active {
+      color: #B06030;
+      background: rgba(176,96,48,0.07);
+    }
+
+    /* Body rows */
+    .pricing-table tbody tr {
+      border-bottom: 0.5px solid rgba(237,212,178,0.07);
+      transition: background 0.12s;
+    }
+    .pricing-table tbody tr:last-child { border-bottom: none; }
+    .pricing-table tbody tr:hover { background: rgba(176,96,48,0.03); }
+
+    .pricing-table td { padding: 18px 16px; vertical-align: middle; }
+    .pricing-table td.td-active-col { background: rgba(176,96,48,0.05); }
+
+    /* Room name */
+    .td-room {
+      color: #EDD4B2;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.97rem;
+    }
+    .td-note {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.71rem;
+      color: rgba(237,212,178,0.38);
+      margin-top: 3px;
+      font-weight: 300;
+    }
+
+    /* Future phase prices — recede */
+    .td-price {
+      text-align: right;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.87rem;
+      color: rgba(237,212,178,0.32);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    /* Early Bird — hero price */
+    .td-price.active-price {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #EDD4B2;
+      letter-spacing: -0.01em;
+    }
+    /* Add-on column */
+    .td-price.td-addon {
+      color: #B06030;
+      font-size: 0.87rem;
+      font-weight: 600;
+    }
+
+    .savings-pill {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+      background: none;
+      color: #C07040;
+      padding: 0;
+      margin-top: 6px;
+      opacity: 0.85;
+    }
+
+    .gst-note {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.4);
+      text-align: center;
+      margin-top: var(--s-10);
+      padding-top: var(--s-4);
+      border-top: 0.5px solid rgba(237,212,178,0.08);
+      line-height: 2.2;
+    }
+    .gst-note strong { color: rgba(237,212,178,0.65); font-weight: 400; }
+
+    @media (max-width: 560px) {
+      .pricing-table thead th,
+      .pricing-table td { padding: 10px 8px; }
+      .td-price { font-size: 0.72rem; }
+      .td-price.active-price { font-size: 0.92rem; }
+      .savings-pill { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV DRAWER ──────────────────────────────────────── -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+<!-- ── NAV ─────────────────────────────────────────────── -->
+<nav class="nav scrolled" id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
+  <h1 class="schedule-hero-title" style="color: #EDD4B2 !important;">Pricing</h1>
+  <p class="schedule-hero-sub">Early Bird</p>
+</div>
+<div style="background: var(--ink); text-align: center; padding: var(--s-6) var(--pad);">
+  <a href="tickets.html" style="display:block;text-align:center;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;padding:2.5rem 0 2rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">← Back to Tickets</a>
+  <p id="currentPhaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Early Bird Ends 31 August</p>
+
+  <!-- Countdown timer -->
+  <div id="eb-countdown-block" style="display:none;margin-top:1.4rem;">
+    <div style="display:flex;align-items:flex-start;justify-content:center;gap:0.5rem;">
+      <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hours</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Mins</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Secs</span></div>
+    </div>
+  </div>
+
+  <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:2rem auto 0;">Every ticket includes <strong style="font-weight:600;">full festival access</strong> — all workshops, ceremonies, music and talks — <strong style="font-weight:600;">plus 3 nights accommodation</strong> (27–30 Nov). <strong style="font-weight:600;">What you're choosing here is your room type.</strong></p>
+
+  <style>
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .cd-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(52px, 10vw, 70px);
+      height: clamp(52px, 10vw, 70px);
+      background: rgba(176,96,48,0.15);
+      border: 1px solid rgba(176,96,48,0.35);
+      border-radius: 6px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-weight: 700;
+      color: #EDD4B2;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+    .cd-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.4);
+    }
+    .cd-sep {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700;
+      color: rgba(176,96,48,0.5);
+      margin-top: clamp(10px, 2vw, 16px);
+      line-height: 1;
+    }
+  </style>
+
+  <script>
+    (function(){
+      const end = new Date('2026-09-01T00:00:00');
+      const block = document.getElementById('eb-countdown-block');
+
+      function update() {
+        const diff = end - new Date();
+        if (diff <= 0) { block.style.display = 'none'; return; }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+        document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+        document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+        document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+        block.style.display = 'block';
+      }
+
+      update();
+      setInterval(update, 1000);
+    })();
+  </script>
+</div>
+
+<!-- ── PRICING TABLES ────────────────────────────────────── -->
+<div class="pricing-wrap">
+  <div class="pricing-inner" id="pricingContent">
+    <!-- injected by JS -->
+  </div>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+    <style>.footer-social-row{display:contents;}@media(max-width:680px){.footer-social-row{display:grid;grid-column:1/-1;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,2rem);}}</style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+
+<script>
+// FALLBACK ONLY — prices are overwritten at runtime from /api/public/pricing before render.
+// Do not rely on these values being current; edit inventory.js on the server instead.
+const PRICING = {
+  'Bhakti Kutir': {
+    notes: 'Festival Favourite · Non-AC',
+    rooms: [
+      { name: 'Triple Sharing', note: '1 bed in a 3-bed room',     earlyBird: 29500, phase1: 32000, phase2: 34000, extraDay: 1800 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',     earlyBird: 34500, phase1: 37900, phase2: 40000, extraDay: 2750 },
+      { name: 'Private Room',   note: 'Entire room for yourself',   earlyBird: 46500, phase1: 51000, phase2: 54500, extraDay: 3000 },
+    ]
+  },
+  'Bhakti Dorm': {
+    notes: 'Festival Venue · Non-AC',
+    rooms: [
+      { name: '4 Bed Dorm', note: '4-bed dorm · females only', earlyBird: 25500, phase1: 28000, phase2: 29500, extraDay: 900 },
+      { name: '6 Bed Dorm', note: '6-bed dorm · mixed',        earlyBird: 24000, phase1: 26500, phase2: 27900, extraDay: 800 },
+    ]
+  },
+  'Destiny': {
+    notes: '1 min walk · AC',
+    rooms: [
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 55000, phase1: 60500, phase2: 63900, extraDay: 6500  },
+      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 81900, phase1: 90000, phase2: 95000, extraDay: 12000 },
+    ]
+  },
+  'Ourem Palace': {
+    notes: '3 mins walk · AC',
+    rooms: [
+      { name: 'Double Sharing', note: '1 bed in a 2-bed heritage room', earlyBird: 44500, phase1: 49000, phase2: 51900, extraDay: 3500 },
+      { name: 'Private Room',   note: 'Entire room for yourself',        earlyBird: 58900, phase1: 64500, phase2: 68000, extraDay: 6500 },
+    ]
+  },
+  'Teraria': {
+    notes: '6 mins walk · AC',
+    rooms: [
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room', earlyBird: 32000, phase1: 33700, phase2: 36700, extraDay: 3200 },
+      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 45100, phase1: 48100, phase2: 52600, extraDay: 0 },
+    ]
+  },
+};
+
+const PHASE_LABELS = { earlyBird: 'Early Bird Ends 31 August', phase1: 'Phase 2', phase2: 'Phase 3' };
+
+function fmt(n) { return '₹' + n.toLocaleString('en-IN'); }
+
+function savings(active, phase2) {
+  if (active >= phase2) return '';
+  const saved = phase2 - active;
+  return `<span class="savings-pill">Save ₹${saved.toLocaleString('en-IN')}</span>`;
+}
+
+async function render() {
+  let phase = 'earlyBird';
+  try {
+    const r = await fetch('/api/public/pricing');
+    if (r.ok) {
+      const d = await r.json();
+      phase = d.phase || 'earlyBird';
+      // Overwrite hardcoded prices with live values from the API
+      if (d.prices) {
+        for (const [venue, roomTypes] of Object.entries(d.prices)) {
+          if (!PRICING[venue]) continue;
+          for (const room of PRICING[venue].rooms) {
+            const live = roomTypes[room.name];
+            if (!live) continue;
+            if (live.earlyBird !== undefined) room.earlyBird = live.earlyBird;
+            if (live.phase1   !== undefined) room.phase1    = live.phase1;
+            if (live.phase2   !== undefined) room.phase2    = live.phase2;
+            if (live.extraDay !== undefined) room.extraDay  = live.extraDay;
+          }
+        }
+      }
+    }
+  } catch {}
+
+  document.getElementById('currentPhaseLabel').textContent = PHASE_LABELS[phase] || phase;
+
+  const content = document.getElementById('pricingContent');
+  let html = '';
+
+  let isFirst = true;
+  for (const [venue, data] of Object.entries(PRICING)) {
+    const openClass = isFirst ? 'open' : '';
+    html += `
+    <div class="venue-block ${openClass}">
+      <button class="venue-block-toggle" onclick="toggleVenue(this)">
+        <span class="venue-block-label">${venue}<span class="venue-block-note"> · ${data.notes}</span></span>
+        <svg class="venue-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="venue-block-body">
+        <div class="venue-block-body-inner">
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th>Room Type</th>
+                <th class="${phase === 'earlyBird' ? 'th-active' : ''}">Early Bird</th>
+                <th class="${phase === 'phase1'    ? 'th-active' : ''}">Phase 2</th>
+                <th class="${phase === 'phase2'    ? 'th-active' : ''}">Phase 3</th>
+              </tr>
+            </thead>
+            <tbody>`;
+
+    for (const r of data.rooms) {
+      html += `
+              <tr>
+                <td class="td-room">${r.name}<span class="td-note">${r.note}</span></td>
+                <td class="td-price ${phase === 'earlyBird' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(r.earlyBird)}${phase === 'earlyBird' ? savings(r.earlyBird, r.phase2) : ''}</div></td>
+                <td class="td-price ${phase === 'phase1'    ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(r.phase1)}${phase === 'phase1' ? savings(r.phase1, r.phase2) : ''}</div></td>
+                <td class="td-price ${phase === 'phase2'    ? 'active-price td-active-col' : ''}">${fmt(r.phase2)}</td>
+              </tr>`;
+    }
+
+    html += `</tbody></table></div></div></div>`;
+    isFirst = false;
+  }
+
+  const festivalPasses = [
+    { name: '3-Day Pass', note: '27–29 Nov · all workshops, ceremonies, music &amp; talks', earlyBird: 19000, phase1: 20000, phase2: 21000 },
+    { name: 'Day Pass',   note: 'Single day · 27, 28, or 29 Nov',                           earlyBird: 7000,  phase1: 7500,  phase2: 8000  },
+  ];
+
+  html += `
+  <div class="venue-block" style="margin-top:1rem;">
+    <button class="venue-block-toggle" onclick="toggleVenue(this)">
+      <span class="venue-block-label">Festival Access<span class="venue-block-note"> · no stay or meals</span></span>
+      <svg class="venue-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="venue-block-body">
+      <div class="venue-block-body-inner">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th class="${phase === 'earlyBird' ? 'th-active' : ''}">Early Bird</th>
+              <th class="${phase === 'phase1'    ? 'th-active' : ''}">Phase 2</th>
+              <th class="${phase === 'phase2'    ? 'th-active' : ''}">Phase 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${festivalPasses.map(p => `
+            <tr>
+              <td class="td-room">${p.name}<span class="td-note">${p.note}</span></td>
+              <td class="td-price ${phase === 'earlyBird' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(p.earlyBird)}${phase === 'earlyBird' ? savings(p.earlyBird, p.phase2) : ''}</div></td>
+              <td class="td-price ${phase === 'phase1'    ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(p.phase1)}${phase === 'phase1' ? savings(p.phase1, p.phase2) : ''}</div></td>
+              <td class="td-price ${phase === 'phase2'    ? 'active-price td-active-col' : ''}">${fmt(p.phase2)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+
+  html += `<p class="gst-note"><strong>+5% GST</strong> added at checkout &nbsp;·&nbsp; All prices are per person &nbsp;·&nbsp; <strong>Early Bird</strong> pricing is limited.</p>`;
+  content.innerHTML = html;
+}
+
+render();
+
+/* ── NAV TOGGLE ── */
+const navToggle = document.getElementById('navToggle');
+const navDrawer = document.getElementById('navDrawer');
+navToggle.addEventListener('click', () => {
+  const isOpen = navDrawer.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+  navDrawer.setAttribute('aria-hidden', !isOpen);
+});
+navDrawer.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navDrawer.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+    navDrawer.setAttribute('aria-hidden', true);
+  });
+});
+
+/* ── NAV DROPDOWN ── */
+document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+  const btn = dropdown.querySelector('.nav-dropdown-toggle');
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle('open');
+    document.querySelectorAll('.nav-dropdown').forEach(d => { if (d !== dropdown) d.classList.remove('open'); });
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+});
+
+function toggleVenue(btn) {
+  btn.closest('.venue-block').classList.toggle('open');
+}
+</script>
+</body>
+</html>

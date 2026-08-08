@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Moon Festival 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --ink: #191406; --ink-2: #191406; }
+    @font-face {
+      font-family: 'Solaris';
+      src: url('Fonts/Solaris-Font-Decorative/Fonts/SolarisFont-Decorative.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .schedule-hero-title, .gallery-hero-title, .stay-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
+    .gallery-type { font-family: 'Solaris', 'Josefin Sans', sans-serif !important; font-size: clamp(1.3rem, 2.5vw, 1.8rem) !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav Drawer -->
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <span class="nav-drawer-section">About</span>
+  <a href="about.html">About Moon</a>
+  <a href="making-of-moon.html">Making of Moon</a>
+  <a href="venue.html">Venue</a>
+  <a href="getting-there.html">Getting There</a>
+  <a href="meals.html">Meals</a>
+  <a href="faq.html">FAQs</a>
+  <div class="nav-drawer-divider"></div>
+  <span class="nav-drawer-section">Programme</span>
+  <a href="schedule.html">Schedule</a>
+  <a href="facilitators.html">Facilitators</a>
+  <div class="nav-drawer-divider"></div>
+  <a href="gallery.html">Gallery</a>
+  <a href="participation.html">Participate</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
+</div>
+
+  <!-- Nav -->
+  <nav class="nav scrolled" id="mainNav">
+    <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
+        <ul class="nav-links">
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
+    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="participation.html">Participate</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
+  </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="gallery-hero-content schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
+    <h1 class="gallery-hero-title">Gallery</h1>
+    <p class="gallery-hero-sub">5 Years of Moon Landing</p>
+  </div>
+
+  <!-- Gallery Section -->
+  <section class="section-lg" style="padding-top: var(--s-8);">
+    <div class="container">
+
+
+      <!-- Year Sub-filters -->
+      <div class="gallery-filter-row">
+        <button class="gallery-filter active" data-filter="2025-goa">2025 Goa</button>
+        <span class="gallery-filter-sep">|</span>
+        <button class="gallery-filter" data-filter="2025-mulshi">2025 Mulshi</button>
+        <span class="gallery-filter-sep">|</span>
+        <button class="gallery-filter" data-filter="2024">2024</button>
+        <span class="gallery-filter-sep">|</span>
+        <button class="gallery-filter" data-filter="2023">2023</button>
+      </div>
+
+      <!-- Photos Panel -->
+      <div class="gallery-panel active" id="panel-photos">
+        <div class="gallery-masonry" id="gallery-masonry"></div>
+      </div>
+
+      <!-- Videos Panel -->
+      <div class="gallery-panel" id="panel-videos">
+        <div class="gallery-empty">
+          <p>Videos coming soon</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOL Divider -->
+  <div class="sol">
+    <div class="sol-divider"></div>
+  </div>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container" style="text-align:center;">
+      <p class="eyebrow">Moon Festival 2026</p>
+      <h2 class="section-title">Be part of Moon 2026</h2>
+      <p class="body-text" style="max-width:480px;margin:0 auto 2rem;">Join us in South Goa for another year of movement, music, and community under the full moon.</p>
+      <a href="tickets.html" class="btn">Get your tickets</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
+
+  <!-- top grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
+
+    <!-- Discover -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
+        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
+        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
+        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Venue -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
+        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
+        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
+      </ul>
+    </div>
+
+    <!-- Join -->
+    <div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
+        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us + Stay Connected side by side -->
+    <style>
+      .footer-social-row { display: contents; }
+      @media (max-width: 680px) {
+        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
+      }
+    </style>
+    <div class="footer-social-row">
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
+        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
+          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
+        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
+          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
+          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- bottom bar -->
+  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+      <div style="display:flex;align-items:baseline;gap:0.8rem;">
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
+        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
+      </div>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+  <button class="lightbox-back" id="lightboxBack">← Back to Gallery</button>
+  <div class="lightbox-img-wrap">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
+  <button class="lightbox-nav" id="lightboxPrev" style="left:1.5rem;">&#8249;</button>
+  <button class="lightbox-nav" id="lightboxNext" style="right:1.5rem;">&#8250;</button>
+  <div class="lightbox-counter" id="lightboxCounter" style="display:none;"></div>
+</div>
+
+<script>
+    // Nav drawer toggle
+    const navToggle = document.getElementById('navToggle');
+    const navDrawer = document.getElementById('navDrawer');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navDrawer.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+      navDrawer.setAttribute('aria-hidden', !isOpen);
+    });
+
+    // Close drawer on link click
+    navDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navDrawer.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', false);
+        navDrawer.setAttribute('aria-hidden', true);
+      });
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Image data
+    const images = {
+      '2023': ['0D8A0034.jpg','0D8A0134.jpg','0D8A0138.jpg','0D8A0142.jpg','0D8A0159.jpg','0D8A0161.jpg','0D8A0162.jpg','0D8A0208.jpg','0D8A0222.jpg','0D8A0235.jpg','0D8A0247.jpg','0D8A0257.jpg','0D8A0267.jpg','0D8A0268.jpg','0D8A0269.jpg','0D8A0271.jpg','0D8A0285.jpg','0D8A0328.jpg','0D8A0353.jpg','0D8A0375.jpg','0D8A0377.jpg','0D8A0385.jpg','0D8A0422.jpg','0D8A0474.jpg','0D8A0476.jpg','0D8A0569.jpg','0D8A0595.jpg','0D8A0611.jpg','0D8A0612.jpg','0D8A0741.jpg','0D8A0773.jpg','0D8A0778.jpg','0D8A0779.jpg','0D8A0782.jpg','0D8A0785.jpg','0D8A0787.jpg','0D8A0788.jpg','0D8A0842.jpg','0D8A0894.jpg','0D8A0895.jpg','0D8A0909.jpg','0D8A0910.jpg','0D8A0913.jpg','0D8A0917.jpg','0D8A0921.jpg','0D8A0925.jpg','0D8A0931.jpg','0D8A0944.jpg','0D8A0984.jpg','0D8A0997.jpg','0D8A1040.jpg','0D8A1050.jpg','0D8A1058.jpg','0D8A1059.jpg','0D8A1064.jpg','0D8A1065.jpg','0D8A1066.jpg','0D8A1119.jpg','0D8A1121.jpg','0D8A1130.jpg','0D8A1138.jpg','0D8A1188.jpg','0D8A1189.jpg','0D8A1210.jpg','0D8A1217.jpg','0D8A1221.jpg','0D8A1357.jpg','0D8A1361.jpg','0D8A1678.jpg','0D8A1869.jpg','0D8A1870.jpg','0D8A1876.jpg','0D8A1884.jpg','0D8A1890.jpg','0D8A1895.jpg','0D8A1897.jpg','0D8A1900.jpg','0D8A1905.jpg','0D8A1910.jpg','0D8A1915.jpg','0D8A1918.jpg','0D8A1942.jpg','0D8A1945.jpg','0D8A1971.jpg','0D8A2034.jpg','0D8A2038.jpg','0D8A2106.jpg','0D8A2131.jpg','0D8A2223.jpg','0D8A2227.jpg','0D8A2228.jpg','0D8A2254.jpg','0D8A2277.jpg','0D8A2290.jpg','0D8A9982.jpg'],
+      '2024': ['Moon Festival-1.jpg','Moon Festival-2.jpg','Moon Festival-3.jpg','Moon Festival-4.jpg','Moon Festival-5.jpg','Moon Festival-6.jpg','Moon Festival-7.jpg','Moon Festival-8.jpg','Moon Festival-9.jpg','Moon Festival-10.jpg','Moon Festival-11.jpg','Moon Festival-12.jpg','Moon Festival-13.jpg','Moon Festival-14.jpg','Moon Festival-15.jpg','Moon Festival-16.jpg','Moon Festival-17.jpg','Moon Festival-18.jpg','Moon Festival-19.jpg','Moon Festival-20.jpg','Moon Festival-21.jpg','Moon Festival-22.jpg','Moon Festival-23.jpg','Moon Festival-24.jpg','Moon Festival-25.jpg','Moon Festival-26.jpg','Moon Festival-27.jpg','Moon Festival-28.jpg','Moon Festival-29.jpg','Moon Festival-30.jpg','Moon Festival-31.jpg','Moon Festival-32.jpg','Moon Festival-33.jpg','Moon Festival-34.jpg','Moon Festival-35.jpg','Moon Festival-36.jpg','Moon Festival-37.jpg','Moon Festival-38.jpg','Moon Festival-39.jpg','Moon Festival-40.jpg','Moon Festival-41.jpg','Moon Festival-42.jpg','Moon Festival-43.jpg','Moon Festival-44.jpg','Moon Festival-45.jpg','Moon Festival-46.jpg','Moon Festival-47.jpg','Moon Festival-48.jpg','Moon Festival-49.jpg','Moon Festival-50.jpg','Moon Festival-51.jpg','Moon Festival-52.jpg','Moon Festival-53.jpg','Moon Festival-54.jpg','Moon Festival-55.jpg','Moon Festival-56.jpg','Moon Festival-57.jpg','Moon Festival-58.jpg','Moon Festival-59.jpg','Moon Festival-60.jpg','Moon Festival-61.jpg','Moon Festival-62.jpg','Moon Festival-63.jpg','Moon Festival-64.jpg','Moon Festival-65.jpg','Moon Festival-66.jpg','Moon Festival-67.jpg','Moon Festival-68.jpg','Moon Festival-69.jpg','Moon Festival-70.jpg','Moon Festival-71.jpg','Moon Festival-72.jpg','Moon Festival-73.jpg','Moon Festival-74.jpg','Moon Festival-75.jpg','Moon Festival-76.jpg','Moon Festival-77.jpg','Moon Festival-78.jpg','Moon Festival-79.jpg','Moon Festival-80.jpg','Moon Festival-81.jpg','Moon Festival-82.jpg','Moon Festival-83.jpg','Moon Festival-84.jpg','Moon Festival-85.jpg','Moon Festival-86.jpg','Moon Festival-87.jpg','Moon Festival-88.jpg','Moon Festival-89.jpg','Moon Festival-90.jpg','Moon Festival-91.jpg','Moon Festival-92.jpg','Moon Festival-93.jpg','Moon Festival-94.jpg','Moon Festival-95.jpg','Moon Festival-96.jpg','Moon Festival-97.jpg','Moon Festival-98.jpg','Moon Festival-99.jpg','Moon Festival-100.jpg','Moon Festival-101.jpg','Moon Festival-102.jpg','Moon Festival-103.jpg','Moon Festival-104.jpg','Moon Festival-105.jpg','Moon Festival-106.jpg','Moon Festival-107.jpg','Moon Festival-108.jpg','Moon Festival-109.jpg','Moon Festival-110.jpg','Moon Festival-111.jpg','Moon Festival-112.jpg','Moon Festival-113.jpg','Moon Festival-114.jpg','Moon Festival-115.jpg','Moon Festival-116.jpg','Moon Festival-117.jpg','Moon Festival-118.jpg','Moon Festival-119.jpg','Moon Festival-120.jpg','Moon Festival-121.jpg','Moon Festival-122.jpg','Moon Festival-123.jpg','Moon Festival-124.jpg','Moon Festival-125.jpg','Moon Festival-126.jpg','Moon Festival-127.jpg','Moon Festival-128.jpg','Moon Festival-129.jpg','Moon Festival-130.jpg','Moon Festival-131.jpg','Moon Festival-132.jpg','Moon Festival-133.jpg','Moon Festival-134.jpg','Moon Festival-135.jpg','Moon Festival-136.jpg','Moon Festival-137.jpg','Moon Festival-138.jpg','Moon Festival-139.jpg','Moon Festival-140.jpg','Moon Festival-141.jpg','Moon Festival-142.jpg','Moon Festival-143.jpg','Moon Festival-144.jpg','Moon Festival-145.jpg','Moon Festival-146.jpg','Moon Festival-147.jpg','Moon Festival-148.jpg','Moon Festival-149.jpg','Moon Festival-150.jpg','Moon Festival-151.jpg','Moon Festival-152.jpg','Moon Festival-153.jpg','Moon Festival-154.jpg','Moon Festival-155.jpg','Moon Festival-156.jpg','Moon Festival-157.jpg','Moon Festival-158.jpg','Moon Festival-159.jpg','Moon Festival-160.jpg','Moon Festival-161.jpg','Moon Festival-162.jpg','Moon Festival-163.jpg','Moon Festival-164.jpg','Moon Festival-165.jpg','Moon Festival-166.jpg','Moon Festival-167.jpg','Moon Festival-168.jpg','Moon Festival-169.jpg','Moon Festival-170.jpg','Moon Festival-171.jpg','Moon Festival-172.jpg','Moon Festival-173.jpg','Moon Festival-174.jpg','Moon Festival-175.jpg','Moon Festival-176.jpg','Moon Festival-177.jpg','Moon Festival-178.jpg','Moon Festival-179.jpg','Moon Festival-180.jpg','Moon Festival-181.jpg','Moon Festival-182.jpg','Moon Festival-183.jpg','Moon Festival-184.jpg','Moon Festival-185.jpg','Moon Festival-186.jpg','Moon Festival-187.jpg','Moon Festival-188.jpg','Moon Festival-189.jpg','Moon Festival-190.jpg','Moon Festival-191.jpg','Moon Festival-192.jpg','Moon Festival-193.jpg','Moon Festival-194.jpg','Moon Festival-195.jpg','Moon Festival-196.jpg','Moon Festival-197.jpg','Moon Festival-198.jpg','Moon Festival-199.jpg','Moon Festival-200.jpg'],
+      '2025-mulshi': ['Moonpune2025-1.jpg','Moonpune2025-2.jpg','Moonpune2025-3.jpg','Moonpune2025-4.jpg','Moonpune2025-5.jpg','Moonpune2025-6.jpg','Moonpune2025-7.jpg','Moonpune2025-8.jpg','Moonpune2025-9.jpg','Moonpune2025-10.jpg','Moonpune2025-11.jpg','Moonpune2025-12.jpg','Moonpune2025-13.jpg','Moonpune2025-14.jpg','Moonpune2025-15.jpg','Moonpune2025-16.jpg','Moonpune2025-17.jpg','Moonpune2025-18.jpg','Moonpune2025-19.jpg','Moonpune2025-20.jpg','Moonpune2025-21.jpg','Moonpune2025-22.jpg','Moonpune2025-23.jpg','Moonpune2025-24.jpg','Moonpune2025-25.jpg','Moonpune2025-26.jpg','Moonpune2025-27.jpg','Moonpune2025-28.jpg','Moonpune2025-29.jpg','Moonpune2025-30.jpg','Moonpune2025-31.jpg','Moonpune2025-32.jpg','Moonpune2025-33.jpg','Moonpune2025-34.jpg','Moonpune2025-35.jpg','Moonpune2025-36.jpg','Moonpune2025-37.jpg','Moonpune2025-38.jpg','Moonpune2025-39.jpg','Moonpune2025-40.jpg','Moonpune2025-41.jpg','Moonpune2025-42.jpg','Moonpune2025-43.jpg','Moonpune2025-44.jpg','Moonpune2025-45.jpg','Moonpune2025-46.jpg','Moonpune2025-47.jpg','Moonpune2025-48.jpg','Moonpune2025-49.jpg','Moonpune2025-50.jpg','Moonpune2025-51.jpg','Moonpune2025-52.jpg','Moonpune2025-53.jpg','Moonpune2025-54.jpg','Moonpune2025-55.jpg','Moonpune2025-56.jpg','Moonpune2025-57.jpg','Moonpune2025-58.jpg','Moonpune2025-59.jpg','Moonpune2025-60.jpg','Moonpune2025-61.jpg','Moonpune2025-62.jpg','Moonpune2025-63.jpg','Moonpune2025-64.jpg','Moonpune2025-65.jpg','Moonpune2025-66.jpg','Moonpune2025-67.jpg','Moonpune2025-68.jpg','Moonpune2025-69.jpg','Moonpune2025-70.jpg','Moonpune2025-71.jpg','Moonpune2025-72.jpg','Moonpune2025-73.jpg','Moonpune2025-74.jpg','Moonpune2025-75.jpg','Moonpune2025-76.jpg','Moonpune2025-78.jpg','Moonpune2025-79.jpg','Moonpune2025-80.jpg','Moonpune2025-82.jpg','Moonpune2025-83.jpg','Moonpune2025-84.jpg','Moonpune2025-85.jpg','Moonpune2025-86.jpg','Moonpune2025-87.jpg','Moonpune2025-88.jpg','Moonpune2025-89.jpg','Moonpune2025-90.jpg','Moonpune2025-91.jpg','Moonpune2025-92.jpg','Moonpune2025-93.jpg','Moonpune2025-94.jpg','Moonpune2025-95.jpg','Moonpune2025-96.jpg','Moonpune2025-97.jpg','Moonpune2025-98.jpg','Moonpune2025-99.jpg','Moonpune2025-100.jpg','Moonpune2025-101.jpg','Moonpune2025-102.jpg','Moonpune2025-103.jpg','Moonpune2025-104.jpg','Moonpune2025-105.jpg','Moonpune2025-106.jpg','Moonpune2025-107.jpg','Moonpune2025-108.jpg','Moonpune2025-109.jpg','Moonpune2025-110.jpg','Moonpune2025-111.jpg','Moonpune2025-112.jpg','Moonpune2025-113.jpg','Moonpune2025-114.jpg','Moonpune2025-115.jpg','Moonpune2025-116.jpg','Moonpune2025-117.jpg','Moonpune2025-118.jpg','Moonpune2025-119.jpg','Moonpune2025-120.jpg','Moonpune2025-121.jpg','Moonpune2025-122.jpg','Moonpune2025-123.jpg','Moonpune2025-124.jpg','Moonpune2025-125.jpg','Moonpune2025-126.jpg','Moonpune2025-127.jpg','Moonpune2025-128.jpg','Moonpune2025-129.jpg','Moonpune2025-130.jpg','Moonpune2025-131.jpg','Moonpune2025-132.jpg','Moonpune2025-133.jpg','Moonpune2025-134.jpg','Moonpune2025-135.jpg','Moonpune2025-136.jpg','Moonpune2025-137.jpg','Moonpune2025-138.jpg','Moonpune2025-140.jpg','Moonpune2025-141.jpg','Moonpune2025-142.jpg','Moonpune2025-143.jpg','Moonpune2025-144.jpg','Moonpune2025-145.jpg','Moonpune2025-146.jpg','Moonpune2025-147.jpg','Moonpune2025-148.jpg','Moonpune2025-149.jpg','Moonpune2025-150.jpg','Moonpune2025-151.jpg','Moonpune2025--152.jpg','Moonpune2025--153.jpg','Moonpune2025--154.jpg','Moonpune2025--155.jpg','Moonpune2025--156.jpg','Moonpune2025--157.jpg','Moonpune2025--158.jpg','Moonpune2025--159.jpg','Moonpune2025--160.jpg','Moonpune2025--161.jpg','Moonpune2025--162.jpg','Moonpune2025--163.jpg','Moonpune2025--164.jpg','Moonpune2025--165.jpg','Moonpune2025--166.jpg','Moonpune2025--167.jpg','Moonpune2025--168.jpg','Moonpune2025--169.jpg','Moonpune2025--170.jpg','Moonpune2025--171.jpg','Moonpune2025--172.jpg','Moonpune2025--173.jpg','Moonpune2025--174.jpg','Moonpune2025--175.jpg','Moonpune2025--176.jpg','Moonpune2025--177.jpg','Moonpune2025--178.jpg','Moonpune2025--179.jpg','Moonpune2025--180.jpg','Moonpune2025--181.jpg','Moonpune2025--182.jpg','Moonpune2025--183.jpg','Moonpune2025--184.jpg','Moonpune2025--185.jpg','Moonpune2025--186.jpg','Moonpune2025--187.jpg','Moonpune2025--188.jpg','Moonpune2025--189.jpg','Moonpune2025--190.jpg','Moonpune2025--191.jpg','Moonpune2025--192.jpg','Moonpune2025--193.jpg','Moonpune2025--194.jpg','Moonpune2025--195.jpg','Moonpune2025--196.jpg','Moonpune2025--197.jpg','Moonpune2025--198.jpg','Moonpune2025--199.jpg','Moonpune2025--200.jpg','Moonpune2025--201.jpg','Moonpune2025--202.jpg','Moonpune2025--203.jpg','Moonpune2025--204.jpg','Moonpune2025--205.jpg','Moonpune2025--206.jpg','Moonpune2025--207.jpg','Moonpune2025--208.jpg','Moonpune2025--209.jpg','Moonpune2025--210.jpg','Moonpune2025--211.jpg','Moonpune2025--212.jpg','Moonpune2025--213.jpg','Moonpune2025--214.jpg','Moonpune2025--215.jpg','Moonpune2025--216.jpg','Moonpune2025--217.jpg','Moonpune2025--218.jpg','Moonpune2025--219.jpg','Moonpune2025--220.jpg','Moonpune2025--221.jpg','Moonpune2025--222.jpg','Moonpune2025--223.jpg','Moonpune2025--224.jpg','Moonpune2025--225.jpg','Moonpune2025--226.jpg','Moonpune2025--227.jpg','Moonpune2025--228.jpg','Moonpune2025--229.jpg','Moonpune2025--230.jpg','Moonpune2025--231.jpg','Moonpune2025--232.jpg','Moonpune2025--233.jpg','Moonpune2025--234.jpg','Moonpune2025--235.jpg','Moonpune2025--236.jpg','Moonpune2025--237.jpg','Moonpune2025--238.jpg','Moonpune2025--239.jpg','Moonpune2025--240.jpg','Moonpune2025--241.jpg','Moonpune2025--242.jpg','Moonpune2025--243.jpg','Moonpune2025--244.jpg','Moonpune2025--245.jpg','Moonpune2025--246.jpg','Moonpune2025--247.jpg','Moonpune2025--248.jpg','Moonpune2025--249.jpg','Moonpune2025--250.jpg','Moonpune2025--251.jpg','Moonpune2025--252.jpg','Moonpune2025--253.jpg','Moonpune2025--254.jpg','Moonpune2025--255.jpg','Moonpune2025--256.jpg','Moonpune2025--257.jpg','Moonpune2025--258.jpg','Moonpune2025--259.jpg','Moonpune2025--260.jpg','Moonpune2025--261.jpg','Moonpune2025--262.jpg','Moonpune2025--263.jpg','Moonpune2025--264.jpg','Moonpune2025--265.jpg','Moonpune2025--266.jpg','Moonpune2025--267.jpg','Moonpune2025--268.jpg','Moonpune2025--269.jpg','Moonpune2025--270.jpg','Moonpune2025--271.jpg','Moonpune2025--272.jpg','Moonpune2025--273.jpg','Moonpune2025--274.jpg','Moonpune2025--275.jpg','Moonpune2025--276.jpg','Moonpune2025--277.jpg','Moonpune2025--278.jpg','Moonpune2025--279.jpg','Moonpune2025--280.jpg','Moonpune2025--281.jpg','Moonpune2025--282.jpg','Moonpune2025--283.jpg','Moonpune2025--284.jpg','Moonpune2025--285.jpg','Moonpune2025--286.jpg','Moonpune2025--287.jpg','Moonpune2025--288.jpg'],
+      '2025-goa': ['moongoa2025-1.jpg','moongoa2025-2.jpg','moongoa2025-3.jpg','moongoa2025-4.jpg','moongoa2025-5.jpg','moongoa2025-6.jpg','moongoa2025-7.jpg','moongoa2025-8.jpg','moongoa2025-9.jpg','moongoa2025-10.jpg','moongoa2025-11.jpg','moongoa2025-12.jpg','moongoa2025-13.jpg','moongoa2025-14.jpg','moongoa2025-15.jpg','moongoa2025-16.jpg','moongoa2025-17.jpg','moongoa2025-18.jpg','moongoa2025-19.jpg','moongoa2025-20.jpg','moongoa2025-21.jpg','moongoa2025-22.jpg','moongoa2025-23.jpg','moongoa2025-24.jpg','moongoa2025-25.jpg','moongoa2025-26.jpg','moongoa2025-27.jpg','moongoa2025-28.jpg','moongoa2025-29.jpg','moongoa2025-30.jpg','moongoa2025-31.jpg','moongoa2025-32.jpg','moongoa2025-33.jpg','moongoa2025-34.jpg','moongoa2025-35.jpg','moongoa2025-36.jpg','moongoa2025-37.jpg','moongoa2025-38.jpg','moongoa2025-39.jpg','moongoa2025-40.jpg','moongoa2025-41.jpg','moongoa2025-42.jpg','moongoa2025-43.jpg','moongoa2025-44.jpg','moongoa2025-45.jpg','moongoa2025-46.jpg','moongoa2025-47.jpg','moongoa2025-48.jpg','moongoa2025-49.jpg','moongoa2025-50.jpg','moongoa2025-51.jpg','moongoa2025-52.jpg','moongoa2025-53.jpg','moongoa2025-54.jpg','moongoa2025-55.jpg','moongoa2025-56.jpg','moongoa2025-57.jpg','moongoa2025-58.jpg','moongoa2025-59.jpg','moongoa2025-60.jpg','moongoa2025-61.jpg','moongoa2025-62.jpg','moongoa2025-63.jpg','moongoa2025-64.jpg','moongoa2025-65.jpg','moongoa2025-66.jpg','moongoa2025-67.jpg','moongoa2025-68.jpg','moongoa2025-69.jpg','moongoa2025-70.jpg','moongoa2025-71.jpg','moongoa2025-72.jpg','moongoa2025-73.jpg','moongoa2025-74.jpg','moongoa2025-75.jpg','moongoa2025-76.jpg','moongoa2025-77.jpg','moongoa2025-78.jpg','moongoa2025-79.jpg','moongoa2025-80.jpg','moongoa2025-81.jpg','moongoa2025-82.jpg','moongoa2025-83.jpg','moongoa2025-84.jpg','moongoa2025-85.jpg','moongoa2025-86.jpg','moongoa2025-87.jpg','moongoa2025-88.jpg','moongoa2025-89.jpg','moongoa2025-90.jpg','moongoa2025-91.jpg','moongoa2025-92.jpg','moongoa2025-93.jpg','moongoa2025-94.jpg','moongoa2025-95.jpg','moongoa2025-96.jpg','moongoa2025-97.jpg','moongoa2025-98.jpg','moongoa2025-99.jpg','moongoa2025-100.jpg','moongoa2025-101.jpg','moongoa2025-102.jpg','moongoa2025-103.jpg','moongoa2025-104.jpg','moongoa2025-105.jpg','moongoa2025-106.jpg','moongoa2025-107.jpg','moongoa2025-108.jpg','moongoa2025-109.jpg','moongoa2025-110.jpg','moongoa2025-111.jpg','moongoa2025-112.jpg','moongoa2025-114.jpg','moongoa2025-115.jpg','moongoa2025-116.jpg','moongoa2025-117.jpg','moongoa2025-118.jpg','moongoa2025-119.jpg','moongoa2025-120.jpg','moongoa2025-121.jpg','moongoa2025-122.jpg','moongoa2025-123.jpg','moongoa2025-124.jpg','moongoa2025-125.jpg','moongoa2025-126.jpg','moongoa2025-127.jpg','moongoa2025-128.jpg','moongoa2025-129.jpg','moongoa2025-130.jpg','moongoa2025-131.jpg','moongoa2025-132.jpg','moongoa2025-133.jpg','moongoa2025-134.jpg','moongoa2025-135.jpg','moongoa2025-136.jpg','moongoa2025-137.jpg','moongoa2025-138.jpg','moongoa2025-139.jpg','moongoa2025-140.jpg','moongoa2025-141.jpg','moongoa2025-142.jpg','moongoa2025-143.jpg','moongoa2025-144.jpg','moongoa2025-145.jpg','moongoa2025-146.jpg','moongoa2025-147.jpg','moongoa2025-148.jpg','moongoa2025-149.jpg','moongoa2025-150.jpg','moongoa2025-151.jpg','moongoa2025-152.jpg','moongoa2025-153.jpg']
+    };
+
+    const folders = {
+      '2023': 'Gallery Page Images/2023',
+      '2024': 'Gallery Page Images/2024',
+      '2025-mulshi': 'Gallery Page Images/2025 Mulshi',
+      '2025-goa': 'Gallery Page Images/2025 Goa'
+    };
+
+    const masonry = document.getElementById('gallery-masonry');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+
+    const categoryOrder = ['2025-goa', '2025-mulshi', '2024', '2023'];
+    let currentIndex = 0;
+    let currentSrcs = [];
+
+    function buildItems(filter) {
+      const cats = filter === 'all' ? categoryOrder : [filter];
+      const fragment = document.createDocumentFragment();
+      currentSrcs = [];
+      cats.forEach(cat => {
+        images[cat].forEach(file => {
+          const src = folders[cat] + '/' + file;
+          currentSrcs.push(src);
+          const idx = currentSrcs.length - 1;
+          const div = document.createElement('div');
+          div.className = 'gallery-item';
+          div.dataset.category = cat;
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Moon Festival ' + cat.replace('-', ' ');
+          img.loading = 'lazy';
+          const overlay = document.createElement('div');
+          overlay.className = 'gallery-item-overlay';
+          overlay.innerHTML = '<span>View</span>';
+          div.appendChild(img);
+          div.appendChild(overlay);
+          div.addEventListener('click', () => openLightbox(idx));
+          fragment.appendChild(div);
+        });
+      });
+      masonry.innerHTML = '';
+      masonry.appendChild(fragment);
+    }
+
+    function setLightboxImage(src) {
+      lightboxImg.src = src;
+      lightboxBackdrop.style.backgroundImage = 'url("' + src.replace(/"/g, '\\"') + '")';
+      lightboxCounter.textContent = (currentIndex + 1) + ' / ' + currentSrcs.length;
+    }
+
+    const typeRow = document.querySelector('.gallery-type-row');
+    const filterRowEl = document.querySelector('.gallery-filter-row');
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      setLightboxImage(currentSrcs[currentIndex]);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function navigate(dir) {
+      currentIndex = (currentIndex + dir + currentSrcs.length) % currentSrcs.length;
+      lightboxImg.style.opacity = '0';
+      setTimeout(() => {
+        setLightboxImage(currentSrcs[currentIndex]);
+        lightboxImg.style.opacity = '1';
+      }, 120);
+    }
+
+    buildItems('2025-goa');
+
+    // Media type tabs
+    const typeBtns = document.querySelectorAll('.gallery-type');
+    const panels = document.querySelectorAll('.gallery-panel');
+    const filterRow = document.querySelector('.gallery-filter-row');
+    typeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        typeBtns.forEach(x => x.classList.remove('active'));
+        btn.classList.add('active');
+        const type = btn.dataset.type;
+        panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + type));
+        filterRow.style.display = type === 'photos' ? '' : 'none';
+      });
+    });
+
+    // Year sub-filter
+    const filters = document.querySelectorAll('.gallery-filter');
+    filters.forEach(f => {
+      f.addEventListener('click', () => {
+        filters.forEach(x => x.classList.remove('active'));
+        f.classList.add('active');
+        buildItems(f.dataset.filter);
+      });
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxBack').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
+    document.getElementById('lightboxNext').addEventListener('click', e => { e.stopPropagation(); navigate(1); });
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
+
+    // Swipe support
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      if (filterRowEl) { filterRowEl.classList.remove('tabs-pinned'); filterRowEl.style.top = ''; }
+      lightbox.style.top = '';
+      document.body.style.overflow = '';
+    }
+  </script>
+
+</body>
+</html>

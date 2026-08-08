@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Reports — Moon Festival 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #FAF5EF; color: #2A2218; font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif; font-size: 13px; }
+
+    /* Nav */
+    .top-bar {
+      background: #FAF5EF;
+      border-bottom: 0.5px solid rgba(176,96,48,0.18);
+      padding: 0 32px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .top-bar-logo { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(42,34,24,0.5); }
+    .top-bar-right { display: flex; align-items: center; gap: 20px; }
+    .top-bar-right a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(42,34,24,0.48);
+      text-decoration: none;
+      transition: color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .top-bar-right a:hover { color: #2A2218; }
+    .top-bar-right a.active { color: rgba(42,34,24,0.48); }
+    .top-bar-signout { background: none; border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #B06030; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+    .nav-desktop { display: flex; align-items: center; gap: 20px; }
+    .nav-desktop a, .top-bar-signout { display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:rgba(42,34,24,0.55);text-decoration:none;transition:color 0.15s;background:none;border:none;cursor:pointer;padding:0; }
+    .nav-desktop a:hover, .top-bar-signout:hover { color:#2A2218; }
+    .nav-desktop a.active { color:rgba(42,34,24,0.48); }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: rgba(42,34,24,0.6); }
+    .mob-nav-link { display:flex;align-items:center;gap:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:rgba(42,34,24,0.7);text-decoration:none;padding:13px 20px;transition:background 0.12s,color 0.12s; }
+    .mob-nav-link:hover { background:rgba(42,34,24,0.06);color:#2A2218; }
+    .mob-nav-link svg { opacity:0.55;flex-shrink:0; }
+    @media (max-width: 600px) {
+      .top-bar { padding: 0 16px; }
+      .nav-desktop { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* Main layout */
+    .main { max-width: 1300px; margin: 0 auto; padding: 32px 24px; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 2px; border-bottom: 0.5px solid rgba(42,34,24,0.1); margin-bottom: 28px; }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: rgba(42,34,24,0.45);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: #2A2218; }
+    .tab-btn.active { color: #7A5810; border-bottom-color: rgba(223,184,120,0.9); font-weight: 500; }
+
+    /* Sub-tabs */
+    .sub-tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+    .sub-tab-btn {
+      background: rgba(42,34,24,0.04);
+      border: 0.5px solid rgba(42,34,24,0.12);
+      color: rgba(42,34,24,0.45);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      padding: 6px 16px;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.15s;
+    }
+    .sub-tab-btn:hover { color: #2A2218; border-color: rgba(42,34,24,0.25); }
+    .sub-tab-btn.active { background: rgba(223,184,120,0.25); border-color: rgba(223,184,120,0.5); color: #7A5810; font-weight: 500; }
+
+    /* Panel */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Panel header */
+    .panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .panel-title { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(42,34,24,0.45); }
+    .panel-count { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(42,34,24,0.38); }
+    .panel-actions { display: flex; gap: 8px; }
+
+    /* Buttons */
+    .btn {
+      background: rgba(140,184,168,0.2);
+      border: none;
+      color: #2A6050;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: rgba(140,184,168,0.35); }
+
+    /* View toggle */
+    .view-toggle { background: transparent; border: none; padding: 5px 12px; border-radius: 5px; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; color: rgba(42,34,24,0.5); cursor: pointer; transition: all 0.15s; }
+    .view-toggle.active { background: #fff; color: #2A2218; box-shadow: 0 1px 3px rgba(42,34,24,0.12); }
+
+    /* By-room grouped view */
+    .room-group { margin-bottom: 20px; border: 1px solid rgba(42,34,24,0.1); border-radius: 10px; overflow: hidden; }
+    .room-group-header { display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: rgba(42,34,24,0.04); border-bottom: 1px solid rgba(42,34,24,0.08); }
+    .room-group-label { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2A2218; letter-spacing: 0.03em; }
+    .room-group-meta { font-size: 11px; color: rgba(42,34,24,0.45); }
+    .room-group-body { padding: 4px 0; }
+    .room-group-guest { display: flex; align-items: baseline; gap: 10px; padding: 7px 14px; border-bottom: 1px solid rgba(42,34,24,0.05); }
+    .room-group-guest:last-child { border-bottom: none; }
+    .room-group-num { font-size: 10px; font-weight: 700; color: rgba(42,34,24,0.3); width: 14px; flex-shrink: 0; }
+    .room-group-name { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #2A2218; min-width: 160px; }
+    .room-group-phone { font-size: 12px; color: rgba(42,34,24,0.5); }
+    .room-group-ref { font-size: 10px; color: rgba(42,34,24,0.3); margin-left: auto; font-family: monospace; }
+    .room-grouped { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; padding: 16px; }
+
+    /* Venue filter */
+    .venue-filter { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+    .venue-btn {
+      background: rgba(42,34,24,0.04);
+      border: 0.5px solid rgba(42,34,24,0.12);
+      color: rgba(42,34,24,0.45);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .venue-btn:hover { color: #2A2218; border-color: rgba(42,34,24,0.25); }
+    .venue-btn.active { background: rgba(223,184,120,0.25); border-color: rgba(223,184,120,0.5); color: #7A5810; font-weight: 500; }
+
+    /* Table */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead th {
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(42,34,24,0.4);
+      padding: 8px 12px;
+      border-bottom: 0.5px solid rgba(42,34,24,0.1);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 0.5px solid rgba(42,34,24,0.06); }
+    tbody tr:hover { background: rgba(223,184,120,0.08); }
+    tbody td { padding: 9px 12px; color: #2A2218; vertical-align: top; font-family: 'DM Sans', sans-serif; }
+    .td-muted { color: rgba(42,34,24,0.45); font-size: 11px; }
+    .td-ref { font-family: monospace; font-size: 11px; color: rgba(42,34,24,0.5); }
+    .badge {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 10px;
+      border: 0.5px solid rgba(42,34,24,0.15);
+      color: rgba(42,34,24,0.55);
+      background: rgba(42,34,24,0.05);
+    }
+    .addon-list { font-size: 11px; color: rgba(42,34,24,0.5); }
+
+    /* Loading / empty */
+    .loading { color: rgba(42,34,24,0.3); font-size: 11px; padding: 20px 0; }
+    .empty-row td { color: rgba(42,34,24,0.3); font-style: italic; text-align: center; padding: 24px; }
+
+    /* Print styles */
+    @media print {
+      body { background: #fff; color: #111; }
+      .top-bar, .tabs, .panel-actions, .sub-tabs { display: none !important; }
+      .tab-panel { display: block !important; }
+      .tab-panel:not(.print-target) { display: none !important; }
+      table { font-size: 11px; }
+      thead th { color: #444; border-bottom: 1px solid #ccc; }
+      tbody tr { border-bottom: 1px solid #eee; }
+      tbody td { color: #111; }
+      .td-muted, .td-ref, .addon-list { color: #555; }
+      a { color: #111; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 0 8px;">
+    <a href="/admin" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(42,34,24,0.55);">Moon Festival</span>
+      <span style="width:1px;height:12px;background:rgba(42,34,24,0.18);display:inline-block;"></span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);">Admin</span>
+    </a>
+    <!-- Desktop nav -->
+    <div class="nav-desktop" style="align-items:center;gap:6px;">
+      <a href="/admin" style="display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:rgba(42,34,24,0.48);text-decoration:none;padding:6px 12px;border-radius:8px;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='rgba(42,34,24,0.06)';this.style.color='#2A2218'" onmouseout="this.style.background='';this.style.color='rgba(42,34,24,0.48)'"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.65;flex-shrink:0;"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>Dashboard</a>
+      <a href="/admin/reports" style="display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:rgba(42,34,24,0.75);text-decoration:none;padding:6px 12px;border-radius:8px;background:rgba(42,34,24,0.06);"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.65;flex-shrink:0;"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="8.5" x2="11" y2="8.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="11.5" x2="8.5" y2="11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Reports</a>
+      <a href="/admin/api/export" style="display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:rgba(42,34,24,0.48);text-decoration:none;padding:6px 12px;border-radius:8px;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='rgba(42,34,24,0.06)';this.style.color='#2A2218'" onmouseout="this.style.background='';this.style.color='rgba(42,34,24,0.48)'"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.65;flex-shrink:0;"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Export CSV</a>
+      <a href="/admin/api/ca-report" style="display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:rgba(42,34,24,0.48);text-decoration:none;padding:6px 12px;border-radius:8px;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='rgba(42,34,24,0.06)';this.style.color='#2A2218'" onmouseout="this.style.background='';this.style.color='rgba(42,34,24,0.48)'"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.65;flex-shrink:0;"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="8.5" x2="9" y2="8.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M9 11l1.5 1.5L13 10" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>CA Report</a>
+      <a href="/admin/api/invoices/download" style="display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:rgba(42,34,24,0.48);text-decoration:none;padding:6px 12px;border-radius:8px;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='rgba(42,34,24,0.06)';this.style.color='#2A2218'" onmouseout="this.style.background='';this.style.color='rgba(42,34,24,0.48)'"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.65;flex-shrink:0;"><path d="M4 4h5l3 3v7H4V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9 4v3h3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M6 10h4M6 12h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Invoices ZIP</a>
+      <a href="/admin/api/backup/db" style="display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:rgba(42,34,24,0.48);text-decoration:none;padding:6px 12px;border-radius:8px;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='rgba(42,34,24,0.06)';this.style.color='#2A2218'" onmouseout="this.style.background='';this.style.color='rgba(42,34,24,0.48)'"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.65;flex-shrink:0;"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="12" width="12" height="2" rx="0.5" stroke="currentColor" stroke-width="1.1"/></svg>DB Backup</a>
+      <span style="width:1px;height:16px;background:rgba(42,34,24,0.14);margin:0 4px;"></span>
+      <form method="POST" action="/admin/logout" style="display:inline;">
+        <button type="submit" style="display:inline-flex;align-items:center;gap:5px;background:rgba(106,158,138,0.12);border:1px solid rgba(106,158,138,0.3);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:#4A8070;cursor:pointer;padding:6px 12px;transition:background 0.15s;" onmouseover="this.style.background='rgba(106,158,138,0.22)'" onmouseout="this.style.background='rgba(106,158,138,0.12)'"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><path d="M6 2H3C2.45 2 2 2.45 2 3v10c0 .55.45 1 1 1h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M10.5 11L14 8l-3.5-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><line x1="14" y1="8" x2="6" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Sign Out</button>
+      </form>
+    </div>
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" onclick="toggleMobileMenu()">
+      <svg id="menuIconOpen" width="22" height="22" viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg id="menuIconClose" width="22" height="22" viewBox="0 0 24 24" fill="none" style="display:none;"><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Mobile nav drawer -->
+<div id="mobileNavDrawer" style="display:none;position:fixed;inset:0;z-index:8888;">
+  <div onclick="toggleMobileMenu()" style="position:absolute;inset:0;background:rgba(42,34,24,0.35);"></div>
+  <div style="position:absolute;top:0;right:0;bottom:0;width:72vw;max-width:280px;background:#EAE3D8;box-shadow:-8px 0 32px rgba(42,34,24,0.18);display:flex;flex-direction:column;padding:24px 0 32px;">
+    <div style="padding:0 20px 16px;border-bottom:1px solid rgba(42,34,24,0.1);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(42,34,24,0.4);">Moon Festival · Admin</div>
+      <button onclick="toggleMobileMenu()" style="background:none;border:none;cursor:pointer;padding:4px;color:rgba(42,34,24,0.4);line-height:0;border-radius:6px;" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav style="flex:1;overflow-y:auto;padding:8px 0;">
+      <a href="/admin" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>Dashboard</a>
+      <a href="/admin/reports" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="8.5" x2="11" y2="8.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="11.5" x2="8.5" y2="11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Reports</a>
+      <a href="/admin/api/export" target="_blank" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Export CSV</a>
+      <a href="/admin/api/ca-report" target="_blank" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="8.5" x2="9" y2="8.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M9 11l1.5 1.5L13 10" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>CA Report</a>
+      <a href="/admin/api/invoices/download" target="_blank" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4h5l3 3v7H4V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9 4v3h3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M6 10h4M6 12h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Invoices ZIP</a>
+    </nav>
+    <div style="padding:0 20px;">
+      <form method="POST" action="/admin/logout">
+        <button type="submit" style="width:100%;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:11px;background:rgba(106,158,138,0.12);border:1px solid rgba(106,158,138,0.3);border-radius:10px;color:#4A8070;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3v10c0 .55.45 1 1 1h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M10.5 11L14 8l-3.5-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><line x1="14" y1="8" x2="6" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Sign Out
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleMobileMenu() {
+  const drawer = document.getElementById('mobileNavDrawer');
+  const open = document.getElementById('menuIconOpen');
+  const close = document.getElementById('menuIconClose');
+  const isOpen = drawer.style.display === 'flex';
+  drawer.style.display = isOpen ? 'none' : 'flex';
+  open.style.display  = isOpen ? 'block' : 'none';
+  close.style.display = isOpen ? 'none'  : 'block';
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+</script>
+
+<div class="main">
+
+  <!-- Tab bar -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('rooming')">Rooming List</button>
+    <button class="tab-btn" onclick="switchTab('tribal')">Tribal Lunch</button>
+    <button class="tab-btn" onclick="switchTab('massage')">Massage</button>
+    <button class="tab-btn" onclick="switchTab('prearrival')">Pre-Arrival</button>
+    <button class="tab-btn" onclick="switchTab('scooter')">Scooter Rental</button>
+  </div>
+
+  <!-- Rooming List -->
+  <div id="panel-rooming" class="tab-panel active">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">Rooming List</div>
+        <div class="panel-count" id="rooming-count"></div>
+      </div>
+      <div class="panel-actions">
+        <div style="display:flex;gap:4px;background:rgba(42,34,24,0.07);border-radius:7px;padding:3px;">
+          <button id="view-guest-btn" class="view-toggle active" onclick="setRoomingView('guest')">By Guest</button>
+          <button id="view-room-btn"  class="view-toggle"        onclick="setRoomingView('room')">By Room</button>
+        </div>
+        <button class="btn" onclick="downloadCSV('rooming')">↓ CSV</button>
+        <button class="btn" onclick="printPanel('rooming')">Print</button>
+      </div>
+    </div>
+    <div class="venue-filter" id="rooming-venue-filter"></div>
+    <!-- By Guest table -->
+    <div id="rooming-guest-view" class="tbl-wrap">
+      <table id="tbl-rooming">
+        <thead><tr>
+          <th>Guest Name</th>
+          <th>WhatsApp</th>
+          <th>Venue</th>
+          <th>Property Room No.</th>
+          <th>Booking</th>
+          <th>Check-in Date</th>
+          <th>Check-in Time</th>
+        </tr></thead>
+        <tbody id="rooming-body"><tr><td colspan="7" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <!-- By Room grouped view -->
+    <div id="rooming-room-view" style="display:none;padding:16px 0;" class="room-grouped"></div>
+  </div>
+
+  <!-- Tribal Lunch -->
+  <div id="panel-tribal" class="tab-panel">
+    <div class="panel-head">
+      <div class="panel-title">Tribal Lunch</div>
+      <div class="panel-actions">
+        <button class="btn" onclick="downloadCSV('tribal')">↓ CSV</button>
+        <button class="btn" onclick="printPanel('tribal')">Print</button>
+      </div>
+    </div>
+    <div class="venue-filter" id="tribal-venue-filter"></div>
+    <div class="sub-tabs">
+      <button class="sub-tab-btn active" id="tribal-btn-27" onclick="switchTribalDay(27)">27 Nov</button>
+      <button class="sub-tab-btn" id="tribal-btn-28" onclick="switchTribalDay(28)">28 Nov</button>
+      <button class="sub-tab-btn" id="tribal-btn-29" onclick="switchTribalDay(29)">29 Nov</button>
+    </div>
+    <div class="panel-count" id="tribal-count" style="margin-bottom:12px;"></div>
+    <div class="tbl-wrap">
+      <table id="tbl-tribal">
+        <thead><tr>
+          <th>Guest Name</th>
+          <th>WhatsApp</th>
+          <th>Venue</th>
+          <th>Property Room No.</th>
+          <th>Tribal Lunch Date</th>
+          <th>Booking</th>
+        </tr></thead>
+        <tbody id="tribal-body"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Massage -->
+  <div id="panel-massage" class="tab-panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">Ayurvedic Massage</div>
+        <div class="panel-count" id="massage-count"></div>
+      </div>
+      <div class="panel-actions">
+        <button class="btn" onclick="downloadCSV('massage')">↓ CSV</button>
+        <button class="btn" onclick="printPanel('massage')">Print</button>
+      </div>
+    </div>
+    <div class="venue-filter" id="massage-venue-filter"></div>
+    <div class="tbl-wrap">
+      <table id="tbl-massage">
+        <thead><tr>
+          <th>Guest Name</th>
+          <th>WhatsApp</th>
+          <th>Venue</th>
+          <th>Property Room No.</th>
+          <th>Booking</th>
+          <th>Massage Date</th>
+          <th>Massage Time</th>
+        </tr></thead>
+        <tbody id="massage-body"><tr><td colspan="7" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Scooter Rental -->
+  <div id="panel-scooter" class="tab-panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">Scooter Rental</div>
+        <div class="panel-count" id="scooter-count"></div>
+      </div>
+      <div class="panel-actions">
+        <button class="btn" onclick="downloadCSV('scooter')">↓ CSV</button>
+        <button class="btn" onclick="printPanel('scooter')">Print</button>
+      </div>
+    </div>
+    <div class="venue-filter" id="scooter-venue-filter"></div>
+    <div class="tbl-wrap">
+      <table id="tbl-scooter">
+        <thead><tr>
+          <th>Guest Name</th>
+          <th>WhatsApp</th>
+          <th>Venue</th>
+          <th>Property Room No.</th>
+          <th>Rental Duration</th>
+          <th>Payment</th>
+          <th>Booking</th>
+        </tr></thead>
+        <tbody id="scooter-body"><tr><td colspan="7" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pre-Arrival -->
+  <div id="panel-prearrival" class="tab-panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">Pre-Arrival (26 Nov)</div>
+        <div class="panel-count" id="prearrival-count"></div>
+      </div>
+      <div class="panel-actions">
+        <button class="btn" onclick="downloadCSV('prearrival')">↓ CSV</button>
+        <button class="btn" onclick="printPanel('prearrival')">Print</button>
+      </div>
+    </div>
+    <div class="venue-filter" id="prearrival-venue-filter"></div>
+    <div class="tbl-wrap">
+      <table id="tbl-prearrival">
+        <thead><tr>
+          <th>Property Room No.</th>
+          <th>Guest Name</th>
+          <th>WhatsApp</th>
+          <th>Room No.</th>
+          <th>Room Type</th>
+          <th>Venue</th>
+          <th>Add-ons</th>
+          <th>Booking</th>
+        </tr></thead>
+        <tbody id="prearrival-body"><tr><td colspan="8" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────
+  let currentTab = 'rooming';
+  let tribalDay = 27;
+  const data = { rooming: null, tribal: null, massage: null, prearrival: null, scooter: null };
+  const venueFilter = { rooming: 'all', tribal: 'all', massage: 'all', prearrival: 'all', scooter: 'all' };
+
+  const ALL_VENUES = ['Bhakti Kutir', 'Destiny', 'Ourem Palace', 'Marron · Sea View', 'Marron · Garden', 'Teraria', 'Dormitory'];
+
+  function buildVenueFilter(tab, rows) {
+    const container = document.getElementById(tab + '-venue-filter');
+    if (!container) return;
+    const venues = ['all', ...ALL_VENUES];
+    container.innerHTML = venues.map(v =>
+      `<button class="venue-btn ${venueFilter[tab] === v ? 'active' : ''}" onclick="setVenueFilter('${tab}','${v}')">${v === 'all' ? 'All Venues' : v}</button>`
+    ).join('');
+  }
+
+  function setVenueFilter(tab, venue) {
+    venueFilter[tab] = venue;
+    document.querySelectorAll(`#${tab}-venue-filter .venue-btn`).forEach(b => {
+      b.classList.toggle('active', b.textContent.trim() === (venue === 'all' ? 'All Venues' : venue));
+    });
+    const renders = { rooming: renderRooming, tribal: renderTribal, massage: renderMassage, prearrival: renderPreArrival };
+    if (data[tab]) renders[tab](data[tab]);
+  }
+
+  function filterByVenue(tab, rows) {
+    if (!venueFilter[tab] || venueFilter[tab] === 'all') return rows;
+    return (rows || []).filter(r => r.venue === venueFilter[tab]);
+  }
+
+  // ── Tab switching ──────────────────────────────────────────────────────
+  function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+      const names = ['rooming', 'tribal', 'massage', 'prearrival', 'scooter'];
+      b.classList.toggle('active', names[i] === tab);
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  function switchTribalDay(day) {
+    tribalDay = day;
+    document.querySelectorAll('.sub-tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', [27, 28, 29][i] === day);
+    });
+    if (data.tribal) renderTribal(data.tribal);
+  }
+
+  // ── Fetch ──────────────────────────────────────────────────────────────
+  async function fetchAll() {
+    const [rooming, tribal, massage, prearrival, scooter] = await Promise.all([
+      fetch('/admin/api/reports/rooming').then(r => r.json()),
+      fetch('/admin/api/reports/tribal-lunch').then(r => r.json()),
+      fetch('/admin/api/reports/massage').then(r => r.json()),
+      fetch('/admin/api/reports/pre-arrival').then(r => r.json()),
+      fetch('/admin/api/reports/scooter').then(r => r.json()),
+    ]);
+    data.rooming = rooming;
+    data.tribal = tribal;
+    data.massage = massage;
+    data.prearrival = prearrival;
+    data.scooter = scooter;
+    renderRooming(rooming);
+    renderTribal(tribal);
+    renderMassage(massage);
+    renderPreArrival(prearrival);
+    renderScooter(scooter);
+  }
+
+  // ── Helpers ────────────────────────────────────────────────────────────
+  function e(v) { return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function formatAddons(raw) {
+    if (!raw) return '<span class="td-muted">—</span>';
+    return raw.split('|').map(seg => {
+      const parts = seg.split(':');
+      const name = parts.slice(1).join(':').trim() || seg;
+      return `<span class="addon-list">${e(name)}</span>`;
+    }).join('<br>');
+  }
+
+  function emptyRow(colspan) {
+    return `<tr class="empty-row"><td colspan="${colspan}">No records found</td></tr>`;
+  }
+
+  // ── Render Rooming ─────────────────────────────────────────────────────
+  let roomingViewMode = 'guest';
+
+  function setRoomingView(mode) {
+    roomingViewMode = mode;
+    document.getElementById('view-guest-btn').classList.toggle('active', mode === 'guest');
+    document.getElementById('view-room-btn').classList.toggle('active', mode === 'room');
+    document.getElementById('rooming-guest-view').style.display = mode === 'guest' ? '' : 'none';
+    document.getElementById('rooming-room-view').style.display  = mode === 'room'  ? '' : 'none';
+    if (data.rooming) renderRooming(data.rooming);
+  }
+
+  function renderRooming(rows) {
+    buildVenueFilter('rooming', rows);
+    const filtered = filterByVenue('rooming', rows);
+    document.getElementById('rooming-count').textContent = (filtered ? filtered.length : 0) + ' guests';
+
+    // ── By Guest ──────────────────────────────────────────────────────────
+    const tbody = document.getElementById('rooming-body');
+    if (!filtered || !filtered.length) { tbody.innerHTML = emptyRow(7); document.getElementById('rooming-room-view').innerHTML = '<p style="padding:24px;color:rgba(42,34,24,0.4);font-size:13px;">No guests.</p>'; return; }
+
+    const sortedGuests = [...filtered].sort((a, b) => (a.hotel_number || 9999) - (b.hotel_number || 9999));
+    tbody.innerHTML = sortedGuests.map(r => `
+      <tr>
+        <td>${e(r.full_name)}</td>
+        <td class="td-muted">${e(r.whatsapp)}</td>
+        <td class="td-muted">${e(r.venue)}</td>
+        <td class="td-muted">${e(r.hotel_number) || '—'}</td>
+        <td class="td-ref">${e(r.booking_ref)}</td>
+        <td></td>
+        <td></td>
+      </tr>`).join('');
+
+    // ── By Room ───────────────────────────────────────────────────────────
+    const byRoom = {};
+    filtered.forEach(r => {
+      const key = r.room_number || '(unassigned)';
+      if (!byRoom[key]) byRoom[key] = { room_number: key, room_type: r.room_type, venue: r.venue, hotel_number: r.hotel_number, guests: [] };
+      byRoom[key].guests.push(r);
+    });
+
+    const sorted = Object.values(byRoom).sort((a, b) => {
+      const n = v => { const m = String(v.room_number).match(/(\d+)/); return m ? parseInt(m[1]) : 9999; };
+      return n(a) - n(b) || String(a.room_number).localeCompare(String(b.room_number));
+    });
+
+    document.getElementById('rooming-room-view').innerHTML = sorted.map(room => `
+      <div class="room-group">
+        <div class="room-group-header">
+          <span class="room-group-label">${e(room.room_number)}</span>
+          <span class="room-group-meta">${e(room.room_type)} · ${e(room.venue)}</span>
+          ${room.hotel_number ? `<span class="room-group-meta" style="margin-left:auto;">Room ${e(room.hotel_number)}</span>` : ''}
+        </div>
+        <div class="room-group-body">
+          ${room.guests.map((g, i) => `
+            <div class="room-group-guest">
+              <span class="room-group-num">${i + 1}</span>
+              <span class="room-group-name">${e(g.full_name)}</span>
+              <span class="room-group-phone">${e(g.whatsapp) || ''}</span>
+              <span class="room-group-ref">${e(g.booking_ref)}</span>
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Render Tribal ──────────────────────────────────────────────────────
+  function renderTribal(allDays) {
+    const allRows = [...(allDays['day27']||[]), ...(allDays['day28']||[]), ...(allDays['day29']||[])];
+    [27, 28, 29].forEach(d => {
+      const btn = document.getElementById('tribal-btn-' + d);
+      if (btn) btn.textContent = d + ' Nov (' + (allDays['day' + d] || []).length + ')';
+    });
+    buildVenueFilter('tribal', allRows);
+    const rows = filterByVenue('tribal', allDays['day' + tribalDay] || []);
+    const tbody = document.getElementById('tribal-body');
+    document.getElementById('tribal-count').textContent = rows.length + ' guests on ' + tribalDay + ' Nov';
+    if (!rows.length) { tbody.innerHTML = emptyRow(6); return; }
+    const sortedTribal = [...rows].sort((a, b) => (a.hotel_number || 9999) - (b.hotel_number || 9999));
+    tbody.innerHTML = sortedTribal.map(r => `
+      <tr>
+        <td>${e(r.full_name)}</td>
+        <td class="td-muted">${e(r.whatsapp)}</td>
+        <td class="td-muted">${e(r.venue)}</td>
+        <td class="td-muted">${e(r.hotel_number) || '—'}</td>
+        <td class="td-muted">${r.tribal_date ? e(r.tribal_date) : '—'}</td>
+        <td class="td-ref">${e(r.booking_ref)}</td>
+      </tr>`).join('');
+  }
+
+  // ── Render Massage ─────────────────────────────────────────────────────
+  function renderMassage(rows) {
+    buildVenueFilter('massage', rows);
+    const filtered = filterByVenue('massage', rows);
+    const tbody = document.getElementById('massage-body');
+    if (!filtered || !filtered.length) { tbody.innerHTML = emptyRow(7); document.getElementById('massage-count').textContent = '0 guests'; return; }
+    document.getElementById('massage-count').textContent = filtered.length + ' guests';
+    const sortedMassage = [...filtered].sort((a, b) => (a.hotel_number || 9999) - (b.hotel_number || 9999));
+    tbody.innerHTML = sortedMassage.map(r => `
+      <tr>
+        <td>${e(r.full_name)}</td>
+        <td class="td-muted">${e(r.whatsapp)}</td>
+        <td class="td-muted">${e(r.venue)}</td>
+        <td class="td-muted">${e(r.hotel_number) || '—'}</td>
+        <td class="td-ref">${e(r.booking_ref)}</td>
+        <td></td>
+        <td></td>
+      </tr>`).join('');
+  }
+
+  // ── Render Pre-Arrival ─────────────────────────────────────────────────
+  function renderPreArrival(rows) {
+    buildVenueFilter('prearrival', rows);
+    const filtered = filterByVenue('prearrival', rows);
+    const tbody = document.getElementById('prearrival-body');
+    if (!filtered || !filtered.length) { tbody.innerHTML = emptyRow(8); document.getElementById('prearrival-count').textContent = '0 guests'; return; }
+    document.getElementById('prearrival-count').textContent = filtered.length + ' guests';
+    tbody.innerHTML = filtered.map(r => `
+      <tr>
+        <td style="font-weight:600;">${e(r.hotel_number) || '—'}</td>
+        <td>${e(r.full_name)}</td>
+        <td class="td-muted">${e(r.whatsapp)}</td>
+        <td class="td-muted">${e(r.room_number) || '—'}</td>
+        <td class="td-muted">${e(r.room_type)}</td>
+        <td class="td-muted">${e(r.venue)}</td>
+        <td>${formatAddons(r.addons)}</td>
+        <td class="td-ref">${e(r.booking_ref)}</td>
+      </tr>`).join('');
+  }
+
+  // ── Render Scooter ────────────────────────────────────────────────────
+  function renderScooter(rows) {
+    buildVenueFilter('scooter', rows);
+    const filtered = filterByVenue('scooter', rows);
+    const tbody = document.getElementById('scooter-body');
+    if (!filtered || !filtered.length) { tbody.innerHTML = emptyRow(6); document.getElementById('scooter-count').textContent = '0 guests'; return; }
+    document.getElementById('scooter-count').textContent = filtered.length + ' guests';
+    const sortedScooter = [...filtered].sort((a, b) => (a.hotel_number || 9999) - (b.hotel_number || 9999));
+    tbody.innerHTML = sortedScooter.map(r => `
+      <tr>
+        <td>${e(r.full_name)}</td>
+        <td class="td-muted">${e(r.whatsapp)}</td>
+        <td class="td-muted">${e(r.venue)}</td>
+        <td class="td-muted">${e(r.hotel_number) || '—'}</td>
+        <td class="td-muted">${e(r.scooter_duration) || '—'}</td>
+        <td>${r.payment_pending
+          ? '<span style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(230,126,34,0.12);color:#c0752a;border:0.5px solid rgba(230,126,34,0.3);border-radius:3px;padding:2px 7px;">Pending</span>'
+          : '<span style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(39,174,96,0.1);color:#27ae60;border:0.5px solid rgba(39,174,96,0.3);border-radius:3px;padding:2px 7px;">Paid</span>'
+        }</td>
+        <td class="td-ref">${e(r.booking_ref)}</td>
+      </tr>`).join('');
+  }
+
+  // ── CSV Export ─────────────────────────────────────────────────────────
+  function csvEsc(v) {
+    const s = String(v ?? '');
+    return s.includes(',') || s.includes('"') || s.includes('\n') ? '"' + s.replace(/"/g,'""') + '"' : s;
+  }
+
+  function toCSV(headers, rows) {
+    return [headers.join(','), ...rows.map(r => r.map(csvEsc).join(','))].join('\n');
+  }
+
+  function downloadCSV(tab) {
+    let csv, filename;
+    if (tab === 'rooming') {
+      const rows = data.rooming || [];
+      csv = toCSV(
+        ['Property Room No.','Guest Name','WhatsApp','Arrival','Roommates','Room No.','Room Type','Venue','Booking Ref'],
+        rows.map(r => [r.hotel_number,r.full_name,r.whatsapp,r.arrival_date,r.roommates,r.room_number,r.room_type,r.venue,r.booking_ref])
+      );
+      filename = 'rooming-list.csv';
+    } else if (tab === 'tribal') {
+      const rows = (data.tribal || {})['day' + tribalDay] || [];
+      csv = toCSV(
+        ['Guest Name','WhatsApp','Property Room No.','Tribal Lunch Date','Booking Ref','Venue'],
+        rows.map(r => [r.full_name,r.whatsapp,r.hotel_number,r.tribal_date||'',r.booking_ref,r.venue])
+      );
+      filename = `tribal-lunch-${tribalDay}nov.csv`;
+    } else if (tab === 'massage') {
+      const rows = data.massage || [];
+      csv = toCSV(
+        ['Property Room No.','Guest Name','WhatsApp','Arrival','Room No.','Venue','Booking Ref'],
+        rows.map(r => [r.hotel_number,r.full_name,r.whatsapp,r.arrival_date,r.room_number,r.venue,r.booking_ref])
+      );
+      filename = 'massage-list.csv';
+    } else if (tab === 'prearrival') {
+      const rows = data.prearrival || [];
+      csv = toCSV(
+        ['Property Room No.','Guest Name','WhatsApp','Room No.','Room Type','Venue','Add-ons','Booking Ref'],
+        rows.map(r => [r.hotel_number,r.full_name,r.whatsapp,r.room_number,r.room_type,r.venue,r.addons,r.booking_ref])
+      );
+      filename = 'pre-arrival-26nov.csv';
+    } else if (tab === 'scooter') {
+      const rows = data.scooter || [];
+      csv = toCSV(
+        ['Property Room No.','Guest Name','WhatsApp','Rental Duration','Arrival','Room No.','Venue','Booking Ref'],
+        rows.map(r => [r.hotel_number,r.full_name,r.whatsapp,r.scooter_duration,r.arrival_date,r.room_number,r.venue,r.booking_ref])
+      );
+      filename = 'scooter-rental.csv';
+    }
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+  }
+
+  // ── Print ──────────────────────────────────────────────────────────────
+  function printPanel(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('print-target'));
+    document.getElementById('panel-' + tab).classList.add('print-target');
+    window.print();
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────
+  fetchAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Admin Login — Moon Festival 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #191406;
+      color: #EDD4B2;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      width: 100%;
+      max-width: 400px;
+      padding: 48px 40px;
+      background: #1e1a0e;
+      border: 0.5px solid rgba(176,96,48,0.3);
+      border-radius: 4px;
+    }
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B06030;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: #EDD4B2;
+      margin-bottom: 32px;
+    }
+    .field { margin-bottom: 22px; }
+    label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.55);
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 0.5px solid rgba(176,96,48,0.4);
+      color: #EDD4B2;
+      font-size: 14px;
+      padding: 8px 0;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #B06030; }
+    input::placeholder { color: rgba(237,212,178,0.2); }
+    .error {
+      background: rgba(192,57,43,0.15);
+      border: 0.5px solid rgba(192,57,43,0.4);
+      border-radius: 3px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #e74c3c;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .error.show { display: block; }
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 13px;
+      background: #B06030;
+      color: #EDD4B2;
+      border: none;
+      border-radius: 2px;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="eyebrow">Moon Festival 2026</p>
+    <h1>Admin Login</h1>
+    <div class="error" id="err">Incorrect username or password.</div>
+    <form method="POST" action="/admin/login">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" autocomplete="username" required autofocus />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" autocomplete="current-password" required />
+      </div>
+      <button type="submit">Sign In →</button>
+    </form>
+  </div>
+  <script>
+    // Show error if redirected back after failed login
+    if (document.cookie.includes('login_error') || location.search.includes('error')) {
+      document.getElementById('err').classList.add('show');
+    }
+    // Check response header set by server
+    if (document.referrer.includes('/admin/login')) {
+      // simple: just show error when form was submitted and came back
+      const form = document.querySelector('form');
+      if (form) form.addEventListener('submit', () => {
+        sessionStorage.setItem('attempted', '1');
+      });
+      if (sessionStorage.getItem('attempted') === '1') {
+        sessionStorage.removeItem('attempted');
+      }
+    }
+  </script>
+</body>
+</html>
