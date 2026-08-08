@@ -35,9 +35,14 @@ db.exec(`
     full_name    TEXT NOT NULL,
     whatsapp     TEXT NOT NULL,
     email        TEXT NOT NULL,
-    city         TEXT NOT NULL,
-    age          INTEGER NOT NULL,
-    gender       TEXT
+    city         TEXT,
+    age          INTEGER,
+    gender       TEXT,
+    address      TEXT,
+    state        TEXT,
+    pin          TEXT,
+    room_number  TEXT,
+    notes        TEXT
   );
 `);
 
@@ -83,41 +88,14 @@ db.exec(`CREATE TABLE IF NOT EXISTS booking_log (
 )`);
 
 
+// Migration for existing DBs that have old guests schema
 const existingGuestCols = db.prepare("PRAGMA table_info(guests)").all().map(r => r.name);
-if (!existingGuestCols.includes('address')) db.exec("ALTER TABLE guests ADD COLUMN address TEXT");
-if (!existingGuestCols.includes('state'))   db.exec("ALTER TABLE guests ADD COLUMN state TEXT");
-if (!existingGuestCols.includes('pin'))     db.exec("ALTER TABLE guests ADD COLUMN pin TEXT");
-
-// Make city and age nullable if they aren't already
-try { db.exec("ALTER TABLE guests ADD COLUMN _tmp TEXT"); db.exec("ALTER TABLE guests DROP COLUMN _tmp"); } catch(_) {}
-const guestCityInfo = db.prepare("PRAGMA table_info(guests)").all().find(r => r.name === 'city');
-if (guestCityInfo && guestCityInfo.notnull) {
-  const guestColNames = db.prepare("PRAGMA table_info(guests)").all().map(r => r.name).join(', ');
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS guests_new (
-      id           INTEGER PRIMARY KEY AUTOINCREMENT,
-      booking_id   INTEGER NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
-      guest_number INTEGER NOT NULL,
-      full_name    TEXT NOT NULL,
-      whatsapp     TEXT NOT NULL,
-      email        TEXT NOT NULL,
-      city         TEXT,
-      age          INTEGER,
-      gender       TEXT,
-      address      TEXT,
-      state        TEXT,
-      pin          TEXT
-    );
-    INSERT INTO guests_new (${guestColNames}) SELECT ${guestColNames} FROM guests;
-    DROP TABLE guests;
-    ALTER TABLE guests_new RENAME TO guests;
-  `);
-}
-
-const existingGuestCols2 = db.prepare("PRAGMA table_info(guests)").all().map(r => r.name);
-if (!existingGuestCols2.includes('gender'))      db.exec("ALTER TABLE guests ADD COLUMN gender TEXT");
-if (!existingGuestCols2.includes('room_number')) db.exec("ALTER TABLE guests ADD COLUMN room_number TEXT");
-if (!existingGuestCols2.includes('notes'))       db.exec("ALTER TABLE guests ADD COLUMN notes TEXT");
+if (!existingGuestCols.includes('address'))     db.exec("ALTER TABLE guests ADD COLUMN address TEXT");
+if (!existingGuestCols.includes('state'))       db.exec("ALTER TABLE guests ADD COLUMN state TEXT");
+if (!existingGuestCols.includes('pin'))         db.exec("ALTER TABLE guests ADD COLUMN pin TEXT");
+if (!existingGuestCols.includes('gender'))      db.exec("ALTER TABLE guests ADD COLUMN gender TEXT");
+if (!existingGuestCols.includes('room_number')) db.exec("ALTER TABLE guests ADD COLUMN room_number TEXT");
+if (!existingGuestCols.includes('notes'))       db.exec("ALTER TABLE guests ADD COLUMN notes TEXT");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS applications (
