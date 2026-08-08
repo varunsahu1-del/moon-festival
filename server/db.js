@@ -92,6 +92,7 @@ if (!existingGuestCols.includes('pin'))     db.exec("ALTER TABLE guests ADD COLU
 try { db.exec("ALTER TABLE guests ADD COLUMN _tmp TEXT"); db.exec("ALTER TABLE guests DROP COLUMN _tmp"); } catch(_) {}
 const guestCityInfo = db.prepare("PRAGMA table_info(guests)").all().find(r => r.name === 'city');
 if (guestCityInfo && guestCityInfo.notnull) {
+  const guestColNames = db.prepare("PRAGMA table_info(guests)").all().map(r => r.name).join(', ');
   db.exec(`
     CREATE TABLE IF NOT EXISTS guests_new (
       id           INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -102,9 +103,12 @@ if (guestCityInfo && guestCityInfo.notnull) {
       email        TEXT NOT NULL,
       city         TEXT,
       age          INTEGER,
-      gender       TEXT
+      gender       TEXT,
+      address      TEXT,
+      state        TEXT,
+      pin          TEXT
     );
-    INSERT INTO guests_new SELECT * FROM guests;
+    INSERT INTO guests_new (${guestColNames}) SELECT ${guestColNames} FROM guests;
     DROP TABLE guests;
     ALTER TABLE guests_new RENAME TO guests;
   `);
