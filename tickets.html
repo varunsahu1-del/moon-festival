@@ -2562,7 +2562,7 @@ function buildPersonFields(count) {
         <label class="booking-label" for="bf-name-${i}">Full Name</label>
         <input class="booking-input" id="bf-name-${i}" type="text" placeholder="Full name" />
       </div>
-      <div class="booking-field">
+      <div class="booking-field" id="bf-whatsapp-wrap-${i}">
         <label class="booking-label" for="bf-whatsapp-${i}">WhatsApp Number</label>
         <div style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.2);">
           <select id="bf-cc-${i}" style="background:transparent;border:none;color:#EDD4B2;font-family:'Open Sans',sans-serif;font-size:clamp(0.8rem,1.3vw,0.88rem);font-weight:300;padding:0.5em 0;outline:none;cursor:pointer;min-width:76px;flex-shrink:0;-webkit-appearance:none;appearance:none;">
@@ -2843,7 +2843,11 @@ bookingForm.addEventListener('submit', async e => {
 
     const wa = document.getElementById('bf-whatsapp-' + n);
     if (wa.value.replace(/\D/g, '').length < 10) {
-      showFieldError(wa, 'Please enter a valid WhatsApp number (min 10 digits).');
+      const waWrap = document.getElementById('bf-whatsapp-wrap-' + n) || wa.closest('.booking-field') || wa.parentElement;
+      let waErr = waWrap.querySelector('.field-error');
+      if (!waErr) { waErr = document.createElement('span'); waErr.className = 'field-error'; waWrap.appendChild(waErr); }
+      waErr.textContent = 'Please enter a valid WhatsApp number (min 10 digits).';
+      wa.classList.add('input-error');
       valid = false;
     }
 

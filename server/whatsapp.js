@@ -1,19 +1,9 @@
 const cron = require('node-cron');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const { db } = require('./db');
 const { getInventoryStats } = require('./inventory');
 
-const REPORT_EMAIL = 'varunsahu1@gmail.com, moonyogaadventures@gmail.com';
-
-function createTransport() {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-}
+const REPORT_EMAIL = ['varunsahu1@gmail.com', 'moonyogaadventures@gmail.com'];
 
 function buildStats() {
   const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
@@ -135,19 +125,19 @@ async function sendDailyReport() {
   const stats = buildStats();
   const html = buildHtml(stats);
 
-  const transporter = createTransport();
-  await transporter.sendMail({
-    from: `"Moon Festival" <${process.env.GMAIL_USER}>`,
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  await resend.emails.send({
+    from: 'Moon Festival <bookings@moonfestival.in>',
     to: REPORT_EMAIL,
-    subject: `[MF Stats] 📊 Moon Festival · Daily Report · ${stats.today}`,
+    subject: `[MF Stats] Moon Festival · Daily Report · ${stats.today}`,
     html,
   });
   console.log(`[daily-report] sent to ${REPORT_EMAIL}`);
 }
 
 function startDailyReport() {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.log('[daily-report] GMAIL_APP_PASSWORD not set — daily report disabled');
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[daily-report] RESEND_API_KEY not set — daily report disabled');
     return;
   }
 

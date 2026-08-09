@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const { db } = require('../db');
 const { sendApplicationReceived } = require('../email');
 
@@ -21,16 +21,6 @@ const FORM_LABELS = {
   'apply-retail':      'Retail / Flea Stall Application',
   'apply-volunteer':   'Volunteer Application',
 };
-
-function createTransport() {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-}
 
 // POST /api/applications/submit
 // multipart/form-data — all fields + optional file uploads
@@ -160,19 +150,19 @@ router.post('/submit', upload.any(), async (req, res) => {
       `).run(formName, formLabel, applicantName, applicantEmail, fields.whatsapp || '', JSON.stringify(fields));
     } catch (e) { console.error('[applications] DB save failed:', e.message); }
 
-    if (!process.env.GMAIL_APP_PASSWORD) {
-      console.log('[applications] GMAIL_APP_PASSWORD not set — skipping email, fields:', fields);
+    if (!process.env.RESEND_API_KEY) {
+      console.log('[applications] RESEND_API_KEY not set — skipping email');
       return res.json({ ok: true, note: 'email_skipped' });
     }
 
-    const transporter = createTransport();
-    await transporter.sendMail({
-      from:        `"Moon Festival" <${process.env.GMAIL_USER}>`,
-      to:          PARTICIPATE_EMAIL,
-      replyTo:     applicantEmail || undefined,
-      subject:     `📋 ${applicantName} · ${formLabel}${subjectTag} · Moon Festival 2026`,
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from:    'Moon Festival <bookings@moonfestival.in>',
+      to:      PARTICIPATE_EMAIL,
+      replyTo: applicantEmail || undefined,
+      subject: `${applicantName} · ${formLabel}${subjectTag} · Moon Festival 2026`,
       html,
-      attachments,
+      attachments: attachments.map(a => ({ filename: a.filename, content: a.content })),
     });
 
     console.log(`[applications] ${formLabel} from ${applicantName} sent to ${PARTICIPATE_EMAIL}`);
