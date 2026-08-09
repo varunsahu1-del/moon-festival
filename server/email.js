@@ -812,7 +812,7 @@ async function sendUpiPendingGuest({ booking, guests }) {
         ? '<tr><td style="' + LBL + '">Add-ons</td></tr>'
           + '<tr><td style="' + VAL + '">' + addonItems.map(function(a) { return '<span style="display:block;padding:2px 0;">' + a.name + '</span>'; }).join('') + '</td></tr>'
         : '')
-    + '<tr><td style="' + LBL + '">Amount Paid</td></tr>'
+    + '<tr><td style="' + LBL + '">Amount Due</td></tr>'
     + '<tr><td style="' + VAL0 + '">₹' + totalWithGst.toLocaleString('en-IN') + ' <span style="font-size:12px;color:' + C.muted + ';font-weight:300;">(incl. 5% GST)</span></td></tr>'
     + '</table>'
     + '</td></tr>'
