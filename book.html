@@ -1468,33 +1468,21 @@ function launchUpiPay(e) {
 async function reserveCashSpot(e) {
   if (e) e.stopPropagation();
   if (!_payState) return;
-  const { bookingData, totalWithGst } = _payState;
-  const btn = document.getElementById('cashReserveBtn');
-  btn.disabled = true;
-  btn.textContent = 'Reserving…';
+  const { bookingData, venue, roomType, totalWithGst } = _payState;
+  const ref = bookingData.booking_ref;
 
   try {
     await fetch('/api/bookings/upi-pending', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ booking_ref: bookingData.booking_ref, payment_method: 'cash' }),
+      body: JSON.stringify({ booking_ref: ref, payment_method: 'cash' }),
     });
   } catch (_) {}
 
-  const ref = bookingData.booking_ref;
   const msg = encodeURIComponent(`Hi! I'd like to pay cash for my Moon Festival 2026 booking — ${ref}, ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}. Please let me know how to proceed.`);
-  document.getElementById('cashBookingRef').textContent = ref;
-  const confirmedUrl = `booking-confirmed.html?ref=${ref}&method=cash`;
-  function openCashWa(waUrl) {
-    window.open(waUrl, '_blank');
-    window.location.href = confirmedUrl;
-  }
-  document.getElementById('cashWaVarun').href = '#';
-  document.getElementById('cashWaVarun').onclick = (e) => { e.preventDefault(); openCashWa(`https://wa.me/919820791100?text=${msg}`); };
-  document.getElementById('cashWaKaran').href = '#';
-  document.getElementById('cashWaKaran').onclick = (e) => { e.preventDefault(); openCashWa(`https://wa.me/919930920313?text=${msg}`); };
-
-  btn.style.display = 'none';
-  document.getElementById('cashConfirmed').style.display = 'block';
+  const waNum = _payState.cfg?.admin_whatsapp || '919820791100';
+  document.getElementById('payOverlay').classList.remove('open');
+  window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank');
+  window.location.href = `booking-confirmed.html?ref=${ref}&method=cash`;
 }
 
 async function reserveBankSpot(e) {
