@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const { generateInvoice } = require('./invoice');
 const { computeBreakdown } = require('./breakdown');
 
@@ -41,14 +41,25 @@ try {
     }).catch(() => {});
 } catch (_) {}
 
-function createTransport() {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
+const FROM = 'Moon Festival <bookings@moonfestival.in>';
+const ADMIN_BCC = 'moonyogaadventures@gmail.com';
+
+async function sendEmail(opts) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const payload = {
+    from: opts.from || FROM,
+    to: Array.isArray(opts.to) ? opts.to : opts.to.split(',').map(s => s.trim()),
+    subject: opts.subject,
+    html: opts.html,
+  };
+  if (opts.bcc) payload.bcc = Array.isArray(opts.bcc) ? opts.bcc : opts.bcc.split(',').map(s => s.trim());
+  if (opts.attachments) {
+    payload.attachments = opts.attachments.map(a => ({
+      filename: a.filename,
+      content: a.content || (a.path ? require('fs').readFileSync(a.path) : undefined),
+    })).filter(a => a.content);
+  }
+  return resend.emails.send(payload);
 }
 
 // ── Update when domain is live ───────────────────────────────────────────────
@@ -91,12 +102,12 @@ const VAL0 = 'font-family:' + OPEN + ';font-size:15px;font-weight:500;color:' + 
 const DIV  = '<tr><td style="padding:32px 0 0;"><div style="height:1px;background:' + C.terra + ';opacity:0.55;"></div></td></tr>';
 
 async function sendConfirmation({ booking, guests }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.log('[email] GMAIL_APP_PASSWORD not set — skipping email');
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[email] RESEND_API_KEY not set — skipping email');
     return;
   }
 
-  const transporter = createTransport();
+  
   const primary  = guests[0];
   const firstName = primary.full_name.split(' ')[0];
 
@@ -274,9 +285,9 @@ async function sendConfirmation({ booking, guests }) {
   const subject = booking.booking_ref + ' · You\'re confirmed for Moon Festival 2026 🌙';
 
   const mailOptions = {
-    from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+    from: FROM,
     to: primary.email,
-    bcc: process.env.GMAIL_USER,
+    bcc: ADMIN_BCC,
     subject: subject,
     html: html,
   };
@@ -294,7 +305,7 @@ async function sendConfirmation({ booking, guests }) {
     }];
   }
 
-  await transporter.sendMail(mailOptions);
+  await sendEmail(mailOptions);
   console.log('[email] Sent to ' + primary.email + ' — ' + subject);
 
   // Admin notification
@@ -356,19 +367,19 @@ async function sendConfirmation({ booking, guests }) {
 
   try {
     const adminMailOptions = {
-      from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+      from: FROM,
       to: ADMIN_EMAILS.join(', '),
       subject: '🌙 New Booking — ' + booking.booking_ref + ' · ' + primary.full_name,
       html: adminHtml,
     };
     if (screenshotAttachment) adminMailOptions.attachments = [screenshotAttachment];
-    await transporter.sendMail(adminMailOptions);
+    await sendEmail(adminMailOptions);
     console.log('[email] Admin notification sent');
   } catch (e) { console.error('[email] Admin notification failed:', e.message); }
 }
 
 async function sendFailedPaymentAlert({ booking, guests }) {
-  if (!process.env.GMAIL_APP_PASSWORD) return;
+  if (!process.env.RESEND_API_KEY) return;
 
   const primary = guests[0] || {};
 
@@ -430,11 +441,11 @@ async function sendFailedPaymentAlert({ booking, guests }) {
     + '<p style="margin:10px 0 0;font-size:12px;color:#a89080;">Log in to resend a payment link to the guest.</p>'
     + '</div></body></html>';
 
-  const transporter = createTransport();
+  
   const ADMIN_EMAILS = ['moonyogaadventures@gmail.com'];
   try {
-    await transporter.sendMail({
-      from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+    await sendEmail({
+      from: FROM,
       to: ADMIN_EMAILS.join(', '),
       subject: booking.booking_ref + ' · Failed Payment · ' + paymentDisplay + ' · ' + (primary.full_name || ''),
       html,
@@ -444,11 +455,11 @@ async function sendFailedPaymentAlert({ booking, guests }) {
 }
 
 async function sendModificationEmail({ booking, guests, oldVenue, oldRoomType, oldPrice, extraAmount, paymentLink }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.log('[email] GMAIL_APP_PASSWORD not set — skipping modification email');
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[email] RESEND_API_KEY not set — skipping modification email');
     return;
   }
-  const transporter = createTransport();
+  
   const primary  = guests[0];
   const firstName = primary.full_name.split(' ')[0];
 
@@ -506,10 +517,10 @@ async function sendModificationEmail({ booking, guests, oldVenue, oldRoomType, o
   const toAddresses = guests.map(g => g.email).filter(Boolean).join(', ');
   if (!toAddresses) { console.log('[email] No email addresses — skipping modification email'); return; }
 
-  await transporter.sendMail({
-    from: `"Moon Festival 2026" <${process.env.GMAIL_USER}>`,
+  await sendEmail({
+    from: FROM,
     to: toAddresses,
-    bcc: process.env.GMAIL_USER,
+    bcc: ADMIN_BCC,
     subject: `${booking.booking_ref} · Booking Updated · ${primary.full_name || ''}`,
     html,
   });
@@ -517,11 +528,11 @@ async function sendModificationEmail({ booking, guests, oldVenue, oldRoomType, o
 }
 
 async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWithGst }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.log('[email] GMAIL_APP_PASSWORD not set — skipping pending payment email');
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[email] RESEND_API_KEY not set — skipping pending payment email');
     return;
   }
-  const transporter = createTransport();
+  
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
   const totalFmt = '₹' + amountWithGst.toLocaleString('en-IN');
@@ -565,10 +576,10 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
   const toAddresses = guests.map(g => g.email).filter(Boolean).join(', ');
   if (!toAddresses) return;
 
-  await transporter.sendMail({
-    from: `"Moon Festival 2026" <${process.env.GMAIL_USER}>`,
+  await sendEmail({
+    from: FROM,
     to: toAddresses,
-    bcc: process.env.GMAIL_USER,
+    bcc: ADMIN_BCC,
     subject: `${booking.booking_ref} · Complete Your Payment · Moon Festival 2026`,
     html,
   });
@@ -576,8 +587,8 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
 }
 
 async function sendSplitPaymentEmail({ booking, guests, part1, part2, total, link1, link2 }) {
-  if (!process.env.GMAIL_APP_PASSWORD) return;
-  const transporter = createTransport();
+  if (!process.env.RESEND_API_KEY) return;
+  
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
@@ -622,9 +633,9 @@ async function sendSplitPaymentEmail({ booking, guests, part1, part2, total, lin
 
   const to = guests.map(g => g.email).filter(Boolean).join(', ');
   if (!to) return;
-  await transporter.sendMail({
-    from: `"Moon Festival 2026" <${process.env.GMAIL_USER}>`,
-    to, bcc: process.env.GMAIL_USER,
+  await sendEmail({
+    from: FROM,
+    to, bcc: ADMIN_BCC,
     subject: `${booking.booking_ref} · Payment in Two Parts · Moon Festival 2026`,
     html,
   });
@@ -632,11 +643,11 @@ async function sendSplitPaymentEmail({ booking, guests, part1, part2, total, lin
 }
 
 async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.log('[email] GMAIL_APP_PASSWORD not set — skipping addon payment email');
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[email] RESEND_API_KEY not set — skipping addon payment email');
     return;
   }
-  const transporter = createTransport();
+  
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
   const totalFmt = '₹' + Math.round(addonTotal * 1.05).toLocaleString('en-IN');
@@ -681,10 +692,10 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
   const toAddresses = guests.map(g => g.email).filter(Boolean).join(', ');
   if (!toAddresses) { console.log('[email] No email addresses — skipping addon payment email'); return; }
 
-  await transporter.sendMail({
-    from: `"Moon Festival 2026" <${process.env.GMAIL_USER}>`,
+  await sendEmail({
+    from: FROM,
     to: toAddresses,
-    bcc: process.env.GMAIL_USER,
+    bcc: ADMIN_BCC,
     subject: `${booking.booking_ref} · Add-ons Payment · ${primary.full_name || ''}`,
     html,
   });
@@ -692,8 +703,8 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
 }
 
 async function sendUpiAlert({ booking, guests }) {
-  if (!process.env.GMAIL_APP_PASSWORD) return;
-  const transporter = createTransport();
+  if (!process.env.RESEND_API_KEY) return;
+  
   const primary = guests[0] || {};
   const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
   const totalWithGst = Math.round(baseAmt * 1.05);
@@ -738,7 +749,7 @@ async function sendUpiAlert({ booking, guests }) {
     + '</div></body></html>';
 
   const mailOptions = {
-    from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+    from: FROM,
     to: ADMIN_EMAILS.join(', '),
     subject: '⚡ Action Required · ' + booking.booking_ref + ' · Payment Received · ' + primary.full_name + ' ⚡',
     html,
@@ -746,14 +757,14 @@ async function sendUpiAlert({ booking, guests }) {
   if (screenshotAttachment) mailOptions.attachments = [screenshotAttachment];
 
   try {
-    await transporter.sendMail(mailOptions);
+    await sendEmail(mailOptions);
     console.log('[email] UPI alert sent for', booking.booking_ref);
   } catch (e) { console.error('[email] UPI alert failed:', e.message); }
 }
 
 async function sendUpiPendingGuest({ booking, guests }) {
-  if (!process.env.GMAIL_APP_PASSWORD) return;
-  const transporter = createTransport();
+  if (!process.env.RESEND_API_KEY) return;
+  
   const primary = guests[0] || {};
   const firstName = (primary.full_name || 'there').split(' ')[0];
   const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
@@ -830,8 +841,8 @@ async function sendUpiPendingGuest({ booking, guests }) {
     + '</td></tr></table></body></html>';
 
   try {
-    await transporter.sendMail({
-      from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+    await sendEmail({
+      from: FROM,
       to: primary.email,
       subject: booking.booking_ref + ' · Your spot is reserved — confirmation within 24 hours 🌙',
       html,
@@ -842,8 +853,8 @@ async function sendUpiPendingGuest({ booking, guests }) {
 
 // ── Email 07: Application received (to applicant) ────────────────────────────
 async function sendApplicationReceived({ applicantName, applicantEmail, formLabel }) {
-  if (!process.env.GMAIL_APP_PASSWORD || !applicantEmail) return;
-  const transporter = createTransport();
+  if (!process.env.RESEND_API_KEY || !applicantEmail) return;
+  
   const C = { text: '#EDD4B2', sub: 'rgba(237,212,178,0.75)', muted: 'rgba(237,212,178,0.4)', terra: '#C47D52', gold: '#C4972F', border: 'rgba(176,96,48,0.18)', bg: '#191406' };
   const firstName = applicantName ? applicantName.split(' ')[0] : 'there';
 
@@ -884,8 +895,8 @@ async function sendApplicationReceived({ applicantName, applicantEmail, formLabe
     + '</p></td></tr>'
     + '</table></td></tr></table></body></html>';
 
-  await transporter.sendMail({
-    from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+  await sendEmail({
+    from: FROM,
     to: applicantEmail,
     subject: formLabel + ' · Received · Moon Festival 2026 🌙',
     html,
@@ -895,8 +906,8 @@ async function sendApplicationReceived({ applicantName, applicantEmail, formLabe
 
 // ── Email 08: Application accepted (to applicant) ────────────────────────────
 async function sendApplicationAccepted({ applicantName, applicantEmail, formLabel }) {
-  if (!process.env.GMAIL_APP_PASSWORD || !applicantEmail) return;
-  const transporter = createTransport();
+  if (!process.env.RESEND_API_KEY || !applicantEmail) return;
+  
   const C = { text: '#EDD4B2', sub: 'rgba(237,212,178,0.75)', muted: 'rgba(237,212,178,0.4)', terra: '#C47D52', gold: '#C4972F', border: 'rgba(176,96,48,0.18)', bg: '#191406' };
   const firstName = applicantName ? applicantName.split(' ')[0] : 'there';
 
@@ -937,8 +948,8 @@ async function sendApplicationAccepted({ applicantName, applicantEmail, formLabe
     + '</p></td></tr>'
     + '</table></td></tr></table></body></html>';
 
-  await transporter.sendMail({
-    from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+  await sendEmail({
+    from: FROM,
     to: applicantEmail,
     subject: formLabel + ' · You\'re in · Moon Festival 2026 🌙',
     html,
@@ -947,7 +958,7 @@ async function sendApplicationAccepted({ applicantName, applicantEmail, formLabe
 }
 
 async function sendCustomPaymentAlert({ ref, name, phone, email, note, handled_by, amount }) {
-  if (!process.env.GMAIL_APP_PASSWORD) return;
+  if (!process.env.RESEND_API_KEY) return;
   const ADMIN_EMAILS = ['moonyogaadventures@gmail.com'];
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
   const waNum = (phone || '').replace(/\D/g, '').replace(/^0/, '91');
@@ -974,10 +985,10 @@ async function sendCustomPaymentAlert({ ref, name, phone, email, note, handled_b
     + '<a href="https://moonfestival.in/admin" style="display:inline-block;background:#B06030;color:#fff;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;padding:10px 22px;text-decoration:none;border-radius:2px;">Open Admin →</a>'
     + '</div></body></html>';
 
-  const transporter = createTransport();
+  
   try {
-    await transporter.sendMail({
-      from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+    await sendEmail({
+      from: FROM,
       to: ADMIN_EMAILS.join(', '),
       subject: ref + ' · Custom Payment · ' + fmt(amount) + ' · ' + name,
       html,
@@ -987,12 +998,12 @@ async function sendCustomPaymentAlert({ ref, name, phone, email, note, handled_b
 }
 
 async function sendDailyBackup(dbPath) {
-  if (!process.env.GMAIL_APP_PASSWORD) { console.log('[backup] GMAIL_APP_PASSWORD not set — skipping backup email'); return; }
+  if (!process.env.RESEND_API_KEY) { console.log('[backup] RESEND_API_KEY not set — skipping backup email'); return; }
   const fs = require('fs');
   const date = new Date().toISOString().slice(0, 10);
-  const transporter = createTransport();
-  await transporter.sendMail({
-    from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+  
+  await sendEmail({
+    from: FROM,
     to: 'moonyogaadventures@gmail.com',
     subject: 'Moon Festival · Daily DB Backup · ' + date,
     text: 'Automated daily backup of moonfestival.db attached.',
@@ -1002,8 +1013,8 @@ async function sendDailyBackup(dbPath) {
 }
 
 async function sendNewBookingAlert({ booking, guests, amountWithGst }) {
-  if (!process.env.GMAIL_APP_PASSWORD) return;
-  const transporter = createTransport();
+  if (!process.env.RESEND_API_KEY) return;
+  
   const primary = guests[0] || {};
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
   const guestLines = guests.map((g, i) =>
@@ -1025,8 +1036,8 @@ async function sendNewBookingAlert({ booking, guests, amountWithGst }) {
     + '<a href="https://moonfestival.in/admin" style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#fff;background:#B06030;text-decoration:none;padding:12px 24px;">View in Admin →</a>'
     + '</div></body></html>';
 
-  await transporter.sendMail({
-    from: `"Moon Festival" <${process.env.GMAIL_USER}>`,
+  await sendEmail({
+    from: FROM,
     to: 'moonyogaadventures@gmail.com',
     subject: '🌙 New booking: ' + booking.booking_ref + ' · ' + booking.venue + ' · ' + fmt(amountWithGst),
     html,
@@ -1043,11 +1054,11 @@ const BANK_IFSC   = 'HDFC0000016';
 const BANK_HOLDER = 'Bharat Varun Sahu';
 
 async function sendQuote({ booking, guests }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.log('[email] GMAIL_APP_PASSWORD not set — skipping quote email');
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[email] RESEND_API_KEY not set — skipping quote email');
     return;
   }
-  const transporter = createTransport();
+  
   const primary   = guests[0] || {};
   const firstName = (primary.full_name || 'there').split(' ')[0];
 
@@ -1181,15 +1192,15 @@ async function sendQuote({ booking, guests }) {
   }
   console.log('[email] Sending quote to:', toEmail, 'for', booking.booking_ref);
   try {
-    await transporter.sendMail({
-      from: '"Moon Festival" <' + process.env.GMAIL_USER + '>',
+    await sendEmail({
+      from: FROM,
       to: toEmail,
       subject: booking.booking_ref + ' · Moon 2026 — Payment details for your booking',
       html,
     });
     console.log('[email] Quote sent to', toEmail, 'for', booking.booking_ref);
   } catch (e) {
-    console.error('[email] Quote send failed:', e.message, '| to:', toEmail, '| from:', process.env.GMAIL_USER);
+    console.error('[email] Quote send failed:', e.message, '| to:', toEmail, '| from:', FROM);
     throw e;
   }
 }
