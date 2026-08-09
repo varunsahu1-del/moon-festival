@@ -138,8 +138,8 @@ db.exec(`
 `);
 
 function nextRef() {
-  const row = db.prepare('SELECT COUNT(*) as c FROM bookings').get();
-  return 'MF-' + String(row.c + 1).padStart(4, '0');
+  const row = db.prepare("SELECT MAX(CAST(SUBSTR(booking_ref,4) AS INTEGER)) as m FROM bookings WHERE booking_ref LIKE 'MF-%'").get();
+  return 'MF-' + String((row.m || 0) + 1).padStart(4, '0');
 }
 
 module.exports = { db, nextRef };
