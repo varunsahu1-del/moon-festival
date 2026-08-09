@@ -3004,6 +3004,11 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   const el = document.getElementById('razorpayFinalAmount');
   if (el) el.textContent = 'Total charged: ₹' + razorpayTotal.toLocaleString('en-IN');
 
+  // Populate Bank Transfer savings (same as UPI saving vs Razorpay)
+  const bankSaving = razorpayTotal - totalWithGst;
+  const bankEl = document.getElementById('payBankSaveSub');
+  if (bankEl) bankEl.textContent = 'save ₹' + bankSaving.toLocaleString('en-IN') + ' vs Razorpay';
+
 
   // Populate WhatsApp detail
   const waNum = cfg.admin_whatsapp || '919820791100';
@@ -3095,6 +3100,17 @@ async function submitCashPending(e) {
   const waHref = document.getElementById('payWaLink').href;
   window.open(waHref, '_blank');
   document.getElementById('payOverlay').classList.remove('open');
+  window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=cash';
+}
+
+async function launchBankTransfer(e) {
+  if (e) e.stopPropagation();
+  if (!_payState) return;
+  const { bookingData, venue, roomType, totalWithGst, cfg } = _payState;
+  const waNum = cfg?.admin_whatsapp || '919820791100';
+  const waMsg = encodeURIComponent(`Hi, I'd like to pay via bank transfer for booking ${bookingData.booking_ref} — ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}. Please share bank details.`);
+  document.getElementById('payOverlay').classList.remove('open');
+  window.open(`https://wa.me/${waNum}?text=${waMsg}`, '_blank');
   window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=cash';
 }
 
@@ -3977,7 +3993,7 @@ function fmtPrice(n) {
     </div>
 
     <!-- Option A: UPI -->
-    <div class="pay-method-card" id="payCardUpi" onclick="selectPayMethod('upi')">
+    <div class="pay-method-card" id="payCardUpi" onclick="launchUpiPay(event)">
       <div class="pay-method-top">
         <span class="pay-method-name">UPI Transfer</span>
       </div>
@@ -3997,8 +4013,17 @@ function fmtPrice(n) {
       </div>
     </div>
 
-    <!-- Option B: Razorpay -->
-    <div class="pay-method-card" id="payCardRazorpay" onclick="selectPayMethod('razorpay')">
+    <!-- Option B: Bank Transfer -->
+    <div class="pay-method-card" id="payCardBank" onclick="launchBankTransfer(event)">
+      <div class="pay-method-top">
+        <span class="pay-method-name">Bank Transfer</span>
+      </div>
+      <p style="margin:0 0 0.2rem;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);">No fees · <span id="payBankSaveSub"></span></p>
+      <p style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:rgba(237,212,178,0.4);line-height:1.5;"><strong style="color:rgba(237,212,178,0.6);">Ideal for payments over ₹1,00,000</strong> — no fees, no limit. NEFT / IMPS / RTGS.</p>
+    </div>
+
+    <!-- Option C: Razorpay -->
+    <div class="pay-method-card" id="payCardRazorpay" onclick="launchRazorpay()">
       <div class="pay-method-top">
         <span class="pay-method-name">Card / Net Banking / UPI</span>
       </div>
@@ -4010,7 +4035,7 @@ function fmtPrice(n) {
     </div>
 
     <!-- Option C: Cash / WhatsApp -->
-    <div class="pay-method-card" id="payCardCash" onclick="selectPayMethod('cash')">
+    <div class="pay-method-card" id="payCardCash" onclick="submitCashPending(event)">
       <div class="pay-method-top">
         <span class="pay-method-name">Cash / WhatsApp</span>
       </div>
