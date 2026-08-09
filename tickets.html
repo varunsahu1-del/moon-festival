@@ -3129,7 +3129,7 @@ function launchRazorpay() {
     currency: 'INR',
     order_id: bookingData.razorpay_order_id || undefined,
     name: 'Moon Festival 2026',
-    description: venue + ' · ' + roomType + ' | Base ₹' + baseAmount.toLocaleString('en-IN') + ' + GST ₹' + gst.toLocaleString('en-IN') + ' + Gateway fee ₹' + (razorpayTotal - totalWithGst).toLocaleString('en-IN') + ' = ₹' + razorpayTotal.toLocaleString('en-IN'),
+    description: venue + ' · ' + roomType + '\nBase: Rs.' + baseAmount.toLocaleString('en-IN') + '  |  GST (5%): Rs.' + gst.toLocaleString('en-IN') + '  |  Gateway fee (2.36%): Rs.' + (razorpayTotal - totalWithGst).toLocaleString('en-IN') + '\nTotal: Rs.' + razorpayTotal.toLocaleString('en-IN'),
     prefill: {
       name: guests[0].full_name,
       email: guests[0].email,
