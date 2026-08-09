@@ -101,7 +101,8 @@ router.post('/create', async (req, res) => {
     }
 
     const amountWithGst = Math.round(baseAmount * 1.05);
-    const amountPaise = amountWithGst * 100;
+    const amountWithSurcharge = Math.round(amountWithGst * 1.0236);
+    const amountPaise = amountWithSurcharge * 100;
 
     let razorpay_order_id = null;
     const rzp = getRazorpay();
@@ -134,7 +135,7 @@ router.post('/create', async (req, res) => {
           amount: amountPaise,
           currency: 'INR',
           accept_partial: false,
-          description: `Moon Festival 2026 — ${venue} · ${roomType}. Total incl. 5% GST: ₹${amountWithGst.toLocaleString('en-IN')}.`,
+          description: `Moon Festival 2026 — ${venue} · ${roomType}. Base ₹${baseAmount.toLocaleString('en-IN')} + GST ₹${gst.toLocaleString('en-IN')} + Gateway fee ₹${(amountWithSurcharge - amountWithGst).toLocaleString('en-IN')} = ₹${amountWithSurcharge.toLocaleString('en-IN')}.`,
           customer: {
             name:    guests[0]?.full_name || '',
             email:   guests[0]?.email || '',
