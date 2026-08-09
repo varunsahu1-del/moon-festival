@@ -3069,9 +3069,11 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   const waMsg = encodeURIComponent(`Hi, I'd like to pay cash for booking ${bookingData.booking_ref} — ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}`);
   document.getElementById('payWaLink').href = `https://wa.me/${waNum}?text=${waMsg}`;
 
-  // Hide UPI for amounts above ₹1,00,000
+  // Hide UPI for amounts above ₹1,00,000; show cap notice only when above limit
   const upiCard = document.getElementById('payCardUpi');
+  const upiCapNotice = document.getElementById('upiCapNotice');
   if (upiCard) upiCard.style.display = totalWithGst > 100000 ? 'none' : '';
+  if (upiCapNotice) upiCapNotice.style.display = totalWithGst > 100000 ? 'block' : 'none';
 
   // Reset selection
   selectPayMethod(null);
@@ -4060,7 +4062,7 @@ function fmtPrice(n) {
     <div class="pay-modal-title">Payment</div>
     <div class="pay-modal-ref" id="payModalRef"></div>
 
-    <div style="margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;">
+    <div id="upiCapNotice" style="display:none;margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;">
       UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.
     </div>
 
