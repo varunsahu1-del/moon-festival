@@ -92,7 +92,7 @@
         flex-shrink: 0;
         margin-left: 0.8rem;
       }
-      .incl-collapse-arrow.open { transform: rotate(180deg); }
+      .incl-collapse-arrow.open { transform: none; }
       .inclusions-banner { display: none !important; }
       .inclusions-banner.mob-open {
         display: block !important;
@@ -1691,7 +1691,7 @@
         .cd-label { font-family:'Josefin Sans',sans-serif;font-size:0.48rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.4); }
         .cd-sep { font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,2vw,1.2rem);font-weight:700;color:rgba(176,96,48,0.5);margin-top:clamp(7px,1.5vw,11px);line-height:1; }
         @media (max-width: 767px) {
-          #tk-owl { display: none; }
+          #tk-owl { display: none !important; }
           #eb-graphic-wrap { padding: 1.6rem 1rem 1.4rem !important; }
           #tk-phaseLabel { font-size: 0.75rem !important; font-weight: 700 !important; color: #EDD4B2 !important; margin: 0 0 0.9rem !important; letter-spacing: 0.18em !important; }
           #tk-countdown { margin-top: 0 !important; margin-bottom: 0 !important; }
@@ -1730,7 +1730,7 @@
         <div class="incl-collapse-trigger-label">What's Included &amp; Add-ons</div>
         <div class="incl-collapse-trigger-sub">Festival access · 3N stay · meals &amp; more</div>
       </div>
-      <span class="incl-collapse-arrow">▾</span>
+      <span class="incl-collapse-arrow">+</span>
     </button>
 
     <!-- Inclusions + Add-ons -->
@@ -3245,7 +3245,7 @@ function toggleInclusions(btn) {
   const arrow = btn.querySelector('.incl-collapse-arrow');
   const isOpen = banner.classList.contains('mob-open');
   banner.classList.toggle('mob-open', !isOpen);
-  arrow.classList.toggle('open', !isOpen);
+  arrow.textContent = isOpen ? '+' : '−';
   btn.setAttribute('aria-expanded', String(!isOpen));
 }
 
