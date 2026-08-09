@@ -86,15 +86,21 @@
         margin-top: 2px;
       }
       .incl-collapse-arrow {
-        font-size: 1.2rem;
-        color: rgba(176,96,48,0.7);
+        font-size: 1.5rem;
+        color: rgba(176,96,48,0.8);
         transition: transform 0.25s;
         flex-shrink: 0;
         margin-left: 0.8rem;
       }
       .incl-collapse-arrow.open { transform: rotate(180deg); }
       .inclusions-banner { display: none !important; }
-      .inclusions-banner.mob-open { display: block !important; }
+      .inclusions-banner.mob-open {
+        display: block !important;
+        width: calc(100% + var(--pad) * 2) !important;
+        margin-left: calc(-1 * var(--pad)) !important;
+        padding-left: clamp(1rem, 4vw, 1.4rem) !important;
+        padding-right: clamp(1rem, 4vw, 1.4rem) !important;
+      }
     }
     /* ── TICKET TABS ─────────────────────────────────── */
     .ticket-tabs-bar {
@@ -1722,7 +1728,7 @@
     <button class="incl-collapse-trigger" onclick="toggleInclusions(this)" aria-expanded="false">
       <div>
         <div class="incl-collapse-trigger-label">What's Included &amp; Add-ons</div>
-        <div class="incl-collapse-trigger-sub">Festival access · 3N stay · meals · scooter &amp; more</div>
+        <div class="incl-collapse-trigger-sub">Festival access · 3N stay · meals &amp; more</div>
       </div>
       <span class="incl-collapse-arrow">▾</span>
     </button>
