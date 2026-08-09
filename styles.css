@@ -431,7 +431,7 @@ h4 { font-size: var(--t-xl); }
   border: 1px solid #B06030;
   padding: 0.7rem 1.6em;
   margin-top: 0;
-  margin-bottom: 0.1rem;
+  margin-bottom: -0.8rem;
   border-radius: 6px;
   width: 100%;
   justify-content: center;
