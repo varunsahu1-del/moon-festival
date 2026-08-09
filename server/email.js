@@ -131,9 +131,8 @@ async function sendConfirmation({ booking, guests }) {
       }).filter(function(a) { return a.name; })
     : [];
 
-  // Parse admin add-ons (extra_addons) — only if collected
-  const collected = !!booking.addons_collected;
-  const extraAddonItems = collected && booking.extra_addons
+  // Parse admin add-ons (extra_addons) — always include regardless of collected status
+  const extraAddonItems = booking.extra_addons
     ? booking.extra_addons.split('|').map(function(a) {
         var idx = a.indexOf(':');
         return { price: parseInt(a.slice(0, idx), 10) || 0, name: a.slice(idx + 1).trim() };
