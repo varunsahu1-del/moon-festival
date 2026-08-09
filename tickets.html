@@ -2999,6 +2999,11 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   document.getElementById('payUpiSaveSub').textContent = 'Save ₹' + saving.toLocaleString('en-IN') + '';
   document.getElementById('payUpiAmountLabel').textContent = totalWithGst.toLocaleString('en-IN');
 
+  // Populate Razorpay surcharge amount
+  const razorpayTotal = Math.round(totalWithGst * 1.0236);
+  const el = document.getElementById('razorpayFinalAmount');
+  if (el) el.textContent = 'Total charged: ₹' + razorpayTotal.toLocaleString('en-IN');
+
 
   // Populate WhatsApp detail
   const waNum = cfg.admin_whatsapp || '919820791100';
@@ -3099,7 +3104,8 @@ function launchRazorpay() {
   document.getElementById('payOverlay').classList.remove('open');
 
   const razorpayKey = bookingData.razorpay_key || 'rzp_test_TDxk7L5UmieAgm';
-  const amountPaise = totalWithGst * 100;
+  const razorpayTotal = Math.round(totalWithGst * 1.0236);
+  const amountPaise = razorpayTotal * 100;
 
   const options = {
     key: razorpayKey,
@@ -3996,8 +4002,9 @@ function fmtPrice(n) {
       <div class="pay-method-top">
         <span class="pay-method-name">Card / Net Banking / UPI</span>
       </div>
-      <p style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);">via Razorpay</p>
+      <p style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);">via Razorpay &nbsp;·&nbsp; <span id="razorpaySurchargeNote" style="color:rgba(176,96,48,0.7);">+2.36% gateway fee</span></p>
       <div class="pay-method-detail" id="payDetailRazorpay">
+        <p id="razorpayFinalAmount" style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:600;color:#EDD4B2;margin:0.6rem 0 0.8rem;"></p>
         <button class="pay-action-btn primary" onclick="launchRazorpay()">Continue to Razorpay →</button>
       </div>
     </div>
