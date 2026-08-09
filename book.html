@@ -1300,9 +1300,7 @@ function toggleBookingSummary() {
     <div class="pay-modal-title">Payment</div>
     <div class="pay-modal-ref" id="payModalRef"></div>
 
-    <div style="margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;">
-      UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.
-    </div>
+    <div id="upiCapNotice"></div>
 
     <div class="pay-method-card" id="payCardUpi" onclick="launchUpiPay(event)">
       <div class="pay-method-top">
@@ -1431,13 +1429,18 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
     ' &nbsp;+&nbsp; Gateway fee &nbsp;₹' + gatewayFee.toLocaleString('en-IN') +
     '<br><span style="color:#EDD4B2;font-weight:600;font-size:0.82rem;">Total &nbsp;₹' + razorpayTotal.toLocaleString('en-IN') + '</span>';
 
-  // Hide UPI entirely if total > ₹1 lakh (UPI apps block transactions above this limit)
+  // Hide UPI for amounts above ₹1,00,000; show cap notice only when above limit
   const upiCard = document.getElementById('payCardUpi');
-  if (totalWithGst > 100000) {
-    upiCard.style.display = 'none';
-  } else {
-    upiCard.style.display = '';
-    document.getElementById('payUpiLimitWarn').style.display = 'none';
+  const upiCapNotice = document.getElementById('upiCapNotice');
+  if (upiCard) upiCard.style.display = totalWithGst > 100000 ? 'none' : '';
+  if (upiCapNotice) {
+    if (totalWithGst > 100000) {
+      upiCapNotice.style.cssText = 'margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:Open Sans,sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;';
+      upiCapNotice.textContent = 'UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.';
+    } else {
+      upiCapNotice.style.cssText = '';
+      upiCapNotice.textContent = '';
+    }
   }
 
   // Reset cash flow state
