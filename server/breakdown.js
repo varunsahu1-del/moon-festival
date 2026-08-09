@@ -33,18 +33,20 @@ function computeBreakdown(booking) {
   }
 
   const addonParts      = parseParts(booking.addons);
-  const extraParts      = collected ? parseParts(booking.extra_addons) : [];
+  // Always include extra_addons regardless of collected status (admin add-ons should always show)
+  const extraParts      = parseParts(booking.extra_addons);
 
   const addonLines      = groupByName(addonParts);
   const extraAddonLines = groupByName(extraParts);
   const addonTotal      = addonParts.reduce((s, a) => s + a.price, 0);
   const extraAddonTotal = extraParts.reduce((s, a) => s + a.price, 0);
 
-  // Reverse-calculate the pre-discount accommodation total
-  // storedTotal = (accomBase - discount) + addonTotal + extraAddonTotal
-  const accomBase = storedTotal - addonTotal - extraAddonTotal + discount;
+  // Reverse-calculate the pre-discount accommodation total.
+  // storedTotal may NOT include extraAddonTotal for pending bookings (admin adds don't update total_price).
+  // So compute accomBase without extraAddonTotal, then add it back for grandTotal.
+  const accomBase = storedTotal - addonTotal + discount;
 
-  const subtotal   = storedTotal; // accomBase - discount + addons = storedTotal
+  const subtotal   = storedTotal + extraAddonTotal; // include admin add-ons in pre-GST total
   const gst        = Math.round(subtotal * GST_RATE);
   const grandTotal = subtotal + gst;
 
