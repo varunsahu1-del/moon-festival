@@ -28,6 +28,9 @@ app.use('/api/applications', require('./routes/applications'));
 app.use('/admin', require('./routes/auth'));
 app.use('/admin', require('./routes/admin'));
 
+// Newsletter signup
+app.use('/api/newsletter', require('./routes/newsletter'));
+
 // Public pricing endpoint (no auth) — used by tickets.html and book.html
 app.get('/api/public/pricing', require('./routes/public-pricing'));
 
@@ -38,9 +41,25 @@ app.use('/api/custom-payment', require('./routes/custompay'));
 // Serve UPI screenshots (admin only — basic auth check done in admin route)
 app.use('/data/screenshots', require('./routes/auth').requireAdmin, express.static(path.join(__dirname, '../data/screenshots')));
 
-// Serve static site
+// Inject nav + footer partials into HTML pages
+const fs = require('fs');
+const ROOT = path.join(__dirname, '..');
+const PARTIALS = path.join(ROOT, 'partials');
+
+function getPartial(name) {
+  return fs.readFileSync(path.join(PARTIALS, name), 'utf8');
+}
+
+app.use((req, res, next) => {
+  const filePath = path.join(ROOT, req.path === '/' ? 'index.html' : req.path);
+  if (!filePath.endsWith('.html') || !fs.existsSync(filePath)) return next();
+  let html = fs.readFileSync(filePath, 'utf8');
+  html = html.replace('<!-- NAV -->', getPartial('nav.html'));
+  html = html.replace('<!-- FOOTER -->', getPartial('footer.html'));
+  res.type('html').send(html);
+});
+
 app.use(express.static(path.join(__dirname, '..')));
-app.get('/', (req, res) => res.sendFile('index.html', { root: path.join(__dirname, '..') }));
 
 const { startDailyReport, sendDailyReport } = require('./whatsapp');
 const { sendDailyBackup } = require('./email');

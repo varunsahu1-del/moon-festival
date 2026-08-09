@@ -63,6 +63,14 @@
       color: rgba(237,212,178,0.4);
     }
 
+    @media (max-width: 600px) {
+      .venue-block-label {
+        flex-direction: column;
+        gap: 0.2em;
+      }
+      .venue-block-sep { display: none; }
+    }
+
     .venue-chevron {
       flex-shrink: 0;
       color: rgba(176,96,48,0.5);
@@ -106,6 +114,7 @@
       padding: 12px 16px 10px;
       text-align: right;
       border-bottom: 0.5px solid rgba(237,212,178,0.1);
+      white-space: nowrap;
     }
     .pricing-table thead th:first-child { text-align: left; }
     .pricing-table thead th.th-active {
@@ -204,43 +213,7 @@
 <body>
 
 <!-- ── NAV DRAWER ──────────────────────────────────────── -->
-<div class="nav-drawer" id="navDrawer" aria-hidden="true">
-  <span class="nav-drawer-section">About</span>
-  <a href="about.html">About Moon</a>
-  <a href="making-of-moon.html">Making of Moon</a>
-  <a href="venue.html">Venue</a>
-  <a href="getting-there.html">Getting There</a>
-  <a href="meals.html">Meals</a>
-  <a href="faq.html">FAQs</a>
-  <div class="nav-drawer-divider"></div>
-  <span class="nav-drawer-section">Programme</span>
-  <a href="schedule.html">Schedule</a>
-  <a href="facilitators.html">Facilitators</a>
-  <div class="nav-drawer-divider"></div>
-  <a href="gallery.html">Gallery</a>
-  <a href="participation.html">Participate</a>
-  <a href="pricing.html">Pricing</a>
-  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
-</div>
-
-<!-- ── NAV ─────────────────────────────────────────────── -->
-<nav class="nav scrolled" id="mainNav">
-  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
-  <ul class="nav-links">
-    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
-    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="participation.html">Participate</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
-    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
-  </ul>
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
+<!-- NAV -->
 <!-- ── HERO ─────────────────────────────────────────────── -->
 <div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
   <h1 class="schedule-hero-title" style="color: #EDD4B2 !important;">Pricing</h1>
@@ -339,72 +312,14 @@
 </div>
 
 <!-- ── FOOTER ────────────────────────────────────────────── -->
-<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
-    <div>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
-        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
-        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
-        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
-        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
-      </ul>
-    </div>
-    <div>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
-        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
-        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
-        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
-      </ul>
-    </div>
-    <div>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
-        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
-        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
-      </ul>
-    </div>
-    <style>.footer-social-row{display:contents;}@media(max-width:680px){.footer-social-row{display:grid;grid-column:1/-1;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,2rem);}}</style>
-    <div class="footer-social-row">
-      <div>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
-        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
-          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
-          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
-        </div>
-      </div>
-      <div>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
-        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
-          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
-          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-      <div style="display:flex;align-items:baseline;gap:0.8rem;">
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
-        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
-        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-      </div>
-    </div>
-    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
-  </div>
-</footer>
+<!-- FOOTER -->
 
 <script>
 // FALLBACK ONLY — prices are overwritten at runtime from /api/public/pricing before render.
 // Do not rely on these values being current; edit inventory.js on the server instead.
 const PRICING = {
   'Bhakti Kutir': {
-    notes: 'Festival Favourite · Non-AC',
+    notes: 'Non-AC · Eco Retreat · Festival Favourite',
     rooms: [
       { name: 'Triple Sharing', note: '1 bed in a 3-bed room',     earlyBird: 29500, phase1: 32000, phase2: 34000, extraDay: 1800 },
       { name: 'Double Sharing', note: '1 bed in a 2-bed room',     earlyBird: 34500, phase1: 37900, phase2: 40000, extraDay: 2750 },
@@ -412,31 +327,45 @@ const PRICING = {
     ]
   },
   'Bhakti Dorm': {
-    notes: 'Festival Venue · Non-AC',
+    notes: 'Non-AC · Eco Retreat · Festival Venue',
     rooms: [
       { name: '4 Bed Dorm', note: '4-bed dorm · females only', earlyBird: 25500, phase1: 28000, phase2: 29500, extraDay: 900 },
       { name: '6 Bed Dorm', note: '6-bed dorm · mixed',        earlyBird: 24000, phase1: 26500, phase2: 27900, extraDay: 800 },
     ]
   },
   'Destiny': {
-    notes: '1 min walk · AC',
+    notes: '1 min walk · AC · Luxury · Plunge Pool · Beach Access',
     rooms: [
       { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 55000, phase1: 60500, phase2: 63900, extraDay: 6500  },
       { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 81900, phase1: 90000, phase2: 95000, extraDay: 12000 },
     ]
   },
   'Ourem Palace': {
-    notes: '3 mins walk · AC',
+    notes: '3 mins walk · AC · Partial Sea View',
     rooms: [
       { name: 'Double Sharing', note: '1 bed in a 2-bed heritage room', earlyBird: 44500, phase1: 49000, phase2: 51900, extraDay: 3500 },
       { name: 'Private Room',   note: 'Entire room for yourself',        earlyBird: 58900, phase1: 64500, phase2: 68000, extraDay: 6500 },
     ]
   },
   'Teraria': {
-    notes: '6 mins walk · AC',
+    notes: '6 mins walk · AC · Cosy · Best Value',
     rooms: [
       { name: 'Double Sharing', note: '1 bed in a 2-bed room', earlyBird: 32000, phase1: 33700, phase2: 36700, extraDay: 3200 },
       { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 45100, phase1: 48100, phase2: 52600, extraDay: 0 },
+    ]
+  },
+  'Marron · Sea View': {
+    notes: '5 mins walk · AC · Luxury · Sea Facing',
+    rooms: [
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 49900, phase1: 54900, phase2: 58900, extraDay: 4500 },
+      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 71900, phase1: 76900, phase2: 80900, extraDay: 8500 },
+    ]
+  },
+  'Marron · Garden': {
+    notes: '5 mins walk · AC · Luxury · Beach Access',
+    rooms: [
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 39500, phase1: 43500, phase2: 45900, extraDay: 3500 },
+      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 54900, phase1: 60000, phase2: 63500, extraDay: 6500 },
     ]
   },
 };
@@ -486,7 +415,7 @@ async function render() {
     html += `
     <div class="venue-block ${openClass}">
       <button class="venue-block-toggle" onclick="toggleVenue(this)">
-        <span class="venue-block-label">${venue}<span class="venue-block-note"> · ${data.notes}</span></span>
+        <span class="venue-block-label">${venue}<span class="venue-block-note"><span class="venue-block-sep"> · </span>${data.notes}</span></span>
         <svg class="venue-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="venue-block-body">
@@ -522,7 +451,7 @@ async function render() {
   ];
 
   html += `
-  <div class="venue-block" style="margin-top:1rem;">
+  <div class="venue-block">
     <button class="venue-block-toggle" onclick="toggleVenue(this)">
       <span class="venue-block-label">Festival Access<span class="venue-block-note"> · no stay or meals</span></span>
       <svg class="venue-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>

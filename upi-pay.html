@@ -249,19 +249,26 @@
         </div>
       </div>
 
-      <!-- Step 2: UPI ID -->
+      <!-- Step 2: Open UPI app -->
       <div class="upi-step">
         <div class="upi-step-num">2</div>
         <div class="upi-step-body">
-          <div class="upi-step-label">To this UPI ID</div>
-          <div class="upi-id-box">
-            <span class="upi-id-text" id="pageUpiId">—</span>
-            <button class="upi-copy-btn" id="copyBtn" onclick="copyUpiId()">Copy</button>
+          <div class="upi-step-label">Open your UPI app</div>
+          <div id="appButtons" style="display:flex;flex-wrap:nowrap;gap:0.4rem;">
+            <a id="gpayBtn" href="#" style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.38rem 0.6rem;border:1px solid #4285F4;border-radius:4px;color:#4285F4;font-family:'Open Sans',sans-serif;font-size:0.72rem;text-decoration:none;background:rgba(237,212,178,0.04);white-space:nowrap;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Google Pay
+            </a>
+            <a id="phonepeBtn" href="#" style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.38rem 0.6rem;border:1px solid #5f259f;border-radius:4px;color:#a78bfa;font-family:'Open Sans',sans-serif;font-size:0.72rem;text-decoration:none;background:rgba(237,212,178,0.04);white-space:nowrap;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#a78bfa" stroke-width="1.5"/><path d="M9 8h4c1.1 0 2 .9 2 2s-.9 2-2 2H9V8zm0 4h5l2 4H9v-4z" fill="#a78bfa"/></svg>
+              PhonePe
+            </a>
+            <a id="paytmBtn" href="#" style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.38rem 0.6rem;border:1px solid #002970;border-radius:4px;color:#60a5fa;font-family:'Open Sans',sans-serif;font-size:0.72rem;text-decoration:none;background:rgba(237,212,178,0.04);white-space:nowrap;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#60a5fa" stroke-width="1.5"/><path d="M7 12h10M12 7v10" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Paytm
+            </a>
           </div>
-          <a class="upi-open-btn" id="openAppBtn" href="#" style="margin-top:0.75rem;width:auto;align-self:flex-start;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="18" r="1" fill="currentColor"/><line x1="9" y1="6" x2="15" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Tap to retry →
-          </a>
+          <p id="desktopNote" style="display:none;font-family:'Open Sans',sans-serif;font-size:0.78rem;color:rgba(237,212,178,0.45);line-height:1.6;margin:0;"></p>
         </div>
       </div>
 
@@ -296,45 +303,25 @@
     ? '₹' + Number(amount).toLocaleString('en-IN')
     : '—';
 
-  // Fetch UPI VPA and auto-launch the deep link
+  function setUpiLinks(vpa) {
+    const note = encodeURIComponent('Moon Festival Ticket Fee' + (bookingRef ? ' - ' + bookingRef : ''));
+    const baseParams = `pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('Moon Festival')}&am=${amount || ''}&tn=${note}&cu=INR`;
+    document.getElementById('gpayBtn').href = `tez://upi/pay?${baseParams}`;
+    document.getElementById('phonepeBtn').href = `phonepe://pay?${baseParams}`;
+    document.getElementById('paytmBtn').href = `paytmmp://pay?${baseParams}`;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isMobile) {
+      document.getElementById('appButtons').style.display = 'none';
+      const note = document.getElementById('desktopNote');
+      note.textContent = 'Open GPay or PhonePe on your phone to complete payment.';
+      note.style.display = 'block';
+    }
+  }
+
   fetch('/api/bookings/public-config')
     .then(r => r.json())
-    .then(cfg => {
-      const vpa = cfg.upi_vpa || 'moonholisticfestival@upi';
-      document.getElementById('pageUpiId').textContent = vpa;
-      const note = encodeURIComponent((bookingRef || '') + ' Moon Festival');
-      const deepLink = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('Moon Festival')}&am=${amount || ''}&tn=${note}&cu=INR`;
-      document.getElementById('openAppBtn').href = deepLink;
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile) {
-        setTimeout(() => { window.location.href = deepLink; }, 300);
-      } else {
-        // On desktop: hide the app button, show a note instead
-        document.getElementById('openAppBtn').style.display = 'none';
-        const note = document.createElement('p');
-        note.style.cssText = 'font-family:Open Sans,sans-serif;font-size:0.78rem;color:rgba(237,212,178,0.45);line-height:1.6;margin:0.6rem 0 0;';
-        note.textContent = 'Open GPay or PhonePe on your phone and pay to the UPI ID above.';
-        document.getElementById('openAppBtn').parentNode.appendChild(note);
-      }
-    })
-    .catch(() => {
-      const vpa = 'moonholisticfestival@upi';
-      document.getElementById('pageUpiId').textContent = vpa;
-      const note = encodeURIComponent((bookingRef || '') + ' Moon Festival');
-      const deepLink = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('Moon Festival')}&am=${amount || ''}&tn=${note}&cu=INR`;
-      document.getElementById('openAppBtn').href = deepLink;
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile) setTimeout(() => { window.location.href = deepLink; }, 300);
-    });
-
-  function copyUpiId() {
-    const id = document.getElementById('pageUpiId').textContent;
-    navigator.clipboard.writeText(id).then(() => {
-      const btn = document.getElementById('copyBtn');
-      btn.textContent = 'Copied!';
-      setTimeout(() => btn.textContent = 'Copy', 1800);
-    });
-  }
+    .then(cfg => setUpiLinks(cfg.upi_vpa || 'moonholisticfestival@upi'))
+    .catch(() => setUpiLinks('moonholisticfestival@upi'));
 
   function onFileChange() {
     const file = document.getElementById('screenshotInput').files[0];

@@ -129,6 +129,14 @@ db.exec(`
   );
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS newsletter (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    email      TEXT UNIQUE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+`);
+
 function nextRef() {
   const row = db.prepare('SELECT COUNT(*) as c FROM bookings').get();
   return 'MF-' + String(row.c + 1).padStart(4, '0');

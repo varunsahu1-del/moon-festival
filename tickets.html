@@ -410,14 +410,14 @@
     }
     .incl-addon-more-btn:hover { color: #C87040; }
     .incl-addon-info { flex: 1; min-width: 0; }
-    @media (max-width: 480px) {
+    @media (max-width: 767px) {
       .incl-addon-row .incl-tile-icon { display: none; }
       .incl-addon-row { flex-wrap: wrap; }
       .incl-addon-meta { width: 100%; text-align: left; margin-top: 0.3rem; }
     }
     .incl-addon-info .incl-tile-name { margin-bottom: 0.2rem; white-space: normal; }
     .incl-addon-info .incl-tile-desc { -webkit-line-clamp: 2; }
-    .incl-addon-meta { flex-shrink: 0; text-align: right; }
+    .incl-addon-meta { flex-shrink: 0; text-align: left; }
 
     /* ── VENUE GRID ──────────────────────────────────── */
     .venue-grid {
@@ -507,7 +507,7 @@
     }
     .venue-name {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.72rem, 1.5vw, 1.1rem);
+      font-size: clamp(0.72rem, 1.3vw, 0.95rem);
       font-style: normal;
       font-weight: 700;
       text-transform: uppercase;
@@ -1598,43 +1598,7 @@
 <body>
 
 <!-- Nav Drawer -->
-<div class="nav-drawer" id="navDrawer" aria-hidden="true">
-  <span class="nav-drawer-section">About</span>
-  <a href="about.html">About Moon</a>
-  <a href="making-of-moon.html">Making of Moon</a>
-  <a href="venue.html">Venue</a>
-  <a href="getting-there.html">Getting There</a>
-  <a href="meals.html">Meals</a>
-  <a href="faq.html">FAQs</a>
-  <div class="nav-drawer-divider"></div>
-  <span class="nav-drawer-section">Programme</span>
-  <a href="schedule.html">Schedule</a>
-  <a href="facilitators.html">Facilitators</a>
-  <div class="nav-drawer-divider"></div>
-  <a href="gallery.html">Gallery</a>
-  <a href="participation.html">Participate</a>
-  <a href="pricing.html">Pricing</a>
-  <a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a>
-</div>
-
-<!-- Nav -->
-<nav class="nav scrolled" id="mainNav">
-  <a href="index.html" class="nav-logo"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></a>
-      <ul class="nav-links">
-    <li class="nav-dropdown"><button class="nav-dropdown-toggle">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="about.html">About</a><a href="making-of-moon.html">Making of Moon</a><a href="venue.html">Venue</a><a href="getting-there.html">Getting There</a><a href="meals.html">Meals</a><a href="faq.html">FAQs</a></div></div></li>
-    <li class="nav-dropdown"><button class="nav-dropdown-toggle">Programme <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-dropdown-menu"><div class="nav-dropdown-menu-inner"><a href="schedule.html">Schedule</a><a href="facilitators.html">Facilitators</a></div></div></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="participation.html">Participate</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
-    <li><a href="tickets.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:0.45em;"><svg width="18" height="11" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M3 3 C10 1.5 26 1.5 33 3 C34 5 35 7 34 9 C32 10.5 31 12 33 13 C35 14 34 17 33 19 C26 20.5 10 20.5 3 19 C2 17 1 14 3 13 C5 12 4 10.5 2 9 C1 7 2 5 3 3 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M11 5 L11 17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5"/><circle cx="19" cy="11" r="2.5" stroke="currentColor" stroke-width="1" fill="none"/></svg>Tickets</a></li>
-  </ul>
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
+<!-- NAV -->
 <!-- Page Hero -->
 <!-- Body -->
 <div class="tickets-body">
@@ -1728,16 +1692,14 @@
 
       <!-- Header -->
       <div style="text-align:center;margin-bottom:clamp(1.4rem,3vw,2rem);">
-        <svg width="52" height="34" viewBox="0 0 52 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem;">
+        <svg width="52" height="34" viewBox="0 0 52 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.8rem;">
           <path d="M6 6 C16 4 36 4 46 6 C47.5 7.5 49 10 48 13 C46 14.5 45 16 47 17.5 C49 19 48 22 46 23.5 C36 25.5 16 25.5 6 23.5 C4 22.5 3 20 5 17.5 C7 16 6 14.5 4 13 C3 10 4.5 7.5 6 6 Z" stroke="#B06030" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
           <path d="M17 5.5 L17 25" stroke="#B06030" stroke-width="0.9" stroke-dasharray="2.5 2" stroke-linecap="round" opacity="0.55"/>
           <line x1="22" y1="12" x2="42" y2="12" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.45"/>
           <line x1="22" y1="15.5" x2="38" y2="15.5" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.3"/>
           <line x1="22" y1="19" x2="35" y2="19" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" opacity="0.2"/>
         </svg>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;">Stay + Festival Pass</p>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.4);font-weight:400;margin:0 0 0.7rem;">What's Included</p>
-        <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
+        <p class="incl-addon-header" style="margin:0;">Stay + Festival Pass · What's Included</p>
       </div>
 
       <!-- Inclusion tiles -->
@@ -1783,7 +1745,7 @@
       </div>
 
       <!-- Add-on list (compact menu style) -->
-      <p class="incl-addon-header">Optional Add-ons · choose when you book</p>
+      <p class="incl-addon-header">Optional Add-ons</p>
       <div class="incl-addon-list">
 
         <div class="incl-addon-row">
@@ -1866,7 +1828,7 @@
     <!-- ── BHAKTI KUTIR · ROOMS ───────────────────────── -->
     <div class="venue-card" data-venue="Bhakti Kutir">
       <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">Festival Venue</span><span class="venue-hero-badge venue-hero-badge--dark">Non-AC</span></div>
-      <img class="venue-hero-img" src="Stay Page Images/Bhakti Kutir/outside (1).jpeg" alt="Bhakti Kutir" loading="lazy" />
+      <img class="venue-hero-img" src="Stay Page Images/Bhakti Kutir/Hut 8up.jpeg" alt="Bhakti Kutir" loading="lazy" />
       <!-- Favorite badge -->
       <div style="position:absolute;bottom:12px;right:12px;z-index:10;background:#1a1008;padding:6px 12px 6px 10px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,0.7);">
         <span style="color:#B06030;font-size:12px;line-height:1;">★</span>
@@ -1922,51 +1884,6 @@
       </div>
     </div>
 
-    <!-- ── DESTINY ────────────────────────────────────── -->
-    <div class="venue-card" id="destiny-card" data-venue="Destiny">
-      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">1 Min Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span></div>
-      <img class="venue-hero-img" src="Stay Page Images/Destiny/1.jpg" alt="Destiny" loading="lazy" />
-      <div style="position:absolute;bottom:12px;right:12px;z-index:10;background:#1a1008;padding:6px 12px 6px 10px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,0.7);">
-        <span style="color:#B06030;font-size:12px;line-height:1;">◆</span>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Luxury Sea Facing</span>
-      </div>
-    </div>
-      <div class="venue-card-body">
-        <div class="venue-meta">
-          <h3 class="venue-name">Destiny</h3>
-          <button class="see-details-btn" data-venue="destiny">See Details <span class="arrow">→</span></button>
-        </div>
-        <ul class="room-list">
-          <li class="room-row" data-max="2" data-base-price="55000" data-extra-day="7000" data-room-type="Double Sharing" data-price-phase1="60500" data-price-phase2="63900">
-            <div class="room-top">
-            <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
-            </div>
-            <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹55,000</span><span class="price-future">₹63,900</span></div>
-          </div>
-            <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
-            <button class="btn-book">Book</button>
-          </div>
-          </li>
-          <li class="room-row" data-max="1" data-base-price="81900" data-extra-day="12000" data-room-type="Private Room" data-price-phase1="90000" data-price-phase2="95000">
-            <div class="room-top">
-            <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note">Entire room for yourself</p>
-            </div>
-            <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹81,900</span><span class="price-future">₹95,000</span></div>
-          </div>
-            <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
-            <button class="btn-book">Book</button>
-          </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
     <!-- ── OUREM PALACE ───────────────────────────────── -->
     <div class="venue-card" data-venue="Ourem Palace">
       <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">3 Mins Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span></div>
@@ -2012,13 +1929,58 @@
       </div>
     </div>
 
+    <!-- ── DESTINY ────────────────────────────────────── -->
+    <div class="venue-card" id="destiny-card" data-venue="Destiny">
+      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">1 Min Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span><span class="venue-hero-badge">Plunge Pool</span></div>
+      <img class="venue-hero-img" src="Stay Page Images/Destiny/1.jpg" alt="Destiny" loading="lazy" />
+      <div style="position:absolute;bottom:12px;right:12px;z-index:10;display:flex;gap:4px;">
+        <div style="background:#1a1008;padding:6px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 2px 12px rgba(0,0,0,0.7);"><span style="color:#B06030;font-size:12px;line-height:1;">◆</span><span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Luxury</span></div>
+        <div style="background:#1a1008;padding:6px 10px;display:flex;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,0.7);"><span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Beach Access</span></div>
+      </div>
+    </div>
+      <div class="venue-card-body">
+        <div class="venue-meta">
+          <h3 class="venue-name">Destiny</h3>
+          <button class="see-details-btn" data-venue="destiny">See Details <span class="arrow">→</span></button>
+        </div>
+        <ul class="room-list">
+          <li class="room-row" data-max="2" data-base-price="55000" data-extra-day="7000" data-room-type="Double Sharing" data-price-phase1="60500" data-price-phase2="63900">
+            <div class="room-top">
+            <div class="room-info">
+              <p class="room-type">Double Sharing</p>
+            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
+            </div>
+            <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹55,000</span><span class="price-future">₹63,900</span></div>
+          </div>
+            <div class="room-bottom">
+            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <button class="btn-book">Book</button>
+          </div>
+          </li>
+          <li class="room-row" data-max="1" data-base-price="81900" data-extra-day="12000" data-room-type="Private Room" data-price-phase1="90000" data-price-phase2="95000">
+            <div class="room-top">
+            <div class="room-info">
+              <p class="room-type">Private Room</p>
+            <p class="room-note">Entire room for yourself</p>
+            </div>
+            <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹81,900</span><span class="price-future">₹95,000</span></div>
+          </div>
+            <div class="room-bottom">
+            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <button class="btn-book">Book</button>
+          </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <!-- ── MAROON · SEA VIEW ──────────────────────────── -->
     <div class="venue-card" data-venue="Marron · Sea View">
-      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">Sea Facing</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span><span class="venue-hero-badge">5 Min Walk</span></div>
+      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">5 Min Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span></div>
       <img class="venue-hero-img" src="Stay Page Images/Marron/Marron Sea View Combined/1.jpeg" alt="Marron Sea View" loading="lazy" />
-      <div style="position:absolute;bottom:12px;right:12px;z-index:10;background:#1a1008;padding:6px 12px 6px 10px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,0.7);">
-        <span style="color:#B06030;font-size:12px;line-height:1;">◆</span>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Luxury Beach Access</span>
+      <div style="position:absolute;bottom:12px;right:12px;z-index:10;display:flex;gap:4px;">
+        <div style="background:#1a1008;padding:6px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 2px 12px rgba(0,0,0,0.7);"><span style="color:#B06030;font-size:12px;line-height:1;">◆</span><span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Luxury</span></div>
+        <div style="background:#1a1008;padding:6px 10px;display:flex;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,0.7);"><span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Beach Access</span></div>
       </div>
     </div>
       <div class="venue-card-body">
@@ -2059,11 +2021,11 @@
 
     <!-- ── MAROON · GARDEN ────────────────────────────── -->
     <div class="venue-card" data-venue="Marron · Garden">
-      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">Garden View</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span><span class="venue-hero-badge">5 Min Walk</span></div>
+      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">5 Min Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span><span class="venue-hero-badge">Garden View</span></div>
       <img class="venue-hero-img" src="Stay Page Images/Marron/Maroon Luxury garden cottage/1.jpeg" alt="Marron Garden" loading="lazy" />
-      <div style="position:absolute;bottom:12px;right:12px;z-index:10;background:#1a1008;padding:6px 12px 6px 10px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,0.7);">
-        <span style="color:#B06030;font-size:12px;line-height:1;">◆</span>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Luxury Beach Access</span>
+      <div style="position:absolute;bottom:12px;right:12px;z-index:10;display:flex;gap:4px;">
+        <div style="background:#1a1008;padding:6px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 2px 12px rgba(0,0,0,0.7);"><span style="color:#B06030;font-size:12px;line-height:1;">◆</span><span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Luxury</span></div>
+        <div style="background:#1a1008;padding:6px 10px;display:flex;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,0.7);"><span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">Beach Access</span></div>
       </div>
     </div>
       <div class="venue-card-body">
@@ -2404,90 +2366,7 @@
 </div>
 
 <!-- Footer -->
-<footer style="background:var(--ink);border-top:0.5px solid rgba(237,212,178,0.1);padding:clamp(3rem,6vw,5rem) var(--pad) 0;">
-
-  <!-- top grid -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem);padding-bottom:clamp(2.5rem,5vw,4rem);border-bottom:0.5px solid rgba(237,212,178,0.08);">
-
-    <!-- Discover -->
-    <div>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Discover</p>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
-        <li><a href="about.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">About</a></li>
-        <li><a href="schedule.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Schedule</a></li>
-        <li><a href="facilitators.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Facilitators</a></li>
-        <li><a href="gallery.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Gallery</a></li>
-      </ul>
-    </div>
-
-    <!-- Venue -->
-    <div>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Venue</p>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
-        <li><a href="venue.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">The Grounds</a></li>
-        <li><a href="getting-there.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Getting There</a></li>
-        <li><a href="meals.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Meals</a></li>
-      </ul>
-    </div>
-
-    <!-- Join -->
-    <div>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Join</p>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
-        <li><a href="tickets.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Tickets</a></li><li><a href="pricing.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Pricing</a></li>
-        <li><a href="participation.html" style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.55);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">Participate</a></li>
-      </ul>
-    </div>
-
-    <!-- Follow Us + Stay Connected side by side -->
-    <style>
-      .footer-social-row { display: contents; }
-      @media (max-width: 680px) {
-        .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
-      }
-    </style>
-    <div class="footer-social-row">
-      <div>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Follow Us</p>
-        <div style="display:flex;flex-direction:row;gap:1rem;align-items:center;margin-bottom:1.4rem;">
-          <a href="https://www.instagram.com/moon.holisticfestival?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a href="#" target="_blank" rel="noopener" style="color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'" aria-label="YouTube">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-          </a>
-        </div>
-      </div>
-      <div>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
-        <form style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="return false;">
-          <input type="email" placeholder="Email" style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
-          <button type="submit" style="background:none;border:none;cursor:pointer;padding:0.2rem 0 0.2rem 0.6rem;color:rgba(237,212,178,0.55);transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.55)'">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </form>
-      </div>
-    </div>
-
-  </div>
-
-    <!-- bottom bar -->
-  <div id="footerBottom" style="display:flex;flex-direction:column;gap:0.7rem;padding:1.2rem 0 1.6rem;">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-      <div style="display:flex;align-items:baseline;gap:0.8rem;">
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;">Moon Festival</span>
-        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.1em;color:rgba(237,212,178,0.65);">27.28.29 Nov'26</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:1.6rem;flex-wrap:nowrap;">
-        <a href="/pay" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Pay <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-        <a href="faq.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">FAQ <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-        <a href="terms.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Terms &amp; Conditions <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-        <a href="privacy.html" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.45);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">Privacy Policy <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4 2 10 2 10 8"/></svg></a>
-      </div>
-    </div>
-    <span style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.06em;color:rgba(237,212,178,0.65);">© 2026 Moon Festival</span>
-  </div>
-</footer>
+<!-- FOOTER -->
 <!-- Venue detail modal -->
 <div class="venue-modal-overlay" id="venueModalOverlay">
   <div class="venue-modal">
@@ -3119,8 +2998,7 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   document.getElementById('payModalRef').textContent = 'Booking ' + bookingData.booking_ref + '  ·  ₹' + totalWithGst.toLocaleString('en-IN') + ' incl. GST';
   document.getElementById('payUpiSaveSub').textContent = 'Save ₹' + saving.toLocaleString('en-IN') + '';
   document.getElementById('payUpiAmountLabel').textContent = totalWithGst.toLocaleString('en-IN');
-  document.getElementById('payUpiInput').value = '';
-  document.getElementById('payUpiError').style.display = 'none';
+
 
   // Populate WhatsApp detail
   const waNum = cfg.admin_whatsapp || '919820791100';
@@ -3143,28 +3021,10 @@ function selectPayMethod(method) {
   });
 }
 
-function onUpiInput() {
-  document.getElementById('payUpiError').style.display = 'none';
-}
-
-function isValidVpa(v) {
-  return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/.test(v.trim());
-}
-
 async function launchUpiPay(e) {
   e.preventDefault();
   if (!_payState) return;
-  const vpa = document.getElementById('payUpiInput').value.trim();
-  if (!isValidVpa(vpa)) {
-    document.getElementById('payUpiError').style.display = 'block';
-    return;
-  }
-  const { bookingData, totalWithGst, cfg } = _payState;
-  const btn = document.getElementById('payUpiDeepLink');
-  btn.textContent = 'Sending request…';
-  btn.style.pointerEvents = 'none';
-
-  // Redirect to UPI payment page
+  const { bookingData, totalWithGst } = _payState;
   document.getElementById('payOverlay').classList.remove('open');
   window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
 }
@@ -3336,25 +3196,36 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
 const venueData = {
   bhakti: {
     name: 'Bhakti Kutir',
-    tags: ['On Site', 'Eco', 'Non-AC', 'Festival Venue', 'Hot Water', 'WiFi', 'Fans', 'Mosquito Nets', 'No Parking'],
-    desc: 'Bhakti Kutir is our most loved venue — and the heart of the festival. The festival itself happens here, which means if you stay at Bhakti Kutir, you are already home.\n\nThe property has 27 unique eco-cottages, no two alike, built from bamboo, rice straw, and natural materials. They are not air-conditioned, but the forest keeps them cool — you sleep with the trees around you, the breeze moving through, and the night sky visible overhead. Waking up here on festival morning, you simply step outside.\n\nBhakti Kutir is ideal for anyone who loves nature, wants to be fully immersed in the community vibe of the festival, or is looking for the most memorable and budget-friendly stay. If the whole experience matters as much as the comfort, this is the one.',
+    tags: ['Eco', 'Non-AC', 'Festival Venue', 'Hot Water', 'WiFi', 'Fans', 'Mosquito Nets', 'Spa & Wellness Center', 'Restaurant'],
+    desc: 'Bhakti Kutir is our most loved venue — and the heart of the festival. The festival itself happens here, which means if you stay at Bhakti Kutir, you are already home.\n\nThe property has 27 unique eco-cottages, no two alike, built from bamboo, rice straw, and natural materials. They are not air-conditioned, but the forest keeps them cool — you sleep with the trees around you, the breeze moving through, and the night sky visible overhead. Waking up here on festival morning, you simply step outside.\n\nBhakti Kutir is ideal for anyone who loves nature, wants to be fully immersed in the community vibe of the festival, or is looking for the most memorable stay. If the whole experience matters as much as the comfort, this is the one.',
     photos: [
-      'Stay Page Images/Bhakti Kutir/outside (1).jpeg',
-      'Stay Page Images/Bhakti Kutir/1.JPG',
-      'Stay Page Images/Bhakti Kutir/2.jpeg',
-      'Stay Page Images/Bhakti Kutir/5porch.jpeg',
-      'Stay Page Images/Bhakti Kutir/DSC00904.jpeg',
       'Stay Page Images/Bhakti Kutir/Hut 8up.jpeg',
+      'Stay Page Images/Bhakti Kutir/2.jpeg',
+      'Stay Page Images/Bhakti Kutir/10d.jpeg',
+      'Stay Page Images/Bhakti Kutir/IMG_0676.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0683.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0677.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0673.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0674.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0678.JPG',
+      'Stay Page Images/Bhakti Kutir/1.JPG',
+      'Stay Page Images/Bhakti Kutir/DSC00904.jpeg',
       'Stay Page Images/Bhakti Kutir/IMG_1603.JPG',
       'Stay Page Images/Bhakti Kutir/Number 17.jpeg',
-      'Stay Page Images/Bhakti Kutir/10d.jpeg',
-      'Stay Page Images/Bhakti Kutir/DSC06161.jpeg',
+      'Stay Page Images/Bhakti Kutir/IMG_0672.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0675.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0679.WEBP',
+      'Stay Page Images/Bhakti Kutir/IMG_0680.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0681.JPG',
+      'Stay Page Images/Bhakti Kutir/IMG_0684.WEBP',
+      'Stay Page Images/Bhakti Kutir/IMG_0685.WEBP',
+      'Stay Page Images/Bhakti Kutir/IMG_0686.WEBP',
     ]
   },
   destiny: {
     name: 'Destiny',
-    tags: ['1 Min Walk', 'AC', 'Private Pools', 'Hot Water', 'No Parking'],
-    desc: 'Destiny is the most premium stay option for Moon Festival 2026. Just a minute\'s walk from the festival grounds, it is the closest off-site venue to Bhakti Kutir. If comfort, AC, a private pool on the property, and a beach view are what you\'re looking for — Destiny is the one.\n\nDestiny Goa Beach Resort sits right on the edge of Palolem, offering 5 spacious cottages with stunning views of the Arabian Sea. Destiny has its own pool, lush gardens, and the kind of quiet that only a boutique beachfront property can offer. Wake up to the sound of the sea, and walk straight into the festival.\n\nMoon Festival has booked out the entire property — every guest at Destiny during the festival days will be a fellow attendee. The community feeling starts right at your doorstep.',
+    tags: ['Luxury', 'Sea Facing', '1 Min Walk', 'AC', 'Parking', 'Swimming Pool', 'WiFi', 'Beach Access', 'Restaurant & Bar'],
+    desc: 'Destiny is the most premium stay option for Moon Festival 2026. Just a minute\'s walk from the festival grounds, it is the closest off-site venue to Bhakti Kutir. If comfort, AC, a private pool on the property, and a beach view are what you\'re looking for — Destiny is the one.\n\nDestiny Goa Beach Resort sits right on the edge of Palolem, offering 5 spacious cottages with stunning views of the Arabian Sea. Depending on the room, you get your own private sea view swimming pool or a private sea view jacuzzi — along with a personal cabana and access to a sea view restaurant on the property. Wake up to the sound of the sea, and walk straight into the festival.\n\nMoon Festival has booked out the entire property — every guest at Destiny during the festival days will be a fellow attendee. The community feeling starts right at your doorstep.',
     photos: [
       'Stay Page Images/Destiny/1.jpg',
       'Stay Page Images/Destiny/10.jpeg',
@@ -3378,7 +3249,7 @@ const venueData = {
   },
   ourem: {
     name: 'Ourem Palace',
-    tags: ['3 Mins Walk', 'AC', 'Palolem Beach', 'No Parking'],
+    tags: ['3 Mins Walk', 'AC', 'Partial Sea View', 'Parking'],
     desc: 'Ourem Palace sits on a gentle hillock at the southern end of Palolem — elevated just enough to give its 16 cottages a beautiful view of the beach and the sea beyond. It is not a beach property, but that is part of its charm: quiet, breezy, and removed from the noise, while the beach is just a short walk or ride away.\n\nA newly renovated property, Ourem Palace offers well-appointed, air-conditioned cottages that are comfortable and tastefully done. One of the best midrange options for the festival — close enough to everything, with the feel of a proper retreat.\n\nMoon Festival has booked out the entire property — every guest at Ourem Palace during the festival days will be a fellow attendee. A hilltop full of people who are all there for the same thing.',
     photos: [
       'Stay Page Images/Ourem Palace 2/1.jpeg',
@@ -3452,7 +3323,7 @@ const venueData = {
   },
   dormitory: {
     name: 'Bhakti Dorm',
-    tags: ['On Site', 'Eco', 'Non-AC', 'Festival Venue', 'Hot Water', 'WiFi', 'Fans', 'Mosquito Nets', 'No Parking'],
+    tags: ['Eco', 'Non-AC', 'Festival Venue', 'Hot Water', 'WiFi', 'Fans', 'Mosquito Nets', 'Spa & Wellness Center', 'Restaurant'],
     desc: 'The dorms are the cheapest stay option at Moon Festival — and honestly, one of the most memorable. Right on the Bhakti Kutir grounds, you fall asleep in the same forest the festival happens in, and wake up already there.\n\nShared bunks with mosquito nets and personal storage, surrounded by trees and the sounds of the land. Non-AC, but the forest keeps it cool and alive. The dorm experience is about more than just a bed — people who choose the dorm almost always end up with the best stories. It\'s where the real bonding happens: late nights talking, mornings together, the kind of connections that are hard to find anywhere else.\n\nIf you\'re coming to Moon Festival for the people and the experience — the dorm is made for you.',
     photos: [
       'Stay Page Images/Bhakti Dorm/dorm+beds+8.jpg.webp',
@@ -4106,14 +3977,6 @@ function fmtPrice(n) {
       </div>
       <p id="payUpiSaveSub" style="margin:0 0 0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);"></p>
       <div class="pay-method-detail" id="payDetailUpi">
-        <div style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin-bottom:0.5rem;">Your UPI ID</div>
-        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-          <input id="payUpiInput" type="text" placeholder="yourname@okicici" autocomplete="off" spellcheck="false"
-            style="flex:1;background:rgba(237,212,178,0.05);border:0.5px solid rgba(237,212,178,0.18);border-radius:6px;padding:0.65rem 0.8rem;font-family:'Open Sans',sans-serif;font-size:0.92rem;color:#EDD4B2;outline:none;transition:border-color 0.15s;"
-            oninput="onUpiInput()"
-          />
-        </div>
-        <div id="payUpiError" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:#c0604080;margin-bottom:0.5rem;display:none;">Please enter a valid UPI ID (e.g. name@okicici)</div>
         <a id="payUpiDeepLink" href="#" onclick="return launchUpiPay(event)" class="pay-action-btn primary" style="display:block;text-align:center;text-decoration:none;">Pay ₹<span id="payUpiAmountLabel"></span> via UPI →</a>
         <!-- Screenshot upload -->
         <div style="margin-top:1.1rem;padding-top:1rem;border-top:0.5px solid rgba(237,212,178,0.08);">
