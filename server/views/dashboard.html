@@ -3499,15 +3499,37 @@ async function _doSendSplitPaylink(ref, totalWithGst) {
   }
 }
 
-async function sendAddonPaylink(ref) {
-  const btn = event.target;
+async function sendAddonQuote(ref, btn) {
+  if (!btn) btn = event.target;
+  const orig = btn.textContent;
+  btn.textContent = '…'; btn.disabled = true;
+  try {
+    const r = await fetch(`/admin/api/bookings/${ref}/send-quote`, { method: 'POST' });
+    const data = await r.json();
+    if (data.ok) {
+      btn.textContent = '✓ Quote Sent';
+      btn.style.color = '#1e8a3a';
+      btn.style.borderColor = 'rgba(40,140,60,0.4)';
+      _loadBookingLog(ref);
+    } else {
+      alert('Error: ' + (data.error || 'Failed'));
+      btn.textContent = orig; btn.disabled = false;
+    }
+  } catch(e) {
+    alert('Network error');
+    btn.textContent = orig; btn.disabled = false;
+  }
+}
+
+async function sendAddonPaylink(ref, btn) {
+  if (!btn) btn = event.target;
   const orig = btn.textContent;
   btn.textContent = '…'; btn.disabled = true;
   try {
     const r = await fetch(`/admin/api/bookings/${ref}/addon-paylink`, { method: 'POST' });
     const data = await r.json();
     if (data.ok) {
-      btn.textContent = '✓ Email Sent';
+      btn.textContent = '✓ Link Sent';
       btn.style.color = '#1e8a3a';
       btn.style.borderColor = 'rgba(40,140,60,0.4)';
       _loadBookingLog(ref);
@@ -5305,8 +5327,12 @@ function _showResendNudge(ref) {
   nudge.className = 'addon-resend-nudge';
   nudge.style.cssText = 'margin-top:12px;padding:10px 12px;background:rgba(50,120,50,0.1);border:0.5px solid rgba(50,150,50,0.3);border-radius:3px;display:flex;align-items:center;justify-content:space-between;gap:10px;';
   nudge.innerHTML = `
-    <span style="font-size:11px;color:rgba(80,160,80,0.9);">Add-on saved. Send updated confirmation + invoice to guest?</span>
-    <button onclick="event.stopPropagation();resendConfirmation('${ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.2);border:0.5px solid rgba(50,150,50,0.4);color:#4caf50;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Send Now</button>
+    <span style="font-size:11px;color:rgba(80,160,80,0.9);flex:1;">Add-on saved. What would you like to send?</span>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button onclick="event.stopPropagation();sendAddonQuote('${ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Send Quote</button>
+      <button onclick="event.stopPropagation();sendAddonPaylink('${ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">↗ Payment Link</button>
+      <button onclick="event.stopPropagation();resendConfirmation('${ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.2);border:0.5px solid rgba(50,150,50,0.4);color:#4caf50;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✓ Confirmation</button>
+    </div>
   `;
   card.appendChild(nudge);
 }

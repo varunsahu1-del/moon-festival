@@ -534,7 +534,9 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
   
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
-  const totalFmt = '₹' + amountWithGst.toLocaleString('en-IN');
+  const razorpayTotal = Math.round(amountWithGst * 1.0236);
+  const gatewayFee = razorpayTotal - amountWithGst;
+  const totalFmt = '₹' + razorpayTotal.toLocaleString('en-IN');
 
   const html = '<!DOCTYPE html><html><head>'
     + '<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>'
@@ -560,8 +562,13 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
     + `<p style="margin:0;font-family:${OPEN};font-size:15px;font-weight:600;color:${C.text};">${booking.venue} — ${booking.room_type}</p>`
     + '</td></tr>'
     + `<tr><td style="padding:16px 20px;">`
-    + `<p style="margin:0 0 3px;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Amount Due (incl. 5% GST)</p>`
-    + `<p style="margin:0;font-family:${OPEN};font-size:22px;font-weight:700;color:${C.gold};">${totalFmt}</p>`
+    + `<p style="margin:0 0 10px;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Payment Breakdown</p>`
+    + `<table width="100%" cellpadding="0" cellspacing="0">`
+    + `<tr><td style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">Accommodation + Add-ons</td><td align="right" style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">₹${Math.round(amountWithGst / 1.05).toLocaleString('en-IN')}</td></tr>`
+    + `<tr><td style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">GST (5%)</td><td align="right" style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">₹${(amountWithGst - Math.round(amountWithGst / 1.05)).toLocaleString('en-IN')}</td></tr>`
+    + `<tr><td style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:8px;">Razorpay gateway fee (2.36%)</td><td align="right" style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:8px;">₹${gatewayFee.toLocaleString('en-IN')}</td></tr>`
+    + `<tr><td style="font-family:${OPEN};font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:${C.muted};border-top:1px solid ${C.border};padding-top:8px;">Total Due</td><td align="right" style="border-top:1px solid ${C.border};padding-top:8px;"><span style="font-family:${OPEN};font-size:18px;font-weight:700;color:${C.gold};">${totalFmt}</span></td></tr>`
+    + `</table>`
     + '</td></tr></table></td></tr>'
     + `<tr><td style="padding:24px 52px;">`
     + `<a href="${paymentLink}" style="display:inline-block;background:${C.terra};color:#fff;font-family:${OPEN};font-size:11px;letter-spacing:0.16em;text-transform:uppercase;padding:14px 28px;text-decoration:none;border-radius:2px;">Complete Payment →</a>`
