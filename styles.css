@@ -429,8 +429,9 @@ h4 { font-size: var(--t-xl); }
   color: #EDD4B2;
   background: #B06030;
   border: 1px solid #B06030;
-  padding: 0.9rem 1.6em;
-  margin-top: 1.25rem;
+  padding: 0.7rem 1.6em;
+  margin-top: 0;
+  margin-bottom: 0.1rem;
   border-radius: 6px;
   width: 100%;
   justify-content: center;
