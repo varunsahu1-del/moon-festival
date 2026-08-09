@@ -1304,7 +1304,7 @@ function toggleBookingSummary() {
       UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.
     </div>
 
-    <div class="pay-method-card" id="payCardUpi" onclick="selectPayMethod('upi')">
+    <div class="pay-method-card" id="payCardUpi" onclick="launchUpiPay(event)">
       <div class="pay-method-top">
         <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h2"/><path d="M11 15h4"/></svg>
@@ -1313,12 +1313,9 @@ function toggleBookingSummary() {
       </div>
       <p id="payUpiSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);"></p>
       <p id="payUpiLimitWarn" style="display:none;margin:0.5rem 0 0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.55);line-height:1.5;">Your total exceeds ₹1 lakh — most UPI apps will block this transaction. Use <strong style="color:#EDD4B2;">Bank Transfer</strong> or <strong style="color:#EDD4B2;">Razorpay</strong> instead.</p>
-      <div class="pay-method-detail" id="payDetailUpi">
-        <a id="payUpiDeepLink" href="#" onclick="return launchUpiPay(event)" class="pay-action-btn primary" style="display:block;text-align:center;text-decoration:none;">Pay ₹<span id="payUpiAmountLabel"></span> via UPI →</a>
-      </div>
     </div>
 
-    <div class="pay-method-card" id="payCardBank" onclick="selectPayMethod('bank')">
+    <div class="pay-method-card" id="payCardBank" onclick="reserveBankSpot(event)">
       <div class="pay-method-top">
         <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 10v11M12 10v11M16 10v11"/></svg>
@@ -1327,9 +1324,6 @@ function toggleBookingSummary() {
       </div>
       <p id="payBankSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;"></p>
       <p class="pay-method-desc" style="margin-top:0.35rem;"><strong style="color:#EDD4B2;font-weight:600;">Ideal for payments over ₹1,00,000</strong> — no fees, no limit. NEFT / IMPS / RTGS.</p>
-      <div class="pay-method-detail" id="payDetailBank">
-        <button class="pay-action-btn primary" onclick="reserveBankSpot()" id="bankReserveBtn">Reserve my spot →</button>
-      </div>
       <div id="bankConfirmed" style="display:none;padding:1.4rem 0 0.4rem;">
         <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.1rem;">
           <div style="width:2px;height:2rem;background:#B06030;flex-shrink:0;"></div>
@@ -1364,20 +1358,18 @@ function toggleBookingSummary() {
       </div>
     </div>
 
-    <div class="pay-method-card" id="payCardRazorpay" onclick="selectPayMethod('razorpay')">
+    <div class="pay-method-card" id="payCardRazorpay" onclick="launchRazorpay()">
       <div class="pay-method-top">
         <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
           Card / Net Banking / UPI
         </span>
       </div>
-      <p style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:#EDD4B2;"><strong style="color:#EDD4B2;font-weight:600;">Razorpay secure gateway</strong> · ~2–3% platform fee (varies by payment method)</p>
-      <div class="pay-method-detail" id="payDetailRazorpay">
-        <button class="pay-action-btn primary" onclick="launchRazorpay()">Continue to Razorpay →</button>
-      </div>
+      <p style="margin:0 0 0.5rem;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);">via Razorpay &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.7);">+2.36% gateway fee</span></p>
+      <div id="razorpayBreakdown" style="font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.45);line-height:1.8;"></div>
     </div>
 
-    <div class="pay-method-card" id="payCardCash" onclick="selectPayMethod('cash')">
+    <div class="pay-method-card" id="payCardCash" onclick="reserveCashSpot(event)">
       <div class="pay-method-top">
         <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></svg>
@@ -1386,9 +1378,6 @@ function toggleBookingSummary() {
       </div>
       <p id="payCashSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;"></p>
       <p class="pay-method-desc" style="margin-top:0.35rem;"><strong style="color:#EDD4B2;font-weight:600;">Pay in cash</strong> — we'll confirm your spot over WhatsApp.</p>
-      <div class="pay-method-detail" id="payDetailCash">
-        <button class="pay-action-btn primary" onclick="reserveCashSpot()" id="cashReserveBtn">Reserve my spot →</button>
-      </div>
 
       <!-- Shown after reservation is logged -->
       <div id="cashConfirmed" style="display:none;padding:1.4rem 0 0.4rem;">
@@ -1430,7 +1419,17 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   document.getElementById('payUpiSaveSub').innerHTML = '<span style="color:#EDD4B2;font-weight:600;">Pay us directly via UPI</span><span style="color:#EDD4B2;"> and </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> in gateway charges</span>';
   document.getElementById('payBankSaveSub').innerHTML = '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>';
   document.getElementById('payCashSaveSub').innerHTML = '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>';
-  document.getElementById('payUpiAmountLabel').textContent = totalWithGst.toLocaleString('en-IN');
+  document.getElementById('payUpiAmountLabel') && (document.getElementById('payUpiAmountLabel').textContent = totalWithGst.toLocaleString('en-IN'));
+
+  // Razorpay breakdown
+  const razorpayTotal = Math.round(totalWithGst * 1.0236);
+  const gatewayFee = razorpayTotal - totalWithGst;
+  const bdEl = document.getElementById('razorpayBreakdown');
+  if (bdEl) bdEl.innerHTML =
+    'Base &nbsp;₹' + baseAmount.toLocaleString('en-IN') +
+    ' &nbsp;+&nbsp; GST (5%) &nbsp;₹' + gst.toLocaleString('en-IN') +
+    ' &nbsp;+&nbsp; Gateway fee &nbsp;₹' + gatewayFee.toLocaleString('en-IN') +
+    '<br><span style="color:#EDD4B2;font-weight:600;font-size:0.82rem;">Total &nbsp;₹' + razorpayTotal.toLocaleString('en-IN') + '</span>';
 
   // Hide UPI entirely if total > ₹1 lakh (UPI apps block transactions above this limit)
   const upiCard = document.getElementById('payCardUpi');
@@ -1442,19 +1441,10 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   }
 
   // Reset cash flow state
-  document.getElementById('cashReserveBtn').style.display = '';
-  document.getElementById('cashReserveBtn').disabled = false;
-  document.getElementById('cashReserveBtn').textContent = 'Reserve my spot →';
   document.getElementById('cashConfirmed').style.display = 'none';
 
   // Reset bank transfer flow state
-  document.getElementById('bankReserveBtn').style.display = '';
-  document.getElementById('bankReserveBtn').disabled = false;
-  document.getElementById('bankReserveBtn').textContent = 'Reserve my spot →';
   document.getElementById('bankConfirmed').style.display = 'none';
-  document.getElementById('bankScreenshotInput').value = '';
-  document.getElementById('bankScreenshotLabel').textContent = '↑ Upload payment screenshot';
-  document.getElementById('bankScreenshotStatus').style.display = 'none';
 
   selectPayMethod(null);
   document.getElementById('payOverlay').classList.add('open');
@@ -1475,7 +1465,8 @@ function launchUpiPay(e) {
   window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
 }
 
-async function reserveCashSpot() {
+async function reserveCashSpot(e) {
+  if (e) e.stopPropagation();
   if (!_payState) return;
   const { bookingData, totalWithGst } = _payState;
   const btn = document.getElementById('cashReserveBtn');
@@ -1506,12 +1497,10 @@ async function reserveCashSpot() {
   document.getElementById('cashConfirmed').style.display = 'block';
 }
 
-async function reserveBankSpot() {
+async function reserveBankSpot(e) {
+  if (e) e.stopPropagation();
   if (!_payState) return;
   const { bookingData, totalWithGst } = _payState;
-  const btn = document.getElementById('bankReserveBtn');
-  btn.disabled = true;
-  btn.textContent = 'Reserving…';
 
   const ref = bookingData.booking_ref;
   const { venue, roomType, totalWithGst: twg } = _payState;
@@ -1552,15 +1541,10 @@ async function handleBankScreenshot(input) {
   }
 }
 
-// Reset pay buttons when user navigates back (bfcache restore)
+// Reopen pay modal when user navigates back (bfcache restore)
 window.addEventListener('pageshow', e => {
-  if (e.persisted) {
-    const bankBtn = document.getElementById('bankReserveBtn');
-    if (bankBtn) { bankBtn.disabled = false; bankBtn.textContent = 'Reserve my spot →'; }
-    const cashBtn = document.getElementById('cashReserveBtn');
-    if (cashBtn) { cashBtn.disabled = false; cashBtn.textContent = 'Reserve my spot →'; }
-    const upiBtn = document.getElementById('payUpiDeepLink');
-    if (upiBtn) { upiBtn.style.pointerEvents = ''; upiBtn.style.opacity = ''; }
+  if (e.persisted && _payState) {
+    document.getElementById('payOverlay').classList.add('open');
   }
 });
 
