@@ -1468,6 +1468,9 @@ function launchUpiPay(e) {
 async function reserveCashSpot(e) {
   if (e) e.stopPropagation();
   if (!_payState) return;
+  // If already showing the confirmed section, don't re-trigger
+  if (document.getElementById('cashConfirmed').style.display !== 'none') return;
+
   const { bookingData, venue, roomType, totalWithGst } = _payState;
   const ref = bookingData.booking_ref;
 
@@ -1479,10 +1482,18 @@ async function reserveCashSpot(e) {
   } catch (_) {}
 
   const msg = encodeURIComponent(`Hi! I'd like to pay cash for my Moon Festival 2026 booking — ${ref}, ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}. Please let me know how to proceed.`);
-  const waNum = _payState.cfg?.admin_whatsapp || '919820791100';
-  document.getElementById('payOverlay').classList.remove('open');
-  window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank');
-  window.location.href = `booking-confirmed.html?ref=${ref}&method=cash`;
+  const confirmedUrl = `booking-confirmed.html?ref=${ref}&method=cash`;
+  function openCashWa(waUrl) {
+    window.open(waUrl, '_blank');
+    window.location.href = confirmedUrl;
+  }
+  document.getElementById('cashBookingRef').textContent = ref;
+  document.getElementById('cashWaVarun').href = '#';
+  document.getElementById('cashWaVarun').onclick = (ev) => { ev.preventDefault(); openCashWa(`https://wa.me/919820791100?text=${msg}`); };
+  document.getElementById('cashWaKaran').href = '#';
+  document.getElementById('cashWaKaran').onclick = (ev) => { ev.preventDefault(); openCashWa(`https://wa.me/919930920313?text=${msg}`); };
+
+  document.getElementById('cashConfirmed').style.display = 'block';
 }
 
 async function reserveBankSpot(e) {
