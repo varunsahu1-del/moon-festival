@@ -1211,4 +1211,84 @@ async function sendQuote({ booking, guests }) {
   }
 }
 
-module.exports = { sendConfirmation, sendFailedPaymentAlert, sendModificationEmail, sendAddonPaymentEmail, sendPaymentPendingEmail, sendSplitPaymentEmail, sendUpiAlert, sendUpiPendingGuest, sendApplicationReceived, sendApplicationAccepted, sendCustomPaymentAlert, sendDailyBackup, sendNewBookingAlert, sendQuote };
+async function sendAddonQuoteEmail({ booking, guests, addedItems }) {
+  if (!process.env.RESEND_API_KEY) return;
+
+  const primary   = guests[0] || {};
+  const firstName = (primary.full_name || 'there').split(' ')[0];
+  const bd        = computeBreakdown(booking);
+  const newTotal  = bd.grandTotal;
+  const addedTotal = addedItems.reduce((s, a) => s + (parseInt(a.price) || 0), 0);
+  const prevTotal  = newTotal - addedTotal; // approximate: before these add-ons + GST delta
+
+  const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
+
+  const addedRows = addedItems.map(a =>
+    '<tr>'
+    + '<td style="font-family:' + OPEN + ';font-size:13px;color:' + C.sub + ';padding:6px 0 2px;">' + a.name + '</td>'
+    + '<td style="font-family:' + OPEN + ';font-size:13px;color:' + C.terra + ';font-weight:600;padding:6px 0 2px;text-align:right;" align="right">+' + fmt(a.price) + '</td>'
+    + '</tr>'
+  ).join('');
+
+  const addedLabel = addedItems.length === 1
+    ? '<strong style="color:' + C.text + ';">' + addedItems[0].name + '</strong> has been added to your Moon Festival booking.'
+    : '<strong style="color:' + C.text + ';">' + addedItems.length + ' add-ons</strong> have been added to your Moon Festival booking.';
+
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/></head>'
+    + '<body style="margin:0;padding:0;background:' + C.bg + ';">'
+    + '<div style="max-width:560px;margin:0 auto;padding:40px 16px;">'
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="background:' + C.card + ';border:1px solid ' + C.border + ';">'
+    + '<tr><td style="background:' + C.terra + ';height:3px;font-size:0;line-height:0;">&nbsp;</td></tr>'
+
+    // Header
+    + '<tr><td style="padding:32px 48px 24px;border-bottom:1px solid ' + C.border + ';">'
+    + '<p style="margin:0 0 4px;font-family:' + OPEN + ';font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:' + C.terra + ';">Booking Updated</p>'
+    + '<p style="margin:0 0 2px;font-family:' + OPEN + ';font-size:22px;font-weight:700;color:' + C.gold + ';">' + booking.booking_ref + '</p>'
+    + '<p style="margin:0;font-family:' + OPEN + ';font-size:12px;color:' + C.muted + ';letter-spacing:0.06em;">Moon Festival 2026 &nbsp;·&nbsp; 27–30 Nov &nbsp;·&nbsp; South Goa</p>'
+    + '</td></tr>'
+
+    // Message
+    + '<tr><td style="padding:28px 48px 0;">'
+    + '<p style="margin:0 0 6px;font-family:' + OPEN + ';font-size:15px;color:' + C.text + ';">Hi ' + firstName + ',</p>'
+    + '<p style="margin:0;font-family:' + OPEN + ';font-size:13px;color:' + C.sub + ';line-height:1.7;">' + addedLabel + '</p>'
+    + '</td></tr>'
+
+    // Added items + new total table
+    + '<tr><td style="padding:24px 48px 0;">'
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ' + C.border + ';">'
+    + '<tr><td colspan="2" style="padding:14px 18px 2px;border-bottom:0.5px solid ' + C.border + ';">'
+    + '<p style="margin:0;font-family:' + OPEN + ';font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:' + C.muted + ';">Added</p>'
+    + '</td></tr>'
+    + '<tr><td colspan="2" style="padding:4px 18px 10px;border-bottom:1px solid ' + C.border + ';">'
+    + '<table width="100%" cellpadding="0" cellspacing="0">' + addedRows + '</table>'
+    + '</td></tr>'
+    + '<tr><td style="padding:14px 18px;">'
+    + '<p style="margin:0;font-family:' + OPEN + ';font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:' + C.muted + ';">New Total (incl. 5% GST)</p>'
+    + '</td>'
+    + '<td style="padding:14px 18px;text-align:right;" align="right">'
+    + '<p style="margin:0;font-family:' + OPEN + ';font-size:22px;font-weight:700;color:' + C.gold + ';">' + fmt(newTotal) + '</p>'
+    + '</td></tr>'
+    + '</table>'
+    + '</td></tr>'
+
+    // Pay note
+    + '<tr><td style="padding:20px 48px 32px;">'
+    + '<p style="margin:0;font-family:' + OPEN + ';font-size:12px;color:' + C.muted + ';line-height:1.7;">Pay via UPI &nbsp;<span style="color:' + C.terra + ';">' + UPI_ID + '</span> or bank transfer. Share the screenshot on WhatsApp and we\'ll confirm. Questions? <a href="https://wa.me/91' + CONTACT_VARUN.replace(/\D/g,'') + '" style="color:' + C.terra + ';text-decoration:none;">' + CONTACT_VARUN + '</a></p>'
+    + '</td></tr>'
+
+    + '</table></div></body></html>';
+
+  const toEmail = (primary.email || '').trim();
+  if (!toEmail || !toEmail.includes('@')) return;
+
+  await sendEmail({
+    from: FROM,
+    to: toEmail,
+    bcc: ADMIN_BCC,
+    subject: booking.booking_ref + ' · Add-on Added · Moon Festival 2026',
+    html,
+  });
+  console.log('[email] Addon quote sent to', toEmail, 'for', booking.booking_ref);
+}
+
+module.exports = { sendConfirmation, sendFailedPaymentAlert, sendModificationEmail, sendAddonPaymentEmail, sendPaymentPendingEmail, sendSplitPaymentEmail, sendUpiAlert, sendUpiPendingGuest, sendApplicationReceived, sendApplicationAccepted, sendCustomPaymentAlert, sendDailyBackup, sendNewBookingAlert, sendQuote, sendAddonQuoteEmail };

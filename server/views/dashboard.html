@@ -3499,12 +3499,21 @@ async function _doSendSplitPaylink(ref, totalWithGst) {
   }
 }
 
-async function sendAddonQuote(ref, btn) {
+async function sendAddonQuote(ref, btn, itemsJson) {
   if (!btn) btn = event.target;
   const orig = btn.textContent;
   btn.textContent = '…'; btn.disabled = true;
   try {
-    const r = await fetch(`/admin/api/bookings/${ref}/send-quote`, { method: 'POST' });
+    let addedItems = [];
+    if (itemsJson) {
+      try { addedItems = JSON.parse(itemsJson.replace(/&quot;/g, '"')); } catch(_) {}
+    }
+    const useAddonEndpoint = addedItems.length > 0;
+    const url = useAddonEndpoint
+      ? `/admin/api/bookings/${ref}/send-addon-quote`
+      : `/admin/api/bookings/${ref}/send-quote`;
+    const body = useAddonEndpoint ? JSON.stringify({ addedItems }) : undefined;
+    const r = await fetch(url, { method: 'POST', headers: useAddonEndpoint ? { 'Content-Type': 'application/json' } : {}, body });
     const data = await r.json();
     if (data.ok) {
       btn.textContent = '✓ Quote Sent';
@@ -5318,18 +5327,19 @@ async function _saveDrawerAddons(ref, newAddonsStr, note) {
   return true;
 }
 
-function _showResendNudge(ref) {
+function _showResendNudge(ref, addedItems) {
   const card = document.getElementById('drawer-addons-card-' + ref);
   if (!card) return;
   const existing = card.querySelector('.addon-resend-nudge');
-  if (existing) return;
+  if (existing) existing.remove();
   const nudge = document.createElement('div');
   nudge.className = 'addon-resend-nudge';
-  nudge.style.cssText = 'margin-top:12px;padding:10px 12px;background:rgba(50,120,50,0.1);border:0.5px solid rgba(50,150,50,0.3);border-radius:3px;display:flex;align-items:center;justify-content:space-between;gap:10px;';
+  nudge.style.cssText = 'margin-top:12px;padding:10px 12px;background:rgba(50,120,50,0.1);border:0.5px solid rgba(50,150,50,0.3);border-radius:3px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;';
+  const itemsJson = JSON.stringify(addedItems || []).replace(/"/g, '&quot;');
   nudge.innerHTML = `
     <span style="font-size:11px;color:rgba(80,160,80,0.9);flex:1;">Add-on saved. What would you like to send?</span>
     <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <button onclick="event.stopPropagation();sendAddonQuote('${ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Send Quote</button>
+      <button onclick="event.stopPropagation();sendAddonQuote('${ref}',this,'${itemsJson}')" style="font-size:9px;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Send Quote</button>
       <button onclick="event.stopPropagation();sendAddonPaylink('${ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">↗ Payment Link</button>
       <button onclick="event.stopPropagation();resendConfirmation('${ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.2);border:0.5px solid rgba(50,150,50,0.4);color:#4caf50;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✓ Confirmation</button>
     </div>
@@ -5555,7 +5565,7 @@ async function addDrawerAddon(ref) {
     const note = items.map(({ price, name }) => `Added: ${name} (₹${parseInt(price).toLocaleString('en-IN')})`).join('; ');
     await _saveDrawerAddons(ref, parts.join('|'), note);
     _rebuildAddonsList(ref, parts.join('|'));
-    _showResendNudge(ref);
+    _showResendNudge(ref, items.map(i => ({ name: i.name, price: parseInt(i.price) || 0 })));
     _loadAddonLog(ref);
   });
 }
@@ -5572,7 +5582,7 @@ async function editDrawerAddon(btn, ref, idx) {
     parts[idx] = price + ':' + name;
     await _saveDrawerAddons(ref, parts.join('|'), note);
     _rebuildAddonsList(ref, parts.join('|'));
-    _showResendNudge(ref);
+    _showResendNudge(ref, [{ name, price: parseInt(price) || 0 }]);
     _loadAddonLog(ref);
   });
 }

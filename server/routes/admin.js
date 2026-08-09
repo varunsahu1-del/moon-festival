@@ -1104,6 +1104,25 @@ router.post('/api/bookings/:ref/send-quote', requireAdmin, async (req, res) => {
   }
 });
 
+router.post('/api/bookings/:ref/send-addon-quote', requireAdmin, async (req, res) => {
+  try {
+    const { sendAddonQuoteEmail } = require('../email');
+    const { addedItems } = req.body; // [{ name, price }]
+    if (!addedItems || !addedItems.length) return res.status(400).json({ error: 'No addedItems provided' });
+    const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(req.params.ref);
+    if (!booking) return res.status(404).json({ error: 'Booking not found' });
+    const guests = db.prepare('SELECT * FROM guests WHERE booking_id=?').all(booking.id);
+    if (!guests.length || !guests[0].email) return res.status(400).json({ error: 'No guest email on file' });
+    await sendAddonQuoteEmail({ booking, guests, addedItems });
+    const note = 'Add-on quote sent: ' + addedItems.map(a => a.name + ' (₹' + a.price + ')').join(', ');
+    db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'email', ?)").run(req.params.ref, note);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[send-addon-quote]', err);
+    res.status(500).json({ error: err.message || 'Failed to send addon quote' });
+  }
+});
+
 router.post('/api/bookings/:ref/resend-confirmation', requireAdmin, async (req, res) => {
   try {
     const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(req.params.ref);
