@@ -648,7 +648,7 @@ async function sendSplitPaymentEmail({ booking, guests, part1, part2, total, lin
   console.log('[email] Split payment email sent for', booking.booking_ref);
 }
 
-async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink }) {
+async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink, addedItems }) {
   if (!process.env.RESEND_API_KEY) {
     console.log('[email] RESEND_API_KEY not set — skipping addon payment email');
     return;
@@ -656,13 +656,21 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
   
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
-  const totalFmt = '₹' + Math.round(addonTotal * 1.05).toLocaleString('en-IN');
+  const totalWithGst = Math.round(addonTotal * 1.05);
+  const totalFmt = '₹' + totalWithGst.toLocaleString('en-IN');
+  const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
 
-  const addonRows = addonLines.map(({ name, price }) =>
-    `<tr>
-      <td style="padding:10px 20px;font-family:${OPEN};font-size:13px;color:${C.text};border-bottom:1px solid ${C.border};">${name}</td>
-      <td style="padding:10px 20px;font-family:${OPEN};font-size:13px;color:${C.gold};font-weight:700;text-align:right;border-bottom:1px solid ${C.border};">₹${Number(price).toLocaleString('en-IN')}</td>
-    </tr>`
+  // Use addedItems for the headline if provided, otherwise fall back to all addonLines
+  const items = (addedItems && addedItems.length) ? addedItems : addonLines;
+  const addedLabel = items.length === 1
+    ? '<strong style="color:' + C.text + ';">' + items[0].name + '</strong> has been added to your Moon Festival booking.'
+    : '<strong style="color:' + C.text + ';">' + items.length + ' add-ons</strong> have been added to your Moon Festival booking.';
+
+  const addedRows = items.map(a =>
+    '<tr>'
+    + '<td style="font-family:' + OPEN + ';font-size:13px;color:' + C.sub + ';padding:6px 0 2px;">' + a.name + '</td>'
+    + '<td style="font-family:' + OPEN + ';font-size:13px;color:' + C.terra + ';font-weight:600;padding:6px 0 2px;text-align:right;" align="right">+' + fmt(a.price) + '</td>'
+    + '</tr>'
   ).join('');
 
   const html = '<!DOCTYPE html><html><head>'
@@ -670,28 +678,36 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
     + '<title>Add-ons Payment — Moon Festival 2026</title>'
     + '</head>'
     + `<body style="margin:0;padding:0;background:${C.bg};">`
-    + `<div style="max-width:600px;margin:0 auto;padding:32px 16px;">`
+    + `<div style="max-width:560px;margin:0 auto;padding:32px 16px;">`
     + `<table width="100%" cellpadding="0" cellspacing="0" style="background:${C.card};border:1px solid ${C.border};">`
     + `<tr><td style="background:${C.terra};height:3px;font-size:0;line-height:0;">&nbsp;</td></tr>`
-    + `<tr><td style="padding:32px 52px 24px;border-bottom:1px solid ${C.border};">`
-    + `<p style="margin:0 0 4px;font-family:${OPEN};font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:${C.terra};">Add-ons Payment</p>`
+    + `<tr><td style="padding:32px 48px 24px;border-bottom:1px solid ${C.border};">`
+    + `<p style="margin:0 0 4px;font-family:${OPEN};font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:${C.terra};">Booking Updated</p>`
     + `<p style="margin:0 0 2px;font-family:${OPEN};font-size:22px;font-weight:700;color:${C.gold};">${booking.booking_ref}</p>`
     + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.muted};letter-spacing:0.06em;">Moon Festival 2026 &nbsp;·&nbsp; 27–30 Nov &nbsp;·&nbsp; South Goa</p>`
     + '</td></tr>'
-    + `<tr><td style="padding:28px 52px 0;"><p style="margin:0;font-family:${OPEN};font-size:15px;color:${C.text};line-height:1.7;">Hi ${firstName},</p>`
-    + `<p style="margin:12px 0 0;font-family:${OPEN};font-size:13px;color:${C.sub};line-height:1.7;">The following add-ons have been added to your booking. Please complete the payment at your earliest convenience.</p></td></tr>`
-    + `<tr><td style="padding:24px 52px 0;">`
+    + `<tr><td style="padding:28px 48px 0;">`
+    + `<p style="margin:0 0 6px;font-family:${OPEN};font-size:15px;color:${C.text};">Hi ${firstName},</p>`
+    + `<p style="margin:0;font-family:${OPEN};font-size:13px;color:${C.sub};line-height:1.7;">${addedLabel}</p>`
+    + '</td></tr>'
+    + `<tr><td style="padding:24px 48px 0;">`
     + `<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${C.border};">`
-    + addonRows
-    + `<tr><td colspan="2" style="padding:12px 20px;background:#fff8f3;">`
-    + `<p style="margin:0;font-family:${OPEN};font-size:11px;color:${C.muted};">Total incl. 5% GST</p>`
-    + `<p style="margin:4px 0 0;font-family:${OPEN};font-size:18px;font-weight:700;color:${C.gold};">${totalFmt}</p>`
+    + `<tr><td colspan="2" style="padding:14px 18px 2px;border-bottom:0.5px solid ${C.border};">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Added</p>`
+    + '</td></tr>'
+    + `<tr><td colspan="2" style="padding:4px 18px 10px;border-bottom:1px solid ${C.border};">`
+    + `<table width="100%" cellpadding="0" cellspacing="0">${addedRows}</table>`
+    + '</td></tr>'
+    + `<tr><td style="padding:14px 18px;">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Amount Due (incl. 5% GST)</p>`
+    + `</td><td style="padding:14px 18px;text-align:right;" align="right">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:20px;font-weight:700;color:${C.gold};">${totalFmt}</p>`
     + '</td></tr></table></td></tr>'
-    + `<tr><td style="padding:24px 52px;">`
+    + `<tr><td style="padding:24px 48px;">`
     + `<a href="${paymentLink}" style="display:inline-block;background:${C.terra};color:#fff;font-family:${OPEN};font-size:11px;letter-spacing:0.16em;text-transform:uppercase;padding:12px 26px;text-decoration:none;border-radius:2px;">Pay Now →</a>`
     + '</td></tr>'
-    + `<tr><td style="padding:0 52px 32px;border-top:1px solid ${C.border};">`
-    + `<p style="margin:0;font-family:${OPEN};font-size:13px;color:${C.sub};line-height:1.7;">Questions? Reach us on WhatsApp: <a href="https://wa.me/91${CONTACT_VARUN.replace(/\D/g,'')}" style="color:${C.terra};">${CONTACT_VARUN}</a> or email <a href="mailto:${CONTACT_EMAIL}" style="color:${C.terra};">${CONTACT_EMAIL}</a>.</p>`
+    + `<tr><td style="padding:0 48px 28px;border-top:1px solid ${C.border};">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.muted};line-height:1.7;">Questions? WhatsApp: <a href="https://wa.me/91${CONTACT_VARUN.replace(/\D/g,'')}" style="color:${C.terra};">${CONTACT_VARUN}</a></p>`
     + '</td></tr>'
     + '</table></div></body></html>';
 

@@ -363,7 +363,8 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
 
     try {
       const { sendAddonPaymentEmail } = require('../email');
-      await sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink: plink.short_url });
+      const addedItems = Array.isArray(req.body.addedItems) ? req.body.addedItems : null;
+      await sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink: plink.short_url, addedItems });
     } catch (emailErr) {
       console.error('[addon-paylink email]', emailErr.message);
     }

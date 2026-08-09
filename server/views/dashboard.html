@@ -3530,12 +3530,15 @@ async function sendAddonQuote(ref, btn, itemsJson) {
   }
 }
 
-async function sendAddonPaylink(ref, btn) {
+async function sendAddonPaylink(ref, btn, itemsJson) {
   if (!btn) btn = event.target;
   const orig = btn.textContent;
   btn.textContent = '…'; btn.disabled = true;
   try {
-    const r = await fetch(`/admin/api/bookings/${ref}/addon-paylink`, { method: 'POST' });
+    let addedItems = [];
+    if (itemsJson) { try { addedItems = JSON.parse(itemsJson.replace(/&quot;/g, '"')); } catch(_) {} }
+    const body = addedItems.length ? JSON.stringify({ addedItems }) : undefined;
+    const r = await fetch(`/admin/api/bookings/${ref}/addon-paylink`, { method: 'POST', headers: addedItems.length ? { 'Content-Type': 'application/json' } : {}, body });
     const data = await r.json();
     if (data.ok) {
       btn.textContent = '✓ Link Sent';
