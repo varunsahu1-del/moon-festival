@@ -26,6 +26,7 @@
       border-bottom: 0.5px solid rgba(237,212,178,0.08);
     }
     .venue-block:last-child { border-bottom: none; }
+    #pricingContent .venue-block:nth-last-child(2) { border-bottom: none; }
 
     .venue-block-toggle {
       width: 100%;
@@ -409,11 +410,14 @@ async function render() {
   const content = document.getElementById('pricingContent');
   let html = '';
 
+  const venueEntries = Object.entries(PRICING);
   let isFirst = true;
-  for (const [venue, data] of Object.entries(PRICING)) {
+  for (let vi = 0; vi < venueEntries.length; vi++) {
+    const [venue, data] = venueEntries[vi];
     const openClass = isFirst ? 'open' : '';
+    const isLast = vi === venueEntries.length - 1;
     html += `
-    <div class="venue-block ${openClass}">
+    <div class="venue-block ${openClass}"${isLast ? ' style="border-bottom:none;"' : ''}>
       <button class="venue-block-toggle" onclick="toggleVenue(this)">
         <span class="venue-block-label">${venue}<span class="venue-block-note"><span class="venue-block-sep"> · </span>${data.notes}</span></span>
         <svg class="venue-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -451,7 +455,7 @@ async function render() {
   ];
 
   html += `
-  <div class="venue-block" style="display:none;">
+  <div class="venue-block" style="display:none;border:none;">
     <button class="venue-block-toggle" onclick="toggleVenue(this)">
       <span class="venue-block-label">Festival Access<span class="venue-block-note"> · no stay or meals</span></span>
       <svg class="venue-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -481,6 +485,7 @@ async function render() {
     </div>
   </div>`;
 
+  html += `<div style="text-align:center;padding:2rem 0 1rem;"><a href="tickets.html" style="display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#1a1007;background:#B06030;text-decoration:none;padding:0.85rem 2.2rem;border-radius:3px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Get Tickets</a></div>`;
   html += `<p class="gst-note"><strong>+5% GST</strong> added at checkout &nbsp;·&nbsp; All prices are per person &nbsp;·&nbsp; <strong>Early Bird</strong> pricing is limited.</p>`;
   content.innerHTML = html;
 }
