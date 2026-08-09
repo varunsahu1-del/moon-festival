@@ -8,6 +8,14 @@
   <meta name="description" content="Moon Festival 2026 — 3 days of yoga, dance, music, healing & art. 27–30 November · South Goa, India." />
   <link rel="preload" href="Fonts/scandilover-2/Scandilover.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-18BTM4SFZT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-18BTM4SFZT');
+  </script>
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -410,7 +418,7 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
       if (!id) return;
       const lb = document.getElementById('homeLightbox');
       const frame = document.getElementById('homeLightboxFrame');
-      frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+      frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&showinfo=0';
       lb.style.display = 'flex';
     }
     function closeHomeLightbox() {
