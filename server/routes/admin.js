@@ -423,7 +423,8 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
 
   const booking_ref = nextRef();
   const baseAmount = parseInt(String(total_price).replace(/[^\d]/g, ''), 10) || 0;
-  const amountPaise = (total_with_gst || Math.round(baseAmount * 1.05)) * 100;
+  const amountWithGst = total_with_gst || Math.round(baseAmount * 1.05);
+  const amountPaise = Math.round(amountWithGst * 1.0236) * 100;
   const guest = guests[0];
 
   const _phase1 = resolvePhase();

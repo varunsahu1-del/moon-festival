@@ -4562,6 +4562,11 @@ async function submitAddBooking() {
         });
         const data = await r.json();
         if (!r.ok) throw new Error(data.error || 'Failed');
+        // Send quote email if checkbox was checked
+        const _sendQuote = document.getElementById('ab-send-quote')?.checked;
+        if (_sendQuote && data.booking_ref) {
+          try { await fetch(`/admin/api/bookings/${data.booking_ref}/send-quote`, { method: 'POST' }); } catch(_) {}
+        }
         closeAddBooking();
         loadBookings();
         loadStats();
