@@ -56,8 +56,12 @@
 
     /* ── INCLUSIONS BANNER ───────────────────────────── */
     .incl-collapse-trigger { display: none; }
+    .mob-incl-wrap { display: none; }
     @media (max-width: 767px) {
-      .incl-collapse-trigger {
+      .incl-collapse-trigger { display: none; }
+      .inclusions-banner { display: none !important; }
+      .mob-incl-wrap { display: block; }
+      .mob-incl-trigger {
         display: flex;
         width: 100%;
         background: rgba(176,96,48,0.07);
@@ -70,7 +74,8 @@
         cursor: pointer;
         text-align: left;
       }
-      .incl-collapse-trigger-label {
+      .mob-incl-trigger.second { border-top: none; }
+      .mob-incl-trigger-label {
         font-family: 'Josefin Sans', sans-serif;
         font-size: 0.65rem;
         font-weight: 700;
@@ -78,22 +83,22 @@
         text-transform: uppercase;
         color: #EDD4B2;
       }
-      .incl-collapse-trigger-sub {
+      .mob-incl-trigger-sub {
         font-family: 'Open Sans', sans-serif;
         font-size: 0.65rem;
         color: rgba(237,212,178,0.38);
         margin-top: 2px;
       }
-      .incl-collapse-arrow {
+      .mob-incl-arrow {
         font-size: 0.65rem;
         color: rgba(176,96,48,0.6);
         transition: transform 0.25s;
         flex-shrink: 0;
         margin-left: 0.8rem;
       }
-      .incl-collapse-arrow.open { transform: rotate(180deg); }
-      .inclusions-banner { display: none !important; }
-      .inclusions-banner.mob-open { display: block !important; }
+      .mob-incl-arrow.open { transform: rotate(180deg); }
+      .mob-incl-panel { display: none; border-bottom: 0.5px solid rgba(176,96,48,0.18); }
+      .mob-incl-panel.open { display: block; }
     }
     /* ── TICKET TABS ─────────────────────────────────── */
     .ticket-tabs-bar {
@@ -1645,10 +1650,30 @@
   <div class="tickets-inner">
 
     <!-- Early Bird — compact box countdown -->
-    <div id="eb-graphic-wrap" style="text-align:center;padding:1.4rem 1rem 1.2rem;border-bottom:0.5px solid rgba(176,96,48,0.15);">
-      <p id="tk-phaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:400;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,212,178,0.45);margin:0 0 0.75rem;">Early Bird Ends 31 August</p>
-      <div id="tk-countdown" style="display:none;">
-        <div style="display:flex;align-items:flex-start;justify-content:center;gap:0.35rem;">
+    <div id="eb-graphic-wrap" style="text-align:center;padding:clamp(2.4rem,6vw,3.5rem) 0 0.6rem;border-bottom:0.5px solid rgba(176,96,48,0.1);">
+      <!-- Owl (desktop only) -->
+      <svg id="tk-owl" viewBox="0 -15 280 195" xmlns="http://www.w3.org/2000/svg" style="max-width:100px;width:100%;display:block;margin:0 auto;">
+        <g transform="translate(140,100) scale(0.74)">
+          <circle cx="0" cy="0" r="68" fill="#B06030"/>
+          <ellipse cx="0" cy="8" rx="48" ry="42" fill="#C87848"/>
+          <path d="M-31 -56 C-35 -70 -43 -76 -39 -80 C-33 -74 -27 -64 -25 -54 Z" fill="#7A3A18"/>
+          <path d="M31 -56 C35 -70 43 -76 39 -80 C33 -74 27 -64 25 -54 Z" fill="#7A3A18"/>
+          <circle cx="-22" cy="-4" r="24" fill="#EDD4B2"/>
+          <circle cx="22" cy="-4" r="24" fill="#EDD4B2"/>
+          <circle cx="-22" cy="-2" r="18" fill="#191406"/>
+          <circle cx="22" cy="-2" r="18" fill="#191406"/>
+          <path d="M-42 -28 C-34 -34 -22 -34 -14 -30" stroke="#7A3A18" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M14 -30 C22 -34 34 -34 42 -28" stroke="#7A3A18" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="-28" cy="-8" r="5" fill="white"/>
+          <circle cx="16" cy="-8" r="5" fill="white"/>
+          <path d="M-6 16 L0 24 L6 16 Z" fill="#7A3A18"/>
+        </g>
+      </svg>
+      <!-- Phase label -->
+      <p id="tk-phaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0.6rem 0 0;">Early Bird Ends 31 August</p>
+      <!-- Countdown -->
+      <div id="tk-countdown" style="display:none;margin-top:1.2rem;margin-bottom:1.8rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:center;gap:0.5rem;">
           <div class="cd-unit"><span class="cd-num" id="tk-cd-days">00</span><span class="cd-label">Days</span></div>
           <span class="cd-sep">:</span>
           <div class="cd-unit"><span class="cd-num" id="tk-cd-hours">00</span><span class="cd-label">Hours</span></div>
@@ -1659,10 +1684,20 @@
         </div>
       </div>
       <style>
-        .cd-unit { display:flex;flex-direction:column;align-items:center;gap:0.3rem; }
-        .cd-num { display:flex;align-items:center;justify-content:center;width:clamp(30px,6vw,38px);height:clamp(30px,6vw,38px);background:rgba(176,96,48,0.14);border:1px solid rgba(176,96,48,0.3);border-radius:4px;font-family:'Open Sans',sans-serif;font-size:clamp(0.78rem,2vw,1rem);font-weight:700;color:#EDD4B2;font-variant-numeric:tabular-nums; }
-        .cd-label { font-family:'Josefin Sans',sans-serif;font-size:0.42rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.35); }
-        .cd-sep { font-family:'Open Sans',sans-serif;font-size:clamp(0.75rem,1.8vw,0.95rem);font-weight:700;color:rgba(176,96,48,0.45);margin-top:clamp(5px,1.2vw,8px);line-height:1; }
+        .cd-unit { display:flex;flex-direction:column;align-items:center;gap:0.4rem; }
+        .cd-num { display:flex;align-items:center;justify-content:center;width:clamp(38px,7vw,50px);height:clamp(38px,7vw,50px);background:rgba(176,96,48,0.15);border:1px solid rgba(176,96,48,0.35);border-radius:5px;font-family:'Open Sans',sans-serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:700;color:#EDD4B2;font-variant-numeric:tabular-nums;letter-spacing:0.02em; }
+        .cd-label { font-family:'Josefin Sans',sans-serif;font-size:0.48rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.4); }
+        .cd-sep { font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,2vw,1.2rem);font-weight:700;color:rgba(176,96,48,0.5);margin-top:clamp(7px,1.5vw,11px);line-height:1; }
+        @media (max-width: 767px) {
+          #tk-owl { display: none; }
+          #eb-graphic-wrap { padding: 1.2rem 1rem 1rem !important; }
+          #tk-phaseLabel { font-size: 0.6rem !important; font-weight: 400 !important; color: rgba(237,212,178,0.45) !important; margin: 0 0 0.65rem !important; }
+          #tk-countdown { margin-top: 0 !important; margin-bottom: 0 !important; }
+          .cd-num { width: clamp(30px,7vw,36px) !important; height: clamp(30px,7vw,36px) !important; font-size: clamp(0.78rem,2.2vw,0.95rem) !important; }
+          .cd-sep { font-size: clamp(0.72rem,2vw,0.9rem) !important; margin-top: clamp(5px,1.4vw,8px) !important; }
+          .cd-label { font-size: 0.38rem !important; }
+          .cd-unit { gap: 0.25rem !important; }
+        }
       </style>
       <script>
         (function(){
@@ -1691,16 +1726,66 @@
     <div class="ticket-panel active" id="panel-acco">
 
 
-    <!-- Mobile collapsible triggers (hidden on desktop) -->
-    <button class="incl-collapse-trigger" onclick="toggleInclusions(this)" aria-expanded="false">
-      <div>
-        <div class="incl-collapse-trigger-label">What's Included &amp; Add-ons</div>
-        <div class="incl-collapse-trigger-sub">Festival access · 3N stay · meals · scooter &amp; more</div>
+    <!-- Mobile-only: two separate collapsibles -->
+    <div class="mob-incl-wrap">
+      <button class="mob-incl-trigger" onclick="toggleMobIncl(this,'mob-panel-incl')" aria-expanded="false">
+        <div>
+          <div class="mob-incl-trigger-label">What's Included</div>
+          <div class="mob-incl-trigger-sub">Festival access · 3 nights stay</div>
+        </div>
+        <span class="mob-incl-arrow">▾</span>
+      </button>
+      <div class="mob-incl-panel" id="mob-panel-incl">
+        <div style="display:grid;grid-template-columns:1fr 1fr;">
+          <div style="padding:16px 14px;border-right:0.5px solid rgba(176,96,48,0.12);border-top:0.5px solid rgba(176,96,48,0.12);">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#C07040;margin:0 0 7px;">Full Festival Access</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.8rem;font-weight:300;color:rgba(237,212,178,0.7);line-height:1.6;margin:0;"><strong style="font-weight:600;">Every workshop, ceremony, music act &amp; talk.</strong></p>
+          </div>
+          <div style="padding:16px 14px;border-top:0.5px solid rgba(176,96,48,0.12);">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#C07040;margin:0 0 7px;">3 Nights · 4 Days Stay</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.8rem;font-weight:300;color:rgba(237,212,178,0.7);line-height:1.6;margin:0;">27–30 Nov at your chosen venue. Check-in 2pm · Check-out 11am.</p>
+          </div>
+        </div>
       </div>
-      <span class="incl-collapse-arrow">▾</span>
-    </button>
+      <button class="mob-incl-trigger second" onclick="toggleMobIncl(this,'mob-panel-addon')" aria-expanded="false">
+        <div>
+          <div class="mob-incl-trigger-label">Optional Add-ons</div>
+          <div class="mob-incl-trigger-sub">Early arrival · Meals · Scooter &amp; more</div>
+        </div>
+        <span class="mob-incl-arrow">▾</span>
+      </button>
+      <div class="mob-incl-panel" id="mob-panel-addon">
+        <div class="incl-addon-list" style="display:block !important;">
+          <div class="incl-addon-row">
+            <div class="incl-tile-icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 7 C4 6 4.5 5.5 5.5 5.5 L20.5 5.5 C21.5 5.5 22 6 22 7 L22 21 C22 22 21.5 22.5 20.5 22.5 L5.5 22.5 C4.5 22.5 4 22 4 21 Z" stroke="#B06030" stroke-width="1.4" fill="none" stroke-linejoin="round"/><line x1="9" y1="3.5" x2="9" y2="7.5" stroke="#B06030" stroke-width="1.3" stroke-linecap="round"/><line x1="17" y1="3.5" x2="17" y2="7.5" stroke="#B06030" stroke-width="1.3" stroke-linecap="round"/><line x1="4" y1="10.5" x2="22" y2="10.5" stroke="#B06030" stroke-width="0.9" opacity="0.5"/><circle cx="8.5" cy="15" r="1" fill="#B06030" opacity="0.6"/><circle cx="13" cy="15" r="1" fill="#B06030" opacity="0.6"/><circle cx="17.5" cy="15" r="1" fill="#B06030" opacity="0.6"/><circle cx="8.5" cy="19.5" r="1" fill="#B06030" opacity="0.35"/><circle cx="13" cy="19.5" r="1" fill="#B06030" opacity="0.35"/></svg></div>
+            <div class="incl-addon-info"><p class="incl-tile-name">Early Check-in · 26 Nov</p><p class="incl-tile-desc">Come in on 26 Nov. Inauguration at 7pm, 26 Nov.</p></div>
+            <div class="incl-addon-meta"><p class="incl-tile-cap">Essential</p></div>
+          </div>
+          <div class="incl-addon-row">
+            <div class="incl-tile-icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M5 14 C5 19 8 22 13 22 C18 22 21 19 21 14 Z" stroke="#B06030" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="14" x2="22" y2="14" stroke="#B06030" stroke-width="1.2" stroke-linecap="round"/><path d="M9 11 C9 9.5 10 9 10 7.5 C10 6 9 5.5 9 4" stroke="#B06030" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.7"/><path d="M13 11 C13 9.5 14 9 14 7.5 C14 6 13 5.5 13 4" stroke="#B06030" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.55"/><path d="M17 11 C17 9.5 18 9 18 7.5 C18 6 17 5.5 17 4" stroke="#B06030" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.4"/></svg></div>
+            <div class="incl-addon-info"><p class="incl-tile-name">Meals · 27–29 Nov</p><p class="incl-tile-desc">Satvik brunch &amp; dinner, eaten as a daily ritual.</p></div>
+            <div class="incl-addon-meta"><p class="incl-tile-cap">First 70 only</p></div>
+          </div>
+          <div class="incl-addon-row">
+            <div class="incl-tile-icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="9" cy="5" r="3" stroke="#B06030" stroke-width="0.9" fill="none"/><path d="M6 3 C5 1 6.5 0 7.5 1.5" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" fill="none"/><path d="M12 3 C13 1 11.5 0 10.5 1.5" stroke="#B06030" stroke-width="0.8" stroke-linecap="round" fill="none"/><path d="M6 8 L4 16 L14 16 L12 8" stroke="#B06030" stroke-width="1" fill="none" stroke-linejoin="round" opacity="0.8"/><circle cx="19" cy="5" r="3" stroke="#B06030" stroke-width="0.9" fill="none" opacity="0.5"/><path d="M16 8 L14 16 L24 16 L22 8" stroke="#B06030" stroke-width="1" fill="none" stroke-linejoin="round" opacity="0.4"/><line x1="6" y1="22" x2="22" y2="22" stroke="#B06030" stroke-width="1" stroke-linecap="round" opacity="0.35"/></svg></div>
+            <div class="incl-addon-info"><p class="incl-tile-name">Tribal Lunch · 27, 28 &amp; 29 Nov</p><p class="incl-tile-desc">Cooked by tribal women from the forests of South Goa.</p></div>
+            <div class="incl-addon-meta"><p class="incl-tile-cap">30 per day</p></div>
+          </div>
+          <div class="incl-addon-row">
+            <div class="incl-tile-icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><ellipse cx="13" cy="13" rx="8" ry="5" stroke="#B06030" stroke-width="1.3" fill="none" transform="rotate(-30 13 13)"/><path d="M8 10 C10 8 13 8 15 10" stroke="#B06030" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.6"/><path d="M9 13 C11 11 13 11 15 13" stroke="#B06030" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.4"/><circle cx="13" cy="13" r="1.5" stroke="#B06030" stroke-width="0.9" fill="none" opacity="0.5"/></svg></div>
+            <div class="incl-addon-info"><p class="incl-tile-name">Ayurvedic Massage</p><p class="incl-tile-desc">Full-body massage. Save ₹300 vs on-site.</p></div>
+            <div class="incl-addon-meta"><p class="incl-tile-cap">First 50 only</p></div>
+          </div>
+          <div class="incl-addon-row">
+            <div class="incl-tile-icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="6.5" cy="18.5" r="3" stroke="#B06030" stroke-width="1.1" fill="none"/><circle cx="19.5" cy="18.5" r="3" stroke="#B06030" stroke-width="1.1" fill="none"/><path d="M9.5 18.5 L14 18.5" stroke="#B06030" stroke-width="1.1" stroke-linecap="round"/><path d="M16.5 18.5 L19 14 L15 12 L12 13 L9.5 18.5" stroke="#B06030" stroke-width="1" stroke-linejoin="round" fill="none"/><path d="M15 12 L17 9 L20 9" stroke="#B06030" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.6"/><circle cx="13" cy="10" r="1.2" stroke="#B06030" stroke-width="0.8" fill="none" opacity="0.5"/></svg></div>
+            <div class="incl-addon-info"><p class="incl-tile-name">Scooter Rental · 4 Days</p><p class="incl-tile-desc">27–30 Nov · ₹700/day. Explore Goa freely.</p></div>
+            <div class="incl-addon-meta"><p class="incl-tile-cap">Per scooter</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- Inclusions + Add-ons -->
+    <!-- Inclusions + Add-ons (desktop) -->
     <div class="inclusions-banner" id="inclusions-banner">
 
       <!-- Header -->
@@ -3198,6 +3283,15 @@ document.querySelectorAll('.ticket-tab').forEach(tab => {
   });
 });
 
+function toggleMobIncl(btn, panelId) {
+  const panel = document.getElementById(panelId);
+  const arrow = btn.querySelector('.mob-incl-arrow');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
 function toggleInclusions(btn) {
   const banner = document.getElementById('inclusions-banner');
   const arrow = btn.querySelector('.incl-collapse-arrow');
@@ -3806,7 +3900,7 @@ function daoUpdateUI() {
   const grand      = baseTotal + addonGrand;
 
   // Breakdown rows
-  let html = `<div class="dao-breakdown-row"><span class="dao-breakdown-label">${_daoRoomType} × ${_daoCount}</span><span class="dao-breakdown-val">₹${baseTotal.toLocaleString('en-IN')}</span></div>`;
+  let html = `<div class="dao-breakdown-row"><span class="dao-breakdown-label">27–30 Nov · ${_daoRoomType} × ${_daoCount}</span><span class="dao-breakdown-val">₹${baseTotal.toLocaleString('en-IN')}</span></div>`;
 
   document.querySelectorAll('.dao-cb').forEach(cb => {
     if (!cb.checked) return;
