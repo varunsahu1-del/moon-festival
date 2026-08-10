@@ -1032,7 +1032,7 @@ buildPersonFields(guestCount);
 
 if (guestCount >= 1) initStatePicker(1);
 
-// ── Booking persistence (resume + form save) ──────────────────────────────
+// ── Booking persistence (form save only — resume removed) ─────────────────
 const _FORM_KEY    = 'moon_form_'    + venue + '_' + roomType;
 const _PENDING_KEY = 'moon_pending_' + venue + '_' + roomType;
 
@@ -1092,85 +1092,14 @@ function _restoreFormData() {
 }
 
 function _clearPendingBooking() {
-  try { localStorage.removeItem(_PENDING_KEY); localStorage.removeItem(_FORM_KEY); } catch(e) {}
-}
-
-function _checkAndShowResume() {
-  let pending, foundKey;
-  // If venue/room known, try exact key first; else scan all moon_pending_ keys
-  try { pending = JSON.parse(localStorage.getItem(_PENDING_KEY)); foundKey = _PENDING_KEY; } catch(e) {}
-  if (!pending || !pending.ref) {
-    try {
-      for (let i = 0; i < localStorage.length; i++) {
-        const k = localStorage.key(i);
-        if (!k || !k.startsWith('moon_pending_')) continue;
-        const v = JSON.parse(localStorage.getItem(k));
-        if (v && v.ref) { pending = v; foundKey = k; break; }
-      }
-    } catch(e) {}
-  }
-  if (!pending || !pending.ref) return;
-  // Expire after 48 hours
-  if (pending.ts && Date.now() - pending.ts > 172800000) {
-    try { localStorage.removeItem(foundKey); } catch(e) {}
-    return;
-  }
-
-  const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
-  const screen = document.createElement('div');
-  screen.id = 'resumeScreen';
-  screen.style.cssText = 'padding:2rem 0;';
-  screen.innerHTML =
-    '<p style="font-family:\'Josefin Sans\',sans-serif;font-size:0.58rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;">Pending Payment</p>'
-  + '<p style="font-family:\'Josefin Sans\',sans-serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.5rem;">Your booking is ready</p>'
-  + '<div style="background:rgba(176,96,48,0.07);border:0.5px solid rgba(176,96,48,0.28);border-radius:6px;padding:0.2rem 0;margin-bottom:1.5rem;">'
-  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:0.5px solid rgba(237,212,178,0.07);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Booking Ref</span><span style="font-family:\'Open Sans\',sans-serif;font-size:0.9rem;font-weight:700;color:#B06030;">' + pending.ref + '</span></div>'
-  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:0.5px solid rgba(237,212,178,0.07);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Venue</span><span style="font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#EDD4B2;">' + pending.venue + '</span></div>'
-  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:0.5px solid rgba(237,212,178,0.07);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Room</span><span style="font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#EDD4B2;">' + pending.roomType + '</span></div>'
-  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;background:rgba(176,96,48,0.05);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Amount Due</span><span style="font-family:\'Open Sans\',sans-serif;font-size:1rem;font-weight:700;color:#EDD4B2;">' + fmt(pending.total) + ' <span style="font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.4);">incl. GST</span></span></div>'
-  + '</div>'
-  + '<button id="resumePayBtn" style="display:block;width:100%;background:#B06030;color:#EDD4B2;border:none;padding:1rem 2rem;font-family:\'Josefin Sans\',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;margin-bottom:0.75rem;">Continue to Payment →</button>'
-  + '<button id="freshBookingBtn" style="display:block;width:100%;background:none;color:rgba(237,212,178,0.4);border:0.5px solid rgba(237,212,178,0.15);padding:0.8rem 2rem;font-family:\'Josefin Sans\',sans-serif;font-size:0.62rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;">Start a new booking</button>';
-
-  const form = document.getElementById('bookingForm');
-  form.style.display = 'none';
-  form.parentElement.insertBefore(screen, form);
-
-  document.getElementById('resumePayBtn').addEventListener('click', function() {
-    let p;
-    try { p = JSON.parse(localStorage.getItem(foundKey)); } catch(e) {}
-    if (!p) return;
-    screen.remove();
-    form.style.display = '';
-    openPayModal(p.bookingData, { venue: p.venue, roomType: p.roomType, baseAmount: p.base, gst: p.gst, totalWithGst: p.total, guests: p.guests });
-  });
-
-  document.getElementById('freshBookingBtn').addEventListener('click', function() {
-    // Clear all stored booking state
-    try {
-      localStorage.removeItem(foundKey);
-      localStorage.removeItem(_FORM_KEY);
-      // Also clear any other moon_pending_ keys
-      for (let i = localStorage.length - 1; i >= 0; i--) {
-        const k = localStorage.key(i);
-        if (k && (k.startsWith('moon_pending_') || k.startsWith('moon_form_'))) localStorage.removeItem(k);
-      }
-    } catch(e) {}
-    screen.remove();
-    form.style.display = '';
-    // Reset submit button to fresh state
-    const sb = document.getElementById('bookSubmitBtn');
-    if (sb) { sb.disabled = false; sb.textContent = 'Proceed to Payment →'; }
-    // Remove "Complete Payment" retry button if present
-    document.getElementById('retryPayBtn')?.remove();
-    // Clear all form inputs
-    form.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(el => { el.value = ''; });
-    form.querySelectorAll('input[type=checkbox]').forEach(el => { el.checked = false; });
-    // Trigger change on GST toggle to reset its UI
-    document.getElementById('gstToggle')?.dispatchEvent(new Event('change'));
-    _payState = null;
-    window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
-  });
+  try {
+    localStorage.removeItem(_PENDING_KEY);
+    localStorage.removeItem(_FORM_KEY);
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i);
+      if (k && (k.startsWith('moon_pending_') || k.startsWith('moon_form_'))) localStorage.removeItem(k);
+    }
+  } catch(e) {}
 }
 
 // Restore form data and attach auto-save
@@ -1181,8 +1110,8 @@ document.getElementById('bf-organizer-note')?.addEventListener('input', _saveFor
 document.getElementById('gstToggle')?.addEventListener('change', _saveFormData);
 document.getElementById('bf-gst-number')?.addEventListener('input', _saveFormData);
 document.getElementById('bf-gst-name')?.addEventListener('input', _saveFormData);
-// Check for pending booking after a short delay so form data is restored first
-setTimeout(_checkAndShowResume, 50);
+// Clear any stale pending booking keys from old resume system
+_clearPendingBooking();
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 function showFieldError(input, msg) {
@@ -1352,19 +1281,6 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
   });
   submitBtn.insertAdjacentElement('afterend', retryBtn);
-
-  // Save pending booking so user can resume if they navigate away
-  try {
-    localStorage.setItem(_PENDING_KEY, JSON.stringify({
-      ref: bookingData.booking_ref,
-      venue, roomType,
-      base, gst, total,
-      primaryEmail: guests[0].email,
-      guests,
-      bookingData,
-      ts: Date.now(),
-    }));
-  } catch(e) {}
 
   openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
 });
