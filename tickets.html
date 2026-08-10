@@ -1896,7 +1896,7 @@
           What are the add-ons and when can I book them?
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-answer">Add-ons are available with the <strong>Stay + Festival Pass only</strong> — they are not available for the Festival Only ticket and cannot be booked during the festival. All add-ons must be prebooked at checkout.<br><br><strong>Early Check-in · 26 Nov</strong> — arrive a day early; inauguration at 7pm that evening. Highly recommended. If you skip this, note that on 27 Nov hotel check-in is only from 2pm — the first workshop begins at 7am that morning. That's a long wait with nowhere to go. Limited spots.<br><br><strong>Meals · 27–29 Nov</strong> — Satvik brunch &amp; dinner daily, eaten together as a ritual. ₹3,000 total. First 70 only.<br><br><strong>Tribal Lunch</strong> — cooked by tribal women from the forests of South Goa. ₹650 per day; choose any one day (27, 28 or 29 Nov). 30 per day only.<br><br><strong>Ayurvedic Massage</strong> — traditional full-body massage. Save ₹300 vs on-site price. First 50 only.</div>
+        <div class="faq-answer">Add-ons are available with the <strong>Stay + Festival Pass only</strong> — they are not available for the Festival Only ticket and cannot be booked during the festival. All add-ons must be prebooked at checkout.<br><br><strong>Early Check-in · 26 Nov</strong> — arrive a day early; inauguration at 7pm that evening. Highly recommended. If you skip this, note that on 27 Nov hotel check-in is only from 2pm — the first workshop begins at 7am that morning. That's a long wait with nowhere to go. Limited spots.<br><br><strong>Meals · 27–29 Nov</strong> — Satvik brunch &amp; dinner daily, eaten together as a ritual. ₹3,600 total (6 meals). First 70 only.<br><br><strong>Tribal Lunch</strong> — cooked by tribal women from the forests of South Goa. Included with meals; choose any one day (27, 28 or 29 Nov). 30 per day only.<br><br><strong>Ayurvedic Massage</strong> — traditional full-body massage. Save ₹300 vs on-site price. First 50 only.</div>
       </div>
 
       <div class="faq-item">
@@ -2607,33 +2607,34 @@ document.addEventListener('keydown', e => {
           </span>
           <span class="dao-addon-amt" id="dao-extra-day-amt">—</span>
         </label>
+        <div style="padding:6px 14px 4px;font-family:'Josefin Sans',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(176,96,48,0.7);">Meals</div>
         <label class="dao-addon-row" id="dao-meals-row">
-          <span class="dao-check-wrap"><input type="checkbox" class="dao-cb" id="dao-meals-cb" data-price="3000" /><span class="dao-box"></span></span>
+          <span class="dao-check-wrap"><input type="checkbox" class="dao-cb" id="dao-meals-cb" data-price="3600" /><span class="dao-box"></span></span>
           <span class="dao-addon-info">
-            <span class="dao-addon-name">6 Meals · 27–29 Nov</span>
-            <span class="dao-addon-desc">Brunch &amp; dinner · <a href="meals.html" target="_blank" style="color:#B06030;text-decoration:none;font-size:9.5px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;font-family:'Josefin Sans',sans-serif;border-bottom:0.5px solid rgba(176,96,48,0.45);padding-bottom:1px;">See details</a></span>
+            <span class="dao-addon-name">Meals at the Venue · 27–29 Nov</span>
+            <span class="dao-addon-desc">6 meals · brunch &amp; dinner · <a href="meals.html" target="_blank" style="color:#B06030;text-decoration:none;font-size:9.5px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;font-family:'Josefin Sans',sans-serif;border-bottom:0.5px solid rgba(176,96,48,0.45);padding-bottom:1px;">See details</a></span>
           </span>
-          <span class="dao-addon-amt" id="dao-meals-amt">₹3,000</span>
+          <span class="dao-addon-amt" id="dao-meals-amt">₹3,600</span>
         </label>
-        <div class="dao-addon-row" id="dao-tribal-row" style="flex-direction:column;align-items:flex-start;gap:0.6rem;cursor:default;">
+        <div class="dao-addon-row" id="dao-tribal-row" style="display:none;flex-direction:column;align-items:flex-start;gap:0.6rem;cursor:default;margin-left:10px;border-left:2px solid rgba(176,96,48,0.2);">
           <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
             <span class="dao-addon-info">
               <span class="dao-addon-name">Tribal Lunch</span>
-              <span class="dao-addon-desc">By tribal women · <a href="meals.html#tribal-lunch" target="_blank" style="color:#B06030;text-decoration:none;font-size:9.5px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;font-family:'Josefin Sans',sans-serif;border-bottom:0.5px solid rgba(176,96,48,0.45);padding-bottom:1px;">See details</a></span>
+              <span class="dao-addon-desc">By tribal women · choose one day · <a href="meals.html#tribal-lunch" target="_blank" style="color:#B06030;text-decoration:none;font-size:9.5px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;font-family:'Josefin Sans',sans-serif;border-bottom:0.5px solid rgba(176,96,48,0.45);padding-bottom:1px;">See details</a></span>
             </span>
-            <span class="dao-addon-amt" id="dao-tribal-amt">₹650</span>
+            <span class="dao-addon-amt" id="dao-tribal-amt" style="color:rgba(143,175,126,0.9);">Included</span>
           </div>
           <div style="display:flex;gap:0.5rem;">
             <label class="dao-day-pill">
-              <input type="radio" name="tribal-day" value="27" class="dao-day-radio" data-price="650" style="display:none;" />
+              <input type="radio" name="tribal-day" value="27" class="dao-day-radio" data-price="0" style="display:none;" />
               <span class="dao-day-pill-inner">27 Nov</span>
             </label>
             <label class="dao-day-pill">
-              <input type="radio" name="tribal-day" value="28" class="dao-day-radio" data-price="650" style="display:none;" />
+              <input type="radio" name="tribal-day" value="28" class="dao-day-radio" data-price="0" style="display:none;" />
               <span class="dao-day-pill-inner">28 Nov</span>
             </label>
             <label class="dao-day-pill">
-              <input type="radio" name="tribal-day" value="29" class="dao-day-radio" data-price="650" style="display:none;" />
+              <input type="radio" name="tribal-day" value="29" class="dao-day-radio" data-price="0" style="display:none;" />
               <span class="dao-day-pill-inner">29 Nov</span>
             </label>
           </div>
@@ -2762,8 +2763,11 @@ function daoUpdateUI() {
     if (cb.dataset.scooter) addonPerScooter += p; // scooter: flat, not per-person
     else addonTotal += p;
   });
+  const mealsCbChecked = document.getElementById('dao-meals-cb')?.checked;
+  const tribalRow = document.getElementById('dao-tribal-row');
+  if (tribalRow) tribalRow.style.display = mealsCbChecked ? 'flex' : 'none';
+  if (!mealsCbChecked) document.querySelectorAll('.dao-day-radio').forEach(r => { r.checked = false; r._wasChecked = false; });
   const selectedTribalDay = document.querySelector('.dao-day-radio:checked');
-  if (selectedTribalDay) addonTotal += 650;
 
   const baseTotal  = _daoBase * _daoCount;
   const addonGrand = addonTotal * _daoCount + addonPerScooter;
@@ -2783,7 +2787,7 @@ function daoUpdateUI() {
     }
   });
   if (selectedTribalDay) {
-    html += `<div class="dao-breakdown-row"><span class="dao-breakdown-label">Tribal Lunch · ${selectedTribalDay.value} Nov × ${_daoCount}</span><span class="dao-breakdown-val">+ ₹${(650 * _daoCount).toLocaleString('en-IN')}</span></div>`;
+    html += `<div class="dao-breakdown-row"><span class="dao-breakdown-label">Tribal Lunch · ${selectedTribalDay.value} Nov</span><span class="dao-breakdown-val" style="color:rgba(143,175,126,0.9);">Included</span></div>`;
   }
 
   html += `<div class="dao-breakdown-row dao-total"><span class="dao-breakdown-label">Total (excl. GST)</span><span class="dao-breakdown-val">₹${grand.toLocaleString('en-IN')}</span></div>`;
@@ -2907,9 +2911,7 @@ function daoConfirm() {
   });
   const selectedTribalRadio = document.querySelector('.dao-day-radio:checked');
   if (selectedTribalRadio) {
-    const p = parseInt(selectedTribalRadio.dataset.price, 10);
-    addonTotal += p;
-    addonParts.push(p + ':Tribal Lunch (' + selectedTribalRadio.value + ' Nov)');
+    addonParts.push('0:Tribal Lunch (' + selectedTribalRadio.value + ' Nov)');
   }
   const totalPrice = (_daoBase + addonTotal) * _daoCount + addonPerScooter;
   let url = 'book.html?venue=' + encodeURIComponent(_daoVenue)

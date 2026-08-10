@@ -119,7 +119,7 @@ const PRICING = {
 const GST_RATE = 0.05;
 
 // Food add-on: brunch + dinner, 3 days × ₹1000/day per person
-const FOOD_PRICE_TOTAL = 3000;
+const FOOD_PRICE_TOTAL = 3600;
 
 // Helper: get per-person price for a given phase
 function getPrice(venue, roomType, phase) {

@@ -1703,7 +1703,7 @@ async function loadInventoryDetail() {
   window.VENUE_PRICES  = config.pricing;
   window._currentPhase = config.phase || 'earlyBird';
   window.__GST_RATE    = config.gst_rate || 0.05;
-  window.__FOOD_PRICE  = config.food_price || 3000;
+  window.__FOOD_PRICE  = config.food_price || 3600;
   window.getVenuePrice = (venue, roomType) => {
     const tiers = window.VENUE_PRICES?.[venue]?.[roomType];
     if (!tiers) return 0;
@@ -4658,8 +4658,8 @@ async function submitAddBooking() {
 
 const AB_ADDON_CATALOG = [
   { name: 'Arrive Early · 26 Nov', desc: 'Festival begins 7am on the 27th', price: 0, extraDayPrice: true },
-  { name: '6 Meals · 27–29 Nov',   desc: 'Brunch & dinner · per person', price: window.__FOOD_PRICE||3000 },
-  { name: 'Tribal Lunch',           desc: 'By tribal women · choose a day', price: 650, days: ['27 Nov','28 Nov','29 Nov'] },
+  { name: 'Meals at the Venue · 27–29 Nov', desc: '6 meals · brunch & dinner · per person', price: window.__FOOD_PRICE||3600 },
+  { name: 'Tribal Lunch',           desc: 'Included with meals · choose one day', price: 0, days: ['27 Nov','28 Nov','29 Nov'], mealsOnly: true },
   { name: 'Ayurvedic Massage',      desc: 'Save ₹300 vs on-site price', price: 1500 },
   { name: 'Scooter Rental · 4 Days', desc: '27–30 Nov · Per scooter', price: 2800 },
 ];
@@ -4681,12 +4681,14 @@ function abSyncAddons() {
   const guestCount = Math.max(1, abGuestCount);
   const extraDay = abGetExtraDayPrice();
   window._abAddons = [];
+  const mealsSelected = !!wrap.querySelector(`[data-ao="${CSS.escape('Meals at the Venue · 27–29 Nov')}"].ab-ao-on`);
   AB_ADDON_CATALOG.forEach(cat => {
     const price = cat.extraDayPrice ? extraDay : cat.price;
     if (cat.days) {
+      if (!mealsSelected) return;
       const checked = wrap.querySelector(`input[name="ab-tribal-day"]:checked`);
       if (checked) {
-        for (let i = 0; i < guestCount; i++) window._abAddons.push({ name: cat.name + ' · ' + checked.value, price: cat.price });
+        for (let i = 0; i < guestCount; i++) window._abAddons.push({ name: cat.name + ' · ' + checked.value, price: 0 });
       }
     } else {
       const cb = wrap.querySelector(`[data-ao="${CSS.escape(cat.name)}"]`);
@@ -4710,22 +4712,21 @@ function abRenderAddonList() {
   const prevTribal = wrap.querySelector('input[name="ab-tribal-day"]:checked')?.value || null;
   wrap.innerHTML = '';
   const extraDay = abGetExtraDayPrice();
+  const mealsOnAtRender = prevChecked.has('Meals at the Venue · 27–29 Nov');
   AB_ADDON_CATALOG.forEach(cat => {
     const price = cat.extraDayPrice ? extraDay : cat.price;
     if (cat.days) {
       const row = document.createElement('div');
+      row.id = 'ab-tribal-row';
       row.className = 'ab-ao-row';
-      row.style.flexDirection = 'column';
-      row.style.alignItems = 'flex-start';
-      row.style.gap = '8px';
-      row.style.cursor = 'default';
+      row.style.cssText = `flex-direction:column;align-items:flex-start;gap:8px;cursor:default;margin-left:10px;border-left:2px solid rgba(176,96,48,0.2);display:${mealsOnAtRender ? 'flex' : 'none'};`;
       row.innerHTML = `
         <div style="display:flex;align-items:center;width:100%;gap:12px;">
           <div class="ab-ao-info" style="flex:1;">
             <span class="ab-ao-name">${cat.name}</span>
             <span class="ab-ao-desc">${cat.desc}</span>
           </div>
-          <span class="ab-ao-amt">₹${price.toLocaleString('en-IN')}</span>
+          <span class="ab-ao-amt" style="color:rgba(143,175,126,0.9);">Included</span>
         </div>
         <div style="display:flex;gap:6px;">
           ${cat.days.map(d => `<label class="ab-day-pill"><input type="radio" name="ab-tribal-day" value="${d}" class="ab-day-radio" style="display:none;"${prevTribal===d?' checked':''} /><span class="ab-day-pill-inner">${d}</span></label>`).join('')}
@@ -4745,6 +4746,15 @@ function abRenderAddonList() {
         <span class="ab-ao-amt">${price > 0 ? '₹' + price.toLocaleString('en-IN') : '—'}</span>`;
       row.addEventListener('click', () => {
         row.classList.toggle('ab-ao-on');
+        // show/hide tribal row when meals toggled
+        if (cat.mealsOnly === undefined && cat.name.includes('Meals')) {
+          const tr = document.getElementById('ab-tribal-row');
+          if (tr) {
+            const on = row.classList.contains('ab-ao-on');
+            tr.style.display = on ? 'flex' : 'none';
+            if (!on) wrap.querySelectorAll('input[name="ab-tribal-day"]').forEach(r => r.checked = false);
+          }
+        }
         abSyncAddons();
       });
       wrap.appendChild(row);
@@ -5388,7 +5398,7 @@ function _rebuildAddonsList(ref, addons) {
 
 const ADDON_CATALOG = [
   { name: 'Arrive Early · 26 Nov', price: 6500 },
-  { name: '6 Meals · 27–29 Nov',   price: window.__FOOD_PRICE||3000 },
+  { name: 'Meals at the Venue · 27–29 Nov', price: window.__FOOD_PRICE||3600 },
   { name: 'Ayurvedic Massage',      price: 1500 },
   { name: 'Tribal Lunch · 27 Nov', price: 650 },
   { name: 'Tribal Lunch · 28 Nov', price: 650 },
