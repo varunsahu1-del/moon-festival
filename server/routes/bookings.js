@@ -516,6 +516,32 @@ router.post('/upi-pending', async (req, res) => {
 });
 
 // GET /api/bookings/lookup?ref=MF-0042 — public, no auth
+// Create a fresh Razorpay order for checkout (called each time user clicks Pay via Razorpay)
+router.post('/razorpay-order', async (req, res) => {
+  const { ref } = req.body;
+  if (!ref) return res.status(400).json({ error: 'Missing ref' });
+  const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(ref);
+  if (!booking) return res.status(404).json({ error: 'Not found' });
+  if (booking.status === 'paid') return res.status(400).json({ error: 'Already paid' });
+  const rzp = getRazorpay();
+  if (!rzp) return res.status(503).json({ error: 'Razorpay not configured' });
+  const amountInr = parseInt(String(booking.total_price).replace(/[^\d]/g, ''), 10) || 0;
+  const amountPaise = amountInr * 100;
+  try {
+    const order = await rzp.orders.create({
+      amount: amountPaise,
+      currency: 'INR',
+      receipt: ref,
+      notes: { booking_ref: ref },
+    });
+    db.prepare('UPDATE bookings SET razorpay_order_id=? WHERE booking_ref=?').run(order.id, ref);
+    res.json({ order_id: order.id, amount: amountPaise, key: process.env.RAZORPAY_KEY_ID });
+  } catch (err) {
+    console.error('[razorpay-order]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Public cancel — only works on pending bookings (not paid)
 router.post('/cancel', (req, res) => {
   const { ref } = req.body;

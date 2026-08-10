@@ -1537,15 +1537,33 @@ window.addEventListener('pageshow', e => {
   }
 });
 
-function launchRazorpay() {
+async function launchRazorpay() {
   if (!_payState) return;
-  const { bookingData, venue, roomType, baseAmount, gst, totalWithGst, guests } = _payState;
+  const { bookingData, venue, roomType, guests } = _payState;
   document.getElementById('payOverlay').classList.remove('open');
+
+  let order_id, amount, key;
+  try {
+    const r = await fetch('/api/bookings/razorpay-order', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: bookingData.booking_ref }),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || 'Order creation failed');
+    order_id = data.order_id;
+    amount = data.amount;
+    key = data.key;
+  } catch (err) {
+    alert('Could not initiate payment: ' + err.message + '. Please try again.');
+    document.getElementById('payOverlay').classList.add('open');
+    return;
+  }
+
   const options = {
-    key: bookingData.razorpay_key || 'rzp_test_TDxk7L5UmieAgm',
-    amount: totalWithGst * 100,
+    key,
+    amount,
     currency: 'INR',
-    order_id: bookingData.razorpay_order_id || undefined,
+    order_id,
     name: 'Moon Festival 2026',
     description: venue + ' · ' + roomType,
     prefill: { name: guests[0].full_name, email: guests[0].email, contact: guests[0].whatsapp },
