@@ -221,7 +221,6 @@
   <p class="schedule-hero-sub">Early Bird</p>
 </div>
 <div style="background: var(--ink); text-align: center; padding: var(--s-6) var(--pad);">
-  <a href="tickets.html" style="display:block;text-align:center;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;text-decoration:none;padding:2.5rem 0 2rem;transition:color 0.2s;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='#B06030'">← Back to Tickets</a>
   <p id="currentPhaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Early Bird Ends 31 August</p>
 
   <!-- Countdown timer -->
@@ -237,7 +236,6 @@
     </div>
   </div>
 
-  <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:2rem auto 0;">Every ticket includes <strong style="font-weight:600;">full festival access</strong> — all workshops, ceremonies, music and talks — <strong style="font-weight:600;">plus 3 nights accommodation</strong> (27–30 Nov). <strong style="font-weight:600;">What you're choosing here is your room type.</strong></p>
 
   <style>
     .cd-unit {
@@ -408,7 +406,7 @@ async function render() {
   document.getElementById('currentPhaseLabel').textContent = PHASE_LABELS[phase] || phase;
 
   const content = document.getElementById('pricingContent');
-  let html = '';
+  let html = `<div style="text-align:center;padding:1rem 0 2rem;"><a href="tickets.html" style="display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#ffffff;background:#B06030;text-decoration:none;padding:0.85rem 2.2rem;border-radius:3px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Get Tickets</a></div>`;
 
   const venueEntries = Object.entries(PRICING);
   let isFirst = true;
@@ -485,7 +483,6 @@ async function render() {
     </div>
   </div>`;
 
-  html += `<div style="text-align:center;padding:2rem 0 1rem;"><a href="tickets.html" style="display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#1a1007;background:#B06030;text-decoration:none;padding:0.85rem 2.2rem;border-radius:3px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Get Tickets</a></div>`;
   html += `<p class="gst-note"><strong>+5% GST</strong> added at checkout &nbsp;·&nbsp; All prices are per person &nbsp;·&nbsp; <strong>Early Bird</strong> pricing is limited.</p>`;
   content.innerHTML = html;
 }
