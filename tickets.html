@@ -2790,7 +2790,7 @@ function daoUpdateUI() {
 
   const gstAmt   = Math.round(grand * 0.05);
   const grandGst = grand + gstAmt;
-  html += `<div class="dao-breakdown-row" style="opacity:0.6;"><span class="dao-breakdown-label">GST (5%)</span><span class="dao-breakdown-val">+ ₹${gstAmt.toLocaleString('en-IN')}</span></div>`;
+  html += `<div class="dao-breakdown-row"><span class="dao-breakdown-label">GST (5%)</span><span class="dao-breakdown-val">+ ₹${gstAmt.toLocaleString('en-IN')}</span></div>`;
   html += `<div class="dao-breakdown-row dao-total"><span class="dao-breakdown-label">Total</span><span class="dao-breakdown-val">₹${grandGst.toLocaleString('en-IN')}</span></div>`;
   document.getElementById('dao-breakdown').innerHTML = html;
 }
@@ -2910,6 +2910,11 @@ document.querySelectorAll('.dao-day-radio').forEach(radio => {
     daoUpdateUI();
   });
 });
+// Default 27 Nov selected
+(function() {
+  const r27 = document.querySelector('.dao-day-radio[value="27"]');
+  if (r27) { r27.checked = true; r27._wasChecked = true; }
+})();
 // Close on backdrop click
 document.getElementById('destinyAddonOverlay').addEventListener('click', e => {
   if (e.target === document.getElementById('destinyAddonOverlay') || e.target === document.getElementById('destinyAddonPanel')) closeDestinyAddonModal();
