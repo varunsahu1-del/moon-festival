@@ -4501,7 +4501,7 @@ async function submitAddBooking() {
   const total_price_base = discounted_base + abAddonTotal;
   const gst = Math.round(total_price_base * (window.__GST_RATE||0.05));
   const total_with_gst = total_price_base + gst;
-  const total_price_fmt = '₹' + total_with_gst.toLocaleString('en-IN');
+  const total_price_fmt = '₹' + total_price_base.toLocaleString('en-IN');
   const discount_reason = document.getElementById('ab-discount-reason')?.value.trim() || null;
 
   const btn = document.getElementById('ab-submit-btn');

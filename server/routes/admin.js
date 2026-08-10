@@ -427,8 +427,9 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
   if (!priceCheck.valid) return res.status(400).json({ error: priceCheck.reason, price_mismatch: true, expected: priceCheck.expected });
 
   const booking_ref = nextRef();
-  // total_price is always the GST-inclusive formatted total (validated above); parse it directly
-  const amountWithGst = parseInt(String(total_price).replace(/[^\d]/g, ''), 10) || 0;
+  // total_price is pre-GST base (venue + addons); apply GST then Razorpay fee
+  const baseAmt = parseInt(String(total_price).replace(/[^\d]/g, ''), 10) || 0;
+  const amountWithGst = Math.round(baseAmt * 1.05);
   const amountPaise = Math.round(amountWithGst * 1.0236) * 100;
   const guest = guests[0];
 
