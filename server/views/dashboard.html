@@ -1466,11 +1466,6 @@
         </div>
         <div id="ab-paylink-row" style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
           <label class="ab-cb-label">
-            <input type="checkbox" id="ab-send-paylink" onchange="updateActionUI()">
-            <span class="ab-cb-box"></span>
-            Also send a Razorpay payment link
-          </label>
-          <label class="ab-cb-label">
             <input type="checkbox" id="ab-send-quote">
             <span class="ab-cb-box"></span>
             Also send quote to guest (for cash / UPI payment)
@@ -1484,32 +1479,6 @@
         </label>
       </div>
 
-      <div id="ab-paylink-info" style="display:none;background:rgba(176,96,48,0.07);border:0.5px solid rgba(176,96,48,0.2);border-radius:3px;padding:12px 14px;margin-bottom:14px;font-size:11px;color:rgba(42,34,24,0.55);line-height:1.6;">
-        A Razorpay payment link will be created and sent to the guest's email. Once they pay, the booking is confirmed automatically and a confirmation email is sent.
-        <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid rgba(176,96,48,0.2);">
-          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:11px;color:rgba(42,34,24,0.65);">
-            <input type="checkbox" id="ab-split-toggle" style="accent-color:#B06030;" onchange="updateAbSplitUI()"> Split into 2 payment links
-          </label>
-          <div id="ab-split-ui" style="display:none;margin-top:12px;">
-            <div style="display:flex;gap:10px;align-items:flex-end;">
-              <div style="flex:1;">
-                <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-family:'Josefin Sans',sans-serif;margin-bottom:5px;">Part 1 — due now</div>
-                <div style="display:flex;align-items:center;gap:4px;">
-                  <span style="color:rgba(42,34,24,0.5);">₹</span>
-                  <input id="ab-split-part1" type="number" min="1" placeholder="e.g. 25000"
-                    oninput="const tot=abSplitTotal();const v=parseInt(this.value)||0;document.getElementById('ab-split-part2-disp').textContent=tot?'₹'+(tot-Math.min(tot-1,Math.max(1,v))).toLocaleString('en-IN'):'';"
-                    style="width:100%;font-size:14px;font-weight:600;padding:7px 10px;border:0.5px solid rgba(176,96,48,0.35);border-radius:3px;background:rgba(176,96,48,0.05);color:#2A2218;font-family:inherit;outline:none;" />
-                </div>
-              </div>
-              <div style="flex:1;">
-                <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-family:'Josefin Sans',sans-serif;margin-bottom:5px;">Part 2 — balance</div>
-                <div id="ab-split-part2-disp" style="font-size:14px;font-weight:600;color:rgba(42,34,24,0.45);padding:7px 0;"></div>
-              </div>
-            </div>
-            <div style="font-size:10px;color:rgba(42,34,24,0.38);margin-top:6px;">Total incl. 5% GST: <strong id="ab-split-total-disp" style="color:#B06030;"></strong></div>
-          </div>
-        </div>
-      </div>
 
       <div id="ab-error" style="font-size:11px;color:#e74c3c;margin-bottom:12px;display:none;"></div>
 
@@ -2941,15 +2910,6 @@ function renderDrawer(booking, guests, breakdown) {
         <button class="edit-btn" onclick="resendConfirmation('${ref}',this)" style="background:rgba(50,120,50,0.1);border-color:rgba(50,150,50,0.3);color:rgba(60,160,80,0.9);">✉ ${booking.status === 'paid' ? 'Resend' : 'Send'} Confirmation</button>
         ${booking.status !== 'paid' && booking.status !== 'cancelled' ? `<button class="edit-btn" onclick="sendQuoteEmail('${ref}',this)" style="background:rgba(210,170,0,0.1);border-color:rgba(200,160,0,0.4);color:#a07800;">🧾 Send Quote</button>` : ''}
         ${booking.transfer_email_pending ? `<button class="edit-btn" id="mod-email-btn-${ref}" onclick="sendModEmailFromBookingTab('${ref}',this)" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">✉ Send Modification Email</button>` : ''}
-        ${booking.status !== 'paid' && booking.status !== 'cancelled' ? (
-          booking.payment_link2_url
-            ? (booking.split_part1_paid
-                ? `<span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#1e8a3a;background:rgba(40,140,60,0.1);border:0.5px solid rgba(40,140,60,0.3);padding:6px 12px;border-radius:2px;">✓ Part 1 Received</span>
-                   <button class="edit-btn" onclick="adminOpenLink('${booking.payment_link2_url}')" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">↗ Part 2 Link</button>`
-                : `<button class="edit-btn" onclick="adminOpenLink('${booking.payment_link_url}')" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">↗ Part 1 Link</button>
-                   <button class="edit-btn" onclick="adminOpenLink('${booking.payment_link2_url}')" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">↗ Part 2 Link</button>`)
-            : `<button class="edit-btn" onclick="adminResendPaylink('${ref}',this)" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">↗ ${booking.payment_link_url ? 'Resend' : 'Send'} Payment Link</button>`
-        ) : ''}
         ${booking.status !== 'cancelled' ? `<button onclick="cancelBooking('${ref}')" style="margin-left:auto;font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:rgba(192,57,43,0.4);cursor:pointer;padding:4px 0;" onmouseover="this.style.color='#c0392b'" onmouseout="this.style.color='rgba(192,57,43,0.4)'">Cancel Booking</button>` : ''}
         <button onclick="deleteBooking('${ref}')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:rgba(192,57,43,0.25);cursor:pointer;padding:4px 0;" onmouseover="this.style.color='rgba(192,57,43,0.6)'" onmouseout="this.style.color='rgba(192,57,43,0.25)'"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" style="opacity:0.7;flex-shrink:0"><path d="M3 4h10M6 4V2h4v2M5 4v9h6V4H5z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Move to Trash</button>
       </div>
@@ -3066,7 +3026,6 @@ function renderDrawer(booking, guests, breakdown) {
               <button onclick="markAddonsCollected('${ref}',${extraAddonTotal},true,'bank_transfer')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(40,140,60,0.1);border:0.5px solid rgba(40,140,60,0.28);color:#1e8a3a;padding:7px 12px;border-radius:2px;cursor:pointer;">✓ Bank</button>
               <button onclick="promptCustomAddonCollection('${ref}',${extraAddonTotal})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(40,140,60,0.08);border:0.5px solid rgba(40,140,60,0.2);color:#1e8a3a;padding:7px 12px;border-radius:2px;cursor:pointer;">✓ Other…</button>
             </div>
-            <button onclick="sendAddonPaylink('${ref}')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;padding:7px 12px;border-radius:2px;cursor:pointer;">↗ Send payment link</button>
           </div>` : ''}
         </div>`;
       })() : ''}
