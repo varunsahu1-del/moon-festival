@@ -346,12 +346,12 @@ h4 { font-size: var(--t-xl); }
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 0.9rem;
-  padding-top: 0.2rem;
+  padding-top: 0.9rem;
   border-bottom: 1px solid rgba(237,212,178,0.08);
 }
 .nav-drawer > a:last-of-type { border-bottom: none; }
 .nav-drawer > a:last-of-type + .drawer-accordion { border-top: 1px solid rgba(237,212,178,0.08); }
-.nav-drawer .nav-cta + a { margin-top: 1.2rem; }
+.nav-drawer .nav-cta + a { margin-top: 2rem; }
 
 /* Mobile drawer accordion */
 .drawer-accordion {
