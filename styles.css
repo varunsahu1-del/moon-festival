@@ -385,6 +385,24 @@ h4 { font-size: var(--t-xl); }
   margin-bottom: 0;
   color: rgba(237,212,178,0.5);
 }
+/* Info accordion: panel items look identical to regular nav items */
+.drawer-accordion-toggle--navstyle {
+  justify-content: center;
+  gap: 0.9em;
+  padding-bottom: 0.7rem;
+}
+.drawer-accordion-toggle--navstyle svg.chevron { margin-left: 0.2em; opacity: 0.5; }
+.drawer-accordion-panel--navstyle {
+  padding-left: 0;
+  padding-top: 0;
+  align-items: center;
+}
+.drawer-accordion-panel--navstyle a {
+  font-size: clamp(0.72rem, 2.5vw, 0.88rem);
+  color: rgba(237,212,178,0.75);
+  padding-bottom: 0.7rem;
+  justify-content: center;
+}
 .nav-drawer a:hover { color: var(--gold); }
 .nav-drawer a:hover::before { opacity: 1; }
 
