@@ -340,7 +340,11 @@ h4 { font-size: var(--t-xl); }
   align-items: center;
   justify-content: center;
   gap: 0.9em;
-  width: 100%;
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   padding-bottom: 0.9rem;
   padding-top: 0.2rem;
   border-bottom: 1px solid rgba(237,212,178,0.15);
