@@ -28,14 +28,20 @@
     }
 
     @media (min-width: 640px) {
-      .upi-wrap { padding: 1rem var(--pad); justify-content: flex-start; padding-top: 2rem; }
-      .upi-card { padding: 1.4rem 1.6rem; }
-      .upi-heading { font-size: 1.3rem !important; }
-      .upi-ref { font-size: 0.75rem !important; margin-bottom: 1rem !important; }
-      .upi-amount-num { font-size: 1.6rem !important; }
-      .upi-step { gap: 0.7rem !important; padding: 0.55rem 0 !important; }
-      .upi-step-label { font-size: 0.6rem !important; margin-bottom: 0.25rem !important; }
-      #upiQrCanvas { width: 120px !important; height: 120px !important; }
+      .upi-wrap { padding: 1.2rem var(--pad); }
+      .upi-card { padding: 1.2rem 1.4rem; }
+      .upi-heading { font-size: 1.2rem !important; margin-bottom: 0.1rem !important; }
+      .upi-ref { font-size: 0.72rem !important; margin-bottom: 0.8rem !important; }
+      .upi-amount-num { font-size: 1.5rem !important; }
+      .upi-amount-box { padding: 0.5rem 0.8rem !important; }
+      .upi-step { gap: 0.6rem !important; padding: 0.4rem 0 !important; }
+      .upi-step-label { font-size: 0.58rem !important; margin-bottom: 0.2rem !important; }
+      #desktopUpi { margin-top: 0.4rem !important; }
+      #desktopUpi > p { display: none; }
+      #desktopUpi > div:first-of-type { margin-bottom: 0 !important; }
+      #desktopUpi > div:last-of-type { display: flex !important; align-items: center; gap: 1rem; margin-top: 0.6rem !important; text-align: left !important; }
+      #desktopUpi > div:last-of-type > p { margin: 0 0 0.3rem !important; }
+      #upiQrCanvas { width: 90px !important; height: 90px !important; flex-shrink: 0; }
     }
 
     .upi-eyebrow {
