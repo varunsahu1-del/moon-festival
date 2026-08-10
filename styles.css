@@ -448,8 +448,10 @@ h4 { font-size: var(--t-xl); }
 }
 .drawer-accordion-panel--flat.open { display: flex; }
 .drawer-accordion-panel--flat a {
-  width: 100%;
-  padding: 0.2rem 2rem 0.9rem;
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding: 0.7rem 2rem;
   justify-content: center;
   border-bottom: 1px solid rgba(237,212,178,0.08);
   color: rgba(237,212,178,0.55);
