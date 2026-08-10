@@ -691,8 +691,12 @@
         <div class="book-submit-row">
           <div id="bookErrorMsg2" style="display:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;color:#e74c3c;"></div>
           <button type="submit" class="booking-submit" id="bookSubmitBtn">Proceed to Payment →</button>
-          <button type="button" class="booking-submit" id="continuePayBtn" onclick="if(_payState)openPayModal(_payState.bookingData,_payState)" style="display:none;margin-top:0.6rem;">Continue to Payment →</button>
-          <p class="book-terms-note">By proceeding you agree to our <a href="terms.html">T &amp; C</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+          <div id="bookingCreatedState" style="display:none;margin-top:0.6rem;">
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(143,175,126,0.85);margin:0 0 0.9rem;">✓ Booking created</p>
+            <button type="button" class="booking-submit" id="continuePayBtn" onclick="if(_payState)openPayModal(_payState.bookingData,_payState)">Continue to Payment →</button>
+            <a href="book.html" style="display:block;margin-top:1rem;font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:rgba(237,212,178,0.4);text-decoration:none;text-align:center;" onmouseover="this.style.color='#EDD4B2'" onmouseout="this.style.color='rgba(237,212,178,0.4)'">Start a new booking</a>
+          </div>
+          <p class="book-terms-note" id="bookTermsNote">By proceeding you agree to our <a href="terms.html">T &amp; C</a> and <a href="privacy.html">Privacy Policy</a>.</p>
         </div>
 
       </form>
@@ -1269,10 +1273,11 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
   }
 
   _bookingSubmitted = true;
-  submitBtn.textContent = 'Booking created';
-  submitBtn.disabled = true;
-  const continuePayBtn = document.getElementById('continuePayBtn');
-  if (continuePayBtn) continuePayBtn.style.display = '';
+  submitBtn.style.display = 'none';
+  const bookingCreatedState = document.getElementById('bookingCreatedState');
+  if (bookingCreatedState) bookingCreatedState.style.display = '';
+  const bookTermsNote = document.getElementById('bookTermsNote');
+  if (bookTermsNote) bookTermsNote.style.display = 'none';
 
   openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
 });
