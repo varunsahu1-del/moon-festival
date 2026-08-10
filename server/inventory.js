@@ -575,12 +575,11 @@ function validateBookingPrice({ venue, room_type, guest_count, addons, discount,
 
   const disc = parseInt(String(discount || '0').replace(/[^\d]/g, ''), 10) || 0;
   const net = accomBase - disc + addonTotal;
-  const expected = Math.round(net * (1 + GST_RATE));
   const submitted = parseInt(String(total_price || '0').replace(/[^\d]/g, ''), 10) || 0;
 
-  if (Math.abs(submitted - expected) > 1) {
-    return { valid: false, expected, submitted,
-      reason: `Price mismatch: expected ₹${expected.toLocaleString('en-IN')} (${phase}), got ₹${submitted.toLocaleString('en-IN')}` };
+  if (Math.abs(submitted - net) > 1) {
+    return { valid: false, expected: net, submitted,
+      reason: `Price mismatch: expected ₹${net.toLocaleString('en-IN')} (${phase}), got ₹${submitted.toLocaleString('en-IN')}` };
   }
   return { valid: true };
 }
