@@ -342,7 +342,7 @@ h4 { font-size: var(--t-xl); }
   gap: 0.9em;
   width: 100%;
   padding-bottom: 0.7rem;
-  border-bottom: none;
+  border-bottom: 1px solid rgba(237,212,178,0.22);
 }
 
 /* Mobile drawer accordion */
@@ -390,6 +390,7 @@ h4 { font-size: var(--t-xl); }
   justify-content: center;
   gap: 0.9em;
   padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(237,212,178,0.22);
 }
 .drawer-accordion-toggle--navstyle svg.chevron { margin-left: 0.2em; opacity: 0.5; }
 .drawer-accordion-panel--navstyle {
@@ -402,6 +403,7 @@ h4 { font-size: var(--t-xl); }
   color: rgba(237,212,178,0.75);
   padding-bottom: 0.7rem;
   justify-content: center;
+  border-bottom: 1px solid rgba(237,212,178,0.22);
 }
 .nav-drawer a:hover { color: var(--gold); }
 .nav-drawer a:hover::before { opacity: 1; }
@@ -510,7 +512,7 @@ h4 { font-size: var(--t-xl); }
 .nav-drawer-divider {
   width: 100vw;
   height: 1px;
-  background: rgba(237,212,178,0.18);
+  background: rgba(237,212,178,0.28);
   margin-top: 0.6rem;
   margin-bottom: 0.2rem;
 }
