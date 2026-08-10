@@ -509,8 +509,8 @@ h4 { font-size: var(--t-xl); }
 }
 .nav-drawer-divider {
   width: 100vw;
-  height: 0.5px;
-  background: rgba(237,212,178,0.1);
+  height: 1px;
+  background: rgba(237,212,178,0.18);
   margin-top: 0.6rem;
   margin-bottom: 0.2rem;
 }
