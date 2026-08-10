@@ -430,7 +430,7 @@ h4 { font-size: var(--t-xl); }
   color: rgba(237,212,178,0.75);
   background: none;
   border: none;
-  border-bottom: 1px solid rgba(237,212,178,0.08);
+  border-bottom: none;
   padding: 0.2rem 2rem 0.9rem;
   cursor: pointer;
   transition: color var(--dur-fast);
@@ -442,15 +442,19 @@ h4 { font-size: var(--t-xl); }
   display: none;
   flex-direction: column;
   width: 100%;
+  background: rgba(0,0,0,0.18);
+  border-bottom: 1px solid rgba(237,212,178,0.08);
+  padding-top: 0.2rem;
+  padding-bottom: 0.4rem;
 }
 .drawer-accordion-panel--flat.open { display: flex; }
 .drawer-accordion-panel--flat a {
   width: 100%;
   padding: 0.2rem 2rem 0.9rem;
   justify-content: center;
-  border-bottom: 1px solid rgba(237,212,178,0.08);
+  border-bottom: none;
+  color: rgba(237,212,178,0.55);
 }
-.drawer-accordion-panel--flat a:last-child { border-bottom: none; }
 
 .nav-drawer a:hover { color: var(--gold); }
 .nav-drawer a:hover::before { opacity: 1; }
