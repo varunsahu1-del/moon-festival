@@ -1108,11 +1108,25 @@ function _clearPendingBooking() {
 }
 
 function _checkAndShowResume() {
-  let pending;
-  try { pending = JSON.parse(localStorage.getItem(_PENDING_KEY)); } catch(e) {}
+  let pending, foundKey;
+  // If venue/room known, try exact key first; else scan all moon_pending_ keys
+  try { pending = JSON.parse(localStorage.getItem(_PENDING_KEY)); foundKey = _PENDING_KEY; } catch(e) {}
+  if (!pending || !pending.ref) {
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k || !k.startsWith('moon_pending_')) continue;
+        const v = JSON.parse(localStorage.getItem(k));
+        if (v && v.ref) { pending = v; foundKey = k; break; }
+      }
+    } catch(e) {}
+  }
   if (!pending || !pending.ref) return;
   // Expire after 48 hours
-  if (pending.ts && Date.now() - pending.ts > 172800000) { _clearPendingBooking(); return; }
+  if (pending.ts && Date.now() - pending.ts > 172800000) {
+    try { localStorage.removeItem(foundKey); } catch(e) {}
+    return;
+  }
 
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
   const screen = document.createElement('div');
@@ -1136,7 +1150,7 @@ function _checkAndShowResume() {
 
   document.getElementById('resumePayBtn').addEventListener('click', function() {
     let p;
-    try { p = JSON.parse(localStorage.getItem(_PENDING_KEY)); } catch(e) {}
+    try { p = JSON.parse(localStorage.getItem(foundKey)); } catch(e) {}
     if (!p) return;
     screen.remove();
     form.style.display = '';
@@ -1144,7 +1158,7 @@ function _checkAndShowResume() {
   });
 
   document.getElementById('freshBookingBtn').addEventListener('click', function() {
-    _clearPendingBooking();
+    try { localStorage.removeItem(foundKey); localStorage.removeItem(_FORM_KEY); } catch(e) {}
     screen.remove();
     form.style.display = '';
     window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
