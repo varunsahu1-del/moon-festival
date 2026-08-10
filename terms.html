@@ -193,16 +193,7 @@ That said, certain circumstances are genuinely beyond anyone's control — inclu
     drawer.setAttribute('aria-hidden', true);
     document.body.style.overflow = '';
   }));
-drawer.querySelectorAll('.drawer-accordion-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const panel = btn.nextElementSibling;
-    const isOpen = btn.classList.toggle('open');
-    panel.classList.toggle('open', isOpen);
-    // close others (accordion behaviour)
-    drawer.querySelectorAll('.drawer-accordion-toggle').forEach(other => {
-      if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
-    });
-  });
+});
 });
 </script>
 
