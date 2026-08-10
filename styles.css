@@ -514,10 +514,10 @@ h4 { font-size: var(--t-xl); }
 }
 .nav-drawer-divider {
   width: 100vw;
-  height: 8px;
-  background: rgba(0,0,0,0.25);
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
+  height: 1px;
+  background: rgba(237,212,178,0.18);
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 /* --- LAYOUT UTILITIES --- */
