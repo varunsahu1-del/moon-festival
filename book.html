@@ -1111,12 +1111,8 @@ function _checkAndShowResume() {
   let pending;
   try { pending = JSON.parse(localStorage.getItem(_PENDING_KEY)); } catch(e) {}
   if (!pending || !pending.ref) return;
-  // Expire after 24 hours
-  if (pending.ts && Date.now() - pending.ts > 86400000) { _clearPendingBooking(); return; }
-  // Email must match
-  const storedEmail = (pending.primaryEmail || '').toLowerCase();
-  const formEmail   = (document.getElementById('bf-email-1')?.value || '').trim().toLowerCase();
-  if (!storedEmail || !formEmail || storedEmail !== formEmail) return;
+  // Expire after 48 hours
+  if (pending.ts && Date.now() - pending.ts > 172800000) { _clearPendingBooking(); return; }
 
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
   const screen = document.createElement('div');

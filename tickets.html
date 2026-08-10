@@ -2187,6 +2187,14 @@ document.querySelectorAll('.room-row').forEach(row => {
   let n = 1;
   const basePrice = parseInt(row.dataset.basePrice);
   const priceEl = row.querySelector('.room-price');
+  // inject same-room note if this is a shared room (max > 1)
+  let sameRoomEl = null;
+  if (max > 1) {
+    sameRoomEl = document.createElement('p');
+    sameRoomEl.className = 'same-room-note';
+    sameRoomEl.style.cssText = 'display:none;font-family:"Open Sans",sans-serif;font-size:0.75rem;font-weight:400;color:rgba(176,96,48,0.9);margin:0.4rem 0 0;letter-spacing:0.02em;';
+    row.querySelector('.bed-stepper').insertAdjacentElement('afterend', sameRoomEl);
+  }
   const update = () => {
     countEl.textContent = n;
     dec.disabled = n <= 1;
@@ -2197,6 +2205,10 @@ document.querySelectorAll('.room-row').forEach(row => {
     }
     if (priceEl && basePrice) {
       priceEl.textContent = '₹' + (basePrice * n).toLocaleString('en-IN');
+    }
+    if (sameRoomEl) {
+      sameRoomEl.style.display = n >= 2 ? 'block' : 'none';
+      sameRoomEl.textContent = 'Booking ' + n + ' beds — we\'ll place you in the same room.';
     }
   };
   dec.addEventListener('click', () => { if (n > 1) { n--; update(); } });
