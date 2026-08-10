@@ -233,8 +233,6 @@
     drawer.setAttribute('aria-hidden', true);
     document.body.style.overflow = '';
   }));
-});
-});
 
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
