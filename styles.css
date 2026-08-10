@@ -444,8 +444,6 @@ h4 { font-size: var(--t-xl); }
   width: 100%;
   background: rgba(0,0,0,0.18);
   border-bottom: 1px solid rgba(237,212,178,0.08);
-  padding-top: 0.2rem;
-  padding-bottom: 0.4rem;
 }
 .drawer-accordion-panel--flat.open { display: flex; }
 .drawer-accordion-panel--flat a {
