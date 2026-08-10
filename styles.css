@@ -1927,7 +1927,7 @@ input::placeholder, textarea::placeholder { color: rgba(237,212,178,0.2); }
 @media (max-width: 640px) {
   .hero { height: 78svh; min-height: 480px; }
   .nav-logo { font-size: 2.8rem; }
-  #homeStatsFlex, #aboutStatsFlex { display: grid !important; grid-template-columns: 1fr 1fr; gap: 1.2rem 0.5rem !important; }
+  #homeStatsFlex, #aboutStatsFlex { display: flex !important; flex-wrap: nowrap !important; gap: clamp(0.5rem,2vw,1.5rem) !important; }
   .stats-divider { display: none !important; }
   /* page hero images (non-index pages) */
   .page-hero-img { height: 78svh !important; min-height: 480px !important; }
