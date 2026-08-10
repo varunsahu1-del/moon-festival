@@ -343,8 +343,9 @@ h4 { font-size: var(--t-xl); }
   width: 100%;
   padding-bottom: 0.9rem;
   padding-top: 0.2rem;
-  border-bottom: none;
+  border-bottom: 1px solid rgba(237,212,178,0.15);
 }
+.nav-drawer a:last-of-type { border-bottom: none; }
 
 /* Mobile drawer accordion */
 .drawer-accordion {
