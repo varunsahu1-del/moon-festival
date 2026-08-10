@@ -1155,7 +1155,7 @@ h4 { font-size: var(--t-xl); }
 /* --- SCHEDULE --- */
 .day-tab-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--s-8);
   margin-bottom: var(--s-6);
 }
@@ -1189,7 +1189,7 @@ h4 { font-size: var(--t-xl); }
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold);
-  text-align: center;
+  text-align: left;
   padding: var(--s-8) 0 var(--s-6);
   white-space: nowrap;
 }
@@ -1197,7 +1197,7 @@ h4 { font-size: var(--t-xl); }
 .schedule-block {
   padding: var(--s-4) 0;
   display: block;
-  text-align: center;
+  text-align: left;
 }
 .schedule-block-highlight { background: none; border: none; }
 .schedule-time {
@@ -1235,7 +1235,7 @@ h4 { font-size: var(--t-xl); }
 .schedule-section {
   position: relative;
   font-family: 'Open Sans', sans-serif;
-  text-align: center;
+  text-align: left;
 }
 .schedule-section * {
   font-family: 'Open Sans', sans-serif;
@@ -1253,7 +1253,7 @@ h4 { font-size: var(--t-xl); }
   font-weight: 300;
   color: rgba(237,212,178,0.55);
   line-height: 1.8;
-  text-align: center;
+  text-align: left;
 }
 .workshop-row .w-name { color: #EDD4B2; font-weight: 600; }
 .workshop-row .w-venue { color: rgba(237,212,178,0.55); font-weight: 400; }
