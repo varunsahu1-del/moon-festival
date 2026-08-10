@@ -338,7 +338,7 @@ h4 { font-size: var(--t-xl); }
   transition: color var(--dur-fast), opacity var(--dur-fast);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.9em;
   width: calc(100% + 4rem);
   margin-left: -2rem;
