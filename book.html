@@ -550,7 +550,7 @@
     .pay-modal { background:#191406; border:0.5px solid rgba(176,96,48,0.35); max-width:480px; width:100%; padding:clamp(1.6rem,4vw,2.4rem) clamp(1.4rem,4vw,2.2rem); position:relative; margin:auto; }
     .pay-modal-eyebrow { font-family:'Josefin Sans',sans-serif; font-size:0.6rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:#B06030; margin:0 0 0.4rem; }
     .pay-modal-title { font-family:'Josefin Sans',sans-serif; font-size:clamp(1.2rem,3vw,1.6rem); color:#EDD4B2; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 0.3rem; line-height:1.1; }
-    .pay-modal-ref { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:rgba(237,212,178,0.4); margin:0 0 1.6rem; }
+    .pay-modal-ref { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:#EDD4B2; margin:0 0 1.6rem; }
     .pay-method-card { border:0.5px solid rgba(176,96,48,0.28); padding:1rem 1.2rem; margin-bottom:0.75rem; cursor:pointer; transition:border-color 0.2s,background 0.2s; background:rgba(176,96,48,0.03); }
     .pay-method-card:last-child { margin-bottom:0; }
     .pay-method-card:hover { border-color:rgba(176,96,48,0.6); background:rgba(176,96,48,0.07); }
@@ -1291,8 +1291,7 @@ function toggleBookingSummary() {
 <div class="pay-overlay" id="payOverlay">
   <div class="pay-modal">
     <button onclick="document.getElementById('payOverlay').classList.remove('open')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:rgba(237,212,178,0.35);font-size:1.4rem;line-height:1;padding:0.25rem 0.4rem;" aria-label="Close">×</button>
-    <div class="pay-modal-eyebrow">Choose how to pay</div>
-    <div class="pay-modal-title">Payment</div>
+    <div class="pay-modal-title">Choose How to Pay</div>
     <div class="pay-modal-ref" id="payModalRef"></div>
 
     <div id="upiCapNotice"></div>
@@ -1354,7 +1353,7 @@ function toggleBookingSummary() {
           RAZORPAY
         </span>
       </div>
-      <p id="payRazorpaySub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);">Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.7);">+2.36% fee</span> &nbsp;·&nbsp; Total ₹—</p>
+      <p id="payRazorpaySub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);">Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.7);">+2.36% fee</span><br><span id="payRazorpayTotal" style="color:#EDD4B2;">Total ₹—</span></p>
     </div>
 
 
@@ -1392,7 +1391,7 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
 
   // Razorpay subheader with total
   const razorpayTotal = Math.round(totalWithGst * 1.0236);
-  _setEl('payRazorpaySub', 'innerHTML', 'Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.7);">+2.36% fee</span> &nbsp;·&nbsp; Total ₹' + razorpayTotal.toLocaleString('en-IN'));
+  _setEl('payRazorpayTotal', 'textContent', 'Total ₹' + razorpayTotal.toLocaleString('en-IN'));
 
   // Hide UPI for amounts above ₹1,00,000; show cap notice only when above limit
   const upiCard = document.getElementById('payCardUpi');
