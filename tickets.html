@@ -2620,20 +2620,20 @@ document.addEventListener('keydown', e => {
           <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
             <span class="dao-addon-info">
               <span class="dao-addon-name">Tribal Lunch</span>
-              <span class="dao-addon-desc">By tribal women · choose one day · <a href="meals.html#tribal-lunch" target="_blank" style="color:#B06030;text-decoration:none;font-size:9.5px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;font-family:'Josefin Sans',sans-serif;border-bottom:0.5px solid rgba(176,96,48,0.45);padding-bottom:1px;">See details</a></span>
+              <span class="dao-addon-desc">Choose any one day · <a href="meals.html#tribal-lunch" target="_blank" style="color:#B06030;text-decoration:none;font-size:9.5px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;font-family:'Josefin Sans',sans-serif;border-bottom:0.5px solid rgba(176,96,48,0.45);padding-bottom:1px;">See details</a></span>
             </span>
-            <span class="dao-addon-amt" id="dao-tribal-amt" style="color:rgba(143,175,126,0.9);">Included</span>
+            <span class="dao-addon-amt" id="dao-tribal-amt" style="color:rgba(143,175,126,0.9);">Only 30 spots</span>
           </div>
-          <div style="display:flex;gap:0.5rem;">
-            <label class="dao-day-pill">
+          <div style="display:flex;gap:0.5rem;" id="dao-tribal-pills">
+            <label class="dao-day-pill" id="dao-pill-27">
               <input type="radio" name="tribal-day" value="27" class="dao-day-radio" data-price="0" style="display:none;" />
               <span class="dao-day-pill-inner">27 Nov</span>
             </label>
-            <label class="dao-day-pill">
+            <label class="dao-day-pill" id="dao-pill-28">
               <input type="radio" name="tribal-day" value="28" class="dao-day-radio" data-price="0" style="display:none;" />
               <span class="dao-day-pill-inner">28 Nov</span>
             </label>
-            <label class="dao-day-pill">
+            <label class="dao-day-pill" id="dao-pill-29">
               <input type="radio" name="tribal-day" value="29" class="dao-day-radio" data-price="0" style="display:none;" />
               <span class="dao-day-pill-inner">29 Nov</span>
             </label>
@@ -2875,6 +2875,25 @@ document.querySelectorAll('.dao-cb').forEach(cb => {
     daoUpdateUI();
   });
 });
+// Fetch tribal lunch availability per day and mark sold-out pills
+(async function loadTribalAvailability() {
+  try {
+    const data = await fetch('/api/public/tribal-lunch').then(r => r.json());
+    ['27','28','29'].forEach(d => {
+      const day = data.byDay && data.byDay[d];
+      const pill = document.getElementById('dao-pill-' + d);
+      if (!pill || !day) return;
+      if (day.soldOut) {
+        const radio = pill.querySelector('input');
+        if (radio) { radio.disabled = true; radio.checked = false; }
+        const inner = pill.querySelector('.dao-day-pill-inner');
+        if (inner) { inner.textContent = d + ' Nov · Sold out'; inner.style.opacity = '0.4'; inner.style.textDecoration = 'line-through'; inner.style.cursor = 'not-allowed'; }
+        pill.style.pointerEvents = 'none';
+      }
+    });
+  } catch(e) {}
+})();
+
 // Tribal Lunch day picker — click same pill again to deselect
 document.querySelectorAll('.dao-day-radio').forEach(radio => {
   radio.addEventListener('click', function() {

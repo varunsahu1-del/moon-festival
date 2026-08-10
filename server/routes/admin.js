@@ -762,12 +762,17 @@ router.get('/api/public/pricing', (req, res) => {
   res.json({ phase, prices, festival_pass_open: !!festival_pass_open, gst_rate: GST_RATE, food_price: FOOD_PRICE_TOTAL });
 });
 
-// Public: tribal lunch availability (cap 30)
+// Public: tribal lunch availability per day (cap 30 per day)
 router.get('/api/public/tribal-lunch', (req, res) => {
   const TRIBAL_CAP = 30;
-  const row = db.prepare(`SELECT COALESCE(SUM(guest_count), 0) as total FROM bookings WHERE status IN ('paid','pending','upi_pending') AND addons LIKE '%Tribal Lunch%'`).get();
-  const booked = row ? row.total : 0;
-  res.json({ booked, cap: TRIBAL_CAP, available: booked < TRIBAL_CAP, remaining: Math.max(0, TRIBAL_CAP - booked) });
+  const days = ['27', '28', '29'];
+  const byDay = {};
+  days.forEach(d => {
+    const row = db.prepare(`SELECT COALESCE(SUM(guest_count), 0) as total FROM bookings WHERE status IN ('paid','pending','upi_pending') AND addons LIKE '%Tribal Lunch (${d} Nov)%'`).get();
+    const booked = row ? row.total : 0;
+    byDay[d] = { booked, cap: TRIBAL_CAP, remaining: Math.max(0, TRIBAL_CAP - booked), soldOut: booked >= TRIBAL_CAP };
+  });
+  res.json({ cap: TRIBAL_CAP, byDay });
 });
 
 // API: inventory detail — who is in each room
