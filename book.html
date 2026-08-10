@@ -1146,9 +1146,29 @@ function _checkAndShowResume() {
   });
 
   document.getElementById('freshBookingBtn').addEventListener('click', function() {
-    try { localStorage.removeItem(foundKey); localStorage.removeItem(_FORM_KEY); } catch(e) {}
+    // Clear all stored booking state
+    try {
+      localStorage.removeItem(foundKey);
+      localStorage.removeItem(_FORM_KEY);
+      // Also clear any other moon_pending_ keys
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && (k.startsWith('moon_pending_') || k.startsWith('moon_form_'))) localStorage.removeItem(k);
+      }
+    } catch(e) {}
     screen.remove();
     form.style.display = '';
+    // Reset submit button to fresh state
+    const sb = document.getElementById('bookSubmitBtn');
+    if (sb) { sb.disabled = false; sb.textContent = 'Proceed to Payment →'; }
+    // Remove "Complete Payment" retry button if present
+    document.getElementById('retryPayBtn')?.remove();
+    // Clear all form inputs
+    form.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(el => { el.value = ''; });
+    form.querySelectorAll('input[type=checkbox]').forEach(el => { el.checked = false; });
+    // Trigger change on GST toggle to reset its UI
+    document.getElementById('gstToggle')?.dispatchEvent(new Event('change'));
+    _payState = null;
     window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
   });
 }
@@ -1512,7 +1532,6 @@ function launchUpiPay(e) {
   if (!_payState) return;
   const { bookingData, totalWithGst } = _payState;
   document.getElementById('payOverlay').classList.remove('open');
-  _clearPendingBooking();
   window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
 }
 
@@ -1560,7 +1579,6 @@ async function reserveBankSpot(e) {
   document.getElementById('bankWaVarun').href = `https://wa.me/919820791100?text=${msg}`;
   document.getElementById('bankWaKaran').href = `https://wa.me/919930920313?text=${msg}`;
 
-  _clearPendingBooking();
   window.location.href = `bank-pay.html?ref=${bookingData.booking_ref}&amount=${_payState.totalWithGst}`;
 }
 
