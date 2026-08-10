@@ -508,8 +508,6 @@ navDrawer.querySelectorAll('a').forEach(link => {
     navToggle.setAttribute('aria-expanded', false);
     navDrawer.setAttribute('aria-hidden', true);
   });
-});
-
 /* ── NAV DROPDOWN ── */
 document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
   const btn = dropdown.querySelector('.nav-dropdown-toggle');
@@ -518,7 +516,6 @@ document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
     const isOpen = dropdown.classList.toggle('open');
     document.querySelectorAll('.nav-dropdown').forEach(d => { if (d !== dropdown) d.classList.remove('open'); });
   });
-});
 document.addEventListener('click', () => {
   document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
 });

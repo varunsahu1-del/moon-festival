@@ -383,8 +383,6 @@ drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   document.body.style.overflow = '';
 }));
 });
-});
-
 /* --- Reveal on scroll --- */
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -404,8 +402,6 @@ document.querySelectorAll('.day-tab').forEach(tab => {
     tab.classList.add('active');
     document.getElementById(tab.dataset.panel).classList.add('active');
   });
-});
-
 /* --- Inclusions toggle (future use) --- */
 document.querySelectorAll('.inclusions-toggle').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -413,7 +409,6 @@ document.querySelectorAll('.inclusions-toggle').forEach(btn => {
     btn.setAttribute('aria-expanded', String(!expanded));
     document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('open', !expanded);
   });
-});
 </script>
 </body>
 </html>

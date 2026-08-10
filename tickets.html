@@ -1993,8 +1993,6 @@ drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   document.body.style.overflow = '';
 }));
 });
-});
-
 // ── City autocomplete helper (reusable per input) ──────────────────────────
 const cities = [
   'Agra','Ahmedabad','Aizawl','Ajmer','Aligarh','Allahabad','Amritsar','Aurangabad',
@@ -2096,8 +2094,6 @@ function applyCoupon() {
 document.addEventListener('DOMContentLoaded', () => {
   const inp = document.getElementById('couponInput');
   if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });
-});
-
 document.querySelectorAll('.btn-book').forEach(btn => {
   btn.addEventListener('click', () => {
     const row  = btn.closest('.room-row');
@@ -2126,8 +2122,6 @@ document.querySelectorAll('.btn-book').forEach(btn => {
       + '&price=' + priceRaw
       + '&guests=' + count;
   });
-});
-
 async function getPublicConfig() {
   if (_pubConfig) return _pubConfig;
   try {
@@ -2147,8 +2141,6 @@ document.querySelectorAll('.ticket-tab').forEach(tab => {
     tab.classList.add('active');
     document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
   });
-});
-
 function toggleMobIncl(btn, panelId) {
   const panel = document.getElementById(panelId);
   const arrow = btn.querySelector('.mob-incl-arrow');
@@ -2215,8 +2207,6 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
     const answer = btn.nextElementSibling;
     answer.classList.toggle('open', !expanded);
   });
-});
-
 // Venue modal
 const venueData = {
   bhakti: {
@@ -2442,8 +2432,6 @@ document.querySelectorAll('.venue-hero-wrap').forEach(wrap => {
     const btn = wrap.closest('.venue-card').querySelector('.see-details-btn');
     if (btn) openVenueModal(btn.dataset.venue);
   });
-});
-
 function closeVenueModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
@@ -2878,8 +2866,6 @@ document.querySelectorAll('.dao-cb').forEach(cb => {
     }
     daoUpdateUI();
   });
-});
-
 // Tribal Lunch day picker — click same pill again to deselect
 document.querySelectorAll('.dao-day-radio').forEach(radio => {
   radio.addEventListener('click', function() {
@@ -2894,8 +2880,6 @@ document.querySelectorAll('.dao-day-radio').forEach(radio => {
     if (tribalRow) tribalRow.classList.toggle('dao-selected', !!document.querySelector('.dao-day-radio:checked'));
     daoUpdateUI();
   });
-});
-
 // Close on backdrop click
 document.getElementById('destinyAddonOverlay').addEventListener('click', e => {
   if (e.target === document.getElementById('destinyAddonOverlay') || e.target === document.getElementById('destinyAddonPanel')) closeDestinyAddonModal();

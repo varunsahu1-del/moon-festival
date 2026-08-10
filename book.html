@@ -763,8 +763,6 @@ drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   document.body.style.overflow = '';
 }));
 });
-});
-
 // ── GST rate from server (falls back to 5%) ──────────────────────────────────
 window._GST_RATE = 0.05;
 fetch('/api/public/pricing').then(r => r.json()).then(d => { if (d.gst_rate) window._GST_RATE = d.gst_rate; }).catch(() => {});
@@ -1350,8 +1348,6 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
   } catch(e) {}
 
   openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
-});
-
 function toggleBookingSummary() {
   const details = document.getElementById('bsDetails');
   const chevron = document.getElementById('bsChevron');
