@@ -1387,7 +1387,7 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   const saving = Math.round(totalWithGst * 0.02);
   const _setEl = (id, prop, val) => { const el = document.getElementById(id); if (el) el[prop] = val; };
   _setEl('payModalRef', 'textContent', 'Booking ' + bookingData.booking_ref + '  ·  ₹' + totalWithGst.toLocaleString('en-IN') + ' incl. GST');
-  _setEl('payUpiSaveSub', 'innerHTML', '<span style="color:#EDD4B2;font-weight:600;">Pay us directly via UPI</span><span style="color:#EDD4B2;"> and </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> in gateway charges</span>');
+  _setEl('payUpiSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
   _setEl('payBankSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
   _setEl('payCashSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
   _setEl('payUpiAmountLabel', 'textContent', totalWithGst.toLocaleString('en-IN'));
