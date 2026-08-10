@@ -317,7 +317,7 @@ h4 { font-size: var(--t-xl); }
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--s-4);
+  gap: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-med) var(--ease-io);
