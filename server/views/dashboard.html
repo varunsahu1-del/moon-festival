@@ -4081,7 +4081,7 @@ function updateActionUI() {
   const sendPaylink = document.getElementById('ab-send-paylink')?.checked;
   document.getElementById('ab-email-row').style.display = action === 'paid' ? 'block' : 'none';
   document.getElementById('ab-paylink-row').style.display = action === 'pending' ? 'block' : 'none';
-  document.getElementById('ab-paylink-info').style.display = (action === 'pending' && sendPaylink) ? 'block' : 'none';
+  const _plInfo = document.getElementById('ab-paylink-info'); if (_plInfo) _plInfo.style.display = (action === 'pending' && sendPaylink) ? 'block' : 'none';
   const isPaylinkMode = action === 'pending' && sendPaylink;
   document.getElementById('ab-submit-btn').textContent = isPaylinkMode ? 'Send Payment Link' : 'Save Booking';
   if (!isPaylinkMode) {
@@ -4116,8 +4116,8 @@ function openAddBooking() {
   const _sqt = document.getElementById('ab-send-quote'); if (_sqt) _sqt.checked = false;
   document.getElementById('ab-send-email').checked = true;
   document.getElementById('ab-email-row').style.display = 'none';
-  document.getElementById('ab-paylink-row').style.display = 'block';
-  document.getElementById('ab-paylink-info').style.display = 'none';
+  const _abPlRow = document.getElementById('ab-paylink-row'); if (_abPlRow) _abPlRow.style.display = 'block';
+  const _abPlInfo = document.getElementById('ab-paylink-info'); if (_abPlInfo) _abPlInfo.style.display = 'none';
   document.getElementById('ab-submit-btn').textContent = 'Save Booking';
   document.getElementById('ab-guests-wrap').innerHTML = '';
   document.getElementById('ab-error').style.display = 'none';
