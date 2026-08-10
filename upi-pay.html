@@ -268,7 +268,17 @@
               <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Paytm</span>
             </a>
           </div>
-          <p id="desktopNote" style="display:none;font-family:'Open Sans',sans-serif;font-size:0.78rem;color:rgba(237,212,178,0.45);line-height:1.6;margin:0;"></p>
+          <div id="desktopUpi" style="display:none;margin-top:0.6rem;">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:rgba(237,212,178,0.45);margin:0 0 0.6rem;line-height:1.5;">Open any UPI app on your phone, search for this UPI ID, and send the exact amount.</p>
+            <div style="display:flex;align-items:center;gap:0.6rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;padding:0.65rem 0.9rem;">
+              <span id="desktopVpa" style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:600;color:#EDD4B2;flex:1;letter-spacing:0.01em;"></span>
+              <button onclick="copyUpiId()" id="copyUpiBtn" style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;padding:0.35rem 0.7rem;border-radius:3px;cursor:pointer;white-space:nowrap;">Copy</button>
+            </div>
+            <div style="margin-top:1rem;text-align:center;">
+              <p style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.3);margin:0 0 0.6rem;">Or scan with your phone</p>
+              <canvas id="upiQrCanvas" width="160" height="160" style="border-radius:6px;display:block;margin:0 auto;"></canvas>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -312,10 +322,31 @@
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (!isMobile) {
       document.getElementById('appButtons').style.display = 'none';
-      const note = document.getElementById('desktopNote');
-      note.textContent = 'Open GPay or PhonePe on your phone to complete payment.';
-      note.style.display = 'block';
+      document.getElementById('desktopUpi').style.display = 'block';
+      document.getElementById('desktopVpa').textContent = vpa;
+      // QR code via Google Charts API (standard UPI deep link)
+      const upiUrl = `upi://pay?${baseParams}`;
+      const canvas = document.getElementById('upiQrCanvas');
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, 160, 160);
+        ctx.drawImage(img, 0, 0, 160, 160);
+      };
+      img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=8&data=' + encodeURIComponent(upiUrl);
     }
+  }
+
+  function copyUpiId() {
+    const vpa = document.getElementById('desktopVpa').textContent;
+    navigator.clipboard.writeText(vpa).then(() => {
+      const btn = document.getElementById('copyUpiBtn');
+      btn.textContent = 'Copied!';
+      btn.style.color = 'rgba(143,175,126,0.9)';
+      setTimeout(() => { btn.textContent = 'Copy'; btn.style.color = '#B06030'; }, 2000);
+    });
   }
 
   fetch('/api/bookings/public-config')
