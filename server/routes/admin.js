@@ -501,7 +501,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
       const { sendPaymentPendingEmail } = require('../email');
       const bookingRow = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(booking_ref);
       const guestRows  = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(bookingId);
-      await sendPaymentPendingEmail({ booking: bookingRow, guests: guestRows, paymentLink: payment_link_url, amountWithGst: totalCharged });
+      await sendPaymentPendingEmail({ booking: bookingRow, guests: guestRows, paymentLink: payment_link_url, amountWithGst });
       db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'email', ?)").run(booking_ref, `Payment link email sent — ₹${totalCharged.toLocaleString('en-IN')} incl. GST + 2.36% fee`);
     } catch (emailErr) {
       console.error('[paylink email]', emailErr.message);
