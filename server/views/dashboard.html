@@ -1466,6 +1466,11 @@
         </div>
         <div id="ab-paylink-row" style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
           <label class="ab-cb-label">
+            <input type="checkbox" id="ab-send-paylink" onchange="updateActionUI()">
+            <span class="ab-cb-box"></span>
+            Also send a Razorpay payment link to guest
+          </label>
+          <label class="ab-cb-label">
             <input type="checkbox" id="ab-send-quote">
             <span class="ab-cb-box"></span>
             Also send quote to guest (for cash / UPI payment)
