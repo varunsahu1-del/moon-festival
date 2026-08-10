@@ -694,7 +694,7 @@
           <div id="bookingCreatedState" style="display:none;margin-top:0.6rem;">
             <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(143,175,126,0.85);margin:0 0 0.9rem;">✓ Booking created</p>
             <button type="button" class="booking-submit" id="continuePayBtn" onclick="if(_payState)openPayModal(_payState.bookingData,_payState)">Continue to Payment →</button>
-            <a href="tickets.html" class="book-back-btn" style="margin-top:1rem;">← Start a new booking</a>
+            <a href="#" class="book-back-btn" style="margin-top:1rem;" onclick="startNewBooking(event)">← Start a new booking</a>
           </div>
           <p class="book-terms-note" id="bookTermsNote">By proceeding you agree to our <a href="terms.html">T &amp; C</a> and <a href="privacy.html">Privacy Policy</a>.</p>
         </div>
@@ -1377,6 +1377,20 @@ function toggleBookingSummary() {
 
 <script>
 let _payState = null;
+
+async function startNewBooking(e) {
+  e.preventDefault();
+  if (_payState) {
+    try {
+      await fetch('/api/bookings/cancel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref: _payState.bookingData.booking_ref }),
+      });
+    } catch(_) {}
+  }
+  window.location.href = 'tickets.html';
+}
 let _pubConfig = null;
 
 async function getPublicConfig() {

@@ -516,6 +516,17 @@ router.post('/upi-pending', async (req, res) => {
 });
 
 // GET /api/bookings/lookup?ref=MF-0042 — public, no auth
+// Public cancel — only works on pending bookings (not paid)
+router.post('/cancel', (req, res) => {
+  const { ref } = req.body;
+  if (!ref) return res.status(400).json({ error: 'Missing ref' });
+  const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(ref);
+  if (!booking) return res.status(404).json({ error: 'Not found' });
+  if (booking.status === 'paid') return res.status(403).json({ error: 'Cannot cancel a paid booking' });
+  db.prepare("UPDATE bookings SET status='cancelled' WHERE booking_ref=?").run(ref);
+  res.json({ ok: true });
+});
+
 router.get('/lookup', (req, res) => {
   const { ref } = req.query;
   if (!ref) return res.status(400).json({ error: 'Missing ref' });
