@@ -350,6 +350,7 @@ h4 { font-size: var(--t-xl); }
   border-bottom: 1px solid rgba(237,212,178,0.08);
 }
 .nav-drawer > a:last-of-type { border-bottom: none; }
+.nav-drawer > a:last-of-type + .drawer-accordion { border-top: 1px solid rgba(237,212,178,0.08); }
 .nav-drawer .nav-cta + a { margin-top: 1.2rem; }
 
 /* Mobile drawer accordion */
