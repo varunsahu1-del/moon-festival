@@ -1434,26 +1434,6 @@ function toggleBookingSummary() {
       <div id="razorpayBreakdown" style="font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.45);line-height:1.8;"></div>
     </div>
 
-    <div class="pay-method-card" id="payCardCash" onclick="reserveCashSpot(event)">
-      <div class="pay-method-top">
-        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></svg>
-          Cash / WhatsApp
-        </span>
-      </div>
-      <p id="payCashSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;"></p>
-      <p class="pay-method-desc" style="margin-top:0.35rem;"><strong style="color:#EDD4B2;font-weight:600;">Pay in cash</strong> — we'll confirm your spot over WhatsApp.</p>
-
-      <!-- Shown after reservation is logged -->
-      <div id="cashConfirmed" style="display:none;padding:1.4rem 0 0.4rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;">Your spot is reserved for 24 hours</p>
-        <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.7);margin:0 0 1.2rem;line-height:1.6;">Send your booking reference <strong id="cashBookingRef" style="color:#EDD4B2;font-weight:600;"></strong> to either of us on WhatsApp to confirm your cash payment.</p>
-        <div style="display:flex;flex-direction:column;gap:0.6rem;">
-          <a id="cashWaVarun" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;">Message Varun →</a>
-          <a id="cashWaKaran" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;background:#8FAF7E;">Message Karan →</a>
-        </div>
-      </div>
-    </div>
 
     <div style="margin-top:1.4rem;padding-top:1.1rem;border-top:0.5px solid rgba(176,96,48,0.15);text-align:center;">
       <a href="https://wa.me/919820791100" target="_blank" rel="noopener"
