@@ -76,7 +76,7 @@
       <h2 style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.1rem);font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.8rem;">Last Year's Schedule (2025)</h2>
       <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.62rem,1vw,0.75rem);font-weight:300;letter-spacing:0.25em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 1.6rem;">2026 Schedule TBA</p>
       <div style="width:5rem;height:0.5px;background:rgba(237,212,178,0.25);margin:0 auto 2rem;"></div>
-      <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;line-height:2.2;color:rgba(237,212,178,0.75);margin:0;"><strong style="font-weight:600;">Three days of yoga, dance, music, healing, and art.</strong> All workshops, ceremonies, and performances take place across <strong style="font-weight:600;">27, 28 &amp; 29 November.</strong> <strong style="font-weight:600;">Arrive on 26 November</strong> — check in from 2pm, inauguration ceremony at 7:30pm. <strong style="font-weight:600;">Leave on 30 November</strong> with a full heart. <strong style="font-weight:600;">The schedule below is from Moon Festival 2025</strong> — <strong style="font-weight:600;">the 2026 programme will be announced soon.</strong></p>
+      <!-- Schedule intro text hidden until 2026 programme is ready -->
     <div style="text-align:center;padding:1.5rem 0 0;">
       <svg width="100%" height="28" viewBox="0 0 320 28" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="0" y1="14" x2="116" y2="14" stroke="#B06030" stroke-width="0.5" opacity="0.3"/>
@@ -382,6 +382,17 @@ drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   drawer.setAttribute('aria-hidden', true);
   document.body.style.overflow = '';
 }));
+drawer.querySelectorAll('.drawer-accordion-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.classList.toggle('open');
+    panel.classList.toggle('open', isOpen);
+    // close others (accordion behaviour)
+    drawer.querySelectorAll('.drawer-accordion-toggle').forEach(other => {
+      if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
+    });
+  });
+});
 
 /* --- Reveal on scroll --- */
 const revealObs = new IntersectionObserver((entries) => {

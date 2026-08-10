@@ -286,47 +286,28 @@
     }
 
     /* WhatsApp row */
-    .wa-row { display: flex; gap: 0; align-items: flex-end; }
+    .wa-row { display: flex; gap: 0.6rem; align-items: flex-end; }
 
-    /* Custom country code picker */
+    /* Country code select */
     .cc-wrap { position: relative; flex-shrink: 0; }
-    .wa-cc-input {
+    .wa-cc-select {
       font-family: 'Open Sans', sans-serif;
       font-size: clamp(0.82rem, 1.3vw, 0.9rem);
-      font-weight: 300;
-      color: #B06030;
-      background: transparent;
-      border: none;
-      border-bottom: 0.5px solid rgba(237,212,178,0.2);
-      padding: 0.5em 0.5em 0.5em 0;
-      outline: none;
-      width: 72px;
-      cursor: pointer;
-    }
-    .wa-cc-input:focus { border-bottom-color: #B06030; color: #EDD4B2; }
-    .cc-dropdown {
-      display: none;
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 0;
-      min-width: 180px;
-      background: #1a1007;
+      font-weight: 400;
+      color: #EDD4B2;
+      -webkit-text-fill-color: #EDD4B2;
+      background: rgba(176,96,48,0.18);
       border: 0.5px solid rgba(176,96,48,0.4);
-      z-index: 100;
-      max-height: 220px;
-      overflow-y: auto;
-    }
-    .cc-dropdown.open { display: block; }
-    .cc-option {
-      font-family: 'Open Sans', sans-serif;
-      font-size: clamp(0.75rem, 1.1vw, 0.82rem);
-      font-weight: 300;
-      color: rgba(237,212,178,0.7);
-      padding: 0.5em 0.9em;
+      border-radius: 4px;
+      padding: 0.45em 0.5em;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
       cursor: pointer;
-      transition: background 0.12s, color 0.12s;
+      width: auto;
+      max-width: 96px;
     }
-    .cc-option:hover, .cc-option.highlighted { background: rgba(176,96,48,0.18); color: #EDD4B2; }
+    .wa-cc-select:focus { border-color: #B06030; background: rgba(176,96,48,0.28); }
 
     /* GST checkbox */
     #gstToggle:checked { background: #B06030; border-color: #B06030; }
@@ -781,6 +762,17 @@ drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   drawer.setAttribute('aria-hidden', true);
   document.body.style.overflow = '';
 }));
+drawer.querySelectorAll('.drawer-accordion-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.classList.toggle('open');
+    panel.classList.toggle('open', isOpen);
+    // close others (accordion behaviour)
+    drawer.querySelectorAll('.drawer-accordion-toggle').forEach(other => {
+      if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
+    });
+  });
+});
 
 // ── GST rate from server (falls back to 5%) ──────────────────────────────────
 window._GST_RATE = 0.05;
@@ -959,7 +951,7 @@ function buildPersonFields(count) {
       + '<div class="booking-field">'
       + '<label class="booking-label" for="bf-whatsapp-' + i + '">WhatsApp Number</label>'
       + '<div class="wa-row">'
-      + '<div class="cc-wrap"><input class="wa-cc-input" id="bf-cc-' + i + '" type="text" placeholder="+91" value="+91" autocomplete="off" readonly /><div class="cc-dropdown" id="bf-cc-dd-' + i + '"></div></div>'
+      + '<div class="cc-wrap"><select class="wa-cc-select" id="bf-cc-' + i + '"><option value="+91">+91 India</option><option value="+1">+1 US/Canada</option><option value="+44">+44 UK</option><option value="+61">+61 Australia</option><option value="+64">+64 NZ</option><option value="+353">+353 Ireland</option><option value="+65">+65 Singapore</option><option value="+60">+60 Malaysia</option><option value="+66">+66 Thailand</option><option value="+62">+62 Indonesia</option><option value="+63">+63 Philippines</option><option value="+84">+84 Vietnam</option><option value="+81">+81 Japan</option><option value="+82">+82 Korea</option><option value="+971">+971 UAE</option><option value="+974">+974 Qatar</option><option value="+966">+966 Saudi Arabia</option><option value="+92">+92 Pakistan</option><option value="+94">+94 Sri Lanka</option><option value="+977">+977 Nepal</option><option value="+880">+880 Bangladesh</option><option value="+49">+49 Germany</option><option value="+33">+33 France</option><option value="+39">+39 Italy</option><option value="+34">+34 Spain</option><option value="+31">+31 Netherlands</option><option value="+41">+41 Switzerland</option><option value="+46">+46 Sweden</option><option value="+47">+47 Norway</option><option value="+45">+45 Denmark</option><option value="+7">+7 Russia</option><option value="+27">+27 South Africa</option><option value="+254">+254 Kenya</option><option value="+234">+234 Nigeria</option><option value="+55">+55 Brazil</option><option value="+52">+52 Mexico</option><option value="+54">+54 Argentina</option></select></div>'
       + '<input class="booking-input" id="bf-whatsapp-' + i + '" type="tel" placeholder="00000 00000" autocomplete="tel" style="flex:1;" />'
       + '</div></div>'
       + '<div class="booking-field">'
@@ -1011,70 +1003,6 @@ function buildPersonFields(count) {
   }
 }
 
-const CC_LIST = [
-  ['+91','India'],['+1','US / Canada'],['+44','UK'],['+61','Australia'],['+64','New Zealand'],
-  ['+353','Ireland'],['+65','Singapore'],['+60','Malaysia'],['+66','Thailand'],['+62','Indonesia'],
-  ['+63','Philippines'],['+84','Vietnam'],['+81','Japan'],['+82','South Korea'],
-  ['+971','UAE'],['+974','Qatar'],['+966','Saudi Arabia'],['+92','Pakistan'],
-  ['+94','Sri Lanka'],['+977','Nepal'],['+880','Bangladesh'],
-  ['+49','Germany'],['+33','France'],['+39','Italy'],['+34','Spain'],
-  ['+31','Netherlands'],['+41','Switzerland'],['+46','Sweden'],['+47','Norway'],['+45','Denmark'],
-  ['+7','Russia'],['+27','South Africa'],['+254','Kenya'],['+234','Nigeria'],
-  ['+55','Brazil'],['+52','Mexico'],['+54','Argentina'],
-];
-
-function initCCPicker(i) {
-  const input = document.getElementById('bf-cc-' + i);
-  const dd    = document.getElementById('bf-cc-dd-' + i);
-  if (!input || !dd) return;
-
-  function renderOptions(filter) {
-    const q = (filter || '').toLowerCase();
-    const matches = q
-      ? CC_LIST.filter(([code, name]) => code.includes(q) || name.toLowerCase().includes(q))
-      : CC_LIST;
-    dd.innerHTML = matches.map(([code, name]) =>
-      '<div class="cc-option" data-code="' + code + '">' + code + ' <span style="color:rgba(237,212,178,0.4);font-size:0.78em;">' + name + '</span></div>'
-    ).join('');
-    dd.querySelectorAll('.cc-option').forEach(el => {
-      el.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        input.value = el.dataset.code;
-        input.readOnly = true;
-        dd.classList.remove('open');
-      });
-    });
-  }
-
-  input.addEventListener('click', function() {
-    input.readOnly = false;
-    input.select();
-    renderOptions('');
-    dd.classList.add('open');
-  });
-
-  input.addEventListener('input', function() {
-    renderOptions(input.value);
-    dd.classList.add('open');
-  });
-
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      dd.classList.remove('open');
-      input.readOnly = true;
-    }
-    if (e.key === 'Escape') {
-      dd.classList.remove('open');
-      input.readOnly = true;
-    }
-  });
-
-  input.addEventListener('blur', function() {
-    setTimeout(() => { dd.classList.remove('open'); input.readOnly = true; }, 160);
-  });
-
-  renderOptions('');
-}
 
 function initStatePicker(i) {
   const btn  = document.getElementById('bf-state-btn-' + i);
@@ -1114,8 +1042,129 @@ function initStatePicker(i) {
 
 buildPersonFields(guestCount);
 
-for (let _i = 1; _i <= guestCount; _i++) { initCCPicker(_i); }
 if (guestCount >= 1) initStatePicker(1);
+
+// ── Booking persistence (resume + form save) ──────────────────────────────
+const _FORM_KEY    = 'moon_form_'    + venue + '_' + roomType;
+const _PENDING_KEY = 'moon_pending_' + venue + '_' + roomType;
+
+function _saveFormData() {
+  const d = {};
+  for (let n = 1; n <= guestCount; n++) {
+    d['g' + n + '_name']   = document.getElementById('bf-name-' + n)?.value || '';
+    d['g' + n + '_email']  = document.getElementById('bf-email-' + n)?.value || '';
+    d['g' + n + '_cc']     = document.getElementById('bf-cc-' + n)?.value || '+91';
+    d['g' + n + '_phone']  = document.getElementById('bf-whatsapp-' + n)?.value || '';
+    d['g' + n + '_city']   = document.getElementById('bf-city-' + n)?.value || '';
+    d['g' + n + '_age']    = document.getElementById('bf-age-' + n)?.value || '';
+    d['g' + n + '_gender'] = (document.querySelector('input[name="bf-gender-' + n + '"]:checked') || {}).value || '';
+  }
+  d.address  = document.getElementById('bf-address-1')?.value || '';
+  d.state    = document.getElementById('bf-state-1')?.value || '';
+  d.pin      = document.getElementById('bf-pin-1')?.value || '';
+  d.note     = document.getElementById('bf-organizer-note')?.value || '';
+  d.gst_num  = document.getElementById('bf-gst-number')?.value || '';
+  d.gst_name = document.getElementById('bf-gst-name')?.value || '';
+  try { localStorage.setItem(_FORM_KEY, JSON.stringify(d)); } catch(e) {}
+}
+
+function _restoreFormData() {
+  let d;
+  try { d = JSON.parse(localStorage.getItem(_FORM_KEY)); } catch(e) {}
+  if (!d) return;
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+  for (let n = 1; n <= guestCount; n++) {
+    set('bf-name-' + n,      d['g' + n + '_name']);
+    set('bf-email-' + n,     d['g' + n + '_email']);
+    set('bf-cc-' + n,        d['g' + n + '_cc']);
+    set('bf-whatsapp-' + n,  d['g' + n + '_phone']);
+    set('bf-city-' + n,      d['g' + n + '_city']);
+    set('bf-age-' + n,       d['g' + n + '_age']);
+    if (d['g' + n + '_gender']) {
+      const r = document.querySelector('input[name="bf-gender-' + n + '"][value="' + d['g' + n + '_gender'] + '"]');
+      if (r) r.checked = true;
+    }
+  }
+  if (d.address) set('bf-address-1', d.address);
+  if (d.state) {
+    set('bf-state-1', d.state);
+    const lbl = document.getElementById('bf-state-label-1');
+    const btn = document.getElementById('bf-state-btn-1');
+    if (lbl) lbl.textContent = d.state;
+    if (btn) btn.classList.add('has-value');
+  }
+  if (d.pin)      set('bf-pin-1', d.pin);
+  if (d.note)     set('bf-organizer-note', d.note);
+  if (d.gst_num || d.gst_name) {
+    document.getElementById('gstToggle').checked = true;
+    document.getElementById('gstFields').style.display = 'block';
+    set('bf-gst-number', d.gst_num);
+    set('bf-gst-name',   d.gst_name);
+  }
+}
+
+function _clearPendingBooking() {
+  try { localStorage.removeItem(_PENDING_KEY); localStorage.removeItem(_FORM_KEY); } catch(e) {}
+}
+
+function _checkAndShowResume() {
+  let pending;
+  try { pending = JSON.parse(localStorage.getItem(_PENDING_KEY)); } catch(e) {}
+  if (!pending || !pending.ref) return;
+  // Expire after 24 hours
+  if (pending.ts && Date.now() - pending.ts > 86400000) { _clearPendingBooking(); return; }
+  // Email must match
+  const storedEmail = (pending.primaryEmail || '').toLowerCase();
+  const formEmail   = (document.getElementById('bf-email-1')?.value || '').trim().toLowerCase();
+  if (!storedEmail || !formEmail || storedEmail !== formEmail) return;
+
+  const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
+  const screen = document.createElement('div');
+  screen.id = 'resumeScreen';
+  screen.style.cssText = 'padding:2rem 0;';
+  screen.innerHTML =
+    '<p style="font-family:\'Josefin Sans\',sans-serif;font-size:0.58rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;">Pending Payment</p>'
+  + '<p style="font-family:\'Josefin Sans\',sans-serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.5rem;">Your booking is ready</p>'
+  + '<div style="background:rgba(176,96,48,0.07);border:0.5px solid rgba(176,96,48,0.28);border-radius:6px;padding:0.2rem 0;margin-bottom:1.5rem;">'
+  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:0.5px solid rgba(237,212,178,0.07);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Booking Ref</span><span style="font-family:\'Open Sans\',sans-serif;font-size:0.9rem;font-weight:700;color:#B06030;">' + pending.ref + '</span></div>'
+  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:0.5px solid rgba(237,212,178,0.07);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Venue</span><span style="font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#EDD4B2;">' + pending.venue + '</span></div>'
+  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:0.5px solid rgba(237,212,178,0.07);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Room</span><span style="font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#EDD4B2;">' + pending.roomType + '</span></div>'
+  +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;background:rgba(176,96,48,0.05);"><span style="font-family:\'Josefin Sans\',sans-serif;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Amount Due</span><span style="font-family:\'Open Sans\',sans-serif;font-size:1rem;font-weight:700;color:#EDD4B2;">' + fmt(pending.total) + ' <span style="font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.4);">incl. GST</span></span></div>'
+  + '</div>'
+  + '<button id="resumePayBtn" style="display:block;width:100%;background:#B06030;color:#EDD4B2;border:none;padding:1rem 2rem;font-family:\'Josefin Sans\',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;margin-bottom:0.75rem;">Continue to Payment →</button>'
+  + '<button id="freshBookingBtn" style="display:block;width:100%;background:none;color:rgba(237,212,178,0.4);border:0.5px solid rgba(237,212,178,0.15);padding:0.8rem 2rem;font-family:\'Josefin Sans\',sans-serif;font-size:0.62rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;">Start a new booking</button>';
+
+  const form = document.getElementById('bookingForm');
+  form.style.display = 'none';
+  form.parentElement.insertBefore(screen, form);
+
+  document.getElementById('resumePayBtn').addEventListener('click', function() {
+    let p;
+    try { p = JSON.parse(localStorage.getItem(_PENDING_KEY)); } catch(e) {}
+    if (!p) return;
+    screen.remove();
+    form.style.display = '';
+    openPayModal(p.bookingData, { venue: p.venue, roomType: p.roomType, baseAmount: p.base, gst: p.gst, totalWithGst: p.total, guests: p.guests });
+  });
+
+  document.getElementById('freshBookingBtn').addEventListener('click', function() {
+    _clearPendingBooking();
+    screen.remove();
+    form.style.display = '';
+    window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
+  });
+}
+
+// Restore form data and attach auto-save
+_restoreFormData();
+document.getElementById('bookingPersons')?.addEventListener('input',  _saveFormData);
+document.getElementById('bookingPersons')?.addEventListener('change', _saveFormData);
+document.getElementById('bf-organizer-note')?.addEventListener('input', _saveFormData);
+document.getElementById('gstToggle')?.addEventListener('change', _saveFormData);
+document.getElementById('bf-gst-number')?.addEventListener('input', _saveFormData);
+document.getElementById('bf-gst-name')?.addEventListener('input', _saveFormData);
+// Check for pending booking after a short delay so form data is restored first
+setTimeout(_checkAndShowResume, 50);
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 function showFieldError(input, msg) {
@@ -1274,6 +1323,19 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
   _bookingSubmitted = true;
   submitBtn.textContent = 'Booking created';
   submitBtn.disabled = true;
+
+  // Save pending booking so user can resume if they navigate away
+  try {
+    localStorage.setItem(_PENDING_KEY, JSON.stringify({
+      ref: bookingData.booking_ref,
+      venue, roomType,
+      base, gst, total,
+      primaryEmail: guests[0].email,
+      guests,
+      bookingData,
+      ts: Date.now(),
+    }));
+  } catch(e) {}
 
   openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
 });
@@ -1462,6 +1524,7 @@ function launchUpiPay(e) {
   if (!_payState) return;
   const { bookingData, totalWithGst } = _payState;
   document.getElementById('payOverlay').classList.remove('open');
+  _clearPendingBooking();
   window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
 }
 
@@ -1484,6 +1547,7 @@ async function reserveCashSpot(e) {
   const msg = encodeURIComponent(`Hi! I'd like to pay cash for my Moon Festival 2026 booking — ${ref}, ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}. Please let me know how to proceed.`);
   const confirmedUrl = `booking-confirmed.html?ref=${ref}&method=cash`;
   function openCashWa(waUrl) {
+    _clearPendingBooking();
     window.open(waUrl, '_blank');
     window.location.href = confirmedUrl;
   }
@@ -1508,6 +1572,7 @@ async function reserveBankSpot(e) {
   document.getElementById('bankWaVarun').href = `https://wa.me/919820791100?text=${msg}`;
   document.getElementById('bankWaKaran').href = `https://wa.me/919930920313?text=${msg}`;
 
+  _clearPendingBooking();
   window.location.href = `bank-pay.html?ref=${bookingData.booking_ref}&amount=${_payState.totalWithGst}`;
 }
 
@@ -1571,6 +1636,7 @@ function launchRazorpay() {
           }),
         });
       } catch (_) {}
+      _clearPendingBooking();
       window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay';
     },
     modal: { ondismiss: function() { document.getElementById('payOverlay').classList.add('open'); } },

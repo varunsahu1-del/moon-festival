@@ -206,7 +206,7 @@
       <div class="tc-body-wrap">
         <div class="tc-body-inner">
           <div class="tc-divider"></div>
-      <p class="tc-body">Tickets are non-refundable but fully transferable. If you cannot attend, you may transfer your ticket to another person at no charge. In the event of cancellation by the organiser due to circumstances beyond our control, we offer full credit toward the following year. See our Terms &amp; Conditions for full details.</p>
+      <p class="tc-body">Tickets are non-refundable. You may transfer your ticket to another person, or carry it forward to Moon Festival 2027, up to 5 days before the festival (i.e. before 22 November). In the event of cancellation or postponement due to circumstances beyond our control, we will assess the situation in good faith — taking into account costs already committed to venues and operations — and communicate our resolution to all ticket holders as soon as possible. See our Terms &amp; Conditions for full details.</p>
         </div>
       </div>
     </div>
@@ -476,6 +476,17 @@
     drawer.setAttribute('aria-hidden', true);
     document.body.style.overflow = '';
   }));
+drawer.querySelectorAll('.drawer-accordion-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.classList.toggle('open');
+    panel.classList.toggle('open', isOpen);
+    // close others (accordion behaviour)
+    drawer.querySelectorAll('.drawer-accordion-toggle').forEach(other => {
+      if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
+    });
+  });
+});
 
   document.querySelectorAll('.tc-trigger').forEach(btn => {
     btn.addEventListener('click', () => {

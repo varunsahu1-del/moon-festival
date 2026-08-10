@@ -281,7 +281,7 @@ async function sendConfirmation({ booking, guests }) {
     + '</td></tr></table>'  // end outer wrapper
     + '</body></html>';
 
-  const subject = booking.booking_ref + ' · You\'re confirmed for Moon Festival 2026 🌙';
+  const subject = booking.booking_ref + ' · Booking Confirmed · ' + primary.full_name;
 
   const mailOptions = {
     from: FROM,
@@ -586,7 +586,7 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
     from: FROM,
     to: toAddresses,
     bcc: ADMIN_BCC,
-    subject: `${booking.booking_ref} · Complete Your Payment · Moon Festival 2026`,
+    subject: `${booking.booking_ref} · Payment Due · ${primary.full_name || ''}`,
     html,
   });
   console.log('[email] Payment pending email sent for', booking.booking_ref);
@@ -648,16 +648,20 @@ async function sendSplitPaymentEmail({ booking, guests, part1, part2, total, lin
   console.log('[email] Split payment email sent for', booking.booking_ref);
 }
 
-async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink, addedItems }) {
+async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, gstAmount, razorpayFee, amountWithGst, paymentLink, addedItems }) {
   if (!process.env.RESEND_API_KEY) {
     console.log('[email] RESEND_API_KEY not set — skipping addon payment email');
     return;
   }
-  
+
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
-  const totalWithGst = Math.round(addonTotal * 1.05);
-  const totalFmt = '₹' + totalWithGst.toLocaleString('en-IN');
+  // Support old callers that don't pass pre-computed fee breakdown
+  const _gst      = gstAmount  != null ? gstAmount  : Math.round(addonTotal * 0.05);
+  const _afterGst = addonTotal + _gst;
+  const _rzpFee   = razorpayFee != null ? razorpayFee : Math.round(_afterGst * 0.0236);
+  const _total    = amountWithGst != null ? amountWithGst : (_afterGst + _rzpFee);
+  const totalFmt  = '₹' + _total.toLocaleString('en-IN');
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
 
   // Use addedItems for the headline if provided, otherwise fall back to all addonLines
@@ -698,9 +702,24 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
     + `<tr><td colspan="2" style="padding:4px 18px 10px;border-bottom:1px solid ${C.border};">`
     + `<table width="100%" cellpadding="0" cellspacing="0">${addedRows}</table>`
     + '</td></tr>'
-    + `<tr><td style="padding:14px 18px;">`
-    + `<p style="margin:0;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Amount Due (incl. 5% GST)</p>`
-    + `</td><td style="padding:14px 18px;text-align:right;" align="right">`
+    + `<tr><td style="padding:10px 18px 4px;">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">Subtotal</p>`
+    + `</td><td style="padding:10px 18px 4px;text-align:right;" align="right">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">${fmt(addonTotal)}</p>`
+    + '</td></tr>'
+    + `<tr><td style="padding:4px 18px;">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">+ 5% GST</p>`
+    + `</td><td style="padding:4px 18px;text-align:right;" align="right">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">${fmt(_gst)}</p>`
+    + '</td></tr>'
+    + `<tr><td style="padding:4px 18px 12px;">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">+ 2.36% payment processing fee</p>`
+    + `</td><td style="padding:4px 18px 12px;text-align:right;" align="right">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">${fmt(_rzpFee)}</p>`
+    + '</td></tr>'
+    + `<tr><td style="padding:12px 18px;border-top:1px solid ${C.border};">`
+    + `<p style="margin:0;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Total Due</p>`
+    + `</td><td style="padding:12px 18px;text-align:right;border-top:1px solid ${C.border};" align="right">`
     + `<p style="margin:0;font-family:${OPEN};font-size:20px;font-weight:700;color:${C.gold};">${totalFmt}</p>`
     + '</td></tr></table></td></tr>'
     + `<tr><td style="padding:24px 48px;">`
@@ -866,7 +885,7 @@ async function sendUpiPendingGuest({ booking, guests }) {
     await sendEmail({
       from: FROM,
       to: primary.email,
-      subject: booking.booking_ref + ' · Your spot is reserved — confirmation within 24 hours 🌙',
+      subject: booking.booking_ref + ' · Payment Received · ' + primary.full_name,
       html,
     });
     console.log('[email] UPI pending guest email sent to', primary.email);

@@ -115,7 +115,7 @@
       <div class="tc-divider"></div>
       <p class="tc-body">Cancellation by the organiser is not something we take lightly — and given the scale of Moon Festival, it is effectively not possible from our end. Every edition involves hundreds of vendors, hotels, suppliers, and partners who plan months in advance; a cancellation has consequences far beyond the festival itself. We hold ourselves to that commitment seriously.
 
-That said, certain circumstances are genuinely beyond anyone's control — including severe weather events, political unrest, war, epidemics, government orders, or other force majeure situations. Should Moon Festival 2026 be cancelled or postponed due to any such event, we will offer a part credit toward a future edition. In such cases, the circumstances will be carefully assessed and a decision will be made on either a partial repayment or a carry-forward to the next edition.</p>
+That said, certain circumstances are genuinely beyond anyone's control — including severe weather events, political unrest, war, epidemics, government orders, or other force majeure situations. In the event of cancellation or postponement due to any such event, we will assess the situation in good faith — taking into account costs already committed to venues and operations — and communicate our resolution to all ticket holders as soon as possible.</p>
     </div>
 
     <div class="tc-item">
@@ -193,6 +193,17 @@ That said, certain circumstances are genuinely beyond anyone's control — inclu
     drawer.setAttribute('aria-hidden', true);
     document.body.style.overflow = '';
   }));
+drawer.querySelectorAll('.drawer-accordion-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.classList.toggle('open');
+    panel.classList.toggle('open', isOpen);
+    // close others (accordion behaviour)
+    drawer.querySelectorAll('.drawer-accordion-toggle').forEach(other => {
+      if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
+    });
+  });
+});
 </script>
 
 </body>

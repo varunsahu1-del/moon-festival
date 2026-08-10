@@ -49,6 +49,9 @@
     .meals-herb-l  { animation: herbSway 4s ease-in-out infinite; transform-origin: 24px 34px; }
     .meals-herb-r  { animation: herbSway 4s ease-in-out 1.5s infinite; transform-origin: 48px 34px; }
     .meals-lotus   { animation: lotusPulse 3.5s ease-in-out infinite; }
+  @media (max-width: 767px) {
+    .meal-times-section { padding-top: 0.5rem !important; }
+  }
   </style>
 </head>
 <body>
@@ -65,7 +68,7 @@
 <section style="background: var(--ink); padding: var(--s-4) 0 var(--s-6);">
   <div class="meals-thumb-grid">
       <img src="Meals Page Images/buffet 5 cake.jpg" alt="" class="meals-thumb" />
-      <img src="Meals Page Images/Restaurant guests buffet table daytime.jpg" alt="" class="meals-thumb" />
+      <img src="Meals Page Images/WhatsApp Image 2026-08-10 at 11.54.52 AM.jpeg" alt="" class="meals-thumb" />
       <img src="Meals Page Images/jackfruit wine.jpg" alt="" class="meals-thumb" />
       <img src="Meals Page Images/Moon Festival-29.jpg" alt="" class="meals-thumb" />
       <img src="Meals Page Images/buffet 6 guests.jpg" alt="" class="meals-thumb" />
@@ -105,6 +108,12 @@
     <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
     <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 2rem;">We serve <strong style="font-weight:600;">two satvic meals each day</strong> — a mix of traditional Southern Indian cuisine with a European twist. Vegan &amp; gluten-free options always available. <strong style="font-weight:600;">Fresh, local &amp; seasonal</strong> — carefully prepared with love. We have <strong style="font-weight:600;color:#B06030;">capacity for 70 people only.</strong> Meals can be added <strong style="font-weight:600;">as an add-on during checkout.</strong></p>
     <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.2rem);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0 auto 2rem;max-width:52ch;">First Come, First Served.</p>
+  </div>
+  <div style="display:flex;gap:0;width:100%;max-width:700px;margin:0 auto 2rem;">
+    <img src="Meals Page Images/DSC_0188.jpg" alt="" style="width:50%;aspect-ratio:1;object-fit:cover;display:block;opacity:0.9;object-position:85% center;">
+    <img src="Meals Page Images/Restaurant guests buffet table daytime.jpg" alt="" style="width:50%;aspect-ratio:1;object-fit:cover;display:block;opacity:0.9;">
+  </div>
+  <div style="max-width:700px;margin:0 auto;padding:0 var(--pad);">
     <div style="border-top:0.5px solid rgba(237,212,178,0.08);margin:2rem 0;"></div>
   </div>
 </section>
@@ -200,7 +209,8 @@
       <!-- ground line -->
       <path d="M14 68 C30 70 70 70 86 68" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
     </svg>
-    <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Tribal Lunch</p>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.4rem;">Tribal Lunch Experience</p>
+    <p style="display:inline-block;font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#B06030;border:0.5px solid rgba(176,96,48,0.5);border-radius:2px;padding:0.2em 0.65em;margin:0 0 0.7rem;">Optional Add-on</p>
     <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.7rem;">Available All Three Days · 27, 28 &amp; 29 November</p>
     <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto 1.4rem;"></div>
     <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,1.6vw,1.05rem);font-weight:300;letter-spacing:0.02em;line-height:2.2;color:#EDD4B2;max-width:52ch;margin:0 auto 2rem;"><strong style="font-weight:600;">Tribal women</strong> from <strong style="font-weight:600;">deep inside the forest</strong> — carrying generations of knowing in their hands. <strong style="font-weight:600;">No oil. No shortcuts.</strong> Just <strong style="font-weight:600;">wood fire, earthen pots</strong>, and time. The recipes are old — passed through South Indian tribal lineages, the spices are gathered from the forest floor, <strong style="font-weight:600;">food is served on jackfruit leaves, slow-cooked.</strong> The simplicity is the point.</p>
@@ -218,7 +228,7 @@
 </section>
 
 <!-- ── MEAL TIMES ──────────────────────────────────────────── -->
-<section style="background: var(--ink); text-align: center; padding: var(--s-6) 0 var(--s-12);">
+<section style="background: var(--ink); text-align: center; padding: var(--s-6) 0 var(--s-12);" class="meal-times-section">
   <div class="container">
     <div style="display: flex; justify-content: center; align-items: center; gap: clamp(1.5rem,8vw,4rem); flex-wrap: wrap;">
       <div style="text-align: center; min-width: 120px;">

@@ -517,8 +517,9 @@
       display: inline-block;
     }
     .venue-hero-badge--ac, .venue-hero-badge--dark {
-      background: rgba(176,96,48,0.85) !important;
-      border-color: rgba(176,96,48,0.9) !important;
+      background: #8C4A20 !important;
+      border-color: #8C4A20 !important;
+      color: #EDD4B2 !important;
     }
     .venue-hero-badge--fav {
       background: rgba(26,16,7,0.92) !important;
@@ -1078,284 +1079,6 @@
     }
     .contact-cta a:hover { color: #EDD4B2; }
 
-    /* ── BOOKING FORM MODAL ──────────────────────────── */
-    .booking-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15,10,2,0.88);
-      z-index: 1001;
-      overflow-y: auto;
-      padding: 2rem 1rem;
-    }
-    .booking-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
-    .booking-modal {
-      background: var(--ink-2);
-      border: 0.5px solid rgba(237,212,178,0.1);
-      max-width: 520px;
-      width: 100%;
-      margin: auto;
-      padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.5rem);
-      position: relative;
-    }
-    .booking-modal-close {
-      position: absolute;
-      top: 0.9rem;
-      right: 0.9rem;
-      background: rgba(15,10,2,0.65);
-      border: 0.5px solid rgba(237,212,178,0.3);
-      color: #EDD4B2;
-      font-size: 1rem;
-      width: 2.2rem;
-      height: 2.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .booking-modal-close:hover { background: rgba(176,96,48,0.7); }
-    .booking-modal-eyebrow {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.55rem, 0.8vw, 0.65rem);
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #B06030;
-      margin: 0 0 0.6rem;
-    }
-    .booking-modal-title {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      color: #EDD4B2;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin: 0 0 0.5rem;
-      line-height: 1;
-    }
-    .booking-modal-sub {
-      font-family: 'Open Sans', sans-serif;
-      font-size: clamp(0.75rem, 1.2vw, 0.85rem);
-      font-weight: 300;
-      color: rgba(237,212,178,0.45);
-      margin: 0 0 2rem;
-      line-height: 1.7;
-    }
-    .booking-selected { display: none; }
-    /* Ticket card */
-    .booking-ticket {
-      border: 0.5px solid rgba(176,96,48,0.35);
-      margin-bottom: 2rem;
-      display: none;
-    }
-    .booking-ticket.visible { display: block; }
-    .bt-header {
-      padding: 0.9rem 1.2rem 0.85rem;
-      border-bottom: 0.5px solid rgba(176,96,48,0.25);
-    }
-    .bt-eyebrow {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.58rem;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #B06030;
-      margin: 0 0 0.35rem;
-    }
-    .bt-venue {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.88rem, 1.6vw, 1rem);
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #EDD4B2;
-      margin: 0 0 0.2rem;
-    }
-    .bt-room {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(237,212,178,0.45);
-      margin: 0;
-    }
-    /* Perforated separator */
-    .bt-perforation {
-      height: 0;
-      border: none;
-      border-top: 1px dashed rgba(176,96,48,0.3);
-      margin: 0;
-    }
-    .bt-details {
-      display: flex;
-      gap: 0;
-      padding: 0.85rem 1.2rem;
-      border-bottom: 0.5px solid rgba(176,96,48,0.25);
-    }
-    .bt-col {
-      flex: 1;
-    }
-    .bt-col + .bt-col {
-      border-left: 0.5px solid rgba(176,96,48,0.2);
-      padding-left: 1rem;
-    }
-    .bt-detail-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.55rem;
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #B06030;
-      margin: 0 0 0.25rem;
-    }
-    .bt-detail-value {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #EDD4B2;
-      margin: 0;
-    }
-    .bt-footer {
-      padding: 0.85rem 1.2rem;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-    }
-    .bt-price-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.55rem;
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(237,212,178,0.4);
-      margin: 0 0 0.2rem;
-    }
-    .bt-price-base {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #EDD4B2;
-      margin: 0;
-    }
-    .bt-gst {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.58rem;
-      font-weight: 300;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(237,212,178,0.35);
-      text-align: right;
-    }
-    .bt-total-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.55rem;
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(237,212,178,0.4);
-      margin: 0 0 0.2rem;
-      text-align: right;
-    }
-    .bt-total-price {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #B06030;
-      margin: 0;
-      text-align: right;
-    }
-    .booking-form { display: flex; flex-direction: column; gap: 0; }
-    .booking-field { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.4rem 0; }
-    .booking-field:first-child { padding-top: 0; }
-    .booking-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.68rem, 1vw, 0.78rem);
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #EDD4B2;
-    }
-    .booking-input {
-      font-family: 'Open Sans', sans-serif;
-      font-size: clamp(0.8rem, 1.3vw, 0.88rem);
-      font-weight: 300;
-      color: #EDD4B2;
-      background: transparent;
-      border: none;
-      border-bottom: 0.5px solid rgba(237,212,178,0.2);
-      padding: 0.5em 0;
-      outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-    .booking-input:focus { border-color: #B06030; }
-    .booking-input::placeholder { color: rgba(237,212,178,0.2); }
-    .booking-submit {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.6rem, 0.88vw, 0.7rem);
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #EDD4B2;
-      background: #B06030;
-      border: none;
-      padding: 0.9em 2em;
-      cursor: pointer;
-      margin-top: 0.6rem;
-      transition: opacity 0.2s;
-      align-self: flex-start;
-    }
-    .booking-submit:hover { opacity: 0.85; }
-    .booking-person-section + .booking-person-section { margin-top: 1.8rem; padding-top: 1.5rem; border-top: 0.5px solid rgba(176,96,48,0.2); }
-    .booking-person-heading {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold, #B06030);
-      margin: 0 0 1rem;
-    }
-    .booking-input.input-error { border-color: #c0392b; }
-    .field-error {
-      display: block;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.72rem;
-      color: #e74c3c;
-      margin-top: 0.3em;
-    }
-    .city-autocomplete { position: relative; }
-    .city-suggestions {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0; right: 0;
-      background: #1e1a0e;
-      border: 0.5px solid rgba(176,96,48,0.35);
-      z-index: 10;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    .city-suggestions.open { display: block; }
-    .city-suggestion {
-      font-family: 'Open Sans', sans-serif;
-      font-size: clamp(0.78rem, 1.2vw, 0.85rem);
-      font-weight: 300;
-      color: rgba(237,212,178,0.7);
-      padding: 0.55em 0.8em;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-    }
-    .city-suggestion:hover, .city-suggestion.highlighted {
-      background: rgba(176,96,48,0.15);
-      color: #EDD4B2;
-    }
-
     /* ── Destiny Add-ons ─────────────────────────────── */
     .destiny-addons {
       margin-top: 14px;
@@ -1462,185 +1185,6 @@
   </style>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="qrcode.min.js"></script>
-  <style>
-    /* ── PAYMENT METHOD MODAL ─────────────────────────── */
-    .pay-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15,10,2,0.92);
-      z-index: 1100;
-      overflow-y: auto;
-      padding: 2rem 1rem;
-    }
-    .pay-overlay.open { display: flex; align-items: center; justify-content: center; }
-    .pay-modal {
-      background: #191406;
-      border: 0.5px solid rgba(176,96,48,0.35);
-      max-width: 480px;
-      width: 100%;
-      padding: clamp(1.6rem, 4vw, 2.4rem) clamp(1.4rem, 4vw, 2.2rem);
-      position: relative;
-      margin: auto;
-    }
-    .pay-modal-eyebrow {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 300;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #B06030;
-      margin: 0 0 0.4rem;
-    }
-    .pay-modal-title {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(1.2rem, 3vw, 1.6rem);
-      color: #EDD4B2;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin: 0 0 0.3rem;
-      line-height: 1.1;
-    }
-    .pay-modal-ref {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.78rem;
-      color: rgba(237,212,178,0.4);
-      margin: 0 0 1.6rem;
-    }
-    .pay-method-card {
-      border: 0.5px solid rgba(176,96,48,0.28);
-      padding: 1rem 1.2rem;
-      margin-bottom: 0.75rem;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      background: rgba(176,96,48,0.03);
-    }
-    .pay-method-card:last-child { margin-bottom: 0; }
-    .pay-method-card:hover { border-color: rgba(176,96,48,0.6); background: rgba(176,96,48,0.07); }
-    .pay-method-card.selected { border-color: #B06030; background: rgba(176,96,48,0.1); }
-    .pay-method-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      margin-bottom: 0.35rem;
-    }
-    .pay-method-name {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #EDD4B2;
-    }
-    .pay-method-badge {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.55rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #8FAF7E;
-      border: 0.5px solid rgba(143,175,126,0.4);
-      padding: 0.2em 0.6em;
-      white-space: nowrap;
-    }
-    .pay-method-desc {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: rgba(237,212,178,0.5);
-      line-height: 1.6;
-      margin: 0;
-    }
-    .pay-method-desc strong { color: rgba(237,212,178,0.8); }
-    .pay-method-detail {
-      display: none;
-      margin-top: 0.9rem;
-      padding-top: 0.9rem;
-      border-top: 0.5px solid rgba(176,96,48,0.2);
-    }
-    .pay-method-card.selected .pay-method-detail { display: block; }
-    .pay-upi-id {
-      font-family: monospace;
-      font-size: 1rem;
-      color: #EDD4B2;
-      background: rgba(176,96,48,0.12);
-      border: 0.5px solid rgba(176,96,48,0.3);
-      padding: 0.5rem 0.8rem;
-      display: inline-block;
-      margin-bottom: 0.6rem;
-      letter-spacing: 0.04em;
-    }
-    .pay-upi-save-note {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.58rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #8FAF7E;
-      margin-bottom: 0.8rem;
-    }
-    .pay-upi-link {
-      display: inline-block;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #191406;
-      background: #B06030;
-      border: none;
-      padding: 0.55em 1.4em;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      margin-bottom: 0.8rem;
-    }
-    .pay-upi-link:hover { opacity: 0.85; }
-    .pay-action-btn {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #EDD4B2;
-      background: rgba(176,96,48,0.15);
-      border: 0.5px solid rgba(176,96,48,0.5);
-      padding: 0.65em 1.5em;
-      cursor: pointer;
-      transition: background 0.2s;
-      width: 100%;
-      margin-top: 0.6rem;
-    }
-    .pay-action-btn:hover { background: rgba(176,96,48,0.28); }
-    .pay-action-btn.primary {
-      background: #B06030;
-      border: none;
-      border-radius: 0;
-      color: #ffffff;
-      padding: 1.1rem 1.5em;
-    }
-    .pay-action-btn.primary:hover { background: #C47D52; }
-    .pay-wa-link {
-      display: inline-block;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #191406;
-      background: #25D366;
-      border: none;
-      padding: 0.55em 1.4em;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      width: 100%;
-      display: block;
-      text-align: center;
-      margin-top: 0.6rem;
-    }
-    .pay-wa-link:hover { opacity: 0.85; }
-  </style>
 </head>
 <body>
 
@@ -1767,7 +1311,7 @@
             </svg>
           </div>
           <p class="incl-tile-name">Full Festival Access</p>
-          <p class="incl-tile-desc"><strong style="font-weight:600;">Every workshop, ceremony, music act &amp; talk</strong> — your all-access pass to everything at Moon Festival.</p>
+          <p class="incl-tile-desc"><strong style="font-weight:600;">All workshops, ceremonies, talks, performances &amp; gigs &amp; bands across 3 days</strong> — your all-access pass to everything at Moon Festival.</p>
         </div>
 
         <!-- Tile 2: Stay -->
@@ -1783,7 +1327,7 @@
             </svg>
           </div>
           <p class="incl-tile-name">3 Nights · 4 Days Stay</p>
-          <p class="incl-tile-desc">27–30 Nov at your chosen venue. Check-in 27 Nov, 2pm · Check-out 30 Nov, 11am.</p>
+          <p class="incl-tile-desc">27–30 Nov stay, at your chosen venue. Check-in 27 Nov, 2pm · Check-out 30 Nov, 11am.</p>
         </div>
 
 
@@ -1799,7 +1343,7 @@
           </div>
           <div class="incl-addon-info">
             <p class="incl-tile-name">Early Check-in · 26 Nov</p>
-            <p class="incl-tile-desc">Come in on 26 Nov. Inauguration at 7pm, 26 Nov.</p>
+            <p class="incl-tile-desc">Early check-in at 2pm on 26 Nov &amp; festival orientation: 7pm, 26 Nov.</p>
           </div>
           <div class="incl-addon-meta">
             <p class="incl-tile-cap">Essential</p>
@@ -2376,7 +1920,7 @@
           What is the refund policy?
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-answer">Tickets are non-refundable but fully transferable until one month before the festival. After that date, transfers are handled case-by-case. If the event is cancelled, we offer full credit toward the following year.</div>
+        <div class="faq-answer">Tickets are non-refundable. You may transfer your ticket to another person, or carry it forward to Moon Festival 2027, up to 5 days before the festival (i.e. before 22 November). In the event of cancellation or postponement due to circumstances beyond our control, we will assess the situation in good faith — taking into account costs already committed to venues and operations — and communicate our resolution to all ticket holders as soon as possible.</div>
       </div>
 
       <div class="faq-item">
@@ -2430,77 +1974,6 @@
   </div>
 </div>
 
-<div class="booking-overlay" id="bookingOverlay">
-  <div class="booking-modal">
-    <button class="booking-modal-close" id="bookingModalClose">✕</button>
-    <p class="booking-modal-eyebrow">Moon Festival 2026</p>
-    <h2 class="booking-modal-title">Book Your Place</h2>
-    <p class="booking-modal-sub">Complete your details below and we'll be in touch to confirm your booking.</p>
-    <p class="booking-selected" id="bookingSelected"></p>
-    <!-- Ticket-style booking summary -->
-    <div class="booking-ticket" id="bookingTicketCard">
-      <div class="bt-header">
-        <p class="bt-eyebrow">Your Booking</p>
-        <p class="bt-venue" id="btVenue"></p>
-        <p class="bt-room" id="btRoom"></p>
-      </div>
-      <hr class="bt-perforation">
-      <div class="bt-details">
-        <div class="bt-col">
-          <p class="bt-detail-label">Check-In</p>
-          <p class="bt-detail-value">14 Feb 2026</p>
-          <p class="bt-detail-label" style="margin-top:0.7rem;">Check-Out</p>
-          <p class="bt-detail-value">17 Feb 2026</p>
-        </div>
-        <div class="bt-col">
-          <p class="bt-detail-label">Includes</p>
-          <p class="bt-detail-value" style="font-weight:300;letter-spacing:0.08em;text-transform:none;font-family:'Open Sans',sans-serif;font-size:0.65rem;color:rgba(237,212,178,0.55);line-height:1.7;">3 nights accommodation<br>All meals<br>Festival access<br>Workshops</p>
-        </div>
-      </div>
-      <hr class="bt-perforation">
-      <div class="bt-footer">
-        <div>
-          <p class="bt-price-label">Base Price</p>
-          <p class="bt-price-base" id="btBase"></p>
-          <p class="bt-gst" id="btGst"></p>
-        </div>
-        <div>
-          <p class="bt-total-label">Total</p>
-          <p class="bt-total-price" id="btTotal"></p>
-        </div>
-      </div>
-    </div>
-    <form class="booking-form" id="bookingForm" novalidate>
-      <!-- DEV ONLY — remove before launch -->
-      <button type="button" onclick="devAutofill()" style="margin-bottom:1.2rem;background:#B06030;color:#EDD4B2;border:none;border-radius:6px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;cursor:pointer;width:100%;">FILL TEST DATA</button>
-      <div id="bookingPersons"></div>
-
-      <!-- Notes to organizer (optional) -->
-      <div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid rgba(176,96,48,0.15);">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;margin:0 0 0.3rem;">Notes to Organizer <span style="font-weight:300;color:rgba(237,212,178,0.4);letter-spacing:0.1em;text-transform:none;font-size:0.6rem;">(optional)</span></p>
-        <div class="booking-field" style="padding-top:1rem;">
-          <textarea class="booking-input" id="bf-organizer-note" rows="3" placeholder="Roommate requests, dietary requirements, accessibility needs, special requests…" style="resize:vertical;min-height:72px;line-height:1.5;"></textarea>
-        </div>
-      </div>
-
-      <!-- GST (optional) -->
-      <div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid rgba(176,96,48,0.15);">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;margin:0 0 0.3rem;">GST Details <span style="font-weight:300;color:rgba(237,212,178,0.4);letter-spacing:0.1em;text-transform:none;font-size:0.6rem;">(optional)</span></p>
-        <div class="booking-field" style="padding-top:1rem;">
-          <label class="booking-label" for="bf-gst-number">GSTIN</label>
-          <input class="booking-input" id="bf-gst-number" type="text" placeholder="22AAAAA0000A1Z5" maxlength="15" style="text-transform:uppercase;" />
-        </div>
-        <div class="booking-field">
-          <label class="booking-label" for="bf-gst-name">Company / Legal Name</label>
-          <input class="booking-input" id="bf-gst-name" type="text" placeholder="As per GST registration" />
-        </div>
-      </div>
-
-      <button type="submit" class="booking-submit" style="margin-top:2rem;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;background:#B06030;color:#EDD4B2;border:none;padding:1rem 2.5rem;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#8B4520'" onmouseout="this.style.background='#B06030'">Proceed to Payment →</button>
-    </form>
-  </div>
-</div>
-
 <script>
 // Nav toggle
 const toggle = document.getElementById('navToggle');
@@ -2519,6 +1992,17 @@ drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   drawer.setAttribute('aria-hidden', true);
   document.body.style.overflow = '';
 }));
+drawer.querySelectorAll('.drawer-accordion-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.classList.toggle('open');
+    panel.classList.toggle('open', isOpen);
+    // close others (accordion behaviour)
+    drawer.querySelectorAll('.drawer-accordion-toggle').forEach(other => {
+      if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
+    });
+  });
+});
 
 // ── City autocomplete helper (reusable per input) ──────────────────────────
 const cities = [
@@ -2568,185 +2052,6 @@ function initCityAutocomplete(input, suggestionsDiv) {
   document.addEventListener('click', e => {
     if (!e.target.closest('.city-autocomplete')) suggestionsDiv.classList.remove('open');
   });
-}
-
-// ── Booking modal ───────────────────────────────────────────────────────────
-const bookingOverlay = document.getElementById('bookingOverlay');
-const bookingSelected = document.getElementById('bookingSelected');
-const bookingForm = document.getElementById('bookingForm');
-const bookingPersons = document.getElementById('bookingPersons');
-
-function showFieldError(input, msg) {
-  input.classList.add('input-error');
-  const wrap = input.closest('.booking-field') || input.parentElement;
-  let err = wrap.querySelector('.field-error');
-  if (!err) { err = document.createElement('span'); err.className = 'field-error'; wrap.appendChild(err); }
-  err.textContent = msg;
-}
-
-function clearFieldError(input) {
-  input.classList.remove('input-error');
-  const wrap = input.closest('.booking-field') || input.parentElement;
-  const err = wrap.querySelector('.field-error');
-  if (err) err.remove();
-}
-
-function buildPersonFields(count) {
-  bookingPersons.innerHTML = '';
-  for (let i = 1; i <= count; i++) {
-    const section = document.createElement('div');
-    section.className = 'booking-person-section';
-    if (count > 1) {
-      const heading = document.createElement('p');
-      heading.className = 'booking-person-heading';
-      heading.textContent = 'Guest ' + i;
-      section.appendChild(heading);
-    }
-    section.innerHTML += `
-      <div class="booking-field">
-        <label class="booking-label" for="bf-name-${i}">Full Name</label>
-        <input class="booking-input" id="bf-name-${i}" type="text" placeholder="Full name" />
-      </div>
-      <div class="booking-field" id="bf-whatsapp-wrap-${i}">
-        <label class="booking-label" for="bf-whatsapp-${i}">WhatsApp Number</label>
-        <div style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.2);">
-          <select id="bf-cc-${i}" style="background:transparent;border:none;color:#EDD4B2;font-family:'Open Sans',sans-serif;font-size:clamp(0.8rem,1.3vw,0.88rem);font-weight:300;padding:0.5em 0;outline:none;cursor:pointer;min-width:76px;flex-shrink:0;-webkit-appearance:none;appearance:none;">
-            <option value="+91">🇮🇳 +91</option>
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+44">🇬🇧 +44</option>
-            <option value="+61">🇦🇺 +61</option>
-            <option value="+49">🇩🇪 +49</option>
-            <option value="+33">🇫🇷 +33</option>
-            <option value="+34">🇪🇸 +34</option>
-            <option value="+39">🇮🇹 +39</option>
-            <option value="+31">🇳🇱 +31</option>
-            <option value="+41">🇨🇭 +41</option>
-            <option value="+65">🇸🇬 +65</option>
-            <option value="+971">🇦🇪 +971</option>
-            <option value="+60">🇲🇾 +60</option>
-            <option value="+66">🇹🇭 +66</option>
-            <option value="+81">🇯🇵 +81</option>
-            <option value="+82">🇰🇷 +82</option>
-            <option value="+55">🇧🇷 +55</option>
-            <option value="+27">🇿🇦 +27</option>
-            <option value="+7">🇷🇺 +7</option>
-            <option value="+86">🇨🇳 +86</option>
-          </select>
-          <input class="booking-input" id="bf-whatsapp-${i}" type="tel" placeholder="00000 00000" style="flex:1;padding-left:0.4rem;" />
-        </div>
-      </div>
-      <div class="booking-field">
-        <label class="booking-label" for="bf-email-${i}">Email</label>
-        <input class="booking-input" id="bf-email-${i}" type="email" placeholder="your@email.com" />
-      </div>
-      <div class="booking-field">
-        <label class="booking-label" for="bf-city-${i}">City</label>
-        <div class="city-autocomplete">
-          <input class="booking-input" id="bf-city-${i}" type="text" placeholder="Where are you based?" autocomplete="off" />
-          <div class="city-suggestions" id="citySuggestions-${i}"></div>
-        </div>
-      </div>
-      <div class="booking-field">
-        <label class="booking-label" for="bf-age-${i}">Age</label>
-        <input class="booking-input" id="bf-age-${i}" type="number" placeholder="Age (18+)" min="18" />
-      </div>
-      <div class="booking-field">
-        <label class="booking-label">Gender</label>
-        <div style="display:flex;gap:1.5rem;padding:0.4rem 0;">
-          <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-family:'Open Sans',sans-serif;font-size:0.82rem;color:rgba(237,212,178,0.7);">
-            <input type="radio" name="bf-gender-${i}" id="bf-gender-${i}-m" value="Male" style="accent-color:#B06030;" /> Male
-          </label>
-          <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-family:'Open Sans',sans-serif;font-size:0.82rem;color:rgba(237,212,178,0.7);">
-            <input type="radio" name="bf-gender-${i}" id="bf-gender-${i}-f" value="Female" style="accent-color:#B06030;" /> Female
-          </label>
-        </div>
-      </div>
-    `;
-    if (i === 1) {
-      const addrFields = document.createElement('div');
-      addrFields.innerHTML = `
-        <div class="booking-field">
-          <label class="booking-label" for="bf-address-1">Address <span style="font-weight:300;color:rgba(237,212,178,0.4);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(for invoice)</span></label>
-          <input class="booking-input" id="bf-address-1" type="text" placeholder="Flat / Building / Street" />
-        </div>
-        <div class="booking-field" style="display:flex;gap:1rem;">
-          <div style="flex:1;">
-            <label class="booking-label" for="bf-state-1">State</label>
-            <select class="booking-input" id="bf-state-1" style="cursor:pointer;-webkit-appearance:none;appearance:none;background:transparent;color:#EDD4B2;">
-              <option value="" disabled selected style="background:#1a1008;">Select state</option>
-              <option style="background:#1a1008;">Andhra Pradesh</option><option style="background:#1a1008;">Arunachal Pradesh</option><option style="background:#1a1008;">Assam</option>
-              <option style="background:#1a1008;">Bihar</option><option style="background:#1a1008;">Chhattisgarh</option><option style="background:#1a1008;">Goa</option>
-              <option style="background:#1a1008;">Gujarat</option><option style="background:#1a1008;">Haryana</option><option style="background:#1a1008;">Himachal Pradesh</option>
-              <option style="background:#1a1008;">Jharkhand</option><option style="background:#1a1008;">Karnataka</option><option style="background:#1a1008;">Kerala</option>
-              <option style="background:#1a1008;">Madhya Pradesh</option><option style="background:#1a1008;">Maharashtra</option><option style="background:#1a1008;">Manipur</option>
-              <option style="background:#1a1008;">Meghalaya</option><option style="background:#1a1008;">Mizoram</option><option style="background:#1a1008;">Nagaland</option>
-              <option style="background:#1a1008;">Odisha</option><option style="background:#1a1008;">Punjab</option><option style="background:#1a1008;">Rajasthan</option>
-              <option style="background:#1a1008;">Sikkim</option><option style="background:#1a1008;">Tamil Nadu</option><option style="background:#1a1008;">Telangana</option>
-              <option style="background:#1a1008;">Tripura</option><option style="background:#1a1008;">Uttar Pradesh</option><option style="background:#1a1008;">Uttarakhand</option>
-              <option style="background:#1a1008;">West Bengal</option><option style="background:#1a1008;">Delhi</option><option style="background:#1a1008;">Outside India</option>
-            </select>
-          </div>
-          <div style="width:120px;">
-            <label class="booking-label" for="bf-pin-1">PIN Code</label>
-            <input class="booking-input" id="bf-pin-1" type="text" placeholder="400052" maxlength="6" />
-          </div>
-        </div>
-      `;
-      // Insert before the gender field (last child)
-      const genderField = section.querySelector('.booking-field:last-child');
-      section.insertBefore(addrFields, genderField);
-    }
-
-    bookingPersons.appendChild(section);
-    initCityAutocomplete(
-      document.getElementById('bf-city-' + i),
-      document.getElementById('citySuggestions-' + i)
-    );
-    ['-name-', '-whatsapp-', '-email-', '-city-', '-age-'].forEach(field => {
-      const el = document.getElementById('bf' + field + i);
-      if (el) el.addEventListener('input', () => clearFieldError(el));
-    });
-
-    const waInput = document.getElementById('bf-whatsapp-' + i);
-    if (waInput) {
-      waInput.addEventListener('input', () => {
-        // allow only digits, +, spaces, hyphens
-        const cleaned = waInput.value.replace(/[^\d+\s\-]/g, '');
-        if (waInput.value !== cleaned) waInput.value = cleaned;
-      });
-      waInput.addEventListener('keydown', e => {
-        const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'];
-        if (allowed.includes(e.key)) return;
-        if (e.ctrlKey || e.metaKey) return;
-        if (!/[\d+\s\-]/.test(e.key)) e.preventDefault();
-      });
-    }
-  }
-}
-
-function openBookingModal(label, count) {
-  bookingSelected.textContent = label;
-  buildPersonFields(count || 1);
-  // Populate ticket card
-  const parts = label.split(' · ');
-  const venue = parts[0] || '';
-  const room  = parts[1] || '';
-  const priceStr = parts[2] || '';
-  const base = parseInt(priceStr.replace(/[^\d]/g, ''), 10);
-  document.getElementById('btVenue').textContent = venue;
-  document.getElementById('btRoom').textContent = room;
-  if (base) {
-    const gst = Math.round(base * (window._GST_RATE || 0.05));
-    const total = base + gst;
-    const fmt = n => '₹' + n.toLocaleString('en-IN');
-    document.getElementById('btBase').textContent = fmt(base);
-    document.getElementById('btGst').textContent = '+ ' + fmt(gst) + ' GST (5%)';
-    document.getElementById('btTotal').textContent = fmt(total);
-    document.getElementById('bookingTicketCard').classList.add('visible');
-  }
-  bookingOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(devAutofill, 200); // DEV ONLY
 }
 
 // ── Coupon code ──────────────────────────────────────────────────────────────
@@ -2802,34 +2107,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });
 });
 
-// DEV ONLY — remove before launch
-function devAutofill() {
-  const names  = ['Varun Sahu', 'Priya Sharma'];
-  const emails = ['varunsahu1@gmail.com', 'priya.sharma@gmail.com'];
-  const phones = ['9820000001', '9820000002'];
-  const cities = ['Mumbai', 'Goa'];
-  const ages   = ['28', '26'];
-  function set(id, val) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.value = val;
-    el.dispatchEvent(new Event('input', { bubbles: true }));
-    el.dispatchEvent(new Event('change', { bubbles: true }));
-  }
-  for (let n = 1; n <= 4; n++) {
-    const i = n - 1;
-    set('bf-name-' + n,     names[i]  || 'Test Guest ' + n);
-    set('bf-email-' + n,    emails[i] || 'test' + n + '@test.com');
-    set('bf-whatsapp-' + n, phones[i] || '980000000' + n);
-    set('bf-city-' + n,     cities[i] || 'Mumbai');
-    set('bf-age-' + n,      ages[i]   || '25');
-  }
-  set('bf-address-1', '14 Sea View Apartments, Bandra West');
-  set('bf-city-addr-1', 'Mumbai');
-  set('bf-state-1', 'Maharashtra');
-  set('bf-pin-1', '400050');
-}
-
 document.querySelectorAll('.btn-book').forEach(btn => {
   btn.addEventListener('click', () => {
     const row  = btn.closest('.room-row');
@@ -2860,173 +2137,6 @@ document.querySelectorAll('.btn-book').forEach(btn => {
   });
 });
 
-document.getElementById('bookingModalClose').addEventListener('click', () => {
-  bookingOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-});
-
-bookingOverlay.addEventListener('click', e => {
-  if (e.target === bookingOverlay) {
-    bookingOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-});
-
-bookingForm.addEventListener('submit', async e => {
-  e.preventDefault();
-  const sections = bookingPersons.querySelectorAll('.booking-person-section');
-  let valid = true;
-
-  sections.forEach((_, i) => {
-    const n = i + 1;
-
-    const name = document.getElementById('bf-name-' + n);
-    if (!name.value.trim() || name.value.trim().length < 2) {
-      showFieldError(name, 'Please enter the full name.');
-      valid = false;
-    }
-
-    const wa = document.getElementById('bf-whatsapp-' + n);
-    if (wa.value.replace(/\D/g, '').length < 10) {
-      const waWrap = document.getElementById('bf-whatsapp-wrap-' + n) || wa.closest('.booking-field') || wa.parentElement;
-      let waErr = waWrap.querySelector('.field-error');
-      if (!waErr) { waErr = document.createElement('span'); waErr.className = 'field-error'; waWrap.appendChild(waErr); }
-      waErr.textContent = 'Please enter a valid WhatsApp number (min 10 digits).';
-      wa.classList.add('input-error');
-      valid = false;
-    }
-
-    const em = document.getElementById('bf-email-' + n);
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) {
-      showFieldError(em, 'Please enter a valid email address.');
-      valid = false;
-    }
-
-    const city = document.getElementById('bf-city-' + n);
-    if (!city.value.trim()) {
-      showFieldError(city, 'Please enter your city.');
-      valid = false;
-    }
-
-    const age = document.getElementById('bf-age-' + n);
-    const ageVal = parseInt(age.value, 10);
-    if (!age.value || isNaN(ageVal) || ageVal < 18 || ageVal > 99) {
-      showFieldError(age, 'Please enter a valid age (18 or above).');
-      valid = false;
-    }
-
-    const genderSelected = document.querySelector(`input[name="bf-gender-${n}"]:checked`);
-    if (!genderSelected) {
-      const genderWrap = document.getElementById(`bf-gender-${n}-m`).closest('.booking-field');
-      let err = genderWrap.querySelector('.field-error');
-      if (!err) { err = document.createElement('span'); err.className = 'field-error'; genderWrap.appendChild(err); }
-      err.textContent = 'Please select a gender.';
-      valid = false;
-    }
-  });
-
-  if (!valid) return;
-
-  const submitBtn = bookingForm.querySelector('.booking-submit');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Processing…';
-
-  // Collect guest data
-  const guests = Array.from(sections).map((_, i) => {
-    const n = i + 1;
-    return {
-      full_name: document.getElementById('bf-name-' + n).value.trim(),
-      whatsapp:  (document.getElementById('bf-cc-' + n) ? document.getElementById('bf-cc-' + n).value : '+91') + ' ' + document.getElementById('bf-whatsapp-' + n).value.trim(),
-      email:     document.getElementById('bf-email-' + n).value.trim(),
-      city:      document.getElementById('bf-city-' + n).value.trim(),
-      age:       document.getElementById('bf-age-' + n).value,
-      gender:    (document.querySelector(`input[name="bf-gender-${n}"]:checked`) || {}).value || '',
-      address:   n === 1 ? (document.getElementById('bf-address-1') || {}).value?.trim() || null : null,
-      state:     n === 1 ? (document.getElementById('bf-state-1') || {}).value || null : null,
-      pin:       n === 1 ? (document.getElementById('bf-pin-1') || {}).value?.trim() || null : null,
-    };
-  });
-
-  const selectedText = bookingSelected.textContent; // "Venue · Room · ₹Price"
-  const parts = selectedText.split(' · ');
-  const venue     = parts[0] || '';
-  const roomType  = parts[1] || '';
-  const totalPrice = parts[2] || '';
-
-  // Client-side gender check
-  const ROOM_SIZES = { 'Double Sharing': 2, 'Triple Sharing': 3, '4 Bed Female Dorm': 4, '6 Bed Mixed Dorm': 6, '10 Bed Female Dorm': 10 };
-  const roomSize = ROOM_SIZES[roomType];
-  // Booking the entire room → no gender restriction (it's a private room)
-  const isFullRoom = roomSize && guests.length >= roomSize;
-
-  // Female-only dorms: always block males regardless of full-room
-  const isFemaleOnly = roomType === '4 Bed Female Dorm' || roomType === '10 Bed Female Dorm';
-  if (isFemaleOnly && guests.some(g => g.gender === 'Male')) {
-    alert('This dorm is for female guests only.');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Proceed to Payment →';
-    return;
-  }
-
-  // Shared rooms with partial booking: all guests must be same gender
-  const requiresSameGender = !isFullRoom && roomType !== '6 Bed Mixed Dorm' && roomType !== 'Private Room';
-  if (requiresSameGender && guests.length > 1) {
-    const genders = guests.map(g => g.gender).filter(Boolean);
-    if (genders.includes('Male') && genders.includes('Female')) {
-      alert('When sharing a room with others, all guests must be the same gender.\n\nIf you are booking the entire room for your group, please select enough guests to fill it. Otherwise, make separate bookings for male and female guests.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Proceed to Payment →';
-      return;
-    }
-  }
-
-  // Parse amount from price string e.g. "₹32,000" → 32000
-  const priceMatch = totalPrice.replace(/[^\d]/g, '');
-  const baseAmount = parseInt(priceMatch, 10);
-  const gst = Math.round(baseAmount * (window._GST_RATE || 0.05));
-  const totalWithGst = baseAmount + gst;
-
-  submitBtn.textContent = 'Creating booking…';
-
-  // Step 1: create booking on backend
-  let bookingData;
-  try {
-    const res = await fetch('/api/bookings/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-          venue, roomType, totalPrice, guests,
-          organizerNote: (document.getElementById('bf-organizer-note') || {}).value?.trim() || null,
-          gstNumber: (document.getElementById('bf-gst-number') || {}).value || null,
-          gstName:   (document.getElementById('bf-gst-name') || {}).value || null,
-        })
-    });
-    bookingData = await res.json();
-    if (!res.ok) {
-      alert(bookingData.error || 'Could not create booking. Please try again.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Proceed to Payment →';
-      return;
-    }
-  } catch (err) {
-    alert('Server error. Please check your connection and try again.');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Proceed to Payment →';
-    return;
-  }
-
-  // Step 2: show payment method selection modal
-  submitBtn.textContent = 'Proceed to Payment →';
-  submitBtn.disabled = false;
-  bookingOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-  openPayModal(bookingData, { venue, roomType, baseAmount, gst, totalWithGst, guests });
-});
-
-// ── Payment method modal state ────────────────────────────────────────────
-let _payState = null;
-let _pubConfig = null;
-
 async function getPublicConfig() {
   if (_pubConfig) return _pubConfig;
   try {
@@ -3036,198 +2146,6 @@ async function getPublicConfig() {
     _pubConfig = { upi_vpa: 'moonholisticfestival@upi', admin_whatsapp: '919820791100', admin_whatsapp2: '919930920313' };
   }
   return _pubConfig;
-}
-
-async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, totalWithGst, guests }) {
-  const cfg = await getPublicConfig();
-  _payState = { bookingData, venue, roomType, baseAmount, gst, totalWithGst, guests, cfg };
-
-  // Populate UPI detail
-  const saving = Math.round(totalWithGst * 0.02);
-  document.getElementById('payModalRef').textContent = 'Booking ' + bookingData.booking_ref + '  ·  ₹' + totalWithGst.toLocaleString('en-IN') + ' incl. GST';
-  document.getElementById('payUpiSaveSub').textContent = 'Save ₹' + saving.toLocaleString('en-IN') + '';
-  document.getElementById('payUpiAmountLabel').textContent = totalWithGst.toLocaleString('en-IN');
-
-  // Populate Razorpay breakdown
-  const razorpayTotal = Math.round(totalWithGst * 1.0236);
-  const gatewayFee = razorpayTotal - totalWithGst;
-  const bdEl = document.getElementById('razorpayBreakdown');
-  if (bdEl) bdEl.innerHTML =
-    'Base &nbsp;₹' + baseAmount.toLocaleString('en-IN') +
-    ' &nbsp;+&nbsp; GST (5%) &nbsp;₹' + (totalWithGst - baseAmount).toLocaleString('en-IN') +
-    ' &nbsp;+&nbsp; Gateway fee &nbsp;₹' + gatewayFee.toLocaleString('en-IN') +
-    '<br><span style="color:#EDD4B2;font-weight:600;font-size:0.82rem;">Total &nbsp;₹' + razorpayTotal.toLocaleString('en-IN') + '</span>';
-
-  // Populate Bank Transfer savings (same as UPI saving vs Razorpay)
-  const bankSaving = razorpayTotal - totalWithGst;
-  const bankEl = document.getElementById('payBankSaveSub');
-  if (bankEl) bankEl.textContent = 'save ₹' + bankSaving.toLocaleString('en-IN') + ' vs Razorpay';
-
-
-  // Populate WhatsApp detail
-  const waNum = cfg.admin_whatsapp || '919820791100';
-  const waMsg = encodeURIComponent(`Hi, I'd like to pay cash for booking ${bookingData.booking_ref} — ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}`);
-  document.getElementById('payWaLink').href = `https://wa.me/${waNum}?text=${waMsg}`;
-
-  // Hide UPI for amounts above ₹1,00,000; show cap notice only when above limit
-  const upiCard = document.getElementById('payCardUpi');
-  const upiCapNotice = document.getElementById('upiCapNotice');
-  if (upiCard) upiCard.style.display = totalWithGst > 100000 ? 'none' : '';
-  if (upiCapNotice) {
-    if (totalWithGst > 100000) {
-      upiCapNotice.style.cssText = 'margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:Open Sans,sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;';
-      upiCapNotice.textContent = 'UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.';
-    } else {
-      upiCapNotice.style.cssText = '';
-      upiCapNotice.textContent = '';
-    }
-  }
-
-  // Reset selection
-  selectPayMethod(null);
-  document.getElementById('payOverlay').classList.add('open');
-}
-
-function selectPayMethod(method) {
-  ['upi','razorpay','cash'].forEach(m => {
-    document.getElementById('payCard' + m.charAt(0).toUpperCase() + m.slice(1))
-      ?.classList.toggle('selected', m === method);
-  });
-}
-
-async function launchUpiPay(e) {
-  e.preventDefault();
-  if (!_payState) return;
-  const { bookingData, totalWithGst } = _payState;
-  document.getElementById('payOverlay').classList.remove('open');
-  window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
-}
-
-function onScreenshotChange() {
-  const file = document.getElementById('payScreenshotInput').files[0];
-  const label = document.getElementById('payScreenshotLabel');
-  const name = document.getElementById('payScreenshotName');
-  if (file) {
-    name.textContent = file.name;
-    name.style.color = '#C07040';
-    label.style.borderColor = 'rgba(176,96,48,0.4)';
-  }
-}
-
-async function submitUpiPending() {
-  if (!_payState) return;
-  const { bookingData } = _payState;
-
-  const file = document.getElementById('payScreenshotInput')?.files[0];
-  if (!file) {
-    const label = document.getElementById('payScreenshotLabel');
-    label.style.borderColor = '#B06030';
-    label.style.background = 'rgba(176,96,48,0.06)';
-    document.getElementById('payScreenshotName').textContent = 'Please upload your payment screenshot to continue';
-    document.getElementById('payScreenshotName').style.color = '#C07040';
-    return;
-  }
-
-  const btn = event?.currentTarget;
-  if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
-
-  try {
-    // Upload screenshot
-    const fd = new FormData();
-    fd.append('booking_ref', bookingData.booking_ref);
-    fd.append('screenshot', file);
-    await fetch('/api/bookings/upi-screenshot', { method: 'POST', body: fd });
-    // Mark as upi_pending
-    await fetch('/api/bookings/upi-pending', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ booking_ref: bookingData.booking_ref, payment_method: 'upi' }),
-    });
-  } catch (_) {}
-
-  document.getElementById('payOverlay').classList.remove('open');
-  window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=upi';
-}
-
-async function submitCashPending(e) {
-  if (!_payState) return;
-  const { bookingData } = _payState;
-  // Don't prevent default — let the WhatsApp link open, but also mark the booking
-  try {
-    await fetch('/api/bookings/upi-pending', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ booking_ref: bookingData.booking_ref, payment_method: 'cash' }),
-    });
-  } catch (_) {}
-  // Open WhatsApp in new tab then redirect
-  const waHref = document.getElementById('payWaLink').href;
-  window.open(waHref, '_blank');
-  document.getElementById('payOverlay').classList.remove('open');
-  window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=cash';
-}
-
-async function launchBankTransfer(e) {
-  if (e) e.stopPropagation();
-  if (!_payState) return;
-  const { bookingData, venue, roomType, totalWithGst, cfg } = _payState;
-  const waNum = cfg?.admin_whatsapp || '919820791100';
-  const waMsg = encodeURIComponent(`Hi, I'd like to pay via bank transfer for booking ${bookingData.booking_ref} — ${venue}, ${roomType}, ₹${totalWithGst.toLocaleString('en-IN')}. Please share bank details.`);
-  document.getElementById('payOverlay').classList.remove('open');
-  window.open(`https://wa.me/${waNum}?text=${waMsg}`, '_blank');
-  window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=cash';
-}
-
-function launchRazorpay() {
-  if (!_payState) return;
-  const { bookingData, venue, roomType, baseAmount, gst, totalWithGst, guests } = _payState;
-  document.getElementById('payOverlay').classList.remove('open');
-
-  const razorpayKey = bookingData.razorpay_key || 'rzp_test_TDxk7L5UmieAgm';
-  const razorpayTotal = Math.round(totalWithGst * 1.0236);
-  const amountPaise = razorpayTotal * 100;
-
-  const options = {
-    key: razorpayKey,
-    amount: amountPaise,
-    currency: 'INR',
-    order_id: bookingData.razorpay_order_id || undefined,
-    name: 'Moon Festival 2026',
-    description: venue + ' · ' + roomType + '\nBase: Rs.' + baseAmount.toLocaleString('en-IN') + '  |  GST (5%): Rs.' + gst.toLocaleString('en-IN') + '  |  Gateway fee (2.36%): Rs.' + (razorpayTotal - totalWithGst).toLocaleString('en-IN') + '\nTotal: Rs.' + razorpayTotal.toLocaleString('en-IN'),
-    prefill: {
-      name: guests[0].full_name,
-      email: guests[0].email,
-      contact: guests[0].whatsapp
-    },
-    theme: { color: '#B06030' },
-    handler: async function(response) {
-      try {
-        await fetch('/api/bookings/verify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature
-          })
-        });
-      } catch (_) {}
-      window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay';
-    },
-    modal: {
-      ondismiss: function() {
-        document.getElementById('payOverlay').classList.add('open');
-      }
-    }
-  };
-
-  try {
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  } catch(err) {
-    alert('Could not open payment. Please try again.');
-    document.getElementById('payOverlay').classList.add('open');
-  }
 }
 
 // Ticket tabs
@@ -3304,9 +2222,9 @@ const venueData = {
     desc: 'Bhakti Kutir is our most loved venue — and the heart of the festival. The festival itself happens here, which means if you stay at Bhakti Kutir, you are already home.\n\nThe property has 27 unique eco-cottages, no two alike, built from bamboo, rice straw, and natural materials. They are not air-conditioned, but the forest keeps them cool — you sleep with the trees around you, the breeze moving through, and the night sky visible overhead. Waking up here on festival morning, you simply step outside.\n\nBhakti Kutir is ideal for anyone who loves nature, wants to be fully immersed in the community vibe of the festival, or is looking for the most memorable stay. If the whole experience matters as much as the comfort, this is the one.',
     photos: [
       'Stay Page Images/Bhakti Kutir/Hut 8up.jpeg',
-      'Stay Page Images/Bhakti Kutir/2.jpeg',
+      'Stay Page Images/Bhakti Kutir/Bhakti Venue Pics from sneha/ROOM VIEW R NO 2 UP.jpg',
       'Stay Page Images/Bhakti Kutir/10d.jpeg',
-      'Stay Page Images/Bhakti Kutir/IMG_0676.JPG',
+      'Stay Page Images/Bhakti Kutir/Bhakti Venue Pics from sneha/EXTERIOR VIEW R NO 2 UP.jpg',
       'Stay Page Images/Bhakti Kutir/IMG_0683.JPG',
       'Stay Page Images/Bhakti Kutir/IMG_0677.JPG',
       'Stay Page Images/Bhakti Kutir/IMG_0673.JPG',
@@ -4062,54 +2980,15 @@ function fmtPrice(n) {
 })();
 </script>
 
-<!-- Payment Method Modal -->
-<div class="pay-overlay" id="payOverlay">
-  <div class="pay-modal">
-    <button onclick="document.getElementById('payOverlay').classList.remove('open')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:rgba(237,212,178,0.35);font-size:1.4rem;line-height:1;padding:0.25rem 0.4rem;" aria-label="Close">×</button>
-    <div class="pay-modal-eyebrow">Choose how to pay</div>
-    <div class="pay-modal-title">Payment</div>
-    <div class="pay-modal-ref" id="payModalRef"></div>
-
-    <div id="upiCapNotice"></div>
-
-    <!-- Option A: UPI -->
-    <div class="pay-method-card" id="payCardUpi" onclick="launchUpiPay(event)">
-      <div class="pay-method-top">
-        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h2"/><path d="M11 15h4"/></svg>UPI Transfer</span>
-      </div>
-      <p id="payUpiSaveSub" style="margin:0 0 0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);"></p>
-    </div>
-
-    <!-- Option B: Bank Transfer -->
-    <div class="pay-method-card" id="payCardBank" onclick="launchBankTransfer(event)">
-      <div class="pay-method-top">
-        <span class="pay-method-name">Bank Transfer</span>
-      </div>
-      <p style="margin:0 0 0.2rem;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);">No fees · <span id="payBankSaveSub"></span></p>
-      <p style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:rgba(237,212,178,0.4);line-height:1.5;"><strong style="color:rgba(237,212,178,0.6);">Ideal for payments over ₹1,00,000</strong> — no fees, no limit. NEFT / IMPS / RTGS.</p>
-    </div>
-
-    <!-- Option C: Razorpay -->
-    <div class="pay-method-card" id="payCardRazorpay" onclick="launchRazorpay()">
-      <div class="pay-method-top">
-        <span class="pay-method-name">Card / Net Banking / UPI</span>
-      </div>
-      <p style="margin:0 0 0.5rem;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);">via Razorpay &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.7);">+2.36% gateway fee</span></p>
-      <div id="razorpayBreakdown" style="font-family:'Open Sans',sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.45);line-height:1.8;"></div>
-    </div>
-
-    <!-- Option C: Cash / WhatsApp -->
-    <div class="pay-method-card" id="payCardCash" onclick="submitCashPending(event)">
-      <div class="pay-method-top">
-        <span class="pay-method-name">Cash / WhatsApp</span>
-      </div>
-      <p class="pay-method-desc"><strong>Spot held for 24 hours.</strong></p>
-      <div class="pay-method-detail" id="payDetailCash">
-        <a class="pay-wa-link" id="payWaLink" href="#" onclick="submitCashPending(event)">Message on WhatsApp →</a>
-      </div>
-    </div>
-  </div>
-</div>
+<button id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:2rem;right:1.5rem;z-index:999;width:44px;height:44px;border-radius:50%;background:rgba(176,96,48,0.9);border:none;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.35);transition:opacity 0.2s,transform 0.2s;">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EDD4B2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', function(){ btn.style.display = window.scrollY > 400 ? 'flex' : 'none'; }, {passive:true});
+})();
+</script>
 
 </body>
 </html>

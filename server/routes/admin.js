@@ -208,6 +208,7 @@ router.post('/api/bookings/:ref/resend-paylink', requireAdmin, async (req, res) 
     const primary = guests[0] || {};
     const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g, ''), 10) || 0;
     const amountWithGst = Math.round(baseAmt * 1.05);
+    const amountPaise   = Math.round(amountWithGst * 1.0236) * 100;
 
     let payment_link_url = booking.payment_link_url;
 
@@ -216,10 +217,10 @@ router.post('/api/bookings/:ref/resend-paylink', requireAdmin, async (req, res) 
     if (Razorpay && process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
       const rzp = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
       const plink = await rzp.paymentLink.create({
-        amount: amountWithGst * 100,
+        amount: amountPaise,
         currency: 'INR',
         accept_partial: false,
-        description: `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Total incl. 5% GST: ₹${amountWithGst.toLocaleString('en-IN')}.`,
+        description: `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Total incl. 5% GST + 2.36% fee: ₹${Math.round(amountPaise / 100).toLocaleString('en-IN')}.`,
         customer: {
           name:    primary.full_name || '',
           email:   primary.email || '',
@@ -324,7 +325,10 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
     const addonTotal = addonLines.reduce((s, a) => s + a.price, 0);
     if (addonTotal <= 0) return res.status(400).json({ error: 'Add-on total is zero' });
 
-    const amountWithGst = Math.round(addonTotal * 1.05);
+    const gstAmount      = Math.round(addonTotal * 0.05);
+    const afterGst       = addonTotal + gstAmount;
+    const razorpayFee    = Math.round(afterGst * 0.0236);
+    const amountWithGst  = afterGst + razorpayFee;
 
     let Razorpay;
     try { Razorpay = require('razorpay'); } catch (_) {}
@@ -340,7 +344,7 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
       amount: amountWithGst * 100,
       currency: 'INR',
       accept_partial: false,
-      description: `Moon Festival 2026 — Add-ons for ${booking.booking_ref}. Total incl. 5% GST: ₹${amountWithGst.toLocaleString('en-IN')}.`,
+      description: `Moon Festival 2026 — Add-ons for ${booking.booking_ref}. Total incl. 5% GST + 2.36% fee: ₹${amountWithGst.toLocaleString('en-IN')}.`,
       customer: {
         name:    primary.full_name || '',
         email:   primary.email || '',
@@ -355,16 +359,16 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
 
     db.prepare('INSERT INTO addon_log (booking_ref, note) VALUES (?, ?)').run(
       booking.booking_ref,
-      `Payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. GST`
+      `Payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST + 2.36% Razorpay fee`
     );
     db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
-      booking.booking_ref, 'addon', `Add-on payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST`
+      booking.booking_ref, 'addon', `Add-on payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST + 2.36% Razorpay fee`
     );
 
     try {
       const { sendAddonPaymentEmail } = require('../email');
       const addedItems = Array.isArray(req.body.addedItems) ? req.body.addedItems : null;
-      await sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, paymentLink: plink.short_url, addedItems });
+      await sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, gstAmount, razorpayFee, amountWithGst, paymentLink: plink.short_url, addedItems });
     } catch (emailErr) {
       console.error('[addon-paylink email]', emailErr.message);
     }
