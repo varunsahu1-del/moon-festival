@@ -436,9 +436,8 @@ h4 { font-size: var(--t-xl); }
   transition: color var(--dur-fast);
 }
 .drawer-accordion-toggle--flat.open { color: var(--gold); }
-.drawer-accordion-toggle--flat { position: relative; }
-.drawer-accordion-toggle--flat svg.plus-icon { position: absolute; right: 2rem; transition: transform 0.3s; }
-.drawer-accordion-toggle--flat.open svg.plus-icon { transform: rotate(45deg); }
+.drawer-accordion-toggle--flat svg.chevron { transition: transform 0.2s; }
+.drawer-accordion-toggle--flat.open svg.chevron { transform: rotate(180deg); }
 .drawer-accordion-panel--flat {
   display: none;
   flex-direction: column;
