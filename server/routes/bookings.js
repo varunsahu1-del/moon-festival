@@ -525,8 +525,9 @@ router.post('/razorpay-order', async (req, res) => {
   if (booking.status === 'paid') return res.status(400).json({ error: 'Already paid' });
   const rzp = getRazorpay();
   if (!rzp) return res.status(503).json({ error: 'Razorpay not configured' });
-  const amountInr = parseInt(String(booking.total_price).replace(/[^\d]/g, ''), 10) || 0;
-  const amountPaise = amountInr * 100;
+  const baseInr = parseInt(String(booking.total_price).replace(/[^\d]/g, ''), 10) || 0;
+  const withGst = Math.round(baseInr * 1.05);
+  const amountPaise = Math.round(withGst * 1.0236) * 100;
   try {
     const order = await rzp.orders.create({
       amount: amountPaise,
