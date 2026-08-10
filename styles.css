@@ -513,11 +513,12 @@ h4 { font-size: var(--t-xl); }
   display: block;
 }
 .nav-drawer-divider {
-  width: 100vw;
+  width: calc(100% + 4rem);
   height: 1px;
-  background: rgba(237,212,178,0.45);
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
+  background: rgba(237,212,178,0.35);
+  margin-left: -2rem;
+  margin-right: -2rem;
+  flex-shrink: 0;
 }
 
 /* --- LAYOUT UTILITIES --- */
