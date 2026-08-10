@@ -431,7 +431,7 @@ h4 { font-size: var(--t-xl); }
   color: rgba(237,212,178,0.75);
   background: none;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid rgba(237,212,178,0.08);
   padding: 0.2rem 2rem 0.9rem;
   cursor: pointer;
   transition: color var(--dur-fast);
