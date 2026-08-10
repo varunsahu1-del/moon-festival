@@ -350,8 +350,8 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
         email:   primary.email || '',
         contact: (primary.whatsapp || '').replace(/\D/g, '').replace(/^0/, '91'),
       },
-      notify: { sms: true, email: true },
-      reminder_enable: true,
+      notify: { sms: false, email: false },
+      reminder_enable: false,
       notes: { booking_ref: booking.booking_ref, type: 'addon_payment' },
       callback_url: `${process.env.SITE_URL || 'https://moonfestival.in'}/booking-confirmed.html`,
       callback_method: 'get',
@@ -427,8 +427,8 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
   if (!priceCheck.valid) return res.status(400).json({ error: priceCheck.reason, price_mismatch: true, expected: priceCheck.expected });
 
   const booking_ref = nextRef();
-  const baseAmount = parseInt(String(total_price).replace(/[^\d]/g, ''), 10) || 0;
-  const amountWithGst = total_with_gst || Math.round(baseAmount * 1.05);
+  // total_price is always the GST-inclusive formatted total (validated above); parse it directly
+  const amountWithGst = parseInt(String(total_price).replace(/[^\d]/g, ''), 10) || 0;
   const amountPaise = Math.round(amountWithGst * 1.0236) * 100;
   const guest = guests[0];
 
@@ -477,8 +477,8 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
           email:   guest.email,
           contact: guest.whatsapp.replace(/\D/g, '').replace(/^0/, '91'),
         },
-        notify: { sms: true, email: true },
-        reminder_enable: true,
+        notify: { sms: false, email: false },
+        reminder_enable: false,
         notes: { booking_ref, venue, room_type },
         callback_url: `${process.env.SITE_URL || 'https://moonfestival.in'}/booking-confirmed.html`,
         callback_method: 'get',
@@ -994,8 +994,8 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
         email:   primary.email || '',
         contact: (primary.whatsapp || '').replace(/\D/g, '').replace(/^0/, '91'),
       },
-      notify: { sms: true, email: true },
-      reminder_enable: true,
+      notify: { sms: false, email: false },
+      reminder_enable: false,
       notes: {
         booking_ref:     booking.booking_ref,
         type:            'transfer_topup',
