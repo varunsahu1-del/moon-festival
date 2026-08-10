@@ -1347,6 +1347,7 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
   } catch(e) {}
 
   openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
+});
 function toggleBookingSummary() {
   const details = document.getElementById('bsDetails');
   const chevron = document.getElementById('bsChevron');
