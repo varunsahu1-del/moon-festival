@@ -1415,11 +1415,11 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
     }
   }
 
-  // Reset cash flow state
-  document.getElementById('cashConfirmed').style.display = 'none';
-
-  // Reset bank transfer flow state
-  document.getElementById('bankConfirmed').style.display = 'none';
+  // Reset cash/bank flow state
+  const _cc = document.getElementById('cashConfirmed');
+  if (_cc) _cc.style.display = 'none';
+  const _bc = document.getElementById('bankConfirmed');
+  if (_bc) _bc.style.display = 'none';
 
   selectPayMethod(null);
   document.getElementById('payOverlay').classList.add('open');
