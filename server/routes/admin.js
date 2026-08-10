@@ -491,6 +491,22 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
     console.error('[paylink] Razorpay error:', e.message);
   }
 
+  // Send Moon Festival email with full breakdown incl. Razorpay fee
+  if (payment_link_url) {
+    const gstAmount   = amountWithGst - Math.round(amountWithGst / 1.05);
+    const razorpayFee = Math.round(amountWithGst * 1.0236) - amountWithGst;
+    const totalCharged = amountWithGst + razorpayFee;
+    try {
+      const { sendPaymentPendingEmail } = require('../email');
+      const bookingRow = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(booking_ref);
+      const guestRows  = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(bookingId);
+      await sendPaymentPendingEmail({ booking: bookingRow, guests: guestRows, paymentLink: payment_link_url, amountWithGst: totalCharged });
+      db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'email', ?)").run(booking_ref, `Payment link email sent — ₹${totalCharged.toLocaleString('en-IN')} incl. GST + 2.36% fee`);
+    } catch (emailErr) {
+      console.error('[paylink email]', emailErr.message);
+    }
+  }
+
   console.log(`[paylink] ${booking_ref} created for ${guest.full_name} — ${payment_link_url || 'no link (Razorpay not configured)'}`);
   res.json({ ok: true, booking_ref, payment_link_url });
 });
