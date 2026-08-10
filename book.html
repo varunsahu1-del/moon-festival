@@ -691,6 +691,7 @@
         <div class="book-submit-row">
           <div id="bookErrorMsg2" style="display:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;color:#e74c3c;"></div>
           <button type="submit" class="booking-submit" id="bookSubmitBtn">Proceed to Payment →</button>
+          <button type="button" class="booking-submit" id="continuePayBtn" onclick="if(_payState)openPayModal(_payState.bookingData,_payState)" style="display:none;margin-top:0.6rem;">Continue to Payment →</button>
           <p class="book-terms-note">By proceeding you agree to our <a href="terms.html">T &amp; C</a> and <a href="privacy.html">Privacy Policy</a>.</p>
         </div>
 
@@ -1270,6 +1271,8 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
   _bookingSubmitted = true;
   submitBtn.textContent = 'Booking created';
   submitBtn.disabled = true;
+  const continuePayBtn = document.getElementById('continuePayBtn');
+  if (continuePayBtn) continuePayBtn.style.display = '';
 
   openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
 });
