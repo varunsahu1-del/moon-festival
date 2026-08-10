@@ -1334,6 +1334,17 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
   submitBtn.textContent = 'Booking created';
   submitBtn.disabled = true;
 
+  // Show a persistent "Complete Payment" button so closing the modal doesn't strand the user
+  const retryBtn = document.createElement('button');
+  retryBtn.id = 'retryPayBtn';
+  retryBtn.type = 'button';
+  retryBtn.textContent = 'Complete Payment →';
+  retryBtn.style.cssText = 'display:block;width:100%;margin-top:0.75rem;background:none;color:#B06030;border:0.5px solid rgba(176,96,48,0.45);padding:0.9rem 2rem;font-family:\'Josefin Sans\',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;';
+  retryBtn.addEventListener('click', function() {
+    openPayModal(bookingData, { venue, roomType, baseAmount: base, gst, totalWithGst: total, guests });
+  });
+  submitBtn.insertAdjacentElement('afterend', retryBtn);
+
   // Save pending booking so user can resume if they navigate away
   try {
     localStorage.setItem(_PENDING_KEY, JSON.stringify({
