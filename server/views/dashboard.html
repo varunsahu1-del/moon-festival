@@ -5397,13 +5397,12 @@ function _rebuildAddonsList(ref, addons) {
 }
 
 const ADDON_CATALOG = [
-  { name: 'Arrive Early · 26 Nov', price: 6500 },
-  { name: 'Meals at the Venue · 27–29 Nov', price: window.__FOOD_PRICE||3600 },
-  { name: 'Ayurvedic Massage',      price: 1500 },
-  { name: 'Tribal Lunch · 27 Nov', price: 650 },
-  { name: 'Tribal Lunch · 28 Nov', price: 650 },
-  { name: 'Tribal Lunch · 29 Nov', price: 650 },
-  { name: 'Scooter Rental · 4 Days', price: 2600 },
+  { name: 'Arrive Early · 26 Nov',        price: 6500 },
+  { name: 'Meals · 27–29 Nov',            price: window.__FOOD_PRICE||3600, hasSub: true },
+  { name: 'Ayurvedic Massage',            price: 1500 },
+  { name: 'Scooter Rental · 4 Days',      price: 2600 },
+  // Tribal Lunch is a sub-option of Meals — free, day must be chosen
+  { name: 'Tribal Lunch · Included',      price: 0, mealsOnly: true, days: ['27 Nov','28 Nov','29 Nov'] },
 ];
 
 function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
@@ -5421,7 +5420,13 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
   const dc = document.getElementById('drawerContent');
   const guestNames = (dc?.dataset?.guestNames || '').split('|').filter(Boolean);
   const isEdit = idx >= 0 && currentName;
-  const available = ADDON_CATALOG.filter(a => !existingNames.has(a.name) || a.name === currentName);
+  // Check if Meals is already in the booking (guest addons or existing extra_addons)
+  const dc2 = document.getElementById('drawerContent');
+  const existingGuestAddons = dc2 ? (dc2.dataset.addons || '') : '';
+  const mealsCatalog = ADDON_CATALOG.find(a => a.hasSub);
+  const mealsAlreadyBooked = existingGuestAddons.split('|').some(p => p.includes('Meals') || p.includes('6 Meals'));
+  // mealsOnly items: only show when meals is already booked OR being selected now
+  const available = ADDON_CATALOG.filter(a => !a.mealsOnly && (!existingNames.has(a.name) || a.name === currentName));
 
   const form = document.createElement('div');
   form.className = 'addon-edit-form';
@@ -5441,8 +5446,15 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
     if (match) selectedSet.add(match.price + ':' + match.name);
   }
 
+  // Tribal lunch day selection
+  let selectedTribalDay = null;
+
   const itemsWrap = document.createElement('div');
-  itemsWrap.style.cssText = 'max-height:220px;overflow-y:auto;';
+  itemsWrap.style.cssText = 'max-height:260px;overflow-y:auto;';
+
+  function isMealsSelected() {
+    return mealsAlreadyBooked || [...selectedSet].some(v => v.includes('Meals'));
+  }
 
   function renderItems() {
     itemsWrap.innerHTML = '';
@@ -5466,11 +5478,42 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
       item.addEventListener('click', e => {
         e.stopPropagation();
         if (isEdit) { selectedSet.clear(); selectedSet.add(val); }
-        else if (selectedSet.has(val)) { selectedSet.delete(val); } else { selectedSet.add(val); }
+        else if (selectedSet.has(val)) { selectedSet.delete(val); if (a.hasSub) selectedTribalDay = null; }
+        else { selectedSet.add(val); }
         renderItems();
         updateAddBtn();
       });
       itemsWrap.appendChild(item);
+
+      // Tribal lunch sub-row — shown when meals is selected (either already booked or just checked)
+      if (a.hasSub && isMealsSelected()) {
+        const tribalCat = ADDON_CATALOG.find(x => x.mealsOnly);
+        if (tribalCat && !existingNames.has(tribalCat.name)) {
+          const subRow = document.createElement('div');
+          subRow.style.cssText = 'padding:8px 16px 10px 38px;border-bottom:0.5px solid rgba(176,96,48,0.1);background:rgba(176,96,48,0.03);';
+          const subLabel = document.createElement('div');
+          subLabel.style.cssText = 'font-size:11px;color:rgba(42,34,24,0.5);margin-bottom:6px;font-family:"DM Sans",sans-serif;';
+          subLabel.textContent = 'Tribal Lunch · Included — choose a day:';
+          const pillsWrap = document.createElement('div');
+          pillsWrap.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;';
+          tribalCat.days.forEach(day => {
+            const pill = document.createElement('button');
+            pill.type = 'button';
+            pill.textContent = day;
+            const isActive = selectedTribalDay === day;
+            pill.style.cssText = `font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 10px;border-radius:20px;border:0.5px solid;cursor:pointer;transition:all 0.1s;background:${isActive?'rgba(176,96,48,0.15)':'rgba(42,34,24,0.05)'};border-color:${isActive?'rgba(176,96,48,0.5)':'rgba(42,34,24,0.15)'};color:${isActive?'#B06030':'rgba(42,34,24,0.6)'};`;
+            pill.addEventListener('click', e => {
+              e.stopPropagation();
+              selectedTribalDay = selectedTribalDay === day ? null : day;
+              renderItems();
+              updateAddBtn();
+            });
+            pillsWrap.appendChild(pill);
+          });
+          subRow.append(subLabel, pillsWrap);
+          itemsWrap.appendChild(subRow);
+        }
+      }
     });
   }
   renderItems();
@@ -5538,7 +5581,8 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
   saveBtn.style.cssText = 'font-family:"Josefin Sans",sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#B06030;border:none;color:#fff;border-radius:2px;padding:6px 14px;cursor:pointer;margin-left:auto;';
 
   function updateAddBtn() {
-    const n = selectedSet.size;
+    let n = selectedSet.size;
+    if (isMealsSelected() && selectedTribalDay) n += (!mealsAlreadyBooked ? 0 : 1); // tribal counts as extra item
     saveBtn.textContent = n > 1 ? `Add ${n}` : 'Add';
   }
   updateAddBtn();
@@ -5550,7 +5594,9 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
 
   saveBtn.addEventListener('click', async e => {
     e.stopPropagation();
-    if (!selectedSet.size) { saveBtn.style.background = '#c0392b'; setTimeout(() => saveBtn.style.background = '#B06030', 600); return; }
+    if (!selectedSet.size && !(mealsAlreadyBooked && selectedTribalDay)) {
+      saveBtn.style.background = '#c0392b'; setTimeout(() => saveBtn.style.background = '#B06030', 600); return;
+    }
     saveBtn.disabled = true; saveBtn.textContent = '…';
     const items = [];
     const targetGuests = guestNames.length > 1 && selectedGuests.size > 0 ? [...selectedGuests] : [];
@@ -5563,6 +5609,15 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
         items.push({ price, name: baseName });
       }
     });
+    // Add tribal lunch if a day was selected and meals is present
+    if (isMealsSelected() && selectedTribalDay) {
+      const tribalName = 'Tribal Lunch (' + selectedTribalDay + ')';
+      if (targetGuests.length > 0) {
+        targetGuests.forEach(g => items.push({ price: '0', name: tribalName + ' [' + g.split(' ')[0] + ']' }));
+      } else {
+        items.push({ price: '0', name: tribalName });
+      }
+    }
     await onSaveMultiple(items);
     form.remove();
   });

@@ -314,9 +314,9 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
     const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(req.params.ref);
     if (!booking) return res.status(404).json({ error: 'Booking not found' });
 
-    // Parse add-ons from booking
-    const addonParts = (booking.addons || '').split('|').filter(Boolean);
-    if (!addonParts.length) return res.status(400).json({ error: 'No add-ons on this booking' });
+    // Parse admin-added extra add-ons (not guest's original already-paid add-ons)
+    const addonParts = (booking.extra_addons || '').split('|').filter(Boolean);
+    if (!addonParts.length) return res.status(400).json({ error: 'No admin add-ons on this booking' });
 
     const addonLines = addonParts.map(p => {
       const ci = p.indexOf(':');
