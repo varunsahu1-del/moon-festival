@@ -781,7 +781,7 @@ router.get('/api/public/pricing', (req, res) => {
 
 // Public: tribal lunch availability per day (cap 30 per day)
 router.get('/api/public/tribal-lunch', (req, res) => {
-  const TRIBAL_CAP = 30;
+  const TRIBAL_CAP = 70;
   const days = ['27', '28', '29'];
   const byDay = {};
   days.forEach(d => {
