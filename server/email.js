@@ -462,8 +462,8 @@ async function sendModificationEmail({ booking, guests, oldVenue, oldRoomType, o
   const primary  = guests[0];
   const firstName = primary.full_name.split(' ')[0];
 
-  const newAmtFmt  = '₹' + Number(String(booking.total_price).replace(/[^\d]/g,'')).toLocaleString('en-IN');
-  const oldAmtFmt  = '₹' + Number(String(oldPrice).replace(/[^\d]/g,'')).toLocaleString('en-IN');
+  const newAmtFmt  = '₹' + Math.round(Number(String(booking.total_price).replace(/[^\d]/g,'')) * 1.05).toLocaleString('en-IN') + ' <span style="font-size:11px;font-weight:300;color:' + C.muted + ';">(incl. GST)</span>';
+  const oldAmtFmt  = '₹' + Math.round(Number(String(oldPrice).replace(/[^\d]/g,'')) * 1.05).toLocaleString('en-IN') + ' <span style="font-size:11px;font-weight:300;color:' + C.muted + ';">(incl. GST)</span>';
   const extraFmt   = extraAmount > 0 ? '₹' + Math.round(extraAmount * 1.05).toLocaleString('en-IN') : null;
 
   const paymentRow = extraFmt

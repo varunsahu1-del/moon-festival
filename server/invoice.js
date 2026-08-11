@@ -239,10 +239,6 @@ function generateInvoice({ booking, guests }) {
     y += 18;
 
     // ── Totals ───────────────────────────────────────────────────────────────
-    // Determine GST type based on recipient state
-    const recipientState = primary.state || '';
-    const isMaharashtra  = recipientState.toLowerCase().includes('maharashtra');
-
     const totX = M + CW - 240;
     const lblW = 150;
     const valW = 80;
@@ -260,13 +256,8 @@ function generateInvoice({ booking, guests }) {
     }
 
     totRow('Taxable Amount', fmt(taxableAmount), false);
-
-    if (isMaharashtra) {
-      totRow('CGST @ 2.5%', fmt(Math.round(taxableAmount * 0.025)), false);
-      totRow('SGST @ 2.5%', fmt(Math.round(taxableAmount * 0.025)), false);
-    } else {
-      totRow('IGST @ 5%', fmt(gst), false);
-    }
+    // Supplier: Maharashtra; Place of supply: Goa → always inter-state → IGST
+    totRow('IGST @ 5%', fmt(gst), false);
 
     doc.rect(totX, y, lblW + valW, 0.5).fill(TERRA);
     y += 10;

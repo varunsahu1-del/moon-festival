@@ -352,7 +352,7 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
       },
       notify: { sms: false, email: false },
       reminder_enable: false,
-      notes: { booking_ref: booking.booking_ref, type: 'addon_payment' },
+      notes: { booking_ref: booking.booking_ref, type: 'addon' },
       callback_url: `${process.env.SITE_URL || 'https://moonfestival.in'}/booking-confirmed.html`,
       callback_method: 'get',
     });
@@ -973,8 +973,10 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
     }
 
     const rzp = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
-    const amountWithGst = Math.round(diff_amount * 1.05);
-    const gst = amountWithGst - diff_amount;
+    const amountWithGst  = Math.round(diff_amount * 1.05);
+    const gst            = amountWithGst - diff_amount;
+    const razorpayFee    = Math.round(amountWithGst * 1.0236) - amountWithGst;
+    const amountCharged  = amountWithGst + razorpayFee;
 
     const guests = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(booking.id);
     const primary = guests[0] || {};
@@ -982,11 +984,11 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
     const oldAmtFmt = old_price ? `₹${Number(String(old_price).replace(/[^\d]/g,'')).toLocaleString('en-IN')}` : '';
     const newAmtFmt = `₹${Number(String(booking.total_price).replace(/[^\d]/g,'')).toLocaleString('en-IN')}`;
     const description = old_venue && old_room_type
-      ? `MF2026 Upgrade: ${old_venue} ${old_room_type} (${oldAmtFmt}) → ${booking.venue} ${booking.room_type} (${newAmtFmt}). Balance due: ₹${amountWithGst.toLocaleString('en-IN')} incl. GST ₹${gst.toLocaleString('en-IN')}.`
-      : `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Balance due: ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST.`;
+      ? `MF2026 Upgrade: ${old_venue} ${old_room_type} (${oldAmtFmt}) → ${booking.venue} ${booking.room_type} (${newAmtFmt}). Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. GST ₹${gst.toLocaleString('en-IN')} + 2.36% fee.`
+      : `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. 5% GST + 2.36% fee.`;
 
     const plink = await rzp.paymentLink.create({
-      amount: amountWithGst * 100,
+      amount: amountCharged * 100,
       currency: 'INR',
       accept_partial: false,
       description,
