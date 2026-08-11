@@ -480,8 +480,8 @@ h4 { font-size: var(--t-xl); }
 .nav-drawer a:hover,
 .drawer-accordion-toggle:hover { color: var(--gold); background: rgba(237,212,178,0.05); }
 .nav-drawer a:hover::before { opacity: 1; }
-.nav-drawer a.active { background: rgba(237,212,178,0.08); color: rgba(237,212,178,0.95); }
-.nav-drawer a.active::before { opacity: 0.9; }
+.nav-drawer a.active:not(.nav-cta) { background: rgba(237,212,178,0.08); color: rgba(237,212,178,0.95); }
+.nav-drawer a.active:not(.nav-cta)::before { opacity: 0.9; }
 .drawer-accordion-toggle.active { background: rgba(237,212,178,0.08); color: rgba(237,212,178,0.95); }
 
 /* icon slot */
