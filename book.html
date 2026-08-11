@@ -967,7 +967,7 @@ function buildPersonFields(count) {
         + '</div>'
         + '<div class="booking-field"><label class="booking-label">State</label>'
         + '<div class="state-picker-wrap" id="bf-state-wrap-1">'
-        + '<button type="button" class="state-picker-btn" id="bf-state-btn-1" aria-haspopup="listbox">'
+        + '<button type="button" class="state-picker-btn" id="bf-state-btn-1" aria-haspopup="listbox" tabindex="0">'
         + '<span id="bf-state-label-1">Select state</span>'
         + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>'
         + '</button>'
@@ -1184,6 +1184,14 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { showFieldError(em, 'Please enter a valid email address.'); valid = false; }
     const city = document.getElementById('bf-city-' + n);
     if (!city.value.trim()) { showFieldError(city, 'Please enter your city.'); valid = false; }
+    if (n === 1) {
+      const stateVal = (document.getElementById('bf-state-1') || {}).value || '';
+      if (!stateVal) {
+        const stateBtn = document.getElementById('bf-state-btn-1');
+        if (stateBtn) { showFieldError(stateBtn, 'Please select your state.'); }
+        valid = false;
+      }
+    }
     const age = document.getElementById('bf-age-' + n);
     const ageVal = parseInt(age.value, 10);
     if (!age.value || isNaN(ageVal) || ageVal < 18 || ageVal > 99) { showFieldError(age, 'Please enter a valid age (18 or above).'); valid = false; }
