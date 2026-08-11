@@ -661,7 +661,8 @@
         </div>
 
         <!-- DEV ONLY — remove before launch -->
-        <button type="button" onclick="devAutofill()" style="margin-bottom:1.2rem;background:#B06030;color:#EDD4B2;border:none;border-radius:6px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;cursor:pointer;width:100%;">FILL TEST DATA</button>
+        <button type="button" onclick="devAutofill()" id="fillTestDataBtn" style="display:none;margin-bottom:1.2rem;background:#B06030;color:#EDD4B2;border:none;border-radius:6px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;cursor:pointer;width:100%;">FILL TEST DATA</button>
+        <script>if(location.hostname==='localhost'||location.hostname==='127.0.0.1')document.getElementById('fillTestDataBtn').style.display='block';</script>
         <div id="bookingPersons"></div>
 
         <!-- Notes to organizer -->

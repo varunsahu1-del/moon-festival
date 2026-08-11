@@ -5,6 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery — Moon Festival 2026</title>
+  <link rel="canonical" href="https://moonfestival.in/gallery.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Moon Festival" />
+  <meta property="og:url" content="https://moonfestival.in/gallery.html" />
+  <meta property="og:title" content="Gallery — Moon Festival 2026" />
+  <meta property="og:description" content="Photos from Moon Festival — five years of yoga, music, healing, art and community in South Goa." />
+  <meta property="og:image" content="https://moonfestival.in/Home Page Images/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gallery — Moon Festival 2026" />
+  <meta name="twitter:description" content="Photos from Moon Festival — five years of yoga, music, healing, art and community in South Goa." />
+  <meta name="twitter:image" content="https://moonfestival.in/Home Page Images/og-cover.jpg" />
+  <meta name="description" content="Photos from Moon Festival — five years of yoga, music, healing, art and community in South Goa." />
+
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root { --ink: #191406; --ink-2: #191406; }
@@ -135,33 +148,68 @@
     let currentIndex = 0;
     let currentSrcs = [];
 
+    const BATCH = 30;
+    let allSrcs = [];
+    let loadedCount = 0;
+    let sentinel = null;
+    let sentinelObserver = null;
+
+    function makeItem(src, idx) {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Moon Festival';
+      img.loading = 'lazy';
+      const overlay = document.createElement('div');
+      overlay.className = 'gallery-item-overlay';
+      overlay.innerHTML = '<span>View</span>';
+      div.appendChild(img);
+      div.appendChild(overlay);
+      div.addEventListener('click', () => openLightbox(idx));
+      return div;
+    }
+
+    function loadBatch() {
+      const end = Math.min(loadedCount + BATCH, allSrcs.length);
+      const fragment = document.createDocumentFragment();
+      for (let i = loadedCount; i < end; i++) {
+        fragment.appendChild(makeItem(allSrcs[i], i));
+      }
+      loadedCount = end;
+      if (sentinel) masonry.insertBefore(fragment, sentinel);
+      else masonry.appendChild(fragment);
+      if (loadedCount >= allSrcs.length && sentinel) {
+        sentinelObserver.disconnect();
+        sentinel.remove();
+        sentinel = null;
+      }
+    }
+
     function buildItems(filter) {
       const cats = filter === 'all' ? categoryOrder : [filter];
-      const fragment = document.createDocumentFragment();
+      allSrcs = [];
       currentSrcs = [];
       cats.forEach(cat => {
         images[cat].forEach(file => {
-          const src = folders[cat] + '/' + file;
-          currentSrcs.push(src);
-          const idx = currentSrcs.length - 1;
-          const div = document.createElement('div');
-          div.className = 'gallery-item';
-          div.dataset.category = cat;
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = 'Moon Festival ' + cat.replace('-', ' ');
-          img.loading = 'lazy';
-          const overlay = document.createElement('div');
-          overlay.className = 'gallery-item-overlay';
-          overlay.innerHTML = '<span>View</span>';
-          div.appendChild(img);
-          div.appendChild(overlay);
-          div.addEventListener('click', () => openLightbox(idx));
-          fragment.appendChild(div);
+          allSrcs.push(folders[cat] + '/' + file);
         });
       });
+      currentSrcs = allSrcs;
+      loadedCount = 0;
       masonry.innerHTML = '';
-      masonry.appendChild(fragment);
+
+      // Add sentinel at bottom for infinite scroll
+      if (sentinelObserver) sentinelObserver.disconnect();
+      sentinel = document.createElement('div');
+      sentinel.style.height = '1px';
+      masonry.appendChild(sentinel);
+      sentinelObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) loadBatch();
+      }, { rootMargin: '400px' });
+      sentinelObserver.observe(sentinel);
+
+      loadBatch(); // first batch immediately
     }
 
     function setLightboxImage(src) {

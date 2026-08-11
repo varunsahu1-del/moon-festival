@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://moonfestival.in/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://moonfestival.in/tickets.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://moonfestival.in/pricing.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://moonfestival.in/about.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://moonfestival.in/making-of-moon.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://moonfestival.in/venue.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://moonfestival.in/schedule.html</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://moonfestival.in/facilitators.html</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://moonfestival.in/gallery.html</loc><priority>0.6</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://moonfestival.in/meals.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://moonfestival.in/faq.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://moonfestival.in/getting-there.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://moonfestival.in/participation.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+</urlset>

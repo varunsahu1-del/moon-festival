@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /data/
+Disallow: /book.html
+Disallow: /booking-confirmed.html
+Disallow: /my-booking.html
+
+Sitemap: https://moonfestival.in/sitemap.xml
