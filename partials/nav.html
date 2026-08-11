@@ -3,7 +3,7 @@
 
   <div class="drawer-accordion">
     <button class="drawer-accordion-toggle" aria-expanded="false">
-      About
+      <span class="toggle-label"><svg width="17" height="17" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M18 30 C18 30 5 21 5 12.5 C5 8.4 8.4 5 12.5 5 C15 5 17.2 6.3 18 8.2 C18.8 6.3 21 5 23.5 5 C27.6 5 31 8.4 31 12.5 C31 21 18 30 18 30 Z"/><path d="M18 24 C18 24 10 18.5 10 13.5 C10 11.3 11.8 9.5 14 9.5 C15.5 9.5 16.9 10.3 17.7 11.5 C18.5 10.3 19.9 9.5 21.4 9.5 C23.6 9.5 25.4 11.3 25.4 13.5 C25.4 18.5 18 24 18 24 Z" opacity="0.4" fill="currentColor" stroke="none"/></svg>About</span>
       <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="drawer-accordion-panel">
@@ -15,7 +15,7 @@
 
   <div class="drawer-accordion">
     <button class="drawer-accordion-toggle" aria-expanded="false">
-      Lineup
+      <span class="toggle-label"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="10" cy="5" r="2.5"/><path d="M3 19 Q3 13 10 13 Q17 13 17 19"/><path d="M3 9 Q3 7 5 7 L8 7"/><path d="M17 9 Q17 7 15 7 L12 7"/></svg>Lineup</span>
       <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="drawer-accordion-panel">
@@ -29,7 +29,7 @@
 
   <div class="drawer-accordion">
     <button class="drawer-accordion-toggle" aria-expanded="false">
-      Plan
+      <span class="toggle-label"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M10 7 L10 7.5"/><path d="M10 9.5 L10 14"/><circle cx="10" cy="7.2" r="0.8" fill="currentColor" stroke="none"/></svg>Info</span>
       <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="drawer-accordion-panel">
@@ -63,6 +63,8 @@
   var drawer = document.getElementById('navDrawer');
   if (!drawer || drawer.dataset.accordionInit) return;
   drawer.dataset.accordionInit = '1';
+
+  // Accordion toggle
   drawer.querySelectorAll('.drawer-accordion-toggle').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var panel = btn.nextElementSibling;
@@ -72,6 +74,21 @@
         if (other !== btn) { other.classList.remove('open'); other.nextElementSibling.classList.remove('open'); }
       });
     });
+  });
+
+  // Active page highlight
+  var page = location.pathname.split('/').pop() || 'index.html';
+  drawer.querySelectorAll('a[href]').forEach(function(a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      // Open parent accordion if sub-item
+      var panel = a.closest('.drawer-accordion-panel');
+      if (panel) {
+        panel.classList.add('open');
+        var toggle = panel.previousElementSibling;
+        if (toggle) toggle.classList.add('open', 'active');
+      }
+    }
   });
 })();
 </script>
