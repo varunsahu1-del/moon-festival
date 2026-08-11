@@ -382,7 +382,7 @@ h4 { font-size: var(--t-xl); }
   gap: 0.9em;
 }
 .drawer-accordion-toggle svg { transition: transform 0.2s; flex-shrink: 0; }
-.drawer-accordion-toggle.open { color: var(--gold); }
+.drawer-accordion-toggle.open { color: var(--gold); border-bottom-color: transparent; }
 .drawer-accordion-toggle.open svg { transform: rotate(180deg); }
 .drawer-accordion-panel {
   display: none;
@@ -394,7 +394,8 @@ h4 { font-size: var(--t-xl); }
   gap: 0;
   border-left: 2px solid rgba(176,96,48,0.4);
   margin-left: 2rem;
-  margin-bottom: 0;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 .drawer-accordion-panel.open { display: flex; }
 .drawer-accordion-panel a {
