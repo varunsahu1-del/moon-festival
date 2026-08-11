@@ -402,10 +402,13 @@ h4 { font-size: var(--t-xl); }
   border-bottom: none;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
   margin-bottom: 0;
-  width: auto;
-  margin-left: 0;
-  margin-right: 0;
+  width: calc(100% + 1rem);
+  margin-left: -0.5rem;
+  margin-right: -1rem;
+  border-radius: 4px;
   color: rgba(237,212,178,0.55);
   letter-spacing: 0.12em;
 }
