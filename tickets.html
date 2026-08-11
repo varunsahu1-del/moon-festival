@@ -1374,7 +1374,7 @@
               <p class="incl-tile-name">Tribal Lunch · 27, 28 &amp; 29 Nov</p>
               <p class="incl-tile-desc">Cooked by tribal women from the forests of South Goa.</p>
             </div>
-            <div class="incl-addon-meta"><p class="incl-tile-cap">30 per day</p></div>
+            <div class="incl-addon-meta"><p class="incl-tile-cap">First 70 only</p></div>
           </div>
 
           <div class="incl-addon-row">
@@ -1883,7 +1883,7 @@
         <div class="faq-answer">Your ticket includes a <strong>3-night / 4-day stay</strong> at your chosen venue, plus full access to all workshops, festival acts, music events, ceremonies, and talks across all three days.<br><br>Check-in is at <strong>2 PM on 27th November</strong>. Check-out is 30th November at 11 AM.<br><br>If you'd like to arrive a day earlier, an <strong>Early Check-in add-on for 26th November</strong> is available — you can add this when booking your ticket.<br><br>Meals are not included in the base ticket but can be added on. We offer Satvik brunch &amp; dinner for all festival days — <strong>₹1,000 per day, ₹3,000 total</strong> for 27th, 28th &amp; 29th November.</div>
       </div>
 
-      <div class="faq-item">
+      <div class="faq-item" style="display:none;">
         <button class="faq-btn" aria-expanded="false">
           What does the Festival Only ticket include?
           <span class="faq-icon">+</span>
@@ -2302,7 +2302,7 @@ const venueData = {
   'maroon-sea-view': {
     name: 'Marron · Sea View',
     tags: ['Luxury', 'Sea Facing', 'Direct Beach Access', 'AC', 'Hot Water', 'Private Bathroom', 'Balcony', 'Restaurant & Bar', 'WiFi', 'Parking'],
-    desc: 'Marron is a luxury beachfront resort at the quiet southern end of Palolem Beach — about a 5-minute walk from Bhakti Kutir. Close enough to be in the heart of things, far enough to feel like a retreat.\n\nThe Sea View side has 11 AC cottages facing the ocean: 5 on the ground floor, 6 on the first floor. Direct beach access, unobstructed sea views, and an open-air beach shack restaurant on-site. Wake up to the ocean and walk straight onto the sand.\n\nRooms come with double beds, private bathrooms, and balconies. Room allocation (ground or first floor) is done at the time of registration. The photos here are a combined look at both floors — interiors and views vary slightly by floor, but the experience is equally beautiful.\n\nFree Wi-Fi in common areas, on-site parking available. Check-in at 2:00 PM, check-out by 12:00 PM.\n\nNote: The final approach road is very narrow — larger vehicles may drop you a short walk from the property.\n\nThe property has been fully booked out for the festival — every guest here will be a fellow Moon Festival attendee.',
+    desc: 'Marron is a luxury beachfront resort at the quiet southern end of Palolem Beach — about a 4-minute walk from Bhakti Kutir. Close enough to be in the heart of things, far enough to feel like a retreat.\n\nThe Sea View side has 11 AC cottages facing the ocean: 5 on the ground floor, 6 on the first floor. Direct beach access, unobstructed sea views, and an open-air beach shack restaurant on-site. Wake up to the ocean and walk straight onto the sand.\n\nRooms come with double beds, private bathrooms, and balconies. Room allocation (ground or first floor) is done at the time of registration. The photos here are a combined look at both floors — interiors and views vary slightly by floor, but the experience is equally beautiful.\n\nFree Wi-Fi in common areas, on-site parking available. Check-in at 2:00 PM, check-out by 12:00 PM.\n\nNote: The final approach road is very narrow — larger vehicles may drop you a short walk from the property.\n\nThe property has been fully booked out for the festival — every guest here will be a fellow Moon Festival attendee.',
     photos: [
       'Stay Page Images/Marron/Marron Sea View Combined/1.jpeg',
       'Stay Page Images/Marron/Marron Sea View Combined/2.jpeg',
@@ -2328,7 +2328,7 @@ const venueData = {
   'maroon-garden': {
     name: 'Marron · Garden',
     tags: ['Luxury', 'Direct Beach Access', 'Garden View', 'AC', 'Hot Water', 'Private Bathroom', 'Balcony', 'Restaurant & Bar', 'WiFi', 'Parking'],
-    desc: 'Marron is a luxury beachfront resort at the quiet southern end of Palolem Beach — about a 5-minute walk from Bhakti Kutir. Close enough to be in the heart of things, far enough to feel like a retreat.\n\nThe Garden rooms face the lush garden side of the property. No sea view, but you have the same direct beach access as the rest of the property — the beach is right there. AC cottages with double beds, private bathrooms, and balconies, at a more accessible price than the Sea View side.\n\nAccess to the same open-air restaurant and bar with sunset views. Free Wi-Fi in common areas, on-site parking available. Check-in at 2:00 PM, check-out by 12:00 PM.\n\nNote: The final approach road is very narrow — larger vehicles may drop you a short walk from the property.\n\nThe property has been fully booked out for the festival — every guest here will be a fellow Moon Festival attendee.',
+    desc: 'Marron is a luxury beachfront resort at the quiet southern end of Palolem Beach — about a 4-minute walk from Bhakti Kutir. Close enough to be in the heart of things, far enough to feel like a retreat.\n\nThe Garden rooms face the lush garden side of the property. No sea view, but you have the same direct beach access as the rest of the property — the beach is right there. AC cottages with double beds, private bathrooms, and balconies, at a more accessible price than the Sea View side.\n\nAccess to the same open-air restaurant and bar with sunset views. Free Wi-Fi in common areas, on-site parking available. Check-in at 2:00 PM, check-out by 12:00 PM.\n\nNote: The final approach road is very narrow — larger vehicles may drop you a short walk from the property.\n\nThe property has been fully booked out for the festival — every guest here will be a fellow Moon Festival attendee.',
     photos: [
       'Stay Page Images/Marron/Maroon Luxury garden cottage/1.jpeg',
       'Stay Page Images/Marron/Maroon Luxury garden cottage/WhatsApp Image 2026-08-05 at 15.59.34.jpeg',
@@ -2662,8 +2662,8 @@ document.addEventListener('keydown', e => {
         <button onclick="daoConfirm()" style="display:block;width:100%;background:#B06030;border:none;color:#EDD4B2;font-family:'Josefin Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;padding:13px 20px;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">
           Proceed to Book →
         </button>
-        <button onclick="closeDestinyAddonModal()" style="display:block;width:100%;background:none;border:none;color:rgba(237,212,178,0.25);font-family:'Josefin Sans',sans-serif;font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;padding:10px;cursor:pointer;margin-top:2px;transition:color 0.2s;" onmouseover="this.style.color='rgba(237,212,178,0.5)'" onmouseout="this.style.color='rgba(237,212,178,0.25)'">
-          Cancel
+        <button onclick="closeDestinyAddonModal()" style="display:block;width:100%;background:none;border:none;color:rgba(237,212,178,0.45);font-family:'Josefin Sans',sans-serif;font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;padding:10px;cursor:pointer;margin-top:2px;transition:color 0.2s;" onmouseover="this.style.color='rgba(237,212,178,0.75)'" onmouseout="this.style.color='rgba(237,212,178,0.45)'">
+          ✕ Cancel
         </button>
       </div>
 

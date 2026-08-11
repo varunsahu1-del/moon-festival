@@ -696,7 +696,7 @@
             <button type="button" class="booking-submit" id="continuePayBtn" onclick="if(_payState)openPayModal(_payState.bookingData,_payState)">Continue to Payment →</button>
             <a href="#" class="book-back-btn" style="margin-top:1rem;" onclick="startNewBooking(event)">← Start a new booking</a>
           </div>
-          <p class="book-terms-note" id="bookTermsNote">By proceeding you agree to our <a href="terms.html">T &amp; C</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+          <p class="book-terms-note" id="bookTermsNote">By proceeding you agree to our <a href="#" onclick="openDocsModal('terms');return false;">T &amp; C</a> and <a href="#" onclick="openDocsModal('privacy');return false;">Privacy Policy</a>.</p>
         </div>
 
       </form>
@@ -1405,7 +1405,7 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   _payState = { bookingData, venue, roomType, baseAmount, gst, totalWithGst, guests, cfg };
   const saving = Math.round(totalWithGst * 0.02);
   const _setEl = (id, prop, val) => { const el = document.getElementById(id); if (el) el[prop] = val; };
-  _setEl('payModalRef', 'textContent', 'Booking ' + bookingData.booking_ref + '  ·  ₹' + totalWithGst.toLocaleString('en-IN') + ' incl. GST');
+  document.getElementById('payModalRef').innerHTML = 'Booking ' + bookingData.booking_ref + '  ·  <strong>₹' + totalWithGst.toLocaleString('en-IN') + '</strong> incl. GST';
   _setEl('payUpiSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
   _setEl('payBankSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
   _setEl('payCashSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
@@ -1589,5 +1589,6 @@ async function launchRazorpay() {
 }
 </script>
 
+<script src="terms-modal.js"></script>
 </body>
 </html>
