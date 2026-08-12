@@ -2998,11 +2998,11 @@ function renderDrawer(booking, guests, breakdown) {
       ${hasGuest ? `
       <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-family:'Josefin Sans',sans-serif;margin-bottom:12px;">Booked by guest</div>
       <div style="display:flex;flex-direction:column;margin-bottom:8px;">
-        ${_groupAddonParts(addonParts).map(g => _addonRow(g)).join('')}
+        ${_groupAddonParts(addonParts).map(g => _addonRow({ ...g, count: g.count * addonGuestCount, total: g.total * addonGuestCount })).join('')}
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(42,34,24,0.03);border-radius:3px;margin-bottom:24px;">
         <span style="font-size:11px;color:rgba(42,34,24,0.4);">Included in booking total</span>
-        <span style="font-size:13px;font-weight:600;color:rgba(42,34,24,0.45);">₹${addonParts.reduce((s,p)=>s+addonLineTotal(p),0).toLocaleString('en-IN')}</span>
+        <span style="font-size:13px;font-weight:600;color:rgba(42,34,24,0.45);">₹${(addonParts.reduce((s,p)=>s+addonLineTotal(p),0)*addonGuestCount).toLocaleString('en-IN')}</span>
       </div>` : ''}
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
