@@ -2298,7 +2298,7 @@ document.querySelectorAll('.room-row').forEach(row => {
     }
     if (sameRoomEl) {
       sameRoomEl.style.display = n >= 2 ? 'block' : 'none';
-      sameRoomEl.textContent = n + ' people · sharing one room.';
+      sameRoomEl.textContent = 'All in one room.';
     }
   };
   dec.addEventListener('click', () => { if (n > 1) { n--; update(); } });
