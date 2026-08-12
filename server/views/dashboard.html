@@ -2560,7 +2560,7 @@ function renderTable() {
   if (!rows.length) { wrap.innerHTML = '<div class="empty">No bookings match.</div>'; return; }
 
   // ── Column lists per table mode ───────────────────────────────────────────
-  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','verified','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase'];
+  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase','verified'];
   const ROOMING_COLS    = ['chk','num','name','ref','venue','room','roomNo','propRoomNo','age','gender','city','roommates','phase','adminNotes','guestNote','arrival'];
   const ACCOUNTING_COLS = ['chk','num','name','date','ref','status','payment','screenshot','venue','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','adminNotes','mail','phase'];
   const COL_HEADERS = { chk:'',num:'#',name:'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,screenshot:COLS.screenshot,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,razorpayAmt:COLS.razorpayAmt,verified:COLS.verified,mail:COLS.mail,adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
@@ -2630,10 +2630,7 @@ function renderTable() {
         case 'gst':        return `<td style="color:var(--td-gst);font-size:11px;">${gstAmt?'₹'+gstAmt.toLocaleString('en-IN'):''}</td>`;
         case 'finalTotal': return `<td style="font-weight:600;color:var(--td-strong);">${finalTotal?'₹'+finalTotal.toLocaleString('en-IN'):''}</td>`;
         case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0236).toLocaleString('en-IN'):''}</td>`;
-        case 'verified': return isFirstGuest ? `<td onclick="event.stopPropagation()"><label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-          <input type="checkbox" ${r.admin_verified?'checked':''} onchange="toggleVerified('${r.booking_ref}',this.checked)" style="accent-color:#2ecc71;width:14px;height:14px;">
-          ${r.admin_verified?'<span style="font-size:10px;font-weight:600;letter-spacing:0.06em;background:rgba(46,204,113,0.15);color:#1e8a3a;border:0.5px solid rgba(46,204,113,0.4);border-radius:3px;padding:2px 7px;">VERIFIED</span>':''}
-        </label></td>` : '<td></td>';
+        case 'verified': return isFirstGuest ? `<td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>` : '<td></td>';
         case 'mail':       return `<td>${isFirstGuest?(r.email_sent?'<span style="color:#2ecc71;font-size:11px;">✓ Sent</span>':'<span style="color:var(--td-muted);font-size:11px;">—</span>'):''}</td>`;
         case 'adminNotes': return `<td class="td-wrap"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea></td>`;
         case 'guestNote':  return `<td class="td-wrap" style="font-size:11px;color:rgba(42,34,24,0.6);"><div style="max-height:72px;overflow-y:auto;">${isFirstGuest?(r.organizer_note||''):''}</div></td>`;
@@ -3373,13 +3370,24 @@ const sortLabels = { date_desc: 'Newest First', date_asc: 'Oldest First', room_n
 const statusLabels = { all: null, paid: 'Paid', pending: 'Pending', upi_pending: 'UPI Pending', failed: 'Failed' };
 const phaseLabels = { all: null, earlyBird: 'Early Bird', phase1: 'Phase 2', phase2: 'Phase 3' };
 
-async function toggleVerified(ref, verified) {
+async function toggleVerified(ref, verified, td) {
   await fetch(`/admin/api/bookings/${ref}/verify`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ verified }),
   });
-  renderTable();
+  // Update just this cell without re-rendering the whole table
+  if (td) td.innerHTML = verifiedCellHtml(ref, verified);
+}
+
+function verifiedCellHtml(ref, verified) {
+  return `<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 0;" onclick="event.stopPropagation()">
+    <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;border:1.5px solid ${verified?'#2ecc71':'rgba(42,34,24,0.2)'};background:${verified?'#2ecc71':'transparent'};flex-shrink:0;transition:all 0.15s;">
+      ${verified?'<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}
+    </span>
+    <input type="checkbox" ${verified?'checked':''} style="display:none;" onchange="toggleVerified('${ref}',this.checked,this.closest('td'))">
+    ${verified?'<span style="font-size:10px;font-weight:600;letter-spacing:0.06em;color:#1e8a3a;">VERIFIED</span>':'<span style="font-size:10px;color:rgba(42,34,24,0.3);">—</span>'}
+  </label>`;
 }
 
 async function markAddonsCollected(ref, amount, collected, method) {
