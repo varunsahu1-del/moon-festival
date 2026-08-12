@@ -897,13 +897,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       border: 1px solid rgba(237,212,178,0.3);
       color: rgba(237,212,178,0.45);
       font-family: Georgia, serif;
-      font-size: 10px;
+      font-size: 9px;
       font-style: italic;
       cursor: pointer;
       position: relative;
@@ -917,10 +917,8 @@
     .room-info-btn:hover { border-color: #B06030; color: #B06030; }
     .room-tooltip {
       display: none;
-      position: absolute;
-      bottom: calc(100% + 8px);
-      right: 0;
-      width: 220px;
+      position: fixed;
+      width: 230px;
       background: #1a1008;
       border: 0.5px solid rgba(176,96,48,0.35);
       border-radius: 4px;
@@ -929,10 +927,23 @@
       font-size: 11px;
       line-height: 1.55;
       color: rgba(237,212,178,0.75);
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 9999;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
       text-align: left;
-      pointer-events: none;
+      pointer-events: auto;
+    }
+    .room-tooltip-close {
+      display: block;
+      margin-top: 8px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(176,96,48,0.7);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
     }
     .room-info-btn:hover .room-tooltip,
     .room-info-btn:focus .room-tooltip,
@@ -955,6 +966,7 @@
       text-decoration: line-through;
       text-decoration-color: rgba(176,96,48,0.5);
       white-space: nowrap;
+      order: -1;
     }
     .room-price-original { display: none; }
     /* Stepper */
@@ -2182,20 +2194,39 @@ document.addEventListener('DOMContentLoaded', () => {
       priceWrap.appendChild(lbl);
     }
 
-    // Add ⓘ button next to room type name
+    // Add ⓘ button inline inside room type heading
     const roomTypeEl = row.querySelector('.room-type');
     if (roomTypeEl) {
       const btn = document.createElement('button');
       btn.className = 'room-info-btn';
       btn.setAttribute('aria-label', 'Room info');
-      btn.innerHTML = `i<span class="room-tooltip">${tooltip}</span>`;
+      const tip = document.createElement('span');
+      tip.className = 'room-tooltip';
+      tip.innerHTML = tooltip + '<button class="room-tooltip-close" onclick="event.stopPropagation();this.closest(\'.room-info-btn\').classList.remove(\'tooltip-open\')">✕ Close</button>';
+      // position tooltip with JS on open so it stays on screen
+      btn.innerHTML = 'i';
+      btn.appendChild(tip);
       btn.addEventListener('click', e => {
         e.stopPropagation();
         const isOpen = btn.classList.contains('tooltip-open');
         document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
-        if (!isOpen) btn.classList.add('tooltip-open');
+        if (!isOpen) {
+          btn.classList.add('tooltip-open');
+          // position the fixed tooltip near the button
+          const r = btn.getBoundingClientRect();
+          tip.style.top = (r.top - tip.offsetHeight - 8) + 'px';
+          tip.style.left = Math.max(8, Math.min(r.right - tip.offsetWidth, window.innerWidth - tip.offsetWidth - 8)) + 'px';
+          // recalc after display
+          requestAnimationFrame(() => {
+            const th = tip.offsetHeight;
+            const topPos = r.top - th - 8;
+            tip.style.top = (topPos < 8 ? r.bottom + 8 : topPos) + 'px';
+            tip.style.left = Math.max(8, Math.min(r.right - tip.offsetWidth, window.innerWidth - tip.offsetWidth - 8)) + 'px';
+          });
+        }
       });
-      roomTypeEl.insertAdjacentElement('afterend', btn);
+      roomTypeEl.style.whiteSpace = 'normal';
+      roomTypeEl.appendChild(btn);
     }
   });
 });
@@ -2298,12 +2329,17 @@ document.querySelectorAll('.room-row').forEach(row => {
     }
     if (sameRoomEl) {
       sameRoomEl.style.display = n >= 2 ? 'block' : 'none';
-      sameRoomEl.textContent = 'Booking ' + n + ' beds — we\'ll place you in the same room.';
+      sameRoomEl.textContent = 'Booking for ' + n + ' — you\'ll all share one room.';
     }
   };
   dec.addEventListener('click', () => { if (n > 1) { n--; update(); } });
   inc.addEventListener('click', () => { if (n < max) { n++; update(); } });
   update();
+});
+
+// Close tooltips when tapping outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
 });
 
 // FAQ accordion
