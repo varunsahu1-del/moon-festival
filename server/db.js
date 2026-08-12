@@ -137,6 +137,10 @@ db.exec(`
   );
 `);
 
+// Migrations
+try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified INTEGER DEFAULT 0`); } catch(_) {}
+try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified_at DATETIME`); } catch(_) {}
+
 function nextRef() {
   const row = db.prepare("SELECT MAX(CAST(SUBSTR(booking_ref,4) AS INTEGER)) as m FROM bookings WHERE booking_ref LIKE 'MF-%'").get();
   return 'MF-' + String((row.m || 0) + 1).padStart(4, '0');

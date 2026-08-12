@@ -726,6 +726,14 @@ router.patch('/api/guests/:id/notes', requireAdmin, (req, res) => {
   res.json({ ok: true });
 });
 
+// API: toggle admin verified
+router.patch('/api/bookings/:ref/verify', requireAdmin, (req, res) => {
+  const { verified } = req.body;
+  db.prepare('UPDATE bookings SET admin_verified=?, admin_verified_at=? WHERE booking_ref=?')
+    .run(verified ? 1 : 0, verified ? new Date().toISOString() : null, req.params.ref);
+  res.json({ ok: true });
+});
+
 // API: predefined room labels
 router.get('/api/inventory/rooms', requireAdmin, (req, res) => {
   res.json(ROOM_LABELS);

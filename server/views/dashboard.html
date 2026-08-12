@@ -1533,6 +1533,7 @@ const COLS = {
   gst:           'GST 5%',
   finalTotal:    'Final Total',
   razorpayAmt:   'Razorpay Amt',
+  verified:      'Verified by Admin',
   mail:          'Mail',
   date:          'Date',
   gender:        'Gender',
@@ -2559,10 +2560,10 @@ function renderTable() {
   if (!rows.length) { wrap.innerHTML = '<div class="empty">No bookings match.</div>'; return; }
 
   // ── Column lists per table mode ───────────────────────────────────────────
-  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase'];
+  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','verified','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase'];
   const ROOMING_COLS    = ['chk','num','name','ref','venue','room','roomNo','propRoomNo','age','gender','city','roommates','phase','adminNotes','guestNote','arrival'];
   const ACCOUNTING_COLS = ['chk','num','name','date','ref','status','payment','screenshot','venue','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','adminNotes','mail','phase'];
-  const COL_HEADERS = { chk:'',num:'#',name:'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,screenshot:COLS.screenshot,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,razorpayAmt:COLS.razorpayAmt,mail:COLS.mail,adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
+  const COL_HEADERS = { chk:'',num:'#',name:'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,screenshot:COLS.screenshot,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,razorpayAmt:COLS.razorpayAmt,verified:COLS.verified,mail:COLS.mail,adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
   const activeCols = tableMode==='rooming' ? ROOMING_COLS : tableMode==='accounting' ? ACCOUNTING_COLS : BOOKING_COLS;
   const thRow = activeCols.map(k => k==='chk' ? `<th style="width:32px;"><input type="checkbox" id="chk-all" title="Select all" onclick="toggleSelectAll(this)" style="accent-color:#B06030;cursor:pointer;" /></th>` : `<th>${COL_HEADERS[k]||k}</th>`).join('');
 
@@ -2629,6 +2630,10 @@ function renderTable() {
         case 'gst':        return `<td style="color:var(--td-gst);font-size:11px;">${gstAmt?'₹'+gstAmt.toLocaleString('en-IN'):''}</td>`;
         case 'finalTotal': return `<td style="font-weight:600;color:var(--td-strong);">${finalTotal?'₹'+finalTotal.toLocaleString('en-IN'):''}</td>`;
         case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0236).toLocaleString('en-IN'):''}</td>`;
+        case 'verified': return isFirstGuest ? `<td onclick="event.stopPropagation()"><label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+          <input type="checkbox" ${r.admin_verified?'checked':''} onchange="toggleVerified('${r.booking_ref}',this.checked)" style="accent-color:#2ecc71;width:14px;height:14px;">
+          ${r.admin_verified?'<span style="font-size:10px;font-weight:600;letter-spacing:0.06em;background:rgba(46,204,113,0.15);color:#1e8a3a;border:0.5px solid rgba(46,204,113,0.4);border-radius:3px;padding:2px 7px;">VERIFIED</span>':''}
+        </label></td>` : '<td></td>';
         case 'mail':       return `<td>${isFirstGuest?(r.email_sent?'<span style="color:#2ecc71;font-size:11px;">✓ Sent</span>':'<span style="color:var(--td-muted);font-size:11px;">—</span>'):''}</td>`;
         case 'adminNotes': return `<td class="td-wrap"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea></td>`;
         case 'guestNote':  return `<td class="td-wrap" style="font-size:11px;color:rgba(42,34,24,0.6);"><div style="max-height:72px;overflow-y:auto;">${isFirstGuest?(r.organizer_note||''):''}</div></td>`;
@@ -3367,6 +3372,15 @@ document.querySelectorAll('.phase-option').forEach(btn => {
 const sortLabels = { date_desc: 'Newest First', date_asc: 'Oldest First', room_number: 'Room No.', gender: 'Gender', city: 'City', age_asc: 'Age ↑', age_desc: 'Age ↓', name: 'Name A–Z' };
 const statusLabels = { all: null, paid: 'Paid', pending: 'Pending', upi_pending: 'UPI Pending', failed: 'Failed' };
 const phaseLabels = { all: null, earlyBird: 'Early Bird', phase1: 'Phase 2', phase2: 'Phase 3' };
+
+async function toggleVerified(ref, verified) {
+  await fetch(`/admin/api/bookings/${ref}/verify`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ verified }),
+  });
+  renderTable();
+}
 
 async function markAddonsCollected(ref, amount, collected, method) {
   const btn = document.querySelector(`#drawer-addon-collect-${ref} button`);
@@ -5188,7 +5202,11 @@ function openAppDrawer(id) {
 
   const fieldRows = ordered.map(k => {
     const label = k.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
-    return `<div class="drawer-row"><span class="drawer-row-label">${label}</span><span>${fields[k]}</span></div>`;
+    const val = fields[k];
+    const isUrl = /^https?:\/\//i.test(val) || /^(www\.|youtu\.be|youtube\.com|instagram\.com)/i.test(val);
+    const href = /^https?:\/\//i.test(val) ? val : 'https://' + val;
+    const displayVal = isUrl ? `<a href="${href}" target="_blank" rel="noopener" style="color:#B06030;word-break:break-all;" onclick="event.stopPropagation()">${val}</a>` : val;
+    return `<div class="drawer-row"><span class="drawer-row-label">${label}</span><span>${displayVal}</span></div>`;
   }).join('');
 
   document.getElementById('drawerContent').innerHTML = `
