@@ -212,7 +212,7 @@ h4 { font-size: var(--t-xl); }
   text-transform: uppercase;
   color: rgba(237,212,178,0.88);
   line-height: 1;
-  margin-top: 4px;
+  margin-top: 1px;
   white-space: nowrap;
 }
 
