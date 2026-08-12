@@ -2193,49 +2193,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const tooltip  = TOOLTIP[roomType];
     if (!tooltip) return;
 
-    // Add "per person" label under the price for per-person types
-    const priceWrap = row.querySelector('.price-wrap');
-    if (priceWrap && PER_PERSON_TYPES.has(roomType)) {
-      const lbl = document.createElement('span');
-      lbl.className = 'per-person-label';
-      lbl.textContent = 'per person';
-      priceWrap.appendChild(lbl);
-    }
-
-    // Add ⓘ button inline inside room type heading
-    const roomTypeEl = row.querySelector('.room-type');
-    if (roomTypeEl) {
-      const btn = document.createElement('button');
-      btn.className = 'room-info-btn';
-      btn.setAttribute('aria-label', 'Room info');
-      const tip = document.createElement('span');
-      tip.className = 'room-tooltip';
-      tip.innerHTML = tooltip + '<button class="room-tooltip-close" onclick="event.stopPropagation();this.closest(\'.room-info-btn\').classList.remove(\'tooltip-open\')">✕</button>';
-      // position tooltip with JS on open so it stays on screen
-      btn.innerHTML = '?';
-      btn.appendChild(tip);
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        const isOpen = btn.classList.contains('tooltip-open');
-        document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
-        if (!isOpen) {
-          btn.classList.add('tooltip-open');
-          // position the fixed tooltip near the button
-          const r = btn.getBoundingClientRect();
-          tip.style.top = (r.top - tip.offsetHeight - 8) + 'px';
-          tip.style.left = Math.max(8, Math.min(r.right - tip.offsetWidth, window.innerWidth - tip.offsetWidth - 8)) + 'px';
-          // recalc after display
-          requestAnimationFrame(() => {
-            const th = tip.offsetHeight;
-            const topPos = r.top - th - 8;
-            tip.style.top = (topPos < 8 ? r.bottom + 8 : topPos) + 'px';
-            tip.style.left = Math.max(8, Math.min(r.right - tip.offsetWidth, window.innerWidth - tip.offsetWidth - 8)) + 'px';
-          });
-        }
-      });
-      roomTypeEl.style.whiteSpace = 'normal';
-      roomTypeEl.appendChild(btn);
-    }
   });
 });
 document.querySelectorAll('.btn-book').forEach(btn => {
