@@ -935,7 +935,8 @@
       pointer-events: none;
     }
     .room-info-btn:hover .room-tooltip,
-    .room-info-btn:focus .room-tooltip { display: block; }
+    .room-info-btn:focus .room-tooltip,
+    .room-info-btn.tooltip-open .room-tooltip { display: block; }
     .room-price {
       font-family: 'Open Sans', sans-serif;
       font-size: clamp(1.05rem, 2vw, 1.3rem);
@@ -2188,6 +2189,12 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = 'room-info-btn';
       btn.setAttribute('aria-label', 'Room info');
       btn.innerHTML = `i<span class="room-tooltip">${tooltip}</span>`;
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = btn.classList.contains('tooltip-open');
+        document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
+        if (!isOpen) btn.classList.add('tooltip-open');
+      });
       roomTypeEl.insertAdjacentElement('afterend', btn);
     }
   });
