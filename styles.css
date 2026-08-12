@@ -206,11 +206,11 @@ h4 { font-size: var(--t-xl); }
 }
 .nav-logo-date {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: clamp(0.42rem, 0.65vw, 0.52rem);
+  font-size: clamp(0.48rem, 0.7vw, 0.56rem);
   font-weight: 300;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(237,212,178,0.45);
+  color: rgba(237,212,178,0.58);
   line-height: 1;
   margin-top: 3px;
   white-space: nowrap;
