@@ -2582,7 +2582,9 @@ function renderTable() {
     const roommates = bkGuests.filter(g=>g.guest_id!==r.guest_id&&g.full_name).map(g=>g.full_name);
     const roommateHtml = roommates.length ? `<span style="font-size:11px;color:rgba(42,34,24,0.55);">${roommates.join(', ')}</span>` : '<span style="color:rgba(237,212,178,0.2);font-size:11px;">—</span>';
     const baseAmt = parseInt(String(r.total_price).replace(/[^\d]/g,''),10)||0;
-    const _tblGuestAddonAmt = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
+    const _tblGuestCount = r.guest_count || 1;
+    const _tblGuestAddonPerPerson = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
+    const _tblGuestAddonAmt = _tblGuestAddonPerPerson * _tblGuestCount;
     const _tblExtraAddonAmt = isFirstGuest?(r.extra_addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
     const _tblAccomAmt = isFirstGuest?baseAmt-_tblGuestAddonAmt-(r.addons_collected?_tblExtraAddonAmt:0):0;
     const gstAmt    = isFirstGuest&&baseAmt ? Math.round(baseAmt*(window.__GST_RATE||0.05)) : 0;
@@ -3857,7 +3859,8 @@ function exportFilteredCSV() {
     const bkGuests = (bookingMap[r.booking_ref]?.guests||[]);
     const roommates = bkGuests.filter(g=>g.guest_id!==r.guest_id&&g.full_name).map(g=>g.full_name).join('; ');
     const baseAmt = parseInt(String(r.total_price).replace(/[^\d]/g,''),10)||0;
-    const guestAddonAmt = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
+    const csvGuestCount = r.guest_count || 1;
+    const guestAddonAmt = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0)*csvGuestCount:0;
     const extraAddonAmt = isFirstGuest?(r.extra_addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
     const accomAmt = isFirstGuest?baseAmt-guestAddonAmt-(r.addons_collected?extraAddonAmt:0):0;
     const gstAmt = isFirstGuest&&baseAmt?Math.round(baseAmt*(window.__GST_RATE||0.05)):0;
