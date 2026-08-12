@@ -1532,6 +1532,7 @@ const COLS = {
   adminAddons:   'Admin Add-ons',
   gst:           'GST 5%',
   finalTotal:    'Final Total',
+  razorpayAmt:   'Razorpay Amt',
   mail:          'Mail',
   date:          'Date',
   gender:        'Gender',
@@ -2558,10 +2559,10 @@ function renderTable() {
   if (!rows.length) { wrap.innerHTML = '<div class="empty">No bookings match.</div>'; return; }
 
   // ── Column lists per table mode ───────────────────────────────────────────
-  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase'];
+  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase'];
   const ROOMING_COLS    = ['chk','num','name','ref','venue','room','roomNo','propRoomNo','age','gender','city','roommates','phase','adminNotes','guestNote','arrival'];
-  const ACCOUNTING_COLS = ['chk','num','name','date','ref','status','payment','screenshot','venue','roomCost','addons','adminAddons','discount','gst','finalTotal','adminNotes','mail','phase'];
-  const COL_HEADERS = { chk:'',num:'#',name:'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,screenshot:COLS.screenshot,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,mail:COLS.mail,adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
+  const ACCOUNTING_COLS = ['chk','num','name','date','ref','status','payment','screenshot','venue','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','adminNotes','mail','phase'];
+  const COL_HEADERS = { chk:'',num:'#',name:'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,screenshot:COLS.screenshot,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,razorpayAmt:COLS.razorpayAmt,mail:COLS.mail,adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
   const activeCols = tableMode==='rooming' ? ROOMING_COLS : tableMode==='accounting' ? ACCOUNTING_COLS : BOOKING_COLS;
   const thRow = activeCols.map(k => k==='chk' ? `<th style="width:32px;"><input type="checkbox" id="chk-all" title="Select all" onclick="toggleSelectAll(this)" style="accent-color:#B06030;cursor:pointer;" /></th>` : `<th>${COL_HEADERS[k]||k}</th>`).join('');
 
@@ -2625,6 +2626,7 @@ function renderTable() {
         case 'discount':   return `<td>${isFirstGuest&&r.discount?`<span style="color:#c0392b;font-weight:600;">−₹${Number(r.discount).toLocaleString('en-IN')}</span>${r.discount_reason?`<br><span style="font-size:10px;color:var(--td-muted);">${r.discount_reason}</span>`:''}`:''}</td>`;
         case 'gst':        return `<td style="color:var(--td-gst);font-size:11px;">${gstAmt?'₹'+gstAmt.toLocaleString('en-IN'):''}</td>`;
         case 'finalTotal': return `<td style="font-weight:600;color:var(--td-strong);">${finalTotal?'₹'+finalTotal.toLocaleString('en-IN'):''}</td>`;
+        case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0236).toLocaleString('en-IN'):''}</td>`;
         case 'mail':       return `<td>${isFirstGuest?(r.email_sent?'<span style="color:#2ecc71;font-size:11px;">✓ Sent</span>':'<span style="color:var(--td-muted);font-size:11px;">—</span>'):''}</td>`;
         case 'adminNotes': return `<td class="td-wrap"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea></td>`;
         case 'guestNote':  return `<td class="td-wrap" style="font-size:11px;color:rgba(42,34,24,0.6);"><div style="max-height:72px;overflow-y:auto;">${isFirstGuest?(r.organizer_note||''):''}</div></td>`;
@@ -3876,8 +3878,9 @@ function exportFilteredCSV() {
         case 'adminAddons':return esc(isFirstGuest && extraAddonAmt ? extraAddonAmt : '');
         case 'discount':   return esc(isFirstGuest && r.discount ? r.discount : '');
         case 'gst':        return esc(gstAmt||'');
-        case 'finalTotal': return esc(finalTotal||'');
-        case 'mail':       return esc(isFirstGuest ? (r.email_sent ? 'Yes' : 'No') : '');
+        case 'finalTotal':   return esc(finalTotal||'');
+        case 'razorpayAmt':  return esc(isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?Math.round(finalTotal*1.0236):'');
+        case 'mail':         return esc(isFirstGuest ? (r.email_sent ? 'Yes' : 'No') : '');
         case 'adminNotes': return esc(r.notes||'');
         case 'guestNote':  return esc(isFirstGuest ? (r.organizer_note||'') : '');
         case 'whatsapp':   return esc(r.whatsapp||'');
