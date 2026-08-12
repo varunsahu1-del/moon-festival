@@ -884,6 +884,58 @@
       color: #B06030;
       white-space: nowrap;
     }
+    .per-person-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.45);
+      white-space: nowrap;
+    }
+    .room-info-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(237,212,178,0.3);
+      color: rgba(237,212,178,0.45);
+      font-family: Georgia, serif;
+      font-size: 10px;
+      font-style: italic;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      background: transparent;
+      padding: 0;
+      line-height: 1;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+    .room-info-btn:hover { border-color: #B06030; color: #B06030; }
+    .room-tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 0;
+      width: 220px;
+      background: #1a1008;
+      border: 0.5px solid rgba(176,96,48,0.35);
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      line-height: 1.55;
+      color: rgba(237,212,178,0.75);
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      text-align: left;
+      pointer-events: none;
+    }
+    .room-info-btn:hover .room-tooltip,
+    .room-info-btn:focus .room-tooltip { display: block; }
     .room-price {
       font-family: 'Open Sans', sans-serif;
       font-size: clamp(1.05rem, 2vw, 1.3rem);
@@ -2104,6 +2156,41 @@ function applyCoupon() {
 document.addEventListener('DOMContentLoaded', () => {
   const inp = document.getElementById('couponInput');
   if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });
+
+  // ── Per-person label + ⓘ tooltip for every room row ──────────────────────
+  const TOOLTIP = {
+    'Double Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add a 2nd guest — you\'ll share one room and each person pays this price. Perfect for friends or couples.',
+    'Triple Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — all of you share one room. Each person pays this price.',
+    '4 Bed Dorm':      'Price is <strong>per person</strong> in a shared 4-bed dorm. Use <strong>+</strong> to add guests — each gets their own bed in the same dorm.',
+    '6 Bed Dorm':      'Price is <strong>per person</strong> in a shared 6-bed dorm. Use <strong>+</strong> to add guests — each gets their own bed in the same dorm.',
+    'Private Room':    'This room is for <strong>1 person only</strong>. You cannot add a 2nd guest here. If you\'re coming with someone, each person books their own Private Room — or choose Double Sharing to share one room.',
+  };
+  const PER_PERSON_TYPES = new Set(['Double Sharing','Triple Sharing','4 Bed Dorm','6 Bed Dorm']);
+
+  document.querySelectorAll('.room-row').forEach(row => {
+    const roomType = row.dataset.roomType || '';
+    const tooltip  = TOOLTIP[roomType];
+    if (!tooltip) return;
+
+    // Add "per person" label under the price for per-person types
+    const priceWrap = row.querySelector('.price-wrap');
+    if (priceWrap && PER_PERSON_TYPES.has(roomType)) {
+      const lbl = document.createElement('span');
+      lbl.className = 'per-person-label';
+      lbl.textContent = 'per person';
+      priceWrap.appendChild(lbl);
+    }
+
+    // Add ⓘ button next to room type name
+    const roomTypeEl = row.querySelector('.room-type');
+    if (roomTypeEl) {
+      const btn = document.createElement('button');
+      btn.className = 'room-info-btn';
+      btn.setAttribute('aria-label', 'Room info');
+      btn.innerHTML = `i<span class="room-tooltip">${tooltip}</span>`;
+      roomTypeEl.insertAdjacentElement('afterend', btn);
+    }
+  });
 });
 document.querySelectorAll('.btn-book').forEach(btn => {
   btn.addEventListener('click', () => {
