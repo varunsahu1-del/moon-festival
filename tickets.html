@@ -2319,8 +2319,8 @@ document.querySelectorAll('.room-row').forEach(row => {
   if (max > 1) {
     sameRoomEl = document.createElement('p');
     sameRoomEl.className = 'same-room-note';
-    sameRoomEl.style.cssText = 'display:none;font-family:"Open Sans",sans-serif;font-size:0.75rem;font-weight:400;color:rgba(176,96,48,0.9);margin:0.4rem 0 0;letter-spacing:0.02em;';
-    row.querySelector('.bed-stepper').insertAdjacentElement('afterend', sameRoomEl);
+    sameRoomEl.style.cssText = 'display:none;font-family:"Open Sans",sans-serif;font-size:0.72rem;font-weight:400;color:rgba(176,96,48,0.85);margin:0.35rem 0 0;letter-spacing:0.02em;white-space:nowrap;';
+    row.querySelector('.room-bottom').insertAdjacentElement('afterend', sameRoomEl);
   }
   const update = () => {
     countEl.textContent = n;
