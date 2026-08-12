@@ -565,7 +565,7 @@ h4 { font-size: var(--t-xl); }
 }
 
 /* Participation — concentric circles (from participation page) */
-.nav-drawer a[href="participation.html"]::before {
+.nav-drawer a[href="get-involved.html"]::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 38 38' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='19' cy='19' r='14' stroke='%23EDD4B2' stroke-width='0.9' fill='none'/%3E%3Ccircle cx='19' cy='19' r='10' stroke='%23EDD4B2' stroke-width='0.5' fill='none' opacity='0.4'/%3E%3Ccircle cx='19' cy='19' r='6' stroke='%23EDD4B2' stroke-width='0.4' fill='none' opacity='0.25'/%3E%3Cpath d='M19 5 L19 3 M19 35 L19 33 M5 19 L3 19 M35 19 L33 19' stroke='%23EDD4B2' stroke-width='0.7' stroke-linecap='round' opacity='0.5'/%3E%3Cpath d='M9.4 9.4 L8 8 M29.6 29.6 L28.2 28.2 M29.6 9.4 L28.2 8 M9.4 29.6 L8 28.2' stroke='%23EDD4B2' stroke-width='0.6' stroke-linecap='round' opacity='0.4'/%3E%3C/svg%3E");
 }
 
