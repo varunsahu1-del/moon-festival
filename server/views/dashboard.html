@@ -1076,6 +1076,7 @@
   </div>
   <div class="stats-grid" id="statsGrid">
     <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Total Collected</div><div class="stat-value" id="s-revenue">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.22);"></div><div class="stat-label">GST Collected</div><div class="stat-value" id="s-gst">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(176,96,48,0.18);"></div><div class="stat-label">Early Bird Bookings</div><div class="stat-value" id="s-phase-eb">—</div></div>
     <div class="stat-card" style="display:none;"><div class="stat-icon" style="background:rgba(140,184,168,0.28);"></div><div class="stat-label">Phase 2 Bookings</div><div class="stat-value" id="s-phase-p1">—</div></div>
     <div class="stat-card" style="display:none;"><div class="stat-icon" style="background:rgba(155,143,174,0.28);"></div><div class="stat-label">Phase 3 Bookings</div><div class="stat-value" id="s-phase-p2">—</div></div>
@@ -1572,6 +1573,8 @@ async function loadStats() {
   const roomRev = d.totalRevenue || 0;
   const addonRev = d.addonRevenue || 0;
   document.getElementById('s-revenue').textContent = '₹' + roomRev.toLocaleString('en-IN');
+  const gstEl = document.getElementById('s-gst');
+  if (gstEl) gstEl.textContent = roomRev > 0 ? '₹' + Math.round(roomRev - roomRev / 1.05).toLocaleString('en-IN') : '—';
   const addonEl = document.getElementById('s-addon-revenue');
   if (addonEl) addonEl.textContent = addonRev > 0 ? '₹' + addonRev.toLocaleString('en-IN') : '—';
   const addonPendingEl = document.getElementById('s-addon-pending');
