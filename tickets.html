@@ -2159,11 +2159,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Per-person label + ⓘ tooltip for every room row ──────────────────────
   const TOOLTIP = {
-    'Double Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add a 2nd guest — you\'ll share one room and each person pays this price. Perfect for friends or couples.',
-    'Triple Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — all of you share one room. Each person pays this price.',
-    '4 Bed Dorm':      'Price is <strong>per person</strong> in a shared 4-bed dorm. Use <strong>+</strong> to add guests — each gets their own bed in the same dorm.',
-    '6 Bed Dorm':      'Price is <strong>per person</strong> in a shared 6-bed dorm. Use <strong>+</strong> to add guests — each gets their own bed in the same dorm.',
-    'Private Room':    'This room is for <strong>1 person only</strong>. You cannot add a 2nd guest here. If you\'re coming with someone, each person books their own Private Room — or choose Double Sharing to share one room.',
+    'Double Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add a 2nd guest — both of you share one room. One person completes the booking for both.',
+    'Triple Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — all sharing one room. One person completes the booking for the group.',
+    '4 Bed Dorm':      'Price is <strong>per person</strong> in a shared 4-bed dorm. Use <strong>+</strong> to add guests — each gets their own bed. One person books for the group.',
+    '6 Bed Dorm':      'Price is <strong>per person</strong> in a shared 6-bed dorm. Use <strong>+</strong> to add guests — each gets their own bed. One person books for the group.',
+    'Private Room':    'This room is for <strong>1 person only</strong> — you cannot add a 2nd guest here. Coming with someone? Choose Double Sharing and use <strong>+</strong> to add them.',
   };
   const PER_PERSON_TYPES = new Set(['Double Sharing','Triple Sharing','4 Bed Dorm','6 Bed Dorm']);
 
