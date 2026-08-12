@@ -676,8 +676,6 @@ h4 { font-size: var(--t-xl); }
   transform-origin: center;
 }
 .hero-slide:nth-child(even) img { animation-name: kenBurnsAlt; }
-.hero-slide:nth-child(2) img { object-position: center 20%; }
-.hero-slide:nth-child(13) img { object-position: center bottom; }
 @keyframes kenBurns {
   from { transform: scale(1) translate(0,0); }
   to   { transform: scale(1.07) translate(-1.5%, 1%); }
