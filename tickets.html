@@ -2301,7 +2301,7 @@ document.querySelectorAll('.room-row').forEach(row => {
     }
     if (sameRoomEl) {
       sameRoomEl.style.display = n >= 2 ? 'block' : 'none';
-      sameRoomEl.textContent = 'All in one room.';
+      sameRoomEl.textContent = 'These guests share one room.';
     }
   };
   dec.addEventListener('click', () => { if (n > 1) { n--; update(); } });
@@ -2315,14 +2315,16 @@ document.addEventListener('click', _closeTooltips);
 window.addEventListener('scroll', _closeTooltips, { passive: true });
 
 // FAQ accordion
-document.querySelectorAll('.faq-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', !expanded);
-    const answer = btn.nextElementSibling;
-    answer.classList.toggle('open', !expanded);
+try {
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      const answer = btn.nextElementSibling;
+      if (answer) answer.classList.toggle('open', !expanded);
+    });
   });
-});
+} catch(e) { console.error('FAQ accordion error:', e); }
 // Venue modal
 const venueData = {
   bhakti: {
