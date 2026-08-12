@@ -27,7 +27,10 @@ router.get('/api/stats', requireAdmin, (req, res) => {
 
   // Sum total_price — strip non-numeric chars and sum in JS (stored as formatted string)
   const priceRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid' AND deleted_at IS NULL").all();
-  const totalRevenue = priceRows.reduce((sum, r) => sum + (parseInt(String(r.total_price).replace(/[^\d]/g, ''), 10) || 0), 0);
+  const totalRevenue = priceRows.reduce((sum, r) => {
+    const base = parseInt(String(r.total_price).replace(/[^\d]/g, ''), 10) || 0;
+    return sum + Math.round(base * 1.05);
+  }, 0);
 
   const pendingRows = db.prepare("SELECT total_price, extra_addons, addons_collected FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL").all();
   const pendingAmount = pendingRows.reduce((sum, r) => {

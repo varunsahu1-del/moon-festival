@@ -36,9 +36,13 @@ function computeBreakdown(booking) {
   // Always include extra_addons regardless of collected status (admin add-ons should always show)
   const extraParts      = parseParts(booking.extra_addons);
 
-  const addonLines      = groupByName(addonParts);
+  // addons field stores per-person prices once; total_price already has them × guest_count.
+  // Multiply addon totals by guest_count so accomBase reflects the true room cost.
+  const guestCount      = Math.max(1, parseInt(booking.guest_count || 1, 10));
+  const addonLinesRaw   = groupByName(addonParts);
+  const addonLines      = addonLinesRaw.map(l => ({ ...l, count: l.count * guestCount, total: l.total * guestCount }));
   const extraAddonLines = groupByName(extraParts);
-  const addonTotal      = addonParts.reduce((s, a) => s + a.price, 0);
+  const addonTotal      = addonParts.reduce((s, a) => s + a.price, 0) * guestCount;
   const extraAddonTotal = extraParts.reduce((s, a) => s + a.price, 0);
 
   // Reverse-calculate the pre-discount accommodation total.

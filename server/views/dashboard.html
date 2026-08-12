@@ -2812,6 +2812,7 @@ function renderDrawer(booking, guests, breakdown) {
               ${discount > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Discount</span><span style="font-size:11px;color:#c0392b;font-weight:600;">−₹${discount.toLocaleString('en-IN')}</span></div>` : ''}
               <div style="${rowStyle}"><span style="${lblStyle}">GST (5%)</span><span style="${valStyle}">₹${gst.toLocaleString('en-IN')}</span></div>
               <div style="border-top:0.5px solid rgba(42,34,24,0.1);margin-top:5px;padding-top:5px;${rowStyle}"><span style="font-size:11px;font-weight:600;color:rgba(42,34,24,0.6);">Total incl. GST</span><span style="font-size:12px;font-weight:700;color:#B06030;">₹${grandTotal.toLocaleString('en-IN')}</span></div>
+              ${booking.payment_method === 'razorpay' && grandTotal > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Razorpay charged (2.36%)</span><span style="${valStyle}">₹${Math.round(grandTotal * 1.0236).toLocaleString('en-IN')}</span></div>` : ''}
             </div>`;
           })()}
         </div>
