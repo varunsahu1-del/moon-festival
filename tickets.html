@@ -2331,11 +2331,11 @@ document.querySelectorAll('.room-row').forEach(row => {
       noteEl.textContent = noteEl.dataset.note.replace('{n}', n).replace('{bed}', bed);
     }
     if (priceEl && basePrice) {
-      priceEl.textContent = '₹' + (basePrice * n).toLocaleString('en-IN');
+      priceEl.textContent = '₹' + basePrice.toLocaleString('en-IN');
     }
     if (sameRoomEl) {
       sameRoomEl.style.display = n >= 2 ? 'block' : 'none';
-      sameRoomEl.textContent = 'Booking for ' + n + ' — you\'ll all share one room.';
+      sameRoomEl.textContent = n + ' people · sharing one room.';
     }
   };
   dec.addEventListener('click', () => { if (n > 1) { n--; update(); } });
