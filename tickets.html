@@ -2314,11 +2314,12 @@ document.querySelectorAll('.room-row').forEach(row => {
   const perPersonEl = row.querySelector('.per-person-label');
   // inject same-room note if this is a shared room (max > 1)
   let sameRoomEl = null;
-  if (max > 1) {
+  const roomBottom = row.querySelector('.room-bottom');
+  if (max > 1 && roomBottom) {
     sameRoomEl = document.createElement('p');
     sameRoomEl.className = 'same-room-note';
     sameRoomEl.style.cssText = 'display:none;font-family:"Open Sans",sans-serif;font-size:0.72rem;font-weight:400;color:rgba(176,96,48,0.85);margin:0.35rem 0 0;letter-spacing:0.02em;white-space:nowrap;';
-    row.querySelector('.room-bottom').insertAdjacentElement('afterend', sameRoomEl);
+    roomBottom.insertAdjacentElement('afterend', sameRoomEl);
   }
   const update = () => {
     countEl.textContent = n;
