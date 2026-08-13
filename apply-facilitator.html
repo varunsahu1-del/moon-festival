@@ -524,7 +524,7 @@
       input.parentNode.insertBefore(errEl, input.nextSibling);
     }
     if (oversized.length) {
-      errEl.textContent = (oversized.length === 1 ? '1 photo is' : oversized.length + ' photos are') + ' over 5 MB. Please compress or resize them before uploading.';
+      errEl.textContent = (oversized.length === 1 ? '1 photo is' : oversized.length + ' photos are') + ' over 5 MB. Please compress them, or use the Google Drive link below.';
       input.value = '';
       document.getElementById('photoNames').textContent = '';
       return;
