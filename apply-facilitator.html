@@ -427,6 +427,13 @@
             <span id="photoNames" style="font-family:var(--font-mono);font-size:var(--t-xs);color:rgba(237,212,178,0.4);letter-spacing:0.04em;text-align:center;"></span>
           </label>
           <input type="file" id="photos" name="photos" accept="image/jpeg,image/png" multiple style="display:none;" onchange="showPhotoNames(this)" />
+          <div style="display:flex;align-items:center;gap:12px;margin:18px 0 10px;">
+            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.1);"></div>
+            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.25);">or</span>
+            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.1);"></div>
+          </div>
+          <input class="form-input" type="url" name="photoLink" placeholder="Google Drive folder link" style="width:100%;box-sizing:border-box;" />
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.04em;margin:6px 0 0;">Make sure the folder is set to "Anyone with the link can view"</p>
         </div>
 
         <div style="margin-top:var(--s-6);display:flex;align-items:flex-start;gap:0.75rem;">
