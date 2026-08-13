@@ -1004,6 +1004,18 @@
     }
     .stepper-btn:hover { background: rgba(176,96,48,0.12); }
     .stepper-btn:disabled { opacity: 0.25; cursor: default; }
+    .stepper-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .stepper-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: rgba(212,196,168,0.6);
+      text-transform: uppercase;
+    }
     .stepper-count {
       font-family: 'Josefin Sans', sans-serif;
       font-size: clamp(0.7rem, 1.1vw, 0.78rem);
@@ -1499,7 +1511,7 @@
 
     <div style="text-align:center;margin-top:clamp(1.8rem,4vw,2.8rem);margin-bottom:clamp(1.5rem,3vw,2.5rem);">
       <h2 class="venues-title">Accommodation Options</h2>
-      <p class="venues-label">Pick your room</p>
+      <p class="venues-label">Per person pricing</p>
       <div style="width:5rem;height:0.5px;background:rgba(237,212,178,0.25);margin:0.9rem auto 0;"></div>
     </div>
 
@@ -1520,42 +1532,42 @@
           <button class="see-details-btn" data-venue="bhakti">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="3" data-base-price="29500" data-extra-day="1500" data-room-type="Triple Sharing" data-price-phase1="32000" data-price-phase2="34000">
+          <li class="room-row" data-max="3" data-base-price="29500" data-extra-day="1500" data-room-type="Room for 3" data-price-phase1="32000" data-price-phase2="34000">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Triple Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 3-bed room">1 bed in a 3-bed room</p>
+              <p class="room-type">Room for 3</p>
+            <p class="room-note">Share a room with 2 others</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹29,500</span><span class="price-future">₹34,000</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="2" data-base-price="34500" data-extra-day="2500" data-room-type="Double Sharing" data-price-phase1="37900" data-price-phase2="40000">
+          <li class="room-row" data-max="2" data-base-price="34500" data-extra-day="2500" data-room-type="Room for 2" data-price-phase1="37900" data-price-phase2="40000">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
+              <p class="room-type">Room for 2</p>
+            <p class="room-note">Share a room with 1 other person</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹34,500</span><span class="price-future">₹40,000</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="1" data-base-price="46500" data-extra-day="3000" data-room-type="Private Room" data-price-phase1="51000" data-price-phase2="54500">
+          <li class="room-row" data-max="1" data-base-price="46500" data-extra-day="3000" data-room-type="Solo Room" data-price-phase1="51000" data-price-phase2="54500">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note">Entire room for yourself</p>
+              <p class="room-type">Solo Room</p>
+            <p class="room-note">1 person only · Travelling together? Pick Room for 2</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹46,500</span><span class="price-future">₹54,500</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1578,29 +1590,29 @@
           <button class="see-details-btn" data-venue="ourem">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="2" data-base-price="44500" data-extra-day="3500" data-room-type="Double Sharing" data-price-phase1="49000" data-price-phase2="51900">
+          <li class="room-row" data-max="2" data-base-price="44500" data-extra-day="3500" data-room-type="Room for 2" data-price-phase1="49000" data-price-phase2="51900">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed heritage room">1 bed in a 2-bed heritage room</p>
+              <p class="room-type">Room for 2</p>
+            <p class="room-note">Share a room with 1 other person</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹44,500</span><span class="price-future">₹51,900</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="1" data-base-price="58900" data-extra-day="6000" data-room-type="Private Room" data-price-phase1="64500" data-price-phase2="68000">
+          <li class="room-row" data-max="1" data-base-price="58900" data-extra-day="6000" data-room-type="Solo Room" data-price-phase1="64500" data-price-phase2="68000">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note">Entire room for yourself</p>
+              <p class="room-type">Solo Room</p>
+            <p class="room-note">1 person only · Travelling together? Pick Room for 2</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹58,900</span><span class="price-future">₹68,000</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1623,29 +1635,29 @@
           <button class="see-details-btn" data-venue="destiny">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="2" data-base-price="55000" data-extra-day="7000" data-room-type="Double Sharing" data-price-phase1="60500" data-price-phase2="63900">
+          <li class="room-row" data-max="2" data-base-price="55000" data-extra-day="7000" data-room-type="Room for 2" data-price-phase1="60500" data-price-phase2="63900">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
+              <p class="room-type">Room for 2</p>
+            <p class="room-note">Share a room with 1 other person</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹55,000</span><span class="price-future">₹63,900</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="1" data-base-price="81900" data-extra-day="12000" data-room-type="Private Room" data-price-phase1="90000" data-price-phase2="95000">
+          <li class="room-row" data-max="1" data-base-price="81900" data-extra-day="12000" data-room-type="Solo Room" data-price-phase1="90000" data-price-phase2="95000">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note">Entire room for yourself</p>
+              <p class="room-type">Solo Room</p>
+            <p class="room-note">1 person only · Travelling together? Pick Room for 2</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹81,900</span><span class="price-future">₹95,000</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1668,29 +1680,29 @@
           <button class="see-details-btn" data-venue="maroon-sea-view">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="2" data-base-price="49900" data-extra-day="4500" data-room-type="Double Sharing" data-price-phase1="54900" data-price-phase2="58900">
+          <li class="room-row" data-max="2" data-base-price="49900" data-extra-day="4500" data-room-type="Room for 2" data-price-phase1="54900" data-price-phase2="58900">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
+              <p class="room-type">Room for 2</p>
+            <p class="room-note">Share a room with 1 other person</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹49,900</span><span class="price-future">₹58,900</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="1" data-base-price="71900" data-extra-day="8500" data-room-type="Private Room" data-price-phase1="76900" data-price-phase2="80900">
+          <li class="room-row" data-max="1" data-base-price="71900" data-extra-day="8500" data-room-type="Solo Room" data-price-phase1="76900" data-price-phase2="80900">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note">Entire room for yourself</p>
+              <p class="room-type">Solo Room</p>
+            <p class="room-note">1 person only · Travelling together? Pick Room for 2</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹71,900</span><span class="price-future">₹80,900</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1713,29 +1725,29 @@
           <button class="see-details-btn" data-venue="maroon-garden">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="2" data-base-price="39500" data-extra-day="3500" data-room-type="Double Sharing" data-price-phase1="43500" data-price-phase2="45900">
+          <li class="room-row" data-max="2" data-base-price="39500" data-extra-day="3500" data-room-type="Room for 2" data-price-phase1="43500" data-price-phase2="45900">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
+              <p class="room-type">Room for 2</p>
+            <p class="room-note">Share a room with 1 other person</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹39,500</span><span class="price-future">₹45,900</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="1" data-base-price="54900" data-extra-day="6500" data-room-type="Private Room" data-price-phase1="60000" data-price-phase2="63500">
+          <li class="room-row" data-max="1" data-base-price="54900" data-extra-day="6500" data-room-type="Solo Room" data-price-phase1="60000" data-price-phase2="63500">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note">Entire room for yourself</p>
+              <p class="room-type">Solo Room</p>
+            <p class="room-note">1 person only · Travelling together? Pick Room for 2</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹54,900</span><span class="price-future">₹63,500</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1758,29 +1770,29 @@
           <button class="see-details-btn" data-venue="teraria">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="2" data-base-price="32000" data-extra-day="3000" data-room-type="Double Sharing" data-price-phase1="33700" data-price-phase2="36700">
+          <li class="room-row" data-max="2" data-base-price="32000" data-extra-day="3000" data-room-type="Room for 2" data-price-phase1="33700" data-price-phase2="36700">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Double Sharing</p>
-            <p class="room-note" data-note="{n} {bed} in a 2-bed room">1 bed in a 2-bed room</p>
+              <p class="room-type">Room for 2</p>
+            <p class="room-note">Share a room with 1 other person</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹32,000</span><span class="price-future">₹36,700</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
-          <li class="room-row" data-max="1" data-base-price="45100" data-extra-day="4500" data-room-type="Private Room" data-price-phase1="48100" data-price-phase2="52600">
+          <li class="room-row" data-max="1" data-base-price="45100" data-extra-day="4500" data-room-type="Solo Room" data-price-phase1="48100" data-price-phase2="52600">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">Private Room</p>
-            <p class="room-note" data-note="{n} {bed} in a private room">1 bed in a private room</p>
+              <p class="room-type">Solo Room</p>
+            <p class="room-note">1 person only · Travelling together? Pick Room for 2</p>
             </div>
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹45,100</span><span class="price-future">₹52,600</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1814,7 +1826,7 @@
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹25,500</span><span class="price-future">₹29,500</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1827,7 +1839,7 @@
             <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹24,000</span><span class="price-future">₹27,900</span></div>
           </div>
             <div class="room-bottom">
-            <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
             <button class="btn-book">Book</button>
           </div>
           </li>
@@ -1885,7 +1897,7 @@
                     <span class="price-future">₹21,000</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:0.7rem;">
-                    <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+                    <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
                     <button class="btn-book">Book</button>
                   </div>
                 </div>
@@ -1904,7 +1916,7 @@
                   <span class="price-future">₹8,000</span>
                 </div>
                 <div class="fap-day-actions">
-                  <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+                  <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
                   <button class="btn-book">Book</button>
                 </div>
               </div>
@@ -1921,7 +1933,7 @@
                   <span class="price-future">₹8,000</span>
                 </div>
                 <div class="fap-day-actions">
-                  <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+                  <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
                   <button class="btn-book">Book</button>
                 </div>
               </div>
@@ -1938,7 +1950,7 @@
                   <span class="price-future">₹8,000</span>
                 </div>
                 <div class="fap-day-actions">
-                  <div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div>
+                  <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
                   <button class="btn-book">Book</button>
                 </div>
               </div>
@@ -2194,24 +2206,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Per-person label + ⓘ tooltip for every room row ──────────────────────
   const TOOLTIP = {
-    'Double Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add a 2nd guest — you\'ll be in the same room.',
-    'Triple Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — everyone gets a bed in the same room.',
+    'Room for 2':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add a 2nd guest — you\'ll be in the same room.',
+    'Room for 3':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — everyone gets a bed in the same room.',
     '4 Bed Dorm':      'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
     '6 Bed Dorm':      'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
-    'Private Room':    '<strong>For 1 person only.</strong> Travelling with someone? Choose <strong>Double Sharing</strong> and tap <strong>+</strong> to add your partner — you\'ll share the same room.',
+    'Solo Room':    '<strong>For 1 person only.</strong> Travelling with someone? Choose <strong>Room for 2</strong> and tap <strong>+</strong> to add your partner — you\'ll share the same room.',
   };
-  const PER_PERSON_TYPES = new Set(['Double Sharing','Triple Sharing','4 Bed Dorm','6 Bed Dorm']);
+  const PER_PERSON_TYPES = new Set(['Room for 2','Room for 3','4 Bed Dorm','6 Bed Dorm']);
 
   // Private Room ? tooltip
   try {
     document.querySelectorAll('.room-row').forEach(row => {
-      if ((row.dataset.roomType || '') !== 'Private Room') return;
+      if ((row.dataset.roomType || '') !== 'Solo Room') return;
       const roomTypeEl = row.querySelector('.room-type');
       if (!roomTypeEl) return;
       const tipBtn = document.createElement('button');
       tipBtn.className = 'room-info-btn';
       tipBtn.setAttribute('aria-label', 'Room info');
-      tipBtn.innerHTML = `?<span class="room-tooltip"><button class="room-tooltip-close" aria-label="Close">✕</button>${TOOLTIP['Private Room']}</span>`;
+      tipBtn.innerHTML = `?<span class="room-tooltip"><button class="room-tooltip-close" aria-label="Close">✕</button>${TOOLTIP['Solo Room']}</span>`;
       roomTypeEl.appendChild(tipBtn);
       tipBtn.addEventListener('click', e => {
         e.stopPropagation();
