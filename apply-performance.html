@@ -235,7 +235,7 @@
             <span style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Click to upload photos</span>
             <span id="photoNames" style="font-family:var(--font-mono);font-size:var(--t-xs);color:rgba(237,212,178,0.4);letter-spacing:0.04em;text-align:center;"></span>
           </label>
-          <input type="file" id="photos" name="photos" accept="image/jpeg,image/png" multiple style="display:none;" onchange="(function(input){var oversized=Array.from(input.files).filter(function(f){return f.size>5*1024*1024;});var errEl=document.getElementById('file-size-error');if(!errEl){errEl=document.createElement('p');errEl.id='file-size-error';errEl.style.cssText='font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#e07050;margin:8px 0 0;letter-spacing:0.02em;';input.parentNode.insertBefore(errEl,input.nextSibling);}if(oversized.length){errEl.textContent=oversized.map(function(f){return f.name;}).join(', ')+(oversized.length===1?' is':' are')+' too large. Max 5 MB per photo.';input.value='';document.getElementById('photoNames').textContent='';return;}errEl.textContent='';var el=document.getElementById('photoNames');var files=Array.from(input.files).slice(0,5);el.textContent=files.length?files.map(function(f){return f.name;}).join(', '):'';})(this)" />
+          <input type="file" id="photos" name="photos" accept="image/jpeg,image/png" multiple style="display:none;" onchange="(function(input){var oversized=Array.from(input.files).filter(function(f){return f.size>5*1024*1024;});var errEl=document.getElementById('file-size-error');if(!errEl){errEl=document.createElement('p');errEl.id='file-size-error';errEl.style.cssText='font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#e07050;margin:8px 0 0;letter-spacing:0.02em;';input.parentNode.insertBefore(errEl,input.nextSibling);}if(oversized.length){errEl.textContent=(oversized.length===1?'1 photo is':oversized.length+' photos are')+' over 5 MB. Please compress or resize them before uploading.';input.value='';document.getElementById('photoNames').textContent='';return;}errEl.textContent='';var el=document.getElementById('photoNames');var files=Array.from(input.files).slice(0,5);el.textContent=files.length?files.map(function(f){return f.name;}).join(', '):'';})(this)" />
         </div>
 
         <div style="margin-top:var(--s-6);display:flex;align-items:flex-start;gap:0.75rem;">
@@ -333,7 +333,7 @@
           fileInput.parentNode.insertBefore(errEl, fileInput.nextSibling);
           existing = errEl;
         }
-        existing.textContent = oversized.map(function(f) { return f.name; }).join(', ') + (oversized.length === 1 ? ' is' : ' are') + ' too large. Max 5 MB per photo.';
+        existing.textContent = (oversized.length === 1 ? '1 photo is' : oversized.length + ' photos are') + ' over 5 MB. Please compress or resize them before uploading.';
         fileInput.value = '';
         document.getElementById('photoNames').textContent = '';
         return;

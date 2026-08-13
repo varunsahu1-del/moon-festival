@@ -517,7 +517,7 @@
       input.parentNode.insertBefore(errEl, input.nextSibling);
     }
     if (oversized.length) {
-      errEl.textContent = oversized.map(f => f.name).join(', ') + (oversized.length === 1 ? ' is' : ' are') + ' too large. Max 5 MB per photo.';
+      errEl.textContent = (oversized.length === 1 ? '1 photo is' : oversized.length + ' photos are') + ' over 5 MB. Please compress or resize them before uploading.';
       input.value = '';
       document.getElementById('photoNames').textContent = '';
       return;
