@@ -2068,20 +2068,22 @@
 // Nav toggle
 const toggle = document.getElementById('navToggle');
 const drawer = document.getElementById('navDrawer');
-toggle.addEventListener('click', () => {
-  const open = drawer.classList.toggle('open');
-  toggle.classList.toggle('open', open);
-  toggle.setAttribute('aria-expanded', open);
-  drawer.setAttribute('aria-hidden', !open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  drawer.classList.remove('open');
-  toggle.classList.remove('open');
-  toggle.setAttribute('aria-expanded', false);
-  drawer.setAttribute('aria-hidden', true);
-  document.body.style.overflow = '';
-}));
+if (toggle && drawer) {
+  toggle.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    drawer.setAttribute('aria-hidden', true);
+    document.body.style.overflow = '';
+  }));
+}
 // ── City autocomplete helper (reusable per input) ──────────────────────────
 const cities = [
   'Agra','Ahmedabad','Aizawl','Ajmer','Aligarh','Allahabad','Amritsar','Aurangabad',
