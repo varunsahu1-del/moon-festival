@@ -1507,14 +1507,56 @@
 </div>
 
 <script>
-// Shared fetch — redirects to login on session expiry
-async function adminFetch(url, opts) {
-  const r = await fetch(url, opts);
-  if (r.status === 401 || (r.redirected && r.url.includes('/admin/login'))) {
-    window.location.href = '/admin/login';
-    return null;
+// ── Reliability helpers ─────────────────────────────────────────────────────
+
+// Toast — "Saved ✓" confirmation
+(function() {
+  const el = document.createElement('div');
+  el.id = 'save-toast';
+  el.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e8a3a;color:#fff;font-size:12px;letter-spacing:0.06em;padding:8px 16px;border-radius:4px;opacity:0;transition:opacity 0.2s;z-index:9999;pointer-events:none;';
+  document.addEventListener('DOMContentLoaded', () => document.body.appendChild(el));
+  window._showSaveToast = function(msg) {
+    el.textContent = msg || 'Saved ✓';
+    el.style.opacity = '1';
+    clearTimeout(el._t);
+    el._t = setTimeout(() => { el.style.opacity = '0'; }, 2000);
+  };
+})();
+
+// Offline queue — flush pending saves when connection returns
+const _offlineQueue = [];
+window.addEventListener('online', async () => {
+  while (_offlineQueue.length) {
+    const { url, opts, onSuccess } = _offlineQueue.shift();
+    try {
+      const r = await fetch(url, opts);
+      if (r.ok && onSuccess) onSuccess();
+    } catch(e) { /* still offline, give up on this item */ }
   }
-  return r;
+  if (_offlineQueue.length === 0) window._showSaveToast('Back online — changes saved ✓');
+});
+
+// Shared fetch — auto-retry up to 3 times, redirects to login on session expiry
+async function adminFetch(url, opts, { retries = 3, onSuccess } = {}) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const r = await fetch(url, opts);
+      if (r.status === 401 || (r.redirected && r.url.includes('/admin/login'))) {
+        window.location.href = '/admin/login';
+        return null;
+      }
+      if (r.ok) return r;
+      if (attempt === retries) return r; // return failed response to caller on last attempt
+    } catch(e) {
+      if (!navigator.onLine) {
+        // Queue for when connection returns
+        _offlineQueue.push({ url, opts: { ...opts, body: opts && opts.body }, onSuccess });
+        return null; // caller should treat null as "queued offline"
+      }
+      if (attempt === retries) throw e;
+    }
+    await new Promise(res => setTimeout(res, 400 * attempt)); // backoff: 400ms, 800ms
+  }
 }
 
 // Single source of truth for all field/column names used in table headers, drawer, and forms
@@ -2706,15 +2748,21 @@ function renderTable() {
       const val = ta.value;
       if (val === savedValue) return;
       const guestId = ta.dataset.guestId;
-      const res = await fetch(`/admin/api/guests/${guestId}/notes`, {
+      const res = await adminFetch(`/admin/api/guests/${guestId}/notes`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ notes: val }),
-      });
-      if (res.ok) {
+      }, { onSuccess: () => window._showSaveToast('Note saved ✓') });
+      if (!res) {
+        // offline-queued — optimistic green flash
+        savedValue = val;
+        ta.style.borderColor = '#f39c12';
+        setTimeout(() => { ta.style.borderColor = ''; }, 1500);
+      } else if (res.ok) {
         savedValue = val;
         ta.style.borderColor = '#2ecc71';
         setTimeout(() => { ta.style.borderColor = ''; }, 1000);
+        window._showSaveToast('Note saved ✓');
       } else {
         ta.style.borderColor = '#e74c3c';
         setTimeout(() => { ta.style.borderColor = ''; }, 2000);
@@ -3375,18 +3423,25 @@ const statusLabels = { all: null, paid: 'Paid', pending: 'Pending', upi_pending:
 const phaseLabels = { all: null, earlyBird: 'Early Bird', phase1: 'Phase 2', phase2: 'Phase 3' };
 
 async function toggleVerified(ref, verified, td) {
-  const res = await fetch(`/admin/api/bookings/${ref}/verify`, {
+  const res = await adminFetch(`/admin/api/bookings/${ref}/verify`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ verified }),
+  }, {
+    onSuccess: () => window._showSaveToast(verified ? 'Verified ✓' : 'Unverified ✓'),
   });
+  if (!res) {
+    // null = offline-queued; optimistically update UI
+    if (td) td.innerHTML = verifiedCellHtml(ref, verified);
+    return;
+  }
   if (!res.ok) {
     alert('Failed to save verified status — please try again.');
-    // Revert UI to previous state
     if (td) td.innerHTML = verifiedCellHtml(ref, !verified);
     return;
   }
   if (td) td.innerHTML = verifiedCellHtml(ref, verified);
+  window._showSaveToast(verified ? 'Verified ✓' : 'Unverified ✓');
 }
 
 function verifiedCellHtml(ref, verified) {
@@ -3710,11 +3765,13 @@ function openPmEditor(cell) {
   const save = async () => {
     const val = sel.value === '__custom__' ? customInput.value.trim() : sel.value;
     if (!val) { cell.innerHTML = fmtPm(current) || '— set'; cell.style.color = 'rgba(42,34,24,0.25)'; return; }
-    const res = await fetch(`/admin/api/bookings/${ref}/payment-method`, {
+    const res = await adminFetch(`/admin/api/bookings/${ref}/payment-method`, {
       method: 'PATCH', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ payment_method: val }),
-    });
-    if (!res.ok) { alert('Failed to save payment method — please try again.'); cell.innerHTML = fmtPm(current) || '— set'; return; }
+    }, { onSuccess: () => window._showSaveToast('Payment method saved ✓') });
+    if (!res) { /* offline-queued — update UI optimistically */ }
+    else if (!res.ok) { alert('Failed to save payment method — please try again.'); cell.innerHTML = fmtPm(current) || '— set'; return; }
+    else { window._showSaveToast('Payment method saved ✓'); }
     if (bookingMap[ref]) bookingMap[ref].payment_method = val;
     // Keep allBookings in sync so re-renders show the updated value
     allBookings.filter(b => b.booking_ref === ref).forEach(b => { b.payment_method = val; });
