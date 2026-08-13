@@ -508,6 +508,21 @@
   });
 
   function showPhotoNames(input) {
+    const oversized = Array.from(input.files).filter(f => f.size > 5 * 1024 * 1024);
+    let errEl = document.getElementById('file-size-error');
+    if (!errEl) {
+      errEl = document.createElement('p');
+      errEl.id = 'file-size-error';
+      errEl.style.cssText = "font-family:'Open Sans',sans-serif;font-size:0.82rem;color:#e07050;margin:8px 0 0;letter-spacing:0.02em;";
+      input.parentNode.insertBefore(errEl, input.nextSibling);
+    }
+    if (oversized.length) {
+      errEl.textContent = oversized.map(f => f.name).join(', ') + (oversized.length === 1 ? ' is' : ' are') + ' too large. Max 5 MB per photo.';
+      input.value = '';
+      document.getElementById('photoNames').textContent = '';
+      return;
+    }
+    errEl.textContent = '';
     const el = document.getElementById('photoNames');
     const files = Array.from(input.files).slice(0, 5);
     el.textContent = files.length ? files.map(f => f.name).join(', ') : '';
