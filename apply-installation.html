@@ -229,12 +229,13 @@
             <span id="instPhotoNames" style="font-family:var(--font-mono);font-size:var(--t-xs);color:rgba(237,212,178,0.4);letter-spacing:0.04em;text-align:center;"></span>
           </label>
           <input type="file" id="instPhotos" name="instPhotos" accept="image/jpeg,image/png" multiple style="display:none;" onchange="(function(input){var oversized=Array.from(input.files).filter(function(f){return f.size>5*1024*1024;});var errEl=document.getElementById('file-size-error');if(!errEl){errEl=document.createElement('p');errEl.id='file-size-error';errEl.style.cssText='font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#e07050;margin:8px 0 0;letter-spacing:0.02em;';input.parentNode.insertBefore(errEl,input.nextSibling);}if(oversized.length){errEl.textContent=(oversized.length===1?'1 image is':oversized.length+' images are')+' over 5 MB. Please compress them, or use the Google Drive link below.';input.value='';document.getElementById('instPhotoNames').textContent='';return;}errEl.textContent='';var el=document.getElementById('instPhotoNames');var files=Array.from(input.files).slice(0,5);el.textContent=files.length?files.map(function(f){return f.name;}).join(', '):'';})(this)" />
-          <div style="display:flex;align-items:center;gap:12px;margin:18px 0 10px;">
-            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.1);"></div>
-            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.25);">or</span>
-            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.1);"></div>
+          <div style="display:flex;align-items:center;gap:12px;margin:18px 0 16px;">
+            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.2);"></div>
+            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.45);">or</span>
+            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.2);"></div>
           </div>
-          <input class="form-input" type="url" name="photoLink" placeholder="Google Drive folder link" style="width:100%;box-sizing:border-box;" />
+          <label class="form-label" for="photoLink">Google Drive folder link</label>
+          <input class="form-input" type="url" id="photoLink" name="photoLink" placeholder="https://drive.google.com/drive/folders/..." style="width:100%;box-sizing:border-box;" />
           <p style="font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.04em;margin:6px 0 0;">Make sure the folder is set to "Anyone with the link can view"</p>
         </div>
 
