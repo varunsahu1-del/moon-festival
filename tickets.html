@@ -2065,6 +2065,12 @@
 </div>
 
 <script>
+window.onerror = function(msg, src, line, col, err) {
+  const d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;font-size:13px;padding:8px 12px;z-index:99999;font-family:monospace;';
+  d.textContent = 'JS Error (line ' + line + '): ' + msg;
+  document.body.appendChild(d);
+};
 // Nav toggle
 const toggle = document.getElementById('navToggle');
 const drawer = document.getElementById('navDrawer');
