@@ -2194,42 +2194,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const PER_PERSON_TYPES = new Set(['Double Sharing','Triple Sharing','4 Bed Dorm','6 Bed Dorm']);
 
-  try {
-    document.querySelectorAll('.room-row').forEach(row => {
-      const roomType = row.dataset.roomType || '';
-      if (roomType !== 'Private Room') return;
-      const tooltipHtml = TOOLTIP[roomType];
-      if (!tooltipHtml) return;
-
-      const roomTypeEl = row.querySelector('.room-type');
-      if (!roomTypeEl) return;
-
-      const tipBtn = document.createElement('button');
-      tipBtn.className = 'room-info-btn';
-      tipBtn.setAttribute('aria-label', 'Room info');
-      tipBtn.innerHTML = `?<span class="room-tooltip"><button class="room-tooltip-close" aria-label="Close">✕</button>${tooltipHtml}</span>`;
-      roomTypeEl.appendChild(tipBtn);
-
-      function positionTooltip() {
-        const tip = tipBtn.querySelector('.room-tooltip');
-        const rect = tipBtn.getBoundingClientRect();
-        const spaceRight = window.innerWidth - rect.right;
-        tip.style.top = (rect.bottom + 6) + 'px';
-        tip.style.left = (spaceRight < 270 ? Math.max(8, rect.right - 260) : rect.left) + 'px';
-      }
-
-      tipBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        const isOpen = tipBtn.classList.contains('tooltip-open');
-        document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
-        if (!isOpen) { positionTooltip(); tipBtn.classList.add('tooltip-open'); }
-      });
-      tipBtn.querySelector('.room-tooltip-close').addEventListener('click', e => {
-        e.stopPropagation();
-        tipBtn.classList.remove('tooltip-open');
-      });
-    });
-  } catch(e) { console.error('Tooltip init error:', e); }
 });
 document.querySelectorAll('.btn-book').forEach(btn => {
   btn.addEventListener('click', () => {
