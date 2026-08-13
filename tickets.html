@@ -919,7 +919,7 @@
     .room-tooltip {
       display: none;
       position: fixed;
-      width: 230px;
+      width: 260px;
       background: #1a1008;
       border: 0.5px solid rgba(176,96,48,0.35);
       border-radius: 4px;
@@ -2194,6 +2194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.room-row').forEach(row => {
     const roomType = row.dataset.roomType || '';
+    if (roomType !== 'Private Room') return;
     const tooltipHtml = TOOLTIP[roomType];
     if (!tooltipHtml) return;
 
