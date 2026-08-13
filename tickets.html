@@ -2236,7 +2236,9 @@ document.querySelectorAll('.btn-book').forEach(btn => {
 
     // Festival Access — navigate directly
     const venueName = card ? (card.dataset.venue || card.querySelector('.venue-name').textContent.trim()) : '';
-    const roomType  = row.dataset.room || row.querySelector('.room-type').textContent.trim();
+    const DISPLAY_TO_SERVER = { 'Room for 2': 'Double Sharing', 'Room for 3': 'Triple Sharing', 'Solo Room': 'Private Room' };
+    const rawRoomType = row.dataset.roomType || row.querySelector('.room-type').textContent.trim();
+    const roomType  = DISPLAY_TO_SERVER[rawRoomType] || rawRoomType;
     const priceRaw  = row.dataset.couponPrice || row.querySelector('.room-price').textContent.replace(/[^\d]/g, '');
     const count     = parseInt(row.querySelector('.stepper-count').textContent, 10) || 1;
     window.location.href = 'book.html?venue=' + encodeURIComponent(venueName)
@@ -2831,7 +2833,8 @@ document.addEventListener('keydown', e => {
 let _daoBase = 0, _daoMax = 1, _daoCount = 1, _daoRoomType = '', _daoVenue = '', _daoExtraDay = 0;
 
 function openDestinyAddonModal(roomType, basePrice, count, max, venueName, extraDay) {
-  _daoBase = basePrice; _daoMax = max; _daoCount = count; _daoRoomType = roomType; _daoVenue = venueName || '';
+  const _DAO_MAP = { 'Room for 2': 'Double Sharing', 'Room for 3': 'Triple Sharing', 'Solo Room': 'Private Room' };
+  _daoBase = basePrice; _daoMax = max; _daoCount = count; _daoRoomType = _DAO_MAP[roomType] || roomType; _daoVenue = venueName || '';
   _daoExtraDay = extraDay || 0;
   document.getElementById('dao-venue-label').textContent = _daoVenue || '';
   document.getElementById('dao-room-label').textContent = roomType;
