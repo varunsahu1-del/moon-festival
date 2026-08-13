@@ -827,7 +827,6 @@
       justify-content: flex-start;
       gap: 1rem;
       padding-top: 0.7rem;
-      border-top: 0.5px solid rgba(237,212,178,0.06);
     }
     .room-bottom .btn-book { margin-left: auto; }
     .room-info {
@@ -2214,35 +2213,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const PER_PERSON_TYPES = new Set(['Room for 2','Room for 3','4 Bed Dorm','6 Bed Dorm']);
 
-  // Private Room ? tooltip
-  try {
-    document.querySelectorAll('.room-row').forEach(row => {
-      if ((row.dataset.roomType || '') !== 'Solo Room') return;
-      const roomTypeEl = row.querySelector('.room-type');
-      if (!roomTypeEl) return;
-      const tipBtn = document.createElement('button');
-      tipBtn.className = 'room-info-btn';
-      tipBtn.setAttribute('aria-label', 'Room info');
-      tipBtn.innerHTML = `?<span class="room-tooltip"><button class="room-tooltip-close" aria-label="Close">✕</button>${TOOLTIP['Solo Room']}</span>`;
-      roomTypeEl.appendChild(tipBtn);
-      tipBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        const isOpen = tipBtn.classList.contains('tooltip-open');
-        document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
-        if (!isOpen) {
-          const tip = tipBtn.querySelector('.room-tooltip');
-          const rect = tipBtn.getBoundingClientRect();
-          tip.style.top = (rect.bottom + 6) + 'px';
-          tip.style.left = (window.innerWidth - rect.right < 270 ? Math.max(8, rect.right - 260) : rect.left) + 'px';
-          tipBtn.classList.add('tooltip-open');
-        }
-      });
-      tipBtn.querySelector('.room-tooltip-close').addEventListener('click', e => {
-        e.stopPropagation();
-        tipBtn.classList.remove('tooltip-open');
-      });
-    });
-  } catch(e) { console.error('Tooltip init:', e); }
 
 });
 document.querySelectorAll('.btn-book').forEach(btn => {
@@ -2324,15 +2294,7 @@ document.querySelectorAll('.room-row').forEach(row => {
   const basePrice = parseInt(row.dataset.basePrice);
   const priceEl = row.querySelector('.room-price');
   const perPersonEl = row.querySelector('.per-person-label');
-  // inject same-room note if this is a shared room (max > 1)
   let sameRoomEl = null;
-  const roomBottom = row.querySelector('.room-bottom');
-  if (max > 1 && roomBottom) {
-    sameRoomEl = document.createElement('p');
-    sameRoomEl.className = 'same-room-note';
-    sameRoomEl.style.cssText = 'display:none;font-family:"Open Sans",sans-serif;font-size:0.72rem;font-weight:400;color:rgba(176,96,48,0.85);margin:0.35rem 0 0;letter-spacing:0.02em;white-space:nowrap;';
-    roomBottom.insertAdjacentElement('afterend', sameRoomEl);
-  }
   const update = () => {
     countEl.textContent = n;
     dec.disabled = n <= 1;
@@ -2346,10 +2308,6 @@ document.querySelectorAll('.room-row').forEach(row => {
     }
     if (perPersonEl) {
       perPersonEl.textContent = n === 1 ? 'per person' : 'for ' + n + ' people';
-    }
-    if (sameRoomEl) {
-      sameRoomEl.style.display = n >= 2 ? 'block' : 'none';
-      sameRoomEl.textContent = 'These guests share one room.';
     }
   };
   dec.addEventListener('click', () => { if (n > 1) { n--; update(); } });
