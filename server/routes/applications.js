@@ -143,36 +143,45 @@ router.post('/submit', upload.any(), async (req, res) => {
     }));
 
     // Save to database
+    let dbSaved = false;
     try {
       db.prepare(`
         INSERT INTO applications (form_type, form_label, applicant, email, whatsapp, fields_json)
         VALUES (?, ?, ?, ?, ?, ?)
       `).run(formName, formLabel, applicantName, applicantEmail, fields.whatsapp || '', JSON.stringify(fields));
+      dbSaved = true;
     } catch (e) { console.error('[applications] DB save failed:', e.message); }
+
+    // Return success to user as soon as DB is saved — email is a background task
+    if (dbSaved) res.json({ ok: true });
 
     if (!process.env.RESEND_API_KEY) {
       console.log('[applications] RESEND_API_KEY not set — skipping email');
-      return res.json({ ok: true, note: 'email_skipped' });
+      if (!dbSaved) res.json({ ok: true, note: 'email_skipped' });
+      return;
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from:    'Moon Festival <bookings@moonfestival.in>',
-      to:      PARTICIPATE_EMAIL,
-      replyTo: applicantEmail || undefined,
-      subject: `${applicantName} · ${formLabel}${subjectTag} · Moon Festival 2026`,
-      html,
-      attachments: attachments.map(a => ({ filename: a.filename, content: a.content })),
-    });
-
-    console.log(`[applications] ${formLabel} from ${applicantName} sent to ${PARTICIPATE_EMAIL}`);
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from:    'Moon Festival <bookings@moonfestival.in>',
+        to:      PARTICIPATE_EMAIL,
+        replyTo: applicantEmail || undefined,
+        subject: `${applicantName} · ${formLabel}${subjectTag} · Moon Festival 2026`,
+        html,
+        attachments: attachments.map(a => ({ filename: a.filename, content: a.content })),
+      });
+      console.log(`[applications] ${formLabel} from ${applicantName} sent to ${PARTICIPATE_EMAIL}`);
+    } catch (emailErr) {
+      console.error('[applications] email send failed:', emailErr.message);
+    }
 
     // Email 07 — acknowledgement to applicant
     if (applicantEmail) {
       sendApplicationReceived({ applicantName, applicantEmail, formLabel }).catch(e => console.error('[applications] applicant ack failed:', e.message));
     }
 
-    res.json({ ok: true });
+    if (!dbSaved) res.json({ ok: true });
   } catch (err) {
     console.error('[applications/submit]', err);
     res.status(500).json({ error: 'Failed to send application' });
