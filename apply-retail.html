@@ -419,6 +419,29 @@
     e.preventDefault();
     var btn = form.querySelector('[type=submit]');
     var originalText = btn ? btn.textContent : '';
+
+    var fileInput = form.querySelector('input[type="file"]');
+    if (fileInput && fileInput.files.length) {
+      var oversized = Array.from(fileInput.files).filter(function(f) { return f.size > 5 * 1024 * 1024; });
+      if (oversized.length) {
+        var errId = 'file-size-error';
+        var existing = document.getElementById(errId);
+        if (!existing) {
+          var errEl = document.createElement('p');
+          errEl.id = errId;
+          errEl.style.cssText = 'font-family:\'Open Sans\',sans-serif;font-size:0.82rem;color:#e07050;margin:8px 0 0;letter-spacing:0.02em;';
+          fileInput.parentNode.insertBefore(errEl, fileInput.nextSibling);
+          existing = errEl;
+        }
+        existing.textContent = oversized.map(function(f) { return f.name; }).join(', ') + (oversized.length === 1 ? ' is' : ' are') + ' too large. Max 5 MB per photo.';
+        fileInput.value = '';
+        document.getElementById('productPhotoNames').textContent = '';
+        return;
+      }
+    }
+    var errEl = document.getElementById('file-size-error');
+    if (errEl) errEl.textContent = '';
+
     if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
     var formData = new FormData(form);
