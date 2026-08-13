@@ -2715,6 +2715,10 @@ function renderTable() {
         savedValue = val;
         ta.style.borderColor = '#2ecc71';
         setTimeout(() => { ta.style.borderColor = ''; }, 1000);
+      } else {
+        ta.style.borderColor = '#e74c3c';
+        setTimeout(() => { ta.style.borderColor = ''; }, 2000);
+        alert('Failed to save admin note — please try again.');
       }
     });
   });
@@ -3371,12 +3375,17 @@ const statusLabels = { all: null, paid: 'Paid', pending: 'Pending', upi_pending:
 const phaseLabels = { all: null, earlyBird: 'Early Bird', phase1: 'Phase 2', phase2: 'Phase 3' };
 
 async function toggleVerified(ref, verified, td) {
-  await fetch(`/admin/api/bookings/${ref}/verify`, {
+  const res = await fetch(`/admin/api/bookings/${ref}/verify`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ verified }),
   });
-  // Update just this cell without re-rendering the whole table
+  if (!res.ok) {
+    alert('Failed to save verified status — please try again.');
+    // Revert UI to previous state
+    if (td) td.innerHTML = verifiedCellHtml(ref, !verified);
+    return;
+  }
   if (td) td.innerHTML = verifiedCellHtml(ref, verified);
 }
 
@@ -3701,10 +3710,11 @@ function openPmEditor(cell) {
   const save = async () => {
     const val = sel.value === '__custom__' ? customInput.value.trim() : sel.value;
     if (!val) { cell.innerHTML = fmtPm(current) || '— set'; cell.style.color = 'rgba(42,34,24,0.25)'; return; }
-    await fetch(`/admin/api/bookings/${ref}/payment-method`, {
+    const res = await fetch(`/admin/api/bookings/${ref}/payment-method`, {
       method: 'PATCH', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ payment_method: val }),
     });
+    if (!res.ok) { alert('Failed to save payment method — please try again.'); cell.innerHTML = fmtPm(current) || '— set'; return; }
     if (bookingMap[ref]) bookingMap[ref].payment_method = val;
     // Keep allBookings in sync so re-renders show the updated value
     allBookings.filter(b => b.booking_ref === ref).forEach(b => { b.payment_method = val; });
