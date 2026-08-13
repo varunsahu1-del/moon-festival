@@ -51,7 +51,12 @@ function getPartial(name) {
 }
 
 app.use((req, res, next) => {
-  const filePath = path.join(ROOT, req.path === '/' ? 'index.html' : req.path);
+  let filePath = path.join(ROOT, req.path === '/' ? 'index.html' : req.path);
+  // Clean URL support: try appending .html if no extension and file doesn't exist
+  if (!path.extname(req.path) && !fs.existsSync(filePath)) {
+    const withHtml = filePath + '.html';
+    if (fs.existsSync(withHtml)) filePath = withHtml;
+  }
   if (!filePath.endsWith('.html') || !fs.existsSync(filePath)) return next();
   let html = fs.readFileSync(filePath, 'utf8');
   html = html.replace('<!-- NAV -->', getPartial('nav.html'));
