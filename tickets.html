@@ -2188,15 +2188,48 @@ document.addEventListener('DOMContentLoaded', () => {
     'Triple Sharing':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — everyone gets a bed in the same room.',
     '4 Bed Dorm':      'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
     '6 Bed Dorm':      'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
-    'Private Room':    'Price is for the <strong>entire room, 1 person only</strong>. Coming with someone? Choose <strong>Double Sharing</strong> and use <strong>+</strong> to add your guest.',
+    'Private Room':    '<strong>For 1 person only.</strong> Travelling with someone? Choose <strong>Double Sharing</strong> and tap <strong>+</strong> to add your partner — you\'ll share the same room.',
   };
   const PER_PERSON_TYPES = new Set(['Double Sharing','Triple Sharing','4 Bed Dorm','6 Bed Dorm']);
 
   document.querySelectorAll('.room-row').forEach(row => {
     const roomType = row.dataset.roomType || '';
-    const tooltip  = TOOLTIP[roomType];
-    if (!tooltip) return;
+    const tooltipHtml = TOOLTIP[roomType];
+    if (!tooltipHtml) return;
 
+    const roomTypeEl = row.querySelector('.room-type');
+    if (!roomTypeEl) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'room-info-btn';
+    btn.setAttribute('aria-label', 'Room info');
+    btn.innerHTML = `?<span class="room-tooltip"><button class="room-tooltip-close" aria-label="Close">✕</button>${tooltipHtml}</span>`;
+    roomTypeEl.appendChild(btn);
+
+    // Position tooltip near the button
+    function positionTooltip() {
+      const tip = btn.querySelector('.room-tooltip');
+      const rect = btn.getBoundingClientRect();
+      const spaceRight = window.innerWidth - rect.right;
+      tip.style.top = (rect.bottom + 6) + 'px';
+      if (spaceRight < 250) {
+        tip.style.left = Math.max(8, rect.right - 230) + 'px';
+      } else {
+        tip.style.left = rect.left + 'px';
+      }
+    }
+
+    // Mobile tap: toggle; close button
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = btn.classList.contains('tooltip-open');
+      document.querySelectorAll('.room-info-btn.tooltip-open').forEach(b => b.classList.remove('tooltip-open'));
+      if (!isOpen) { positionTooltip(); btn.classList.add('tooltip-open'); }
+    });
+    btn.querySelector('.room-tooltip-close').addEventListener('click', e => {
+      e.stopPropagation();
+      btn.classList.remove('tooltip-open');
+    });
   });
 });
 document.querySelectorAll('.btn-book').forEach(btn => {
