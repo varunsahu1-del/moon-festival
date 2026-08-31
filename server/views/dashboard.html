@@ -2556,6 +2556,18 @@ function renderTable() {
     return true;
   });
 
+  // Chronological guest rank (1 = first guest ever, each person gets a unique number)
+  const chronoRank = {};
+  let _guestRank = 1;
+  [...allRefs]
+    .sort((a, b) => bookingMap[a].first.booking_id - bookingMap[b].first.booking_id)
+    .forEach(ref => {
+      bookingMap[ref].guests
+        .slice()
+        .sort((a, b) => (a.guest_number||1) - (b.guest_number||1))
+        .forEach(g => { chronoRank[`${ref}:${g.guest_id}`] = _guestRank++; });
+    });
+
   // Sort
   filteredRefs.sort((refA, refB) => {
     const fa = bookingMap[refA].first, fb = bookingMap[refB].first;
@@ -2638,7 +2650,7 @@ function renderTable() {
     function cell(k) {
       switch(k) {
         case 'chk': return `<td style="width:32px;" onclick="event.stopPropagation();">${isFirstGuest?`<input type="checkbox" class="row-chk" data-ref="${r.booking_ref}" onchange="updateBulkBar()" style="accent-color:#B06030;cursor:pointer;" />`:''}  </td>`;
-        case 'num': return `<td style="color:var(--td-row-num);font-size:11px;">${i+1}</td>`;
+        case 'num': return `<td style="color:var(--td-row-num);font-size:11px;">${chronoRank[`${r.booking_ref}:${r.guest_id}`] || i+1}</td>`;
         case 'name': {
           const hb=isFirstGuest&&((NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE))||r.source==='admin'||r.phase);
           const bd=isFirstGuest?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:${hb?'4px':'0'}">${NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE)?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(176,96,48,0.25);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);border-radius:3px;padding:1px 5px;">NEW</span>':''}${r.source==='admin'?'<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;background:rgba(42,34,24,0.1);color:rgba(42,34,24,0.45);border:0.5px solid rgba(42,34,24,0.2);border-radius:3px;padding:1px 5px;">ORGANISER</span>':''}${r.phase?`<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:1px 5px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase1'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase1'?'Phase 2':'Phase 3'}</span>`:''}</div>`:'';
@@ -4222,7 +4234,9 @@ function openAddBooking() {
   document.getElementById('ab-email-row').style.display = 'none';
   const _abPlRow = document.getElementById('ab-paylink-row'); if (_abPlRow) _abPlRow.style.display = 'block';
   const _abPlInfo = document.getElementById('ab-paylink-info'); if (_abPlInfo) _abPlInfo.style.display = 'none';
-  document.getElementById('ab-submit-btn').textContent = 'Save Booking';
+  const _sbtn = document.getElementById('ab-submit-btn');
+  _sbtn.textContent = 'Save Booking';
+  _sbtn.disabled = false;
   document.getElementById('ab-guests-wrap').innerHTML = '';
   document.getElementById('ab-error').style.display = 'none';
   window._abAddons = [];
@@ -4554,15 +4568,24 @@ function addGuestRow() {
 }
 
 async function submitAddBooking() {
-  const venue = document.getElementById('ab-venue').value;
-  const isSpecial = document.getElementById('ab-special').checked;
-  const room_type = isSpecial
-    ? (document.getElementById('ab-room-type-custom').value.trim() || 'Triple Sharing (Special)')
-    : document.getElementById('ab-room-type').value;
-  const room_type_for_db = room_type === 'Triple Sharing (Special)' ? 'Triple Sharing' : room_type;
-  const base_price = parseInt(document.getElementById('ab-price').value) || 0;
-  const _baseAction = document.querySelector('input[name="ab-action"]:checked').value;
-  const _sendPaylink = document.getElementById('ab-send-paylink')?.checked;
+  const errElEarly = document.getElementById('ab-error');
+  let venue, isSpecial, room_type, room_type_for_db, base_price, _baseAction, _sendPaylink;
+  try {
+    venue = document.getElementById('ab-venue').value;
+    isSpecial = document.getElementById('ab-special')?.checked;
+    room_type = isSpecial
+      ? (document.getElementById('ab-room-type-custom')?.value.trim() || 'Triple Sharing (Special)')
+      : document.getElementById('ab-room-type').value;
+    room_type_for_db = room_type === 'Triple Sharing (Special)' ? 'Triple Sharing' : room_type;
+    base_price = parseInt(document.getElementById('ab-price').value) || 0;
+    const _checkedAction = document.querySelector('input[name="ab-action"]:checked');
+    _baseAction = _checkedAction ? _checkedAction.value : 'pending';
+    _sendPaylink = document.getElementById('ab-send-paylink')?.checked;
+  } catch(initErr) {
+    if (errElEarly) { errElEarly.textContent = 'Init error: ' + initErr.message; errElEarly.style.display = 'block'; }
+    else alert('Init error: ' + initErr.message);
+    return;
+  }
   const action = (_baseAction === 'pending' && _sendPaylink) ? 'paylink' : _baseAction;
   const errEl = document.getElementById('ab-error');
   errEl.style.display = 'none';
@@ -4680,7 +4703,7 @@ async function submitAddBooking() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           venue, room_type: room_type_for_db,
-          total_price: '₹' + total_with_gst.toLocaleString('en-IN'),
+          total_price: total_price_fmt,
           room_number: document.getElementById('ab-room-number').value.trim() || null,
           hotel_number: document.getElementById('ab-hotel-number')?.value.trim() || null,
           status: action,
@@ -4715,6 +4738,7 @@ async function submitAddBooking() {
   } catch (e) {
     errEl.textContent = e.message;
     errEl.style.display = 'block';
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     btn.textContent = action === 'paylink' ? 'Send Payment Link' : 'Save Booking';
     btn.disabled = false;
   }
@@ -5231,7 +5255,7 @@ function renderApplications() {
     const waLink = waNum ? `<a href="https://wa.me/${waNum.startsWith('91')?waNum:'91'+waNum}" onclick="event.stopPropagation()" target="_blank" style="color:#25D366;text-decoration:none;font-size:11px;">📱 ${a.whatsapp}</a>` : '—';
     const emailLink = a.email ? `<a href="mailto:${a.email}" onclick="event.stopPropagation()" style="color:var(--td-email);text-decoration:none;font-size:11px;">${a.email}</a>` : '—';
     return `<tr onclick="openAppDrawer(${a.id})" style="cursor:pointer;">
-      <td style="color:var(--td-row-num);font-size:11px;width:32px;">${idx + 1}</td>
+      <td style="color:var(--td-row-num);font-size:11px;width:32px;">${filtered.length - idx}</td>
       <td style="color:var(--td-strong);font-weight:500;">${a.applicant || '—'}</td>
       <td style="color:var(--td-mid);font-size:11px;">${a.form_label}</td>
       <td style="color:var(--td-room);">${extra}</td>
