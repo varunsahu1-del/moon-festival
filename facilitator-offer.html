@@ -85,10 +85,24 @@
     }
 
     .page-hero-bar {
+      position: relative;
       padding: calc(var(--s-24, 4rem) + 60px) 1.5rem var(--s-16, 2.5rem);
-      background: #7A3A18;
       text-align: center;
       margin-bottom: 0;
+      overflow: hidden;
+    }
+    .page-hero-bar .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('Gallery Page Images/2025 Goa/moongoa2025-118.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.45);
+      z-index: 0;
+    }
+    .page-hero-bar .hero-content {
+      position: relative;
+      z-index: 1;
     }
     .page-hero-bar h1 {
       font-family: 'Josefin Sans', sans-serif;
@@ -112,15 +126,18 @@
 </head>
 <body>
 
-<nav class="nav scrolled"><a href="index.html" class="nav-logo"><span class="nav-logo-wordmark"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></span><span class="nav-logo-date">27.28.29 NOV 2026</span></a>
+<nav class="nav scrolled" id="mainNav"><a href="index.html" class="nav-logo"><span class="nav-logo-wordmark"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></span><span class="nav-logo-date">27.28.29 NOV 2026</span></a>
   <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="artists.html">Artists</a><a href="faq.html">FAQ</a><a href="accommodations.html">Stay</a><a href="contact.html">Contact</a><a href="tickets.html" class="nav-cta">Get Tickets</a></div>
   <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile" role="dialog" aria-modal="true" aria-hidden="true"><button class="nav-mobile-close" aria-label="Close menu">✕</button><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="artists.html">Artists</a><a href="faq.html">FAQ</a><a href="accommodations.html">Stay</a><a href="tickets.html">Tickets</a><a href="contact.html">Contact</a></div>
 
 <div class="page-hero-bar">
-  <h1>Facilitators</h1>
-  <p>Share your work. Join the community.</p>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Facilitator Offering</h1>
+    <p>Share your work. Join the community.</p>
+  </div>
 </div>
 
 <div class="page">
