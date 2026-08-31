@@ -26,22 +26,12 @@
       font-weight: 300;
       line-height: 1.8;
       min-height: 100vh;
-      padding: 5rem 1.5rem 7rem;
+      padding: 7rem 1.5rem 7rem;
     }
 
     .page {
       max-width: 560px;
       margin: 0 auto;
-    }
-
-    .brand {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #B06030;
-      margin-bottom: 4rem;
     }
 
     hr {
@@ -86,15 +76,20 @@
   </style>
 </head>
 <body>
-<div class="page">
 
-  <div class="brand">Moon Festival · 2026</div>
+<nav class="nav scrolled"><a href="index.html" class="nav-logo"><span class="nav-logo-wordmark"><span class="logo-moon">MOON</span><span class="logo-fest">FESTIVAL</span></span><span class="nav-logo-date">27.28.29 NOV 2026</span></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="artists.html">Artists</a><a href="faq.html">FAQ</a><a href="accommodations.html">Stay</a><a href="contact.html">Contact</a><a href="tickets.html" class="nav-cta">Get Tickets</a></div>
+  <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" role="dialog" aria-modal="true"><button class="nav-mobile-close" aria-label="Close menu">✕</button><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="artists.html">Artists</a><a href="faq.html">FAQ</a><a href="accommodations.html">Stay</a><a href="tickets.html">Tickets</a><a href="contact.html">Contact</a></div>
+
+<div class="page">
 
   <h2>What Moon Offers You</h2>
   <div class="since">Since 2024</div>
 
   <p>
-    Every facilitator at Moon receives a <strong>Festival Pass (₹21,000 value)</strong> — full access to all workshops, ceremonies, and experiences across the festival.
+    In exchange for the <strong>three workshops</strong> you lead at Moon, every facilitator receives a <strong>Festival Pass (₹21,000 value)</strong> — full access to all workshops, ceremonies, and experiences across the festival.
   </p>
 
   <p>Beyond that, you choose what works best for you:</p>
@@ -110,5 +105,20 @@
   <hr>
 
 </div>
+
+<script>
+  const toggle = document.querySelector('.nav-hamburger');
+  const drawer = document.querySelector('.nav-mobile');
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    drawer.querySelector('.nav-mobile-close').addEventListener('click', () => {
+      drawer.classList.remove('open');
+      toggle.setAttribute('aria-expanded', false);
+    });
+  }
+</script>
 </body>
 </html>
