@@ -150,23 +150,23 @@ const COMBINED_CAPACITY = {
 // from partial bookings (share with strangers → must be same gender).
 function getUsed(db, venue, room_type, unit, room_size) {
   if (unit === 'beds') {
-    const paid    = db.prepare(`SELECT COALESCE(SUM(b.guest_count),0) as n FROM bookings b WHERE b.venue=? AND b.room_type=? AND b.status='paid'`).get(venue, room_type).n;
-    const pending = db.prepare(`SELECT COALESCE(SUM(b.guest_count),0) as n FROM bookings b WHERE b.venue=? AND b.room_type=? AND b.status IN ('pending','upi_pending')`).get(venue, room_type).n;
+    const paid    = db.prepare(`SELECT COALESCE(SUM(b.guest_count),0) as n FROM bookings b WHERE b.venue=? AND b.room_type=? AND b.status='paid' AND (b.deleted_at IS NULL OR b.deleted_at='')`).get(venue, room_type).n;
+    const pending = db.prepare(`SELECT COALESCE(SUM(b.guest_count),0) as n FROM bookings b WHERE b.venue=? AND b.room_type=? AND b.status IN ('pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='')`).get(venue, room_type).n;
 
     const fullRooms = room_size
-      ? db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('paid','pending','upi_pending') AND guest_count >= ?`).get(venue, room_type, room_size).n
+      ? db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('paid','pending','upi_pending') AND guest_count >= ? AND (deleted_at IS NULL OR deleted_at='')`).get(venue, room_type, room_size).n
       : 0;
 
     // All beds for display
-    const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Male'`).get(venue, room_type).n;
-    const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Female'`).get(venue, room_type).n;
+    const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Male'`).get(venue, room_type).n;
+    const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Female'`).get(venue, room_type).n;
 
     // Partial-only beds (share with strangers — these are the ones that consume gender-segregated space)
     const partialMaleBeds = room_size
-      ? db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND b.guest_count < ? AND g.gender='Male'`).get(venue, room_type, room_size).n
+      ? db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND b.guest_count < ? AND g.gender='Male'`).get(venue, room_type, room_size).n
       : maleBeds;
     const partialFemaleBeds = room_size
-      ? db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND b.guest_count < ? AND g.gender='Female'`).get(venue, room_type, room_size).n
+      ? db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND b.guest_count < ? AND g.gender='Female'`).get(venue, room_type, room_size).n
       : femaleBeds;
 
     return { paid, pending, total: paid + pending, fullRooms, maleBeds, femaleBeds, partialMaleBeds, partialFemaleBeds };
@@ -184,16 +184,16 @@ function getUsed(db, venue, room_type, unit, room_size) {
           partialPaid += db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND guest_count < ?`).get(venue, vi.room_type, vi.room_size).n;
         }
       }
-      const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Male'`).get(venue).n;
-      const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Female'`).get(venue).n;
+      const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Male'`).get(venue).n;
+      const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Female'`).get(venue).n;
       return { paid, pending, total: paid + pending, fullRooms: fullPaid, partialRooms: partialPaid, maleBeds, femaleBeds, partialMaleBeds: maleBeds, partialFemaleBeds: femaleBeds };
     }
-    const paid    = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid'`).get(venue, room_type).n;
-    const pending = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending')`).get(venue, room_type).n;
-    const fullPaid    = room_size && room_size > 1 ? db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND guest_count >= ?`).get(venue, room_type, room_size).n : paid;
-    const partialPaid = room_size && room_size > 1 ? db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND guest_count < ?`).get(venue, room_type, room_size).n : 0;
-    const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Male'`).get(venue, room_type).n;
-    const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Female'`).get(venue, room_type).n;
+    const paid    = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND (deleted_at IS NULL OR deleted_at='')`).get(venue, room_type).n;
+    const pending = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending') AND (deleted_at IS NULL OR deleted_at='')`).get(venue, room_type).n;
+    const fullPaid    = room_size && room_size > 1 ? db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND guest_count >= ? AND (deleted_at IS NULL OR deleted_at='')`).get(venue, room_type, room_size).n : paid;
+    const partialPaid = room_size && room_size > 1 ? db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND guest_count < ? AND (deleted_at IS NULL OR deleted_at='')`).get(venue, room_type, room_size).n : 0;
+    const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Male'`).get(venue, room_type).n;
+    const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Female'`).get(venue, room_type).n;
     return { paid, pending, total: paid + pending, fullRooms: fullPaid, partialRooms: partialPaid, maleBeds, femaleBeds, partialMaleBeds: maleBeds, partialFemaleBeds: femaleBeds };
   }
 }
@@ -203,7 +203,7 @@ function privateRoomsUsed(db, venue) {
   const venueItems = INVENTORY.filter(i => i.venue === venue && i.room_size === 1);
   let count = 0;
   for (const vi of venueItems) {
-    count += db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('paid','pending','upi_pending')`).get(venue, vi.room_type).n;
+    count += db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('paid','pending','upi_pending') AND (deleted_at IS NULL OR deleted_at='')`).get(venue, vi.room_type).n;
   }
   return count;
 }
@@ -213,15 +213,15 @@ function privateRoomsUsed(db, venue) {
 // Partial bookings share with same-gender strangers — counted separately per gender.
 function dsRoomsUsed(db, venue, room_type, room_size) {
   // All beds for display purposes
-  const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Male'`).get(venue, room_type).n;
-  const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND g.gender='Female'`).get(venue, room_type).n;
+  const maleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Male'`).get(venue, room_type).n;
+  const femaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND g.gender='Female'`).get(venue, room_type).n;
 
   // Full-room bookings — 1 physical room each (may be mixed gender, own room)
-  const fullRoomBookings = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('paid','pending','upi_pending') AND guest_count >= ?`).get(venue, room_type, room_size).n;
+  const fullRoomBookings = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('paid','pending','upi_pending') AND guest_count >= ? AND (deleted_at IS NULL OR deleted_at='')`).get(venue, room_type, room_size).n;
 
   // Partial booking beds only — these consume gender-segregated space
-  const partialMaleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND b.guest_count < ? AND g.gender='Male'`).get(venue, room_type, room_size).n;
-  const partialFemaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND b.guest_count < ? AND g.gender='Female'`).get(venue, room_type, room_size).n;
+  const partialMaleBeds   = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND b.guest_count < ? AND g.gender='Male'`).get(venue, room_type, room_size).n;
+  const partialFemaleBeds = db.prepare(`SELECT COUNT(*) as n FROM guests g JOIN bookings b ON b.id=g.booking_id WHERE b.venue=? AND b.room_type=? AND b.status IN ('paid','pending','upi_pending') AND (b.deleted_at IS NULL OR b.deleted_at='') AND b.guest_count < ? AND g.gender='Female'`).get(venue, room_type, room_size).n;
 
   const partialMaleRooms   = Math.ceil(partialMaleBeds / room_size);
   const partialFemaleRooms = Math.ceil(partialFemaleBeds / room_size);
@@ -356,8 +356,8 @@ function getInventoryStats(db) {
         }
         const available = Math.max(0, totalRooms - privRooms - dsTotalRooms);
         const pct = Math.round(((totalRooms - available) / totalRooms) * 100);
-        const paid    = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid'`).get(item.venue, item.room_type).n;
-        const pending = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending')`).get(item.venue, item.room_type).n;
+        const paid    = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND (deleted_at IS NULL OR deleted_at='')`).get(item.venue, item.room_type).n;
+        const pending = db.prepare(`SELECT COUNT(*) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending') AND (deleted_at IS NULL OR deleted_at='')`).get(item.venue, item.room_type).n;
         stats.push({ venue: item.venue, room_type: item.room_type, label: item.label, gender_rule: item.gender_rule, room_size: item.room_size, unit: 'rooms', capacity: totalRooms, occupied: privRooms, pending, available, maleBeds: 0, femaleBeds: 0, percent: pct, sold_out: available === 0 });
       } else {
         // Double sharing stats (beds-based within combined pool)
@@ -366,8 +366,8 @@ function getInventoryStats(db) {
         const bedsUsed = maleBeds + femaleBeds;
         const bedsAvail = Math.max(0, roomsAvailForDS * item.room_size - bedsUsed);
         const pct = Math.round((bedsUsed / (roomsAvailForDS * item.room_size || 1)) * 100);
-        const paid    = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid'`).get(item.venue, item.room_type).n;
-        const pending = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending')`).get(item.venue, item.room_type).n;
+        const paid    = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND (deleted_at IS NULL OR deleted_at='')`).get(item.venue, item.room_type).n;
+        const pending = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending') AND (deleted_at IS NULL OR deleted_at='')`).get(item.venue, item.room_type).n;
         stats.push({ venue: item.venue, room_type: item.room_type, label: item.label, gender_rule: item.gender_rule, room_size: item.room_size, unit: 'beds', capacity: roomsAvailForDS * item.room_size, occupied: paid, pending, available: bedsAvail, maleBeds, femaleBeds, percent: Math.min(100, pct), sold_out: bedsAvail === 0 });
       }
       continue;
@@ -438,6 +438,7 @@ function autoAssignRoom(db, bookingId) {
     FROM guests g
     JOIN bookings b ON b.id = g.booking_id
     WHERE b.venue = ? AND b.status IN ('paid','pending','upi_pending')
+      AND (b.deleted_at IS NULL OR b.deleted_at='')
       AND COALESCE(g.room_number, b.room_number) IS NOT NULL AND b.id != ?
   `).all(venue, bookingId);
 
