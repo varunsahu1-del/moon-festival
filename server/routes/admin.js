@@ -8,13 +8,16 @@ const { sendConfirmation, sendQuote } = require('../email');
 const { computeBreakdown } = require('../breakdown');
 
 const { readSettings, writeSettings, resolvePhase } = require('../settings');
+const { appendBookingRow, updateBookingRow, syncAllBookings } = require('../sheets');
 
 function requireAdmin(req, res, next) {
   if (req.session.admin) return next();
+  if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'Session expired — please refresh the page and log in again.' });
   res.redirect('/admin/login');
 }
 
 router.get('/', requireAdmin, (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   res.sendFile('dashboard.html', { root: __dirname + '/../views' });
 });
 
@@ -426,8 +429,10 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
     if (!avail.available) return res.status(409).json({ error: avail.reason, sold_out: true });
   }
 
-  const priceCheck = validateBookingPrice({ venue, room_type, guest_count: guests.length, addons: req.body.addons, discount, total_price }, resolvePhase());
-  if (!priceCheck.valid) return res.status(400).json({ error: priceCheck.reason, price_mismatch: true, expected: priceCheck.expected });
+  if (!admin_override) {
+    const priceCheck = validateBookingPrice({ venue, room_type, guest_count: guests.length, addons: req.body.addons, discount, total_price }, resolvePhase());
+    if (!priceCheck.valid) return res.status(400).json({ error: priceCheck.reason, price_mismatch: true, expected: priceCheck.expected });
+  }
 
   const booking_ref = nextRef();
   // total_price is pre-GST base (venue + addons); apply GST then Razorpay fee
@@ -526,8 +531,10 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
     if (!avail.available) return res.status(409).json({ error: avail.reason, sold_out: true });
   }
 
-  const priceCheck2 = validateBookingPrice({ venue, room_type, guest_count: guests.length, addons, discount, total_price }, resolvePhase());
-  if (!priceCheck2.valid) return res.status(400).json({ error: priceCheck2.reason, price_mismatch: true, expected: priceCheck2.expected });
+  if (!admin_override) {
+    const priceCheck2 = validateBookingPrice({ venue, room_type, guest_count: guests.length, addons, discount, total_price }, resolvePhase());
+    if (!priceCheck2.valid) return res.status(400).json({ error: priceCheck2.reason, price_mismatch: true, expected: priceCheck2.expected });
+  }
 
   const booking_ref = nextRef();
   const bookingStatus = status || 'paid';
@@ -572,6 +579,11 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
       })
       .catch(err => console.error('[admin-booking email]', err));
   }
+
+  // Sync to Google Sheet
+  const newBooking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(booking_ref);
+  const newGuests = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(newBooking.id);
+  appendBookingRow(newBooking, newGuests).catch(() => {});
 
   res.json({ ok: true, booking_ref });
 });
@@ -839,6 +851,7 @@ router.patch('/api/guests/:id/room', requireAdmin, (req, res) => {
     const roomOccupiedByOtherType = db.prepare(`
       SELECT b.room_type FROM guests g JOIN bookings b ON b.id=g.booking_id
       WHERE b.venue=? AND b.room_type != ? AND b.status IN ('paid','pending','upi_pending')
+        AND b.deleted_at IS NULL
         AND COALESCE(g.room_number, b.room_number) = ?
         AND g.id != ?
       LIMIT 1
@@ -1119,6 +1132,8 @@ router.post('/api/bookings/:ref/confirm-upi', requireAdmin, async (req, res) => 
       db.prepare('UPDATE bookings SET email_sent=1 WHERE booking_ref=?').run(req.params.ref);
       db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'email', 'Confirmation email sent')").run(req.params.ref);
     } catch (e) { console.error('[confirm-upi email]', e.message); }
+
+    updateBookingRow(updatedBooking, guests).catch(() => {});
 
     res.json({ ok: true });
   } catch (err) {
