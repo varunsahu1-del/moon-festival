@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-18BTM4SFZT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-18BTM4SFZT');
+  </script>
   <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -144,8 +152,9 @@
 
   if (ref) document.getElementById('confRef').textContent = ref;
 
-  // Fire Meta Pixel Purchase event for paid/confirmed bookings
-  if (window.fbq && method === 'razorpay' && amount > 0) {
+  // Fire Meta Pixel Purchase event (skip Razorpay — already fired in book.html with correct fee-inclusive amount)
+  const pixelFired = params.get('pixel_fired') === '1';
+  if (window.fbq && amount > 0 && !pixelFired) {
     fbq('track', 'Purchase', { value: amount, currency: 'INR', content_name: 'Moon Festival 2026 Booking', content_ids: [ref] });
   }
 

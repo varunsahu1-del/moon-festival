@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-18BTM4SFZT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-18BTM4SFZT');
+  </script>
   <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -789,7 +797,17 @@ const venue      = params.get('venue') || '';
 const roomType   = params.get('room') || '';
 const priceStr   = params.get('price') || '';
 const guestCount = Math.max(1, parseInt(params.get('guests') || '1', 10));
-const addonsRaw  = params.get('addons') || '';
+// Fall back to sessionStorage if addons param lost (e.g. page reload, redirect)
+let addonsRaw = params.get('addons') || '';
+if (!addonsRaw && venue && roomType) {
+  try {
+    const ssVenue = sessionStorage.getItem('mf_pending_venue');
+    const ssRoom  = sessionStorage.getItem('mf_pending_room');
+    if (ssVenue === venue && ssRoom === roomType) {
+      addonsRaw = sessionStorage.getItem('mf_pending_addons') || '';
+    }
+  } catch(e) {}
+}
 
 // Parse add-on names from "price:name|price:name" format
 const addonNames = addonsRaw ? addonsRaw.split('|').map(a => a.split(':').slice(1).join(':').trim().toLowerCase()) : [];
@@ -1601,7 +1619,9 @@ async function launchRazorpay() {
         });
       } catch (_) {}
       _clearPendingBooking();
-      window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay&amount=' + (_payState ? _payState.totalWithGst : '');
+      const _rpTotal = _payState ? Math.round(_payState.totalWithGst * 1.0236) : 0;
+      if (window.fbq && _rpTotal > 0) fbq('track', 'Purchase', { value: _rpTotal, currency: 'INR', content_name: 'Moon Festival 2026 Booking', content_ids: [bookingData.booking_ref] });
+      window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay&amount=' + _rpTotal + '&pixel_fired=1';
     },
     modal: { ondismiss: function() { document.getElementById('payOverlay').classList.add('open'); } },
   };
