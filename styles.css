@@ -1113,7 +1113,7 @@ h4 { font-size: var(--t-xl); }
   margin-top: 0.4rem;
 }
 .page-hero {
-  padding: calc(var(--s-24) + 80px) 0 var(--s-16);
+  padding: calc(var(--s-24) + 110px) 0 var(--s-16);
   position: relative;
   overflow: hidden;
   background: var(--ink-2);
@@ -1554,7 +1554,7 @@ h4 { font-size: var(--t-xl); }
 .participate-apply::after { content: '→'; }
 
 .apply-page-hero {
-  padding: calc(var(--s-24) + 80px) 0 var(--s-16);
+  padding: calc(var(--s-24) + 110px) 0 var(--s-16);
   background: var(--ink-2);
   border-bottom: 1px solid var(--border);
 }
