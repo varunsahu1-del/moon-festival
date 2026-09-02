@@ -3132,7 +3132,8 @@ function fmtPrice(n) {
       const card = row.closest('.venue-card');
       if (!card) return;
       const venue    = card.dataset.venue;
-      const roomType = row.dataset.roomType;
+      const ROOM_MAP = { 'Room for 3': 'Triple Sharing', 'Room for 2': 'Double Sharing', 'Solo Room': 'Private Room', '4 Bed Dorm': '4 Bed Dorm', '6 Bed Dorm': '6 Bed Dorm' };
+      const roomType = ROOM_MAP[row.dataset.roomType] || row.dataset.roomType;
       if (!venue || !roomType || !prices[venue]?.[roomType]) return;
       const { active, phase4, extraDay } = prices[venue][roomType];
       // Overwrite all hardcoded data attributes from the single server source
