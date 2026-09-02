@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-18BTM4SFZT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-18BTM4SFZT');
+  </script>
   <link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -229,10 +237,10 @@
 <!-- ── HERO ─────────────────────────────────────────────── -->
 <div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 60px); padding-bottom: var(--s-16); background: #7A3A18;">
   <h1 class="schedule-hero-title" style="color: #EDD4B2 !important;">Pricing</h1>
-  <p class="schedule-hero-sub">Early Bird</p>
+  <p class="schedule-hero-sub">Phase 2</p>
 </div>
 <div style="background: var(--ink); text-align: center; padding: var(--s-6) var(--pad);">
-  <p id="currentPhaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Early Bird Ends 31 August</p>
+  <p id="currentPhaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.5rem;">Phase 2 Ends 30 September</p>
 
   <!-- Countdown timer -->
   <div id="eb-countdown-block" style="display:none;margin-top:1.4rem;">
@@ -291,7 +299,7 @@
 
   <script>
     (function(){
-      const end = new Date('2026-09-01T00:00:00');
+      const end = new Date('2026-10-01T00:00:00');
       const block = document.getElementById('eb-countdown-block');
 
       function update() {
@@ -331,56 +339,56 @@ const PRICING = {
   'Bhakti Kutir': {
     notes: 'Non-AC · Eco Retreat · Festival Favourite',
     rooms: [
-      { name: 'Triple Sharing', note: '1 bed in a 3-bed room',     earlyBird: 29500, phase1: 32000, phase2: 34000, extraDay: 1800 },
-      { name: 'Double Sharing', note: '1 bed in a 2-bed room',     earlyBird: 34500, phase1: 37900, phase2: 40000, extraDay: 2750 },
-      { name: 'Private Room',   note: 'Entire room for yourself',   earlyBird: 46500, phase1: 51000, phase2: 54500, extraDay: 3000 },
+      { name: 'Triple Sharing', note: '1 bed in a 3-bed room',   phase2: 31000, phase3: 32500, phase4: 34000, extraDay: 1500 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   phase2: 36000, phase3: 37500, phase4: 39000, extraDay: 2500 },
+      { name: 'Private Room',   note: 'Entire room for yourself', phase2: 48000, phase3: 49500, phase4: 51000, extraDay: 3000 },
     ]
   },
   'Bhakti Dorm': {
     notes: 'Non-AC · Eco Retreat · Festival Venue',
     rooms: [
-      { name: '4 Bed Dorm', note: '4-bed dorm · females only', earlyBird: 25500, phase1: 28000, phase2: 29500, extraDay: 900 },
-      { name: '6 Bed Dorm', note: '6-bed dorm · mixed',        earlyBird: 24000, phase1: 26500, phase2: 27900, extraDay: 800 },
+      { name: '4 Bed Dorm', note: '4-bed dorm · females only', phase2: 27000, phase3: 28500, phase4: 30000, extraDay: 800 },
+      { name: '6 Bed Dorm', note: '6-bed dorm · mixed',        phase2: 25500, phase3: 27000, phase4: 28500, extraDay: 700 },
     ]
   },
   'Destiny': {
     notes: '1 min walk · AC · Luxury · Plunge Pool · Beach Access',
     rooms: [
-      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 55000, phase1: 60500, phase2: 63900, extraDay: 6500  },
-      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 81900, phase1: 90000, phase2: 95000, extraDay: 12000 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   phase2: 56500, phase3: 58000, phase4: 59500, extraDay: 7000  },
+      { name: 'Private Room',   note: 'Entire room for yourself', phase2: 83400, phase3: 84900, phase4: 86400, extraDay: 12000 },
     ]
   },
   'Ourem Palace': {
     notes: '3 mins walk · AC · Partial Sea View',
     rooms: [
-      { name: 'Double Sharing', note: '1 bed in a 2-bed heritage room', earlyBird: 44500, phase1: 49000, phase2: 51900, extraDay: 3500 },
-      { name: 'Private Room',   note: 'Entire room for yourself',        earlyBird: 58900, phase1: 64500, phase2: 68000, extraDay: 6500 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed heritage room', phase2: 46000, phase3: 47500, phase4: 49000, extraDay: 3500 },
+      { name: 'Private Room',   note: 'Entire room for yourself',        phase2: 60400, phase3: 61900, phase4: 63400, extraDay: 6000 },
     ]
   },
   'Teraria': {
     notes: '6 mins walk · AC · Cosy · Best Value',
     rooms: [
-      { name: 'Double Sharing', note: '1 bed in a 2-bed room', earlyBird: 32000, phase1: 33700, phase2: 36700, extraDay: 3200 },
-      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 45100, phase1: 48100, phase2: 52600, extraDay: 0 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   phase2: 33500, phase3: 35000, phase4: 36500, extraDay: 3000 },
+      { name: 'Private Room',   note: 'Entire room for yourself', phase2: 46600, phase3: 48100, phase4: 49600, extraDay: 4500 },
     ]
   },
   'Marron · Sea View': {
     notes: '4 mins walk · AC · Luxury · Sea Facing',
     rooms: [
-      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 49900, phase1: 54900, phase2: 58900, extraDay: 4500 },
-      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 71900, phase1: 76900, phase2: 80900, extraDay: 8500 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   phase2: 51400, phase3: 52900, phase4: 54400, extraDay: 4500 },
+      { name: 'Private Room',   note: 'Entire room for yourself', phase2: 73400, phase3: 74900, phase4: 76400, extraDay: 8500 },
     ]
   },
   'Marron · Garden': {
     notes: '4 mins walk · AC · Luxury · Beach Access',
     rooms: [
-      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   earlyBird: 39500, phase1: 43500, phase2: 45900, extraDay: 3500 },
-      { name: 'Private Room',   note: 'Entire room for yourself', earlyBird: 54900, phase1: 60000, phase2: 63500, extraDay: 6500 },
+      { name: 'Double Sharing', note: '1 bed in a 2-bed room',   phase2: 41000, phase3: 42500, phase4: 44000, extraDay: 3500 },
+      { name: 'Private Room',   note: 'Entire room for yourself', phase2: 56400, phase3: 57900, phase4: 59400, extraDay: 6500 },
     ]
   },
 };
 
-const PHASE_LABELS = { earlyBird: 'Early Bird Ends 31 August', phase1: 'Phase 2', phase2: 'Phase 3' };
+const PHASE_LABELS = { phase2: 'Phase 2 Ends 30 September', phase3: 'Phase 3 Ends 31 October', phase4: 'Phase 4' };
 
 function fmt(n) { return '₹' + n.toLocaleString('en-IN'); }
 
@@ -391,26 +399,14 @@ function savings(active, phase2) {
 }
 
 async function render() {
-  let phase = 'earlyBird';
+  let phase = 'phase2';
   try {
     const r = await fetch('/api/public/pricing');
     if (r.ok) {
       const d = await r.json();
       phase = d.phase || 'earlyBird';
       // Overwrite hardcoded prices with live values from the API
-      if (d.prices) {
-        for (const [venue, roomTypes] of Object.entries(d.prices)) {
-          if (!PRICING[venue]) continue;
-          for (const room of PRICING[venue].rooms) {
-            const live = roomTypes[room.name];
-            if (!live) continue;
-            if (live.earlyBird !== undefined) room.earlyBird = live.earlyBird;
-            if (live.phase1   !== undefined) room.phase1    = live.phase1;
-            if (live.phase2   !== undefined) room.phase2    = live.phase2;
-            if (live.extraDay !== undefined) room.extraDay  = live.extraDay;
-          }
-        }
-      }
+      // API returns active/phase4 only — hardcoded phase values are authoritative
     }
   } catch {}
 
@@ -437,9 +433,9 @@ async function render() {
             <thead>
               <tr>
                 <th>Room Type</th>
-                <th class="${phase === 'earlyBird' ? 'th-active' : ''}">Early Bird</th>
-                <th class="${phase === 'phase1'    ? 'th-active' : ''}">Phase 2</th>
-                <th class="${phase === 'phase2'    ? 'th-active' : ''}">Phase 3</th>
+                <th class="${phase === 'phase2' ? 'th-active' : ''}">Phase 2</th>
+                <th class="${phase === 'phase3' ? 'th-active' : ''}">Phase 3</th>
+                <th class="${phase === 'phase4' ? 'th-active' : ''}">Phase 4</th>
               </tr>
             </thead>
             <tbody>`;
@@ -448,9 +444,9 @@ async function render() {
       html += `
               <tr>
                 <td class="td-room">${r.name}<span class="td-note">${r.note}</span></td>
-                <td class="td-price ${phase === 'earlyBird' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(r.earlyBird)}${phase === 'earlyBird' ? savings(r.earlyBird, r.phase2) : ''}</div></td>
-                <td class="td-price ${phase === 'phase1'    ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(r.phase1)}${phase === 'phase1' ? savings(r.phase1, r.phase2) : ''}</div></td>
-                <td class="td-price ${phase === 'phase2'    ? 'active-price td-active-col' : ''}">${fmt(r.phase2)}</td>
+                <td class="td-price ${phase === 'phase2' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(r.phase2)}${phase === 'phase2' ? savings(r.phase2, r.phase4) : ''}</div></td>
+                <td class="td-price ${phase === 'phase3' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(r.phase3)}${phase === 'phase3' ? savings(r.phase3, r.phase4) : ''}</div></td>
+                <td class="td-price ${phase === 'phase4' ? 'active-price td-active-col' : ''}">${fmt(r.phase4)}</td>
               </tr>`;
     }
 
@@ -459,8 +455,8 @@ async function render() {
   }
 
   const festivalPasses = [
-    { name: '3-Day Pass', note: '27–29 Nov · all workshops, ceremonies, music &amp; talks', earlyBird: 19000, phase1: 20000, phase2: 21000 },
-    { name: 'Day Pass',   note: 'Single day · 27, 28, or 29 Nov',                           earlyBird: 7000,  phase1: 7500,  phase2: 8000  },
+    { name: '3-Day Pass', note: '27–29 Nov · all workshops, ceremonies, music &amp; talks', phase2: 19000, phase3: 20000, phase4: 21000 },
+    { name: 'Day Pass',   note: 'Single day · 27, 28, or 29 Nov',                           phase2: 7000,  phase3: 7500,  phase4: 8000  },
   ];
 
   html += `
@@ -475,18 +471,18 @@ async function render() {
           <thead>
             <tr>
               <th>Ticket</th>
-              <th class="${phase === 'earlyBird' ? 'th-active' : ''}">Early Bird</th>
-              <th class="${phase === 'phase1'    ? 'th-active' : ''}">Phase 2</th>
-              <th class="${phase === 'phase2'    ? 'th-active' : ''}">Phase 3</th>
+              <th class="${phase === 'phase2' ? 'th-active' : ''}">Phase 2</th>
+              <th class="${phase === 'phase3' ? 'th-active' : ''}">Phase 3</th>
+              <th class="${phase === 'phase4' ? 'th-active' : ''}">Phase 4</th>
             </tr>
           </thead>
           <tbody>
             ${festivalPasses.map(p => `
             <tr>
               <td class="td-room">${p.name}<span class="td-note">${p.note}</span></td>
-              <td class="td-price ${phase === 'earlyBird' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(p.earlyBird)}${phase === 'earlyBird' ? savings(p.earlyBird, p.phase2) : ''}</div></td>
-              <td class="td-price ${phase === 'phase1'    ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(p.phase1)}${phase === 'phase1' ? savings(p.phase1, p.phase2) : ''}</div></td>
-              <td class="td-price ${phase === 'phase2'    ? 'active-price td-active-col' : ''}">${fmt(p.phase2)}</td>
+              <td class="td-price ${phase === 'phase2' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(p.phase2)}${phase === 'phase2' ? savings(p.phase2, p.phase4) : ''}</div></td>
+              <td class="td-price ${phase === 'phase3' ? 'active-price td-active-col' : ''}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">${fmt(p.phase3)}${phase === 'phase3' ? savings(p.phase3, p.phase4) : ''}</div></td>
+              <td class="td-price ${phase === 'phase4' ? 'active-price td-active-col' : ''}">${fmt(p.phase4)}</td>
             </tr>`).join('')}
           </tbody>
         </table>
@@ -494,7 +490,7 @@ async function render() {
     </div>
   </div>`;
 
-  html += `<p class="gst-note"><strong>+5% GST</strong> added at checkout &nbsp;·&nbsp; All prices are per person &nbsp;·&nbsp; <strong>Early Bird</strong> pricing is limited.</p>`;
+  html += `<p class="gst-note"><strong>+5% GST</strong> added at checkout &nbsp;·&nbsp; All prices are per person &nbsp;·&nbsp; <strong>Phase 2</strong> pricing ends 30 September.</p>`;
   content.innerHTML = html;
 }
 
