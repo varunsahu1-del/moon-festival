@@ -1337,7 +1337,7 @@
         </g>
       </svg>
       <!-- Phase label -->
-      <p id="tk-phaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0.6rem 0 0;">Early Bird Ends 31 August</p>
+      <p id="tk-phaseLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0.6rem 0 0;">Phase 2 Ends 30 September</p>
       <!-- Countdown -->
       <div id="tk-countdown" style="display:none;margin-top:1.2rem;margin-bottom:1.8rem;">
         <div style="display:flex;align-items:flex-start;justify-content:center;gap:0.5rem;">
@@ -1363,7 +1363,7 @@
       </style>
       <script>
         (function(){
-          const end = new Date('2026-09-01T00:00:00');
+          const end = new Date('2026-10-01T00:00:00');
           const block = document.getElementById('tk-countdown');
           function update() {
             const diff = end - new Date();
@@ -3123,8 +3123,8 @@ function fmtPrice(n) {
     const bookingSection = document.querySelector('#panel-festival > div:nth-child(2)');
     if (closedNotice)   closedNotice.style.display   = festival_pass_open ? 'none'  : '';
     if (bookingSection) bookingSection.style.display  = festival_pass_open ? ''      : 'none';
-    // Show Early Bird graphic only when phase is earlyBird
-    if (phase === 'earlyBird') {
+    // Show phase banner for earlyBird and phase2
+    if (phase === 'earlyBird' || phase === 'phase2') {
       const g = document.getElementById('eb-graphic-wrap');
       if (g) g.style.display = 'block';
     }
