@@ -18,7 +18,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 8 * 60 * 60 * 1000, // 8 hours
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   },
 }));
 
@@ -32,7 +32,7 @@ app.use('/admin', require('./routes/admin'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 
 // Public pricing endpoint (no auth) — used by tickets.html and book.html
-app.get('/api/public/pricing', require('./routes/public-pricing'));
+app.use('/api/public/pricing', require('./routes/public-pricing'));
 
 // Custom payment page + API
 app.get('/pay', (req, res) => res.sendFile('pay.html', { root: path.join(__dirname, '..') }));
