@@ -108,10 +108,10 @@ const PRICING = {
     'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 48100, phase4: 49600, extraDay: 4500 },
   },
   'Festival Access': {
-    '3-Day Pass':        { earlyBird: 15500, phase1: 18500, phase2: 21000, extraDay: 0 },
-    'Day Pass · 27 Nov': { earlyBird: 5500,  phase1: 6500,  phase2: 7500,  extraDay: 0 },
-    'Day Pass · 28 Nov': { earlyBird: 5500,  phase1: 6500,  phase2: 7500,  extraDay: 0 },
-    'Day Pass · 29 Nov': { earlyBird: 5500,  phase1: 6500,  phase2: 7500,  extraDay: 0 },
+    '3-Day Pass':        { earlyBird: 15500, phase2: 18500, phase3: 21000, phase4: 22500, extraDay: 0 },
+    'Day Pass · 27 Nov': { earlyBird: 5500,  phase2: 6500,  phase3: 7500,  phase4: 8500,  extraDay: 0 },
+    'Day Pass · 28 Nov': { earlyBird: 5500,  phase2: 6500,  phase3: 7500,  phase4: 8500,  extraDay: 0 },
+    'Day Pass · 29 Nov': { earlyBird: 5500,  phase2: 6500,  phase3: 7500,  phase4: 8500,  extraDay: 0 },
   },
 };
 

@@ -91,10 +91,11 @@ router.post('/create', async (req, res) => {
     const amountRaw = String(totalPrice).replace(/[^\d]/g, '');
     const baseAmount = parseInt(amountRaw, 10);
 
-    // Server-side price floor: client cannot submit less than the earlyBird per-person price × guest count
+    // Server-side price floor: client cannot submit less than the active phase price × guest count
     const priceTiers = PRICING[venue]?.[roomType];
     if (priceTiers) {
-      const minExpected = (priceTiers.earlyBird || 0) * guests.length;
+      const activePhase = resolvePhase();
+      const minExpected = (priceTiers[activePhase] ?? priceTiers.earlyBird ?? 0) * guests.length;
       if (baseAmount < minExpected) {
         return res.status(400).json({ error: `Invalid price submitted. Minimum for ${venue} ${roomType} is ₹${minExpected.toLocaleString('en-IN')} for ${guests.length} guest(s).` });
       }

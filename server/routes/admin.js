@@ -78,7 +78,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
     WHERE status='paid' AND deleted_at IS NULL AND phase IS NOT NULL
     GROUP BY phase
   `).all();
-  const phaseStats = { earlyBird: 0, phase1: 0, phase2: 0 };
+  const phaseStats = { earlyBird: 0, phase1: 0, phase2: 0, phase3: 0, phase4: 0 };
   phaseRows.forEach(r => { if (r.phase in phaseStats) phaseStats[r.phase] = r.c; });
 
   res.json({ totalBookings, pendingCount, pendingAmount, totalGuests, festivalOnlyCount, totalRevenue, addonRevenue, pendingAddonAmount, avgBedRate, venueBreakdown, inventory, phaseStats });
@@ -773,7 +773,7 @@ router.get('/api/phase', requireAdmin, (req, res) => {
 });
 router.post('/api/phase', requireAdmin, (req, res) => {
   const { phase } = req.body;
-  if (!['earlyBird', 'phase1', 'phase2'].includes(phase)) return res.status(400).json({ error: 'Invalid phase' });
+  if (!['earlyBird', 'phase1', 'phase2', 'phase3', 'phase4'].includes(phase)) return res.status(400).json({ error: 'Invalid phase' });
   const settings = readSettings();
   settings.phase = phase;
   writeSettings(settings);
@@ -792,8 +792,9 @@ router.get('/api/public/pricing', (req, res) => {
       prices[venue][roomType] = {
         active:    tiers[phase]       ?? tiers.phase2,
         earlyBird: tiers.earlyBird    ?? tiers.phase2,
-        phase1:    tiers.phase1       ?? tiers.phase2,
-        phase2:    tiers.phase2,
+        phase2:    tiers.phase2       ?? tiers.earlyBird,
+        phase3:    tiers.phase3       ?? tiers.phase2,
+        phase4:    tiers.phase4       ?? tiers.phase2,
         extraDay:  tiers.extraDay     ?? 0,
       };
     }
@@ -1777,8 +1778,9 @@ router.get('/api/synopsis', requireAdmin, (req, res) => {
       capacity: item.capacity,
       label: item.label,
       earlyBird: p.earlyBird || 0,
-      phase1: p.phase1 || 0,
       phase2: p.phase2 || 0,
+      phase3: p.phase3 || 0,
+      phase4: p.phase4 || 0,
       extraDay: p.extraDay || 0,
     });
   }
@@ -1787,7 +1789,7 @@ router.get('/api/synopsis', requireAdmin, (req, res) => {
   const passes = [];
   for (const item of INVENTORY.filter(i => i.venue === 'Festival Access')) {
     const p = PRICING['Festival Access']?.[item.room_type] || {};
-    passes.push({ roomType: item.room_type, earlyBird: p.earlyBird || 0, phase1: p.phase1 || 0, phase2: p.phase2 || 0 });
+    passes.push({ roomType: item.room_type, earlyBird: p.earlyBird || 0, phase2: p.phase2 || 0, phase3: p.phase3 || 0, phase4: p.phase4 || 0 });
   }
 
   // Mailer stats from bookings

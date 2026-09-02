@@ -1,5 +1,11 @@
 {
-  "phase": "earlyBird",
+  "phase": "phase2",
+  "phaseDates": {
+    "earlyBird": { "start": "2026-01-01", "end": "2026-08-31" },
+    "phase2":    { "start": "2026-09-01", "end": "2026-09-30" },
+    "phase3":    { "start": "2026-10-01", "end": "2026-10-31" },
+    "phase4":    { "start": "2026-11-01", "end": "2026-11-26" }
+  },
   "upi_vpa": "varunsahu1@okhdfcbank",
   "admin_whatsapp": "919820791100",
   "festival_pass_open": true
