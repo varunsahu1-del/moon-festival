@@ -10,11 +10,9 @@ router.get('/', (req, res) => {
     prices[venue] = {};
     for (const [roomType, tiers] of Object.entries(rooms)) {
       prices[venue][roomType] = {
-        active:    tiers[phase]    ?? tiers.phase2,
-        earlyBird: tiers.earlyBird ?? tiers.phase2,
-        phase1:    tiers.phase1    ?? tiers.phase2,
-        phase2:    tiers.phase2,
-        extraDay:  tiers.extraDay  ?? 0,
+        active:   tiers[phase] ?? tiers.phase2,
+        phase4:   tiers.phase4 ?? tiers.phase2,
+        extraDay: tiers.extraDay ?? 0,
       };
     }
   }

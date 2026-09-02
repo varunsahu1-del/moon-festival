@@ -3134,21 +3134,19 @@ function fmtPrice(n) {
       const venue    = card.dataset.venue;
       const roomType = row.dataset.roomType;
       if (!venue || !roomType || !prices[venue]?.[roomType]) return;
-      const { active, earlyBird, phase1, phase2, extraDay } = prices[venue][roomType];
+      const { active, phase4, extraDay } = prices[venue][roomType];
       // Overwrite all hardcoded data attributes from the single server source
-      row.dataset.basePrice    = active;
-      row.dataset.pricePhase1  = phase1;
-      row.dataset.pricePhase2  = phase2;
-      row.dataset.extraDay     = extraDay;
+      row.dataset.basePrice = active;
+      row.dataset.extraDay  = extraDay;
       const priceEl  = row.querySelector('.room-price');
       const labelEl  = row.querySelector('.price-eb-label');
       const futureEl = row.querySelector('.price-future');
       if (priceEl) priceEl.textContent = fmtPrice(active);
-      if (active === phase2) {
+      if (!phase4 || active >= phase4) {
         if (labelEl)  labelEl.style.display  = 'none';
         if (futureEl) futureEl.style.display = 'none';
       } else {
-        if (futureEl && phase2 && active < phase2) futureEl.textContent = fmtPrice(phase2);
+        if (futureEl) futureEl.textContent = fmtPrice(phase4);
       }
     });
   } catch {}
