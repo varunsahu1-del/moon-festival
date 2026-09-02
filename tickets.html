@@ -1312,6 +1312,135 @@
 <!-- Nav Drawer -->
 <!-- NAV -->
 <!-- Page Hero -->
+
+<!-- ── STICKY BOOK CTA (appears on scroll) ────────────────── -->
+<div id="tk-sticky-cta" style="position:fixed;bottom:0;left:0;right:0;z-index:90;background:rgba(25,20,6,0.96);backdrop-filter:blur(8px);border-top:0.5px solid rgba(176,96,48,0.3);padding:0.75rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);pointer-events:none;">
+  <span style="font-family:'Open Sans',sans-serif;font-size:0.8rem;color:rgba(237,212,178,0.7);font-weight:300;line-height:1.3;">Moon Festival 2026<br><strong style="color:#EDD4B2;font-weight:600;">27–29 Nov · South Goa</strong></span>
+  <a href="#booking-section" style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#191406;background:#B06030;text-decoration:none;padding:0.65rem 1.4rem;white-space:nowrap;flex-shrink:0;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book your place</a>
+</div>
+
+<!-- ── FULL-BLEED HERO ────────────────────────────────────── -->
+<section id="tk-hero" style="position:relative;min-height:90svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;padding-bottom:clamp(3rem,8vw,5rem);">
+  <!-- Background photo -->
+  <img src="Home Page Images/5.jpg" alt="Moon Festival" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:0;" />
+  <!-- Gradient overlay: dark at top (for nav) + dark at bottom (for text) -->
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom, rgba(25,16,4,0.55) 0%, rgba(25,16,4,0.1) 40%, rgba(25,16,4,0.72) 75%, rgba(25,16,4,0.92) 100%);"></div>
+  <!-- Content -->
+  <div style="position:relative;z-index:2;text-align:center;padding:0 clamp(1.2rem,5vw,3rem);max-width:680px;">
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.52rem,1.1vw,0.68rem);font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:rgba(237,212,178,0.6);margin:0 0 1rem;">Moon Festival · 27 · 28 · 29 Nov 2026 · South Goa</p>
+    <h1 style="font-family:'Josefin Sans',sans-serif;font-size:clamp(2.4rem,7vw,4.8rem);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.2rem;line-height:0.95;text-wrap:balance;">Three days<br>in the forest</h1>
+    <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.95rem,1.6vw,1.15rem);font-weight:300;line-height:1.75;color:rgba(237,212,178,0.82);margin:0 0 2.2rem;text-wrap:balance;">Movement, live music, and a circle of people<br class="br-d">who leave as family.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;">
+      <a href="#booking-section" style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#191406;background:#B06030;text-decoration:none;padding:0.9rem 2rem;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book your place</a>
+      <a href="#tk-experience" style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;padding:0.9rem 2rem;border:0.5px solid rgba(237,212,178,0.4);transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(237,212,178,0.8)'" onmouseout="this.style.borderColor='rgba(237,212,178,0.4)'">What to expect ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT THIS IS ───────────────────────────────────────── -->
+<section id="tk-what" style="background:#191406;padding:clamp(3.5rem,8vw,5.5rem) clamp(1.4rem,5vw,3rem);text-align:center;">
+  <div style="max-width:620px;margin:0 auto;">
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.52rem,0.9vw,0.62rem);font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#B06030;margin:0 0 1.4rem;">What this is</p>
+    <p style="font-family:'Open Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.18rem);font-weight:300;line-height:1.85;color:rgba(237,212,178,0.88);margin:0 0 1.2rem;text-wrap:balance;">Moon Festival is three days of movement, live music, sound, and ceremony in the forests of South Goa. Nine shalas, 75+ workshops, and a few hundred people who arrive as strangers and leave as family.</p>
+    <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.92rem,1.5vw,1.05rem);font-weight:300;line-height:1.85;color:rgba(237,212,178,0.55);margin:0;">Come with friends, or come on your own — there's a place here for you either way.</p>
+  </div>
+</section>
+
+<!-- ── 4 EXPERIENCE CARDS ─────────────────────────────────── -->
+<section id="tk-experience" style="background:#0F0D05;padding:clamp(2.5rem,6vw,4rem) clamp(1rem,4vw,2rem) clamp(3rem,7vw,5rem);">
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.52rem,0.9vw,0.62rem);font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#B06030;margin:0 0 clamp(1.6rem,4vw,2.4rem);text-align:center;">Three days that feel like</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(0.6rem,2vw,1rem);max-width:900px;margin:0 auto;">
+
+    <!-- Move -->
+    <div style="position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;">
+      <img src="Home Page Images/3.jpg" alt="Movement at Moon Festival" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.75);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(0.75)'" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,2,0.88) 0%,transparent 55%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:clamp(1rem,3vw,1.4rem);">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.35rem;line-height:1;">Move</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.65);margin:0;line-height:1.5;">Dance, yoga, ecstatic movement, and workshops from morning to night.</p>
+      </div>
+    </div>
+
+    <!-- Listen -->
+    <div style="position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;">
+      <img src="Home Page Images/7.jpg" alt="Live music at Moon Festival" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.75);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(0.75)'" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,2,0.88) 0%,transparent 55%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:clamp(1rem,3vw,1.4rem);">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.35rem;line-height:1;">Listen</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.65);margin:0;line-height:1.5;">Live music, sound journeys, and 20+ musicians under the trees.</p>
+      </div>
+    </div>
+
+    <!-- Gather -->
+    <div style="position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;">
+      <img src="Home Page Images/4.jpg" alt="Ceremony at Moon Festival" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.75);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(0.75)'" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,2,0.88) 0%,transparent 55%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:clamp(1rem,3vw,1.4rem);">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.35rem;line-height:1;">Gather</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.65);margin:0;line-height:1.5;">Cacao circles, breathwork, ceremony, and quiet corners to just be.</p>
+      </div>
+    </div>
+
+    <!-- Belong -->
+    <div style="position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;">
+      <img src="Home Page Images/9.jpg" alt="Community at Moon Festival" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.75);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(0.75)'" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,2,0.88) 0%,transparent 55%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:clamp(1rem,3vw,1.4rem);">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.35rem;line-height:1;">Belong</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.75rem,1.3vw,0.88rem);font-weight:300;color:rgba(237,212,178,0.65);margin:0;line-height:1.5;">However you arrive — dancing in the middle, or watching from the edge — you're welcome here.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── BY THE NUMBERS ─────────────────────────────────────── -->
+<section style="background:#191406;border-top:0.5px solid rgba(176,96,48,0.15);border-bottom:0.5px solid rgba(176,96,48,0.15);padding:clamp(2rem,5vw,3rem) clamp(1.4rem,5vw,3rem);overflow-x:auto;">
+  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0 clamp(1.4rem,4vw,2.8rem);min-width:min-content;margin:0 auto;">
+    <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">5</p><p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0.3rem 0 0;font-weight:300;">Years</p></div>
+    <div style="width:0.5px;height:2rem;background:rgba(176,96,48,0.25);flex-shrink:0;"></div>
+    <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">300+</p><p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0.3rem 0 0;font-weight:300;">Attendees</p></div>
+    <div style="width:0.5px;height:2rem;background:rgba(176,96,48,0.25);flex-shrink:0;"></div>
+    <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">75+</p><p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0.3rem 0 0;font-weight:300;">Workshops</p></div>
+    <div style="width:0.5px;height:2rem;background:rgba(176,96,48,0.25);flex-shrink:0;"></div>
+    <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">9</p><p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0.3rem 0 0;font-weight:300;">Shalas</p></div>
+    <div style="width:0.5px;height:2rem;background:rgba(176,96,48,0.25);flex-shrink:0;"></div>
+    <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">20+</p><p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0.3rem 0 0;font-weight:300;">Musicians</p></div>
+    <div style="width:0.5px;height:2rem;background:rgba(176,96,48,0.25);flex-shrink:0;"></div>
+    <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">25+</p><p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.4);margin:0.3rem 0 0;font-weight:300;">Facilitators</p></div>
+  </div>
+</section>
+
+<!-- ── TRANSITION ─────────────────────────────────────────── -->
+<section id="booking-section" style="background:#191406;padding:clamp(2.8rem,7vw,4.5rem) clamp(1.4rem,5vw,3rem) clamp(1.5rem,4vw,2.5rem);text-align:center;">
+  <p style="font-family:'Open Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.15rem);font-weight:300;line-height:1.8;color:rgba(237,212,178,0.7);margin:0 auto 0.6rem;max-width:480px;">Ready to come? Here's everything included in your place.</p>
+  <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.4;"><path d="M8 2 L8 20 M2 14 L8 20 L14 14" stroke="#B06030" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</section>
+
+<!-- Sticky CTA scroll trigger -->
+<script>
+try {
+  (function() {
+    var stickyCta = document.getElementById('tk-sticky-cta');
+    var hero = document.getElementById('tk-hero');
+    if (!stickyCta || !hero) return;
+    stickyCta.style.pointerEvents = 'none';
+    function checkScroll() {
+      var heroBottom = hero.getBoundingClientRect().bottom;
+      if (heroBottom < 0) {
+        stickyCta.style.transform = 'translateY(0)';
+        stickyCta.style.pointerEvents = 'auto';
+      } else {
+        stickyCta.style.transform = 'translateY(100%)';
+        stickyCta.style.pointerEvents = 'none';
+      }
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
+  })();
+} catch(e) {}
+</script>
+
 <!-- Body -->
 <div class="tickets-body">
   <div class="tickets-inner">
