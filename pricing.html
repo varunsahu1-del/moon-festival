@@ -413,7 +413,7 @@ async function render() {
   document.getElementById('currentPhaseLabel').textContent = PHASE_LABELS[phase] || phase;
 
   const content = document.getElementById('pricingContent');
-  let html = `<div style="text-align:center;padding:1rem 0 2rem;"><a href="tickets.html" style="display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#ffffff;background:#B06030;text-decoration:none;padding:0.85rem 2.2rem;border-radius:3px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Get Tickets</a></div>`;
+  let html = `<div style="text-align:center;padding:1rem 0 2rem;"><a href="tickets.html#booking-section" style="display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#ffffff;background:#B06030;text-decoration:none;padding:0.85rem 2.2rem;border-radius:3px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Get Tickets</a></div>`;
 
   const venueEntries = Object.entries(PRICING);
   let isFirst = true;
