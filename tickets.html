@@ -2986,12 +2986,12 @@ document.addEventListener('keydown', e => {
         addBadge('inv-badge--gender-sold', !s.female_available ? 'Women · Sold Out' : 'Men · Sold Out');
       }
 
-      // Low stock
-      if (s.low && s.remaining > 0) {
+      // Bhakti Kutir non-dorm rooms: always show remaining count for urgency
+      const roomTypeName = row.dataset.roomType || '';
+      const isDorm = roomTypeName.toLowerCase().includes('dorm');
+      const isBhaktiRoom = venue === 'Bhakti Kutir' && !isDorm;
+      if ((isBhaktiRoom || s.low) && s.remaining > 0) {
         const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
-        const roomType = row.dataset.roomType || '';
-        const isDorm = roomType.toLowerCase().includes('dorm');
-        // For non-dorm rooms: remaining comes back in beds; convert to rooms
         const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
         const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
         const prefix = isDorm ? 'Last ' : 'Only ';
