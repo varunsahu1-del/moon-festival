@@ -2225,6 +2225,12 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
     <div style="padding:clamp(2rem,5vw,3.5rem) clamp(1.4rem,5vw,3rem);">
       <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.5);margin:0 0 1.6rem;line-height:1.6;">Come for the festival. Arrange your own stay in Palolem or Agonda.</p>
 
+      <!-- Pass labels -->
+      <div style="display:flex;gap:1rem;margin-bottom:0.6rem;">
+        <div style="flex:0 0 clamp(220px,62vw,300px);font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Three Day Festival Pass</div>
+        <div style="flex:0 0 clamp(220px,62vw,300px);font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Three Day Full Festival Pass</div>
+      </div>
+
       <!-- Pass cards -->
       <div style="display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-top:0.9rem;padding-right:4%;">
       <style>.fp-track::-webkit-scrollbar{display:none;}</style>
@@ -3375,9 +3381,10 @@ function daoConfirm() {
     sessionStorage.setItem('mf_pending_venue', _daoVenue);
     sessionStorage.setItem('mf_pending_room', _daoRoomType);
   } catch(e) {}
+  const baseOnlyPrice = _daoBase * _daoCount;
   let url = 'book.html?venue=' + encodeURIComponent(_daoVenue)
           + '&room=' + encodeURIComponent(_daoRoomType)
-          + '&price=' + totalPrice
+          + '&price=' + baseOnlyPrice
           + '&guests=' + _daoCount;
   if (addonsStr) url += '&addons=' + encodeURIComponent(addonsStr);
   window.location.href = url;

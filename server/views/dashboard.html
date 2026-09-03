@@ -1702,57 +1702,40 @@ async function loadStats() {
       const totalGuests = passRows.length;
       pl.innerHTML = `
         <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:12px;">${passBookings.length} booking${passBookings.length!==1?'s':''} &nbsp;·&nbsp; ${totalGuests} pass${totalGuests!==1?'es':''}</div>
-        <div style="overflow-x:auto;">
-        <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;font-size:12px;">
-          <thead>
-            <tr style="border-bottom:1px solid rgba(176,96,48,0.18);">
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">#</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Name</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Ref</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Pass</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Phone</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Email</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">City</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Age</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Gender</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Date</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Base</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">GST</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Total</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Status</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Verified</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Notes</th>
-              <th style="padding:8px 10px;"></th>
-            </tr>
-          </thead>
+        <div class="table-wrap"><div class="table-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Name</th><th>Ref</th><th>Pass</th><th>Phone</th><th>Email</th>
+            <th>City</th><th>Age</th><th>Gender</th><th>Date</th>
+            <th>Base</th><th>GST</th><th>Total</th><th>Status</th>
+            <th>Verified</th><th>Notes</th><th></th>
+          </tr></thead>
           <tbody>
-            ${passRows.map((r,i) => `
-            <tr onclick="openDrawer('${r.booking_ref}')" style="border-bottom:0.5px solid rgba(176,96,48,0.08);cursor:pointer;transition:background 0.12s;" onmouseover="this.style.background='rgba(176,96,48,0.04)'" onmouseout="this.style.background=''">
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.35);font-size:11px;">${i+1}</td>
-              <td style="padding:10px 10px;font-weight:600;color:var(--td-strong);">${r.full_name||'—'}</td>
-              <td style="padding:10px 10px;font-family:monospace;font-size:11px;color:rgba(176,96,48,0.75);">${r.booking_ref}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.room_type||'—'}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.whatsapp||'—'}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.email||'—'}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.city||'—'}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.age||'—'}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.gender||'—'}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.5);font-size:11px;white-space:nowrap;">${fmtDate(r.created_at)}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.7);font-size:12px;">${(()=>{const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;return b?'₹'+b.toLocaleString('en-IN'):'—';})()}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.45);font-size:11px;">${(()=>{const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;return g?'₹'+g.toLocaleString('en-IN'):'—';})()}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.85);font-size:12px;font-weight:600;">${(()=>{const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;return (b+g)?'₹'+(b+g).toLocaleString('en-IN'):'—';})()}</td>
-              <td style="padding:10px 10px;">
-                <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:${SC[r.status]||'#888'};background:${SC[r.status]||'#888'}18;border:0.5px solid ${SC[r.status]||'#888'}44;border-radius:20px;padding:3px 10px;">${r.status}</span>
-              </td>
-              <td style="padding:10px 10px;" onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>
-              <td style="padding:10px 10px;font-size:11px;color:rgba(42,34,24,0.5);max-width:180px;">${r.organizer_note||'—'}</td>
-              <td style="padding:10px 10px;" onclick="event.stopPropagation()">
-                <button onclick="resendConfirmation('${r.booking_ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.12);border:0.5px solid rgba(50,150,50,0.35);color:#2e7d32;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Confirm</button>
-              </td>
-            </tr>`).join('')}
+            ${passRows.map((r,i) => {
+              const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;
+              const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;
+              return `<tr onclick="openDrawer('${r.booking_ref}')">
+              <td style="color:var(--td-mid);font-size:11px;">${i+1}</td>
+              <td style="font-weight:600;color:var(--td-strong);">${r.full_name||'—'}</td>
+              <td><span class="ref">${r.booking_ref}</span></td>
+              <td>${r.room_type||'—'}</td>
+              <td>${r.whatsapp||'—'}</td>
+              <td>${r.email||'—'}</td>
+              <td>${r.city||'—'}</td>
+              <td>${r.age||'—'}</td>
+              <td>${r.gender||'—'}</td>
+              <td style="white-space:nowrap;">${fmtDate(r.created_at)}</td>
+              <td>${b?'₹'+b.toLocaleString('en-IN'):'—'}</td>
+              <td style="color:var(--td-gst);">${g?'₹'+g.toLocaleString('en-IN'):'—'}</td>
+              <td style="font-weight:600;color:var(--td-strong);">${(b+g)?'₹'+(b+g).toLocaleString('en-IN'):'—'}</td>
+              <td><span class="badge badge-${r.status}">${r.status}</span></td>
+              <td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>
+              <td class="td-wrap" style="font-size:11px;color:var(--td-mid);">${r.organizer_note||'—'}</td>
+              <td onclick="event.stopPropagation()"><button onclick="resendConfirmation('${r.booking_ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.12);border:0.5px solid rgba(50,150,50,0.35);color:#2e7d32;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Confirm</button></td>
+            </tr>`;}).join('')}
           </tbody>
         </table>
-        </div>`;
+        </div></div>`;
     }
   }
 }
