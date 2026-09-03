@@ -95,7 +95,7 @@ router.post('/create', async (req, res) => {
     const priceTiers = PRICING[venue]?.[roomType];
     if (priceTiers) {
       const activePhase = resolvePhase();
-      const minExpected = (priceTiers[activePhase] ?? priceTiers.earlyBird ?? 0) * guests.length;
+      const minExpected = (priceTiers.flat ?? priceTiers[activePhase] ?? priceTiers.earlyBird ?? 0) * guests.length;
       if (baseAmount < minExpected) {
         return res.status(400).json({ error: `Invalid price submitted. Minimum for ${venue} ${roomType} is ₹${minExpected.toLocaleString('en-IN')} for ${guests.length} guest(s).` });
       }

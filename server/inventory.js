@@ -33,10 +33,11 @@ const INVENTORY = [
   { venue: 'Teraria', room_type: 'Double Sharing', unit: 'beds',  capacity: 4,  rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'Teraria', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
   { venue: 'Teraria', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2, room_size: 1, gender_rule: 'any',         label: '2 rooms' },
-  { venue: 'Festival Access', room_type: '3-Day Pass',        unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
-  { venue: 'Festival Access', room_type: 'Day Pass · 27 Nov', unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
-  { venue: 'Festival Access', room_type: 'Day Pass · 28 Nov', unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
-  { venue: 'Festival Access', room_type: 'Day Pass · 29 Nov', unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
+  { venue: 'Festival Access', room_type: 'Festival Pass',      unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
+  { venue: 'Festival Access', room_type: 'Full Festival Pass', unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
+  { venue: 'Festival Access', room_type: 'Day Pass · 27 Nov',  unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
+  { venue: 'Festival Access', room_type: 'Day Pass · 28 Nov',  unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
+  { venue: 'Festival Access', room_type: 'Day Pass · 29 Nov',  unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
 ];
 
 // Predefined room labels for each venue/type
@@ -108,10 +109,11 @@ const PRICING = {
     'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 48100, phase4: 49600, extraDay: 4500 },
   },
   'Festival Access': {
-    '3-Day Pass':        { earlyBird: 15500, phase2: 18500, phase3: 21000, phase4: 22500, extraDay: 0 },
-    'Day Pass · 27 Nov': { earlyBird: 5500,  phase2: 6500,  phase3: 7500,  phase4: 8500,  extraDay: 0 },
-    'Day Pass · 28 Nov': { earlyBird: 5500,  phase2: 6500,  phase3: 7500,  phase4: 8500,  extraDay: 0 },
-    'Day Pass · 29 Nov': { earlyBird: 5500,  phase2: 6500,  phase3: 7500,  phase4: 8500,  extraDay: 0 },
+    'Festival Pass':      { flat: 16500, extraDay: 0 },
+    'Full Festival Pass': { flat: 21000, extraDay: 0 },
+    'Day Pass · 27 Nov':  { earlyBird: 5500, phase2: 6500, phase3: 7500, phase4: 8500, extraDay: 0 },
+    'Day Pass · 28 Nov':  { earlyBird: 5500, phase2: 6500, phase3: 7500, phase4: 8500, extraDay: 0 },
+    'Day Pass · 29 Nov':  { earlyBird: 5500, phase2: 6500, phase3: 7500, phase4: 8500, extraDay: 0 },
   },
 };
 
@@ -566,7 +568,7 @@ function validateBookingPrice({ venue, room_type, guest_count, addons, discount,
     return { valid: true, skipped: true };
   }
 
-  const perPerson = pricing[phase] ?? pricing.phase2;
+  const perPerson = pricing.flat ?? pricing[phase] ?? pricing.phase2;
   const accomBase = perPerson * (guest_count || 1);
 
   const addonTotal = (addons || '').split('|').filter(Boolean).reduce((s, a) => {
