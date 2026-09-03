@@ -1111,8 +1111,10 @@
       margin-left: auto;
     }
     .inv-badge--low {
-      color: #C9833A;
-      border: 0.5px solid rgba(201,131,58,0.35);
+      color: #fff;
+      background: #b02020;
+      border: none;
+      letter-spacing: 0.16em;
     }
     .inv-badge--gender-sold {
       color: rgba(237,212,178,0.4);
@@ -2961,7 +2963,12 @@ document.addEventListener('keydown', e => {
 
       // Female-only room
       if (s.female_only) {
-        if (s.low) addBadge('inv-badge--low', 'Last ' + s.remaining + (s.remaining === 1 ? ' bed' : ' beds'));
+        if (s.low) {
+          const roomType = row.dataset.roomType || '';
+          const isDorm = roomType.toLowerCase().includes('dorm');
+          const unit = isDorm ? (s.remaining === 1 ? ' bed' : ' beds') : (s.remaining === 1 ? ' room' : ' rooms');
+          addBadge('inv-badge--low', (isDorm ? 'Last ' : 'Only ') + s.remaining + unit + (isDorm ? '' : ' left'));
+        }
         return;
       }
 
@@ -2975,7 +2982,12 @@ document.addEventListener('keydown', e => {
       // Low stock (below 20%)
       if (s.low && s.remaining > 0) {
         const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
-        addBadge('inv-badge--low', genderPrefix + 'Last ' + s.remaining + (s.remaining === 1 ? ' bed' : ' beds'));
+        const roomType = row.dataset.roomType || '';
+        const isDorm = roomType.toLowerCase().includes('dorm');
+        const unit = isDorm ? (s.remaining === 1 ? ' bed' : ' beds') : (s.remaining === 1 ? ' room' : ' rooms');
+        const prefix = isDorm ? 'Last ' : 'Only ';
+        const suffix = isDorm ? '' : ' left';
+        addBadge('inv-badge--low', genderPrefix + prefix + s.remaining + unit + suffix);
       }
     });
 
