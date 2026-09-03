@@ -3509,17 +3509,21 @@ function fmtPrice(n) {
   .fp-modal-sum-row { display:flex; justify-content:space-between; font-family:'Open Sans',sans-serif; font-size:0.8rem; font-weight:300; color:rgba(237,212,178,0.55); padding:0.2rem 0; }
   .fp-modal-sum-total { border-top:1px solid rgba(176,96,48,0.2); margin-top:0.4rem; padding-top:0.6rem; color:#EDD4B2; font-weight:600; font-size:0.9rem; }
   .fp-modal-sum-note { font-family:'Open Sans',sans-serif; font-size:0.65rem; color:rgba(237,212,178,0.3); margin:0.4rem 0 0; }
-  .fp-modal-guest { border-top:1px solid rgba(176,96,48,0.12); padding-top:1.4rem; margin-top:1.4rem; }
+  .fp-modal-guest { border-top:1px solid rgba(176,96,48,0.12); padding-top:2rem; margin-top:2rem; }
   .fp-modal-guest:first-child { border-top:none; padding-top:0; margin-top:0; }
-  .fp-modal-guest-label { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#B06030; margin:0 0 1rem; }
-  .fp-modal-field { display:flex; flex-direction:column; gap:0.28rem; margin-bottom:0.75rem; }
-  .fp-modal-label { font-family:'Josefin Sans',sans-serif; font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,212,178,0.38); }
-  .fp-modal-input { background:#0F0B03; border:1px solid rgba(176,96,48,0.22); color:#EDD4B2; padding:0.7rem 0.8rem; font-family:'Open Sans',sans-serif; font-size:0.85rem; border-radius:2px; width:100%; box-sizing:border-box; }
-  .fp-modal-input:focus { outline:none; border-color:rgba(176,96,48,0.55); }
-  .fp-modal-wa-row { display:flex; }
-  .fp-modal-cc { background:#0F0B03; border:1px solid rgba(176,96,48,0.22); border-right:none; color:#EDD4B2; padding:0.7rem 0.5rem; font-family:'Open Sans',sans-serif; font-size:0.78rem; border-radius:2px 0 0 2px; flex-shrink:0; max-width:130px; }
-  .fp-modal-phone { background:#0F0B03; border:1px solid rgba(176,96,48,0.22); color:#EDD4B2; padding:0.7rem 0.8rem; font-family:'Open Sans',sans-serif; font-size:0.85rem; border-radius:0 2px 2px 0; flex:1; min-width:0; box-sizing:border-box; }
-  .fp-modal-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .fp-modal-guest-label { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#B06030; margin:0 0 1.6rem; }
+  .fp-modal-field { display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.8rem; }
+  .fp-modal-label { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#B06030; }
+  .fp-modal-input { background:transparent; border:none; border-bottom:1px solid rgba(176,96,48,0.3); color:#EDD4B2; padding:0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; width:100%; box-sizing:border-box; border-radius:0; }
+  .fp-modal-input::placeholder { color:rgba(237,212,178,0.25); }
+  .fp-modal-input:focus { outline:none; border-bottom-color:#B06030; }
+  .fp-modal-wa-row { display:flex; gap:0; border-bottom:1px solid rgba(176,96,48,0.3); }
+  .fp-modal-cc { background:transparent; border:none; color:rgba(237,212,178,0.7); padding:0.55rem 0.6rem 0.55rem 0; font-family:'Open Sans',sans-serif; font-size:0.88rem; flex-shrink:0; max-width:130px; }
+  .fp-modal-cc:focus { outline:none; }
+  .fp-modal-phone { background:transparent; border:none; color:#EDD4B2; padding:0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; flex:1; min-width:0; box-sizing:border-box; }
+  .fp-modal-phone::placeholder { color:rgba(237,212,178,0.25); }
+  .fp-modal-phone:focus { outline:none; }
+  .fp-modal-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
   .fp-modal-proceed { width:100%; background:#B06030; color:#EDD4B2; border:none; padding:1.1rem; font-family:'Josefin Sans',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; border-radius:2px; transition:background 0.2s; margin-top:1.8rem; }
   .fp-modal-proceed:hover { background:#C47D52; }
   .fp-modal-proceed:disabled { opacity:0.5; cursor:not-allowed; }
