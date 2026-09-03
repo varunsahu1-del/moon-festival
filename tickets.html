@@ -79,7 +79,7 @@
       padding: 0 0 clamp(4rem, 10vw, 8rem);
     }
     .tickets-inner {
-      max-width: 1200px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 var(--pad);
     }
@@ -508,7 +508,7 @@
       margin-bottom: clamp(3rem, 7vw, 5rem);
       box-sizing: border-box;
       width: 100%;
-      max-width: 1200px;
+      max-width: 960px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -2249,7 +2249,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
             <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Meals</li>
             <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Tribal lunch</li>
           </ul>
-          <a href="festival-pass.html?type=festival" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;border:1.5px solid rgba(176,96,48,0.35);font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#B06030'" onmouseout="this.style.borderColor='rgba(176,96,48,0.35)'">Book now</a>
+          <a href="#" onclick="openFpModal('Festival Pass',16500);return false;" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;border:1.5px solid rgba(176,96,48,0.35);font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#B06030'" onmouseout="this.style.borderColor='rgba(176,96,48,0.35)'">Book now</a>
         </div>
 
         <!-- Full Festival Pass -->
@@ -2268,7 +2268,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
             <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Meals</li>
             <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Tribal lunch</li>
           </ul>
-          <a href="festival-pass.html?type=full" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;background:#B06030;font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book now</a>
+          <a href="#" onclick="openFpModal('Full Festival Pass',21000);return false;" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;background:#B06030;font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book now</a>
         </div>
 
       </div>
@@ -3449,5 +3449,246 @@ function fmtPrice(n) {
 })();
 </script>
 
+<style>
+  .pay-overlay { display:none; position:fixed; inset:0; background:rgba(15,10,2,0.92); z-index:2100; overflow-y:auto; padding:2rem 1rem; }
+  .pay-overlay.open { display:flex; align-items:center; justify-content:center; }
+  .pay-modal { background:#191406; border:0.5px solid rgba(176,96,48,0.35); max-width:480px; width:100%; padding:clamp(1.6rem,4vw,2.4rem) clamp(1.4rem,4vw,2.2rem); position:relative; margin:auto; }
+  .pay-modal-title { font-family:'Josefin Sans',sans-serif; font-size:clamp(1.2rem,3vw,1.6rem); color:#EDD4B2; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 0.3rem; line-height:1.1; }
+  .pay-modal-ref { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:rgba(237,212,178,0.6); margin:0 0 1.6rem; }
+  .pay-method-card { border:0.5px solid rgba(176,96,48,0.28); padding:1rem 1.2rem; margin-bottom:0.75rem; cursor:pointer; transition:border-color 0.2s,background 0.2s; background:rgba(176,96,48,0.03); }
+  .pay-method-card:last-child { margin-bottom:0; }
+  .pay-method-card:hover { border-color:rgba(176,96,48,0.6); background:rgba(176,96,48,0.07); }
+  .pay-method-top { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.35rem; }
+  .pay-method-name { font-family:'Josefin Sans',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#B06030; }
+  .pay-method-desc { font-family:'Open Sans',sans-serif; font-size:0.78rem; font-weight:300; color:#EDD4B2; line-height:1.6; margin:0; }
+</style>
+
+<!-- ── FESTIVAL PASS BOOKING MODAL ──────────────────────────────── -->
+<style>
+  .fp-modal-overlay { display:none; position:fixed; inset:0; background:rgba(10,8,2,0.92); z-index:2000; overflow-y:auto; }
+  .fp-modal-overlay.open { display:block; }
+  .fp-modal-wrap { max-width:520px; margin:0 auto; padding:clamp(2rem,6vw,3.5rem) clamp(1.2rem,5vw,2.5rem); }
+  .fp-modal-eyebrow { font-family:'Josefin Sans',sans-serif; font-size:0.6rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(237,212,178,0.45); margin:0 0 0.5rem; }
+  .fp-modal-title { font-family:'Josefin Sans',sans-serif; font-size:clamp(1.3rem,4vw,1.9rem); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#EDD4B2; margin:0 0 0.2rem; line-height:1.1; }
+  .fp-modal-price { font-family:'Josefin Sans',sans-serif; font-size:clamp(1rem,2.5vw,1.3rem); font-weight:700; color:#B06030; margin:0 0 1.8rem; }
+  .fp-modal-close { position:fixed; top:1rem; right:1rem; background:rgba(25,20,6,0.8); border:0.5px solid rgba(176,96,48,0.25); color:rgba(237,212,178,0.5); width:2.2rem; height:2.2rem; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; z-index:10; border-radius:2px; }
+  .fp-modal-close:hover { color:#EDD4B2; border-color:#B06030; }
+  .fp-modal-section { font-family:'Josefin Sans',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:rgba(237,212,178,0.4); margin:0 0 0.9rem; }
+  .fp-modal-qty-row { display:flex; align-items:center; border:1px solid rgba(176,96,48,0.3); border-radius:2px; width:fit-content; margin-bottom:1.8rem; }
+  .fp-modal-qty-btn { background:none; border:none; color:#EDD4B2; font-size:1.2rem; width:2.6rem; height:2.6rem; cursor:pointer; transition:background 0.15s; }
+  .fp-modal-qty-btn:hover { background:rgba(176,96,48,0.12); }
+  .fp-modal-qty-val { font-family:'Josefin Sans',sans-serif; font-size:1rem; font-weight:700; color:#EDD4B2; width:2.4rem; text-align:center; border-left:1px solid rgba(176,96,48,0.2); border-right:1px solid rgba(176,96,48,0.2); padding:0.5rem 0; }
+  .fp-modal-summary { background:rgba(176,96,48,0.06); border:0.5px solid rgba(176,96,48,0.18); padding:0.8rem 1rem; margin-bottom:1.8rem; }
+  .fp-modal-sum-row { display:flex; justify-content:space-between; font-family:'Open Sans',sans-serif; font-size:0.8rem; font-weight:300; color:rgba(237,212,178,0.55); padding:0.2rem 0; }
+  .fp-modal-sum-total { border-top:1px solid rgba(176,96,48,0.2); margin-top:0.4rem; padding-top:0.6rem; color:#EDD4B2; font-weight:600; font-size:0.9rem; }
+  .fp-modal-sum-note { font-family:'Open Sans',sans-serif; font-size:0.65rem; color:rgba(237,212,178,0.3); margin:0.4rem 0 0; }
+  .fp-modal-guest { border-top:1px solid rgba(176,96,48,0.12); padding-top:1.4rem; margin-top:1.4rem; }
+  .fp-modal-guest:first-child { border-top:none; padding-top:0; margin-top:0; }
+  .fp-modal-guest-label { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#B06030; margin:0 0 1rem; }
+  .fp-modal-field { display:flex; flex-direction:column; gap:0.28rem; margin-bottom:0.75rem; }
+  .fp-modal-label { font-family:'Josefin Sans',sans-serif; font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,212,178,0.38); }
+  .fp-modal-input { background:#0F0B03; border:1px solid rgba(176,96,48,0.22); color:#EDD4B2; padding:0.7rem 0.8rem; font-family:'Open Sans',sans-serif; font-size:0.85rem; border-radius:2px; width:100%; box-sizing:border-box; }
+  .fp-modal-input:focus { outline:none; border-color:rgba(176,96,48,0.55); }
+  .fp-modal-wa-row { display:flex; }
+  .fp-modal-cc { background:#0F0B03; border:1px solid rgba(176,96,48,0.22); border-right:none; color:#EDD4B2; padding:0.7rem 0.5rem; font-family:'Open Sans',sans-serif; font-size:0.78rem; border-radius:2px 0 0 2px; flex-shrink:0; max-width:130px; }
+  .fp-modal-phone { background:#0F0B03; border:1px solid rgba(176,96,48,0.22); color:#EDD4B2; padding:0.7rem 0.8rem; font-family:'Open Sans',sans-serif; font-size:0.85rem; border-radius:0 2px 2px 0; flex:1; min-width:0; box-sizing:border-box; }
+  .fp-modal-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .fp-modal-proceed { width:100%; background:#B06030; color:#EDD4B2; border:none; padding:1.1rem; font-family:'Josefin Sans',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; border-radius:2px; transition:background 0.2s; margin-top:1.8rem; }
+  .fp-modal-proceed:hover { background:#C47D52; }
+  .fp-modal-proceed:disabled { opacity:0.5; cursor:not-allowed; }
+  .fp-modal-error { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:#e05555; margin:0.8rem 0 0; display:none; }
+</style>
+
+<div class="fp-modal-overlay" id="fpModalOverlay">
+  <button class="fp-modal-close" onclick="closeFpModal()">✕</button>
+  <div class="fp-modal-wrap">
+    <p class="fp-modal-eyebrow">Moon Festival · 27–29 Nov 2026 · South Goa</p>
+    <h2 class="fp-modal-title" id="fpModalTitle"></h2>
+    <p class="fp-modal-price" id="fpModalPrice"></p>
+
+    <p class="fp-modal-section">Number of passes</p>
+    <div class="fp-modal-qty-row">
+      <button class="fp-modal-qty-btn" onclick="fpQtyChange(-1)">−</button>
+      <div class="fp-modal-qty-val" id="fpQtyVal">1</div>
+      <button class="fp-modal-qty-btn" onclick="fpQtyChange(1)">+</button>
+    </div>
+
+    <div class="fp-modal-summary" id="fpSummary">
+      <div class="fp-modal-sum-row"><span id="fpSumLabel"></span><span id="fpSumBase"></span></div>
+      <div class="fp-modal-sum-row"><span>GST (5%)</span><span id="fpSumGst"></span></div>
+      <div class="fp-modal-sum-row fp-modal-sum-total"><span>Total</span><span id="fpSumTotal"></span></div>
+      <p class="fp-modal-sum-note">Razorpay card payments include a 2.36% gateway fee on top of the above.</p>
+    </div>
+
+    <p class="fp-modal-section" style="margin-top:0.5rem;">Your details</p>
+    <div id="fpGuestsList"></div>
+
+    <button class="fp-modal-proceed" id="fpProceedBtn" onclick="fpProceed()">Continue to payment</button>
+    <p class="fp-modal-error" id="fpError"></p>
+  </div>
+</div>
+
+<!-- Festival pass pay overlay -->
+<div class="pay-overlay" id="fpPayOverlay">
+  <div class="pay-modal">
+    <button onclick="document.getElementById('fpPayOverlay').classList.remove('open');document.getElementById('fpModalOverlay').classList.add('open');document.body.style.overflow='hidden';" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:rgba(237,212,178,0.35);font-size:1.4rem;line-height:1;padding:0.25rem 0.4rem;" aria-label="Close">×</button>
+    <div class="pay-modal-title">Choose How to Pay</div>
+    <div class="pay-modal-ref" id="fpPayRef"></div>
+    <div class="pay-method-card" onclick="fpLaunchUpi()">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h2"/><path d="M11 15h4"/></svg>
+          UPI Transfer
+        </span>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#8FAF7E;border:0.5px solid rgba(143,175,126,0.4);padding:0.2em 0.6em;white-space:nowrap;">No extra fee</span>
+      </div>
+      <p class="pay-method-desc" id="fpPayUpiDesc"></p>
+    </div>
+    <div class="pay-method-card" onclick="fpLaunchBank()">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 10v11M12 10v11M16 10v11"/></svg>
+          Bank Transfer
+        </span>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#8FAF7E;border:0.5px solid rgba(143,175,126,0.4);padding:0.2em 0.6em;white-space:nowrap;">No extra fee</span>
+      </div>
+      <p class="pay-method-desc">NEFT / IMPS to our HDFC account. Spot held for 24 hours.</p>
+    </div>
+    <div class="pay-method-card" onclick="fpLaunchRazorpay()">
+      <div class="pay-method-top">
+        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Razorpay
+        </span>
+      </div>
+      <p class="pay-method-desc">Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.85);font-weight:600;">+2.36% fee</span><br><span id="fpPayRpTotal"></span></p>
+    </div>
+    <div style="margin-top:1.4rem;padding-top:1.1rem;border-top:0.5px solid rgba(176,96,48,0.15);text-align:center;">
+      <a href="https://wa.me/919820791100" target="_blank" rel="noopener" style="font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:#EDD4B2;text-decoration:none;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='#EDD4B2'">Questions? WhatsApp Varun → +91 98207 91100</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var _fpPass = null, _fpPrice = 0, _fpQty = 1, _fpBooking = null, _fpTotal = 0;
+  var CC_OPTS = ['+91 India','+1 US/Canada','+44 UK','+61 Australia','+64 NZ','+353 Ireland','+65 Singapore','+60 Malaysia','+66 Thailand','+62 Indonesia','+63 Philippines','+84 Vietnam','+81 Japan','+82 Korea','+971 UAE','+974 Qatar','+966 Saudi Arabia','+92 Pakistan','+94 Sri Lanka','+977 Nepal','+880 Bangladesh','+49 Germany','+33 France','+39 Italy','+34 Spain','+31 Netherlands','+41 Switzerland','+46 Sweden','+47 Norway','+45 Denmark','+7 Russia','+27 South Africa','+254 Kenya','+234 Nigeria','+55 Brazil','+52 Mexico','+54 Argentina'];
+  var ccSelect = CC_OPTS.map(function(o){var c=o.split(' ')[0];return '<option value="'+c+'"'+(c==='+91'?' selected':'')+'>'+o+'</option>';}).join('');
+
+  function fmt(n){return '₹'+n.toLocaleString('en-IN');}
+  function updateSummary(){
+    var base=_fpPrice*_fpQty, gst=Math.round(base*0.05), total=base+gst;
+    _fpTotal=total;
+    document.getElementById('fpSumLabel').textContent=_fpQty+' × '+_fpPass;
+    document.getElementById('fpSumBase').textContent=fmt(base);
+    document.getElementById('fpSumGst').textContent=fmt(gst);
+    document.getElementById('fpSumTotal').textContent=fmt(total);
+  }
+  function buildGuests(){
+    var list=document.getElementById('fpGuestsList'); list.innerHTML='';
+    for(var i=0;i<_fpQty;i++){
+      var label=_fpQty>1?'Guest '+(i+1):'Your details';
+      list.innerHTML+='<div class="fp-modal-guest">'
+        +'<p class="fp-modal-guest-label">'+label+'</p>'
+        +'<div class="fp-modal-field"><label class="fp-modal-label">Full name *</label><input class="fp-modal-input" id="fp-name-'+i+'" type="text" /></div>'
+        +'<div class="fp-modal-field"><label class="fp-modal-label">Email *</label><input class="fp-modal-input" id="fp-email-'+i+'" type="email" /></div>'
+        +'<div class="fp-modal-field"><label class="fp-modal-label">WhatsApp Number *</label><div class="fp-modal-wa-row"><select class="fp-modal-cc" id="fp-cc-'+i+'">'+ccSelect+'</select><input class="fp-modal-phone" id="fp-phone-'+i+'" type="tel" placeholder="00000 00000" /></div></div>'
+        +'<div class="fp-modal-grid2">'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">City</label><input class="fp-modal-input" id="fp-city-'+i+'" type="text" /></div>'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">Gender *</label><select class="fp-modal-input" id="fp-gender-'+i+'"><option value="">Select</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">Age</label><input class="fp-modal-input" id="fp-age-'+i+'" type="number" min="18" /></div>'
+        +'</div>'
+        +'</div>';
+    }
+  }
+
+  window.openFpModal = function(passName, price) {
+    _fpPass=passName; _fpPrice=price; _fpQty=1; _fpBooking=null;
+    document.getElementById('fpModalTitle').textContent=passName;
+    document.getElementById('fpModalPrice').textContent=fmt(price)+' per person';
+    document.getElementById('fpQtyVal').textContent=1;
+    updateSummary(); buildGuests();
+    document.getElementById('fpModalOverlay').classList.add('open');
+    document.body.style.overflow='hidden';
+    window.scrollTo(0,0);
+  };
+  window.closeFpModal = function() {
+    document.getElementById('fpModalOverlay').classList.remove('open');
+    document.body.style.overflow='';
+  };
+  window.fpQtyChange = function(d) {
+    var n=Math.max(1,Math.min(10,_fpQty+d));
+    if(n===_fpQty) return;
+    _fpQty=n;
+    document.getElementById('fpQtyVal').textContent=n;
+    updateSummary(); buildGuests();
+  };
+
+  function fpShowError(msg){var el=document.getElementById('fpError');el.textContent=msg;el.style.display=msg?'block':'none';}
+  function fpCollect(){
+    var g=[];
+    for(var i=0;i<_fpQty;i++){
+      var name=(document.getElementById('fp-name-'+i)||{}).value||'';
+      var email=(document.getElementById('fp-email-'+i)||{}).value||'';
+      var cc=(document.getElementById('fp-cc-'+i)||{}).value||'+91';
+      var phone=(document.getElementById('fp-phone-'+i)||{}).value||'';
+      var city=(document.getElementById('fp-city-'+i)||{}).value||'';
+      var gender=(document.getElementById('fp-gender-'+i)||{}).value||'';
+      var age=(document.getElementById('fp-age-'+i)||{}).value||'';
+      if(!name||!email||!phone||!gender){return null;}
+      g.push({full_name:name,email:email,whatsapp:cc+' '+phone.trim(),city:city,gender:gender,age:age});
+    }
+    return g;
+  }
+
+  window.fpProceed = async function() {
+    var btn=document.getElementById('fpProceedBtn');
+    var g=fpCollect();
+    if(!g){fpShowError('Please fill in all required fields.');return;}
+    fpShowError('');
+    btn.disabled=true; btn.textContent='Please wait…';
+    try {
+      var res=await fetch('/api/bookings/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venue:'Festival Access',roomType:_fpPass,totalPrice:_fpPrice*_fpQty,guests:g})});
+      var data=await res.json();
+      if(!res.ok){fpShowError(data.error||'Something went wrong.');btn.disabled=false;btn.textContent='Continue to payment';return;}
+      _fpBooking=data;
+      // Open pay overlay
+      document.getElementById('fpModalOverlay').classList.remove('open');
+      var rpTotal=Math.round(_fpTotal*1.0236);
+      document.getElementById('fpPayRef').textContent='Booking ref: '+data.booking_ref+' · '+fmt(_fpTotal);
+      document.getElementById('fpPayUpiDesc').textContent=fmt(_fpTotal)+' · Instant confirmation';
+      document.getElementById('fpPayRpTotal').textContent='Total '+fmt(rpTotal);
+      document.getElementById('fpPayOverlay').classList.add('open');
+    } catch(e){fpShowError('Network error. Please try again.');btn.disabled=false;btn.textContent='Continue to payment';}
+    btn.disabled=false; btn.textContent='Continue to payment';
+  };
+
+  window.fpLaunchUpi=function(){if(!_fpBooking)return;document.getElementById('fpPayOverlay').classList.remove('open');document.body.style.overflow='';window.location.href='upi-pay.html?ref='+_fpBooking.booking_ref+'&amount='+_fpTotal;};
+  window.fpLaunchBank=function(){if(!_fpBooking)return;document.getElementById('fpPayOverlay').classList.remove('open');document.body.style.overflow='';window.location.href='bank-pay.html?ref='+_fpBooking.booking_ref+'&amount='+_fpTotal;};
+  window.fpLaunchRazorpay=async function(){
+    if(!_fpBooking)return;
+    document.getElementById('fpPayOverlay').classList.remove('open');
+    var g=fpCollect();
+    try {
+      var r=await fetch('/api/bookings/razorpay-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref:_fpBooking.booking_ref})});
+      var d=await r.json();
+      if(!r.ok)throw new Error(d.error||'Order failed');
+      var rpTotal=Math.round(_fpTotal*1.0236);
+      new window.Razorpay({key:d.key,amount:d.amount,currency:'INR',order_id:d.order_id,name:'Moon Festival 2026',description:_fpQty+' × '+_fpPass,prefill:{name:g[0].full_name,email:g[0].email,contact:g[0].whatsapp},theme:{color:'#B06030'},handler:async function(response){
+        try{await fetch('/api/bookings/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({razorpay_order_id:response.razorpay_order_id,razorpay_payment_id:response.razorpay_payment_id,razorpay_signature:response.razorpay_signature})});}catch(_){}
+        try{fbq('track','Purchase',{value:rpTotal,currency:'INR',content_name:_fpPass});}catch(e){}
+        document.body.style.overflow='';
+        window.location.href='booking-confirmed.html?ref='+_fpBooking.booking_ref+'&method=razorpay&amount='+rpTotal+'&pixel_fired=1';
+      },modal:{ondismiss:function(){document.getElementById('fpPayOverlay').classList.add('open');}}}).open();
+    } catch(err){alert('Could not open payment. Please try again.');document.getElementById('fpPayOverlay').classList.add('open');}
+  };
+
+  // Close on overlay click
+  document.getElementById('fpModalOverlay').addEventListener('click',function(e){if(e.target===this)window.closeFpModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.getElementById('fpPayOverlay').classList.contains('open')){document.getElementById('fpPayOverlay').classList.remove('open');document.getElementById('fpModalOverlay').classList.add('open');}else{window.closeFpModal();}}});
+  // Reopen pay overlay on back navigation
+  window.addEventListener('pageshow',function(e){if(e.persisted&&_fpBooking){document.getElementById('fpPayOverlay').classList.add('open');}});
+})();
+</script>
 </body>
 </html>
