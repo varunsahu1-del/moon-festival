@@ -1724,7 +1724,7 @@ async function loadStats() {
               <td style="color:var(--td-mid);font-size:11px;">${i+1}</td>
               <td style="font-weight:600;color:var(--td-strong);">${r.full_name||'—'}</td>
               <td><span class="ref">${r.booking_ref}</span></td>
-              <td>${r.room_type||'—'}</td>
+              <td>${r.room_type==='Festival Pass'?'Workshops Pass':(r.room_type||'—')}</td>
               <td>${r.whatsapp||'—'}</td>
               <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;color:var(--td-email);">${r.email||'—'}</td>
               <td>${r.city||'—'}</td>
