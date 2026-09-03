@@ -167,7 +167,8 @@ router.post('/create', async (req, res) => {
       const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, totalPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase());
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
-        insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, g.city || null, g.age ? Number(g.age) : null, g.gender || null, g.address || null, g.state || null, g.pin || null);
+        const normCity = g.city ? g.city.trim().replace(/\b\w/g, c => c.toUpperCase()) : null;
+        insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, normCity, g.age ? Number(g.age) : null, g.gender || null, g.address || null, g.state || null, g.pin || null);
       });
       db.exec('COMMIT');
       autoAssignRoom(db, lastInsertRowid);
