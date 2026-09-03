@@ -36,7 +36,7 @@
       font-style: normal;
     }
     .schedule-hero-title, .gallery-hero-title, .stay-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
-    .gallery-type { font-family: 'Solaris', 'Josefin Sans', sans-serif !important; font-size: clamp(1.3rem, 2.5vw, 1.8rem) !important; }
+    .gallery-type { font-size: clamp(0.62rem, 0.9vw, 0.75rem) !important; }
   </style>
 </head>
 <body>
@@ -53,6 +53,12 @@
   <section class="section-lg" style="padding-top: var(--s-8);">
     <div class="container">
 
+
+      <!-- Photos / Videos top tabs -->
+      <div style="display:flex;justify-content:center;gap:0;border-top:0.5px solid rgba(237,212,178,0.12);border-bottom:0.5px solid rgba(237,212,178,0.12);margin-bottom:clamp(1.5rem,3vw,2.5rem);">
+        <button class="gallery-type active" data-type="photos" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.62rem,0.9vw,0.75rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;background:rgba(176,96,48,0.06);border:none;border-right:0.5px solid rgba(237,212,178,0.12);padding:1.1em 2.4em 1em;cursor:pointer;position:relative;transition:color 0.2s,background 0.2s;">Photos</button>
+        <button class="gallery-type" data-type="videos" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.62rem,0.9vw,0.75rem);font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.35);background:none;border:none;padding:1.1em 2.4em 1em;cursor:pointer;position:relative;transition:color 0.2s,background 0.2s;">Videos</button>
+      </div>
 
       <!-- Year Sub-filters -->
       <div class="gallery-filter-row">
@@ -72,9 +78,102 @@
 
       <!-- Videos Panel -->
       <div class="gallery-panel" id="panel-videos">
-        <div class="gallery-empty">
-          <p>Videos coming soon</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('ZaCmE7gsoX0')">
+              <img src="https://img.youtube.com/vi/ZaCmE7gsoX0/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Rising with Moon</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('mAAQrTNGXaI')">
+              <img src="https://img.youtube.com/vi/mAAQrTNGXaI/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Healing at Moon</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('qW4hjrnIBMM')">
+              <img src="https://img.youtube.com/vi/qW4hjrnIBMM/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Moon Full Power</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('bNedvqQI-i8')">
+              <img src="https://img.youtube.com/vi/bNedvqQI-i8/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Drums Meet Dance</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('43JK1o75cAY')">
+              <img src="https://img.youtube.com/vi/43JK1o75cAY/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Joy Alchemy</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('onC5gxSVovw')">
+              <img src="https://img.youtube.com/vi/onC5gxSVovw/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Ecstatic Ceremony</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('pICVLT1ZXNU')">
+              <img src="https://img.youtube.com/vi/pICVLT1ZXNU/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Pan &amp; Paint</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('yDdtanL5RT4')">
+              <img src="https://img.youtube.com/vi/yDdtanL5RT4/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Lying on the Moon</p>
+          </div>
+
+          <div>
+            <div style="position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border-radius:2px;" onclick="openGalleryLightbox('MKadFkOunRg')">
+              <img src="https://img.youtube.com/vi/MKadFkOunRg/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'"><svg width="44" height="44" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(237,212,178,0.8)" stroke-width="1.2"/><path d="M21 18 L38 26 L21 34 Z" fill="rgba(237,212,178,0.9)"/></svg></div>
+            </div>
+            <p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0.7rem 0 0;text-align:center;">Live Jams</p>
+          </div>
+
         </div>
+
+        <!-- Gallery video lightbox -->
+        <div id="galleryLightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;" onclick="closeGalleryLightbox()">
+          <div style="width:min(90vw,1100px);position:relative;" onclick="event.stopPropagation()">
+            <iframe id="galleryLightboxFrame" style="width:100%;aspect-ratio:16/9;display:block;border:none;border-radius:2px;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <button onclick="closeGalleryLightbox()" style="position:absolute;top:-2.5rem;right:0;background:none;border:none;color:rgba(237,212,178,0.7);font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">✕ Close</button>
+          </div>
+        </div>
+        <script>
+        function openGalleryLightbox(id) {
+          var lb = document.getElementById('galleryLightbox');
+          var frame = document.getElementById('galleryLightboxFrame');
+          frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&showinfo=0';
+          lb.style.display = 'flex';
+        }
+        function closeGalleryLightbox() {
+          document.getElementById('galleryLightboxFrame').src = '';
+          document.getElementById('galleryLightbox').style.display = 'none';
+        }
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeGalleryLightbox(); });
+        </script>
       </div>
     </div>
   </section>
