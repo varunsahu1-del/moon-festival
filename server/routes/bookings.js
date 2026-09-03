@@ -625,7 +625,8 @@ router.get('/availability', (req, res) => {
       else if (maleAvail && femaleAvail) remaining = Math.min(maleBedsLeft, femaleBedsLeft);
     }
 
-    const lowThreshold = Math.ceil((s.capacity || 1) * 0.2);
+    const isDormType = (s.room_type || '').toLowerCase().includes('dorm');
+    const lowThreshold = isDormType ? Math.ceil((s.capacity || 1) * 0.2) : Math.ceil((s.capacity || 1) * 0.6);
     return {
       venue: s.venue,
       room_type: s.room_type,

@@ -2924,13 +2924,19 @@ document.addEventListener('keydown', e => {
       const bottom = row.querySelector('.room-bottom');
       if (!bottom) return;
 
-      // Badge strip sits above the stepper row so it never crowds the Book button
+      // Badge sits inline next to the room name heading
       function addBadge(className, text) {
         let strip = row.querySelector('.inv-badge-strip');
         if (!strip) {
           strip = document.createElement('div');
           strip.className = 'inv-badge-strip';
-          row.insertBefore(strip, bottom);
+          // Insert inside .room-info, right after .room-type
+          const roomTypeEl = row.querySelector('.room-type');
+          if (roomTypeEl && roomTypeEl.parentNode) {
+            roomTypeEl.parentNode.insertBefore(strip, roomTypeEl.nextSibling);
+          } else {
+            row.insertBefore(strip, bottom);
+          }
         }
         const b = document.createElement('span');
         b.className = 'inv-badge ' + className;
@@ -3550,7 +3556,6 @@ function fmtPrice(n) {
       <div class="fp-modal-sum-row fp-modal-sum-total"><span>Total</span><span id="fpSumTotal"></span></div>
     </div>
 
-    <p class="fp-modal-section" style="margin-top:0.5rem;">Your details</p>
     <div id="fpGuestsList"></div>
 
     <button class="fp-modal-proceed" id="fpProceedBtn" onclick="fpProceed()">Continue to payment</button>
