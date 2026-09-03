@@ -1538,11 +1538,38 @@
 <!-- ── HEALING AT MOON VIDEO ──────────────────────────────── -->
 <section style="background:#0F0D05;padding:clamp(2.5rem,6vw,4rem) clamp(1.4rem,5vw,3rem);">
   <div style="max-width:900px;margin:0 auto;">
-    <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:2px;overflow:hidden;">
-      <iframe src="https://www.youtube.com/embed/mAAQrTNGXaI?rel=0&modestbranding=1&showinfo=0" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+    <div onclick="openHealingVideo()" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:2px;overflow:hidden;cursor:pointer;">
+      <img src="https://img.youtube.com/vi/mAAQrTNGXaI/maxresdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"/>
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.18);transition:background 0.25s;" id="healing-overlay" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='rgba(0,0,0,0.18)'">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="31" stroke="rgba(237,212,178,0.85)" stroke-width="1"/>
+            <path d="M26 20 L48 32 L26 44 Z" fill="rgba(237,212,178,0.9)"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Healing video lightbox -->
+<div id="healingLightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;" onclick="closeHealingVideo()">
+  <div style="width:min(92vw,1100px);position:relative;" onclick="event.stopPropagation()">
+    <iframe id="healingFrame" style="width:100%;aspect-ratio:16/9;display:block;border:none;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <button onclick="closeHealingVideo()" style="position:absolute;top:-2.4rem;right:0;background:none;border:none;color:rgba(237,212,178,0.6);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">✕ Close</button>
+  </div>
+</div>
+<script>
+function openHealingVideo() {
+  document.getElementById('healingFrame').src = 'https://www.youtube.com/embed/mAAQrTNGXaI?autoplay=1&rel=0&modestbranding=1&showinfo=0';
+  document.getElementById('healingLightbox').style.display = 'flex';
+}
+function closeHealingVideo() {
+  document.getElementById('healingFrame').src = '';
+  document.getElementById('healingLightbox').style.display = 'none';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHealingVideo(); });
+</script>
 
 <!-- ── CHOOSE YOUR PASS ─────────────────────────────────────── -->
 <section id="booking-section" style="background:#0F0D05;padding:clamp(3rem,7vw,5rem) clamp(1.4rem,5vw,3rem) 0;">
