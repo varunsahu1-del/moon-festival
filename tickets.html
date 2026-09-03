@@ -2178,6 +2178,13 @@ try {
     <!-- Panel: Festival Only -->
     <div class="ticket-panel" id="panel-festival">
 
+    <!-- closed notice (shown when festival_pass_open = false) -->
+    <div style="padding:clamp(2rem,5vw,3.5rem) clamp(1.4rem,5vw,3rem);text-align:center;">
+      <p style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.5);line-height:1.7;margin:0;">Festival Pass bookings are not open yet.<br>Check back soon or write to us on WhatsApp.</p>
+      <a href="https://wa.me/919820791100" target="_blank" style="display:inline-block;margin-top:1.4rem;padding:0.7rem 1.6rem;border:1.5px solid rgba(176,96,48,0.35);font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;">WhatsApp us</a>
+    </div>
+
+    <!-- booking section (shown when festival_pass_open = true) -->
     <div style="padding:clamp(2rem,5vw,3.5rem) clamp(1.4rem,5vw,3rem);">
       <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.5);margin:0 0 1.6rem;line-height:1.6;">Come for the festival. Arrange your own stay in Palolem or Agonda.</p>
 
@@ -2219,6 +2226,7 @@ try {
 
       </div>
     </div>
+    </div><!-- /booking section -->
 
     </div><!-- /panel-festival -->
 
