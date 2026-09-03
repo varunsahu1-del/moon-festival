@@ -1089,11 +1089,16 @@
       pointer-events: none;
     }
     .room-row.sold-out .btn-book { display: none; }
+    .room-type-row {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
     .inv-badge-strip {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      padding: 0.5rem 0 0.35rem;
     }
     .inv-badge {
       font-family: 'Josefin Sans', sans-serif;
@@ -2938,10 +2943,14 @@ document.addEventListener('keydown', e => {
         if (!strip) {
           strip = document.createElement('div');
           strip.className = 'inv-badge-strip';
-          // Insert inside .room-info, right after .room-type
+          // Wrap .room-type + badge strip in a flex row so badge sits inline
           const roomTypeEl = row.querySelector('.room-type');
-          if (roomTypeEl && roomTypeEl.parentNode) {
-            roomTypeEl.parentNode.insertBefore(strip, roomTypeEl.nextSibling);
+          if (roomTypeEl) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'room-type-row';
+            roomTypeEl.parentNode.insertBefore(wrapper, roomTypeEl);
+            wrapper.appendChild(roomTypeEl);
+            wrapper.appendChild(strip);
           } else {
             row.insertBefore(strip, bottom);
           }
@@ -2982,7 +2991,7 @@ document.addEventListener('keydown', e => {
           const isDorm = roomType.toLowerCase().includes('dorm');
           const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
           const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-          addBadge('inv-badge--low', (isDorm ? 'Last ' : 'Only ') + displayCount + unit + (isDorm ? '' : ' left'));
+          addBadge('inv-badge--low', 'Last ' + displayCount + unit);
         }
         return;
       }
@@ -3002,9 +3011,7 @@ document.addEventListener('keydown', e => {
         const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
         const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
         const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-        const prefix = isDorm ? 'Last ' : 'Only ';
-        const suffix = isDorm ? '' : ' left';
-        addBadge('inv-badge--low', genderPrefix + prefix + displayCount + unit + suffix);
+        addBadge('inv-badge--low', genderPrefix + 'Last ' + displayCount + unit);
       }
     });
 
