@@ -1505,71 +1505,100 @@
 </section>
 
 <!-- ── CHOOSE YOUR EXPERIENCE ──────────────────────────────── -->
-<section id="booking-section" style="background:#0F0D05;padding:clamp(3rem,7vw,5rem) 0;">
-  <h2 class="venues-title" style="margin-bottom:clamp(1.8rem,4vw,2.8rem);">Choose your experience</h2>
+<section id="booking-section" style="background:#0F0D05;padding:clamp(3rem,7vw,5rem) clamp(1.4rem,5vw,3rem);">
+  <h2 class="venues-title" style="margin-bottom:clamp(2rem,5vw,3rem);">Choose your experience</h2>
 
-  <div id="tk-tiers-track" style="display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 clamp(1.2rem,5vw,2.5rem);padding-right:calc(clamp(1.2rem,5vw,2.5rem) + 8%);">
-  <style>#tk-tiers-track::-webkit-scrollbar{display:none;}</style>
+  <!-- ── CATEGORY 1: RESIDENTIAL ─────────────────────────── -->
+  <div style="margin-bottom:clamp(2.5rem,6vw,4rem);">
 
-    <!-- Festival Pass -->
-    <div style="flex:0 0 clamp(260px,72vw,320px);scroll-snap-align:start;border:1.5px solid rgba(176,96,48,0.25);border-radius:2px;padding:1.4rem 1.2rem;display:flex;flex-direction:column;">
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.5);margin:0 0 0.5rem;">Festival Pass</p>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:#EDD4B2;margin:0 0 0.3rem;line-height:1;">₹16,500</p>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0 0 1.2rem;">per person</p>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;font-style:italic;color:rgba(237,212,178,0.55);margin:0 0 1.2rem;line-height:1.6;">Experience Moon.</p>
-      <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Festival entry</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Daytime workshops</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Cacao ceremony</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Friday evening gig</li>
-      </ul>
-      <a href="festival-pass.html?type=festival" style="display:block;text-align:center;margin-top:1.5rem;padding:0.75rem 1rem;border:1.5px solid rgba(176,96,48,0.4);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='#B06030'" onmouseout="this.style.borderColor='rgba(176,96,48,0.4)'">Book now</a>
+    <!-- Category label -->
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;">
+      <div style="flex:1;height:0.5px;background:rgba(176,96,48,0.2);"></div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#B06030;margin:0;white-space:nowrap;">Residential Experience</p>
+      <div style="flex:1;height:0.5px;background:rgba(176,96,48,0.2);"></div>
     </div>
 
-    <!-- Full Festival Pass -->
-    <div style="flex:0 0 clamp(260px,72vw,320px);scroll-snap-align:start;border:1.5px solid #B06030;border-radius:2px;padding:1.4rem 1.2rem;display:flex;flex-direction:column;position:relative;">
-      <p style="position:absolute;top:-0.65rem;left:50%;transform:translateX(-50%);background:#B06030;color:#191406;font-family:'Josefin Sans',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.2rem 0.7rem;white-space:nowrap;">Most popular</p>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B06030;margin:0 0 0.5rem;">Full Festival Pass</p>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:#EDD4B2;margin:0 0 0.3rem;line-height:1;">₹21,000</p>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0 0 1.2rem;">per person</p>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;font-style:italic;color:rgba(237,212,178,0.55);margin:0 0 1.2rem;line-height:1.6;">The whole festival.</p>
-      <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Festival entry</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>All daytime workshops</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Cacao ceremony</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>All 3 evening gigs</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Beach workshops + transport</li>
-      </ul>
-      <a href="festival-pass.html?type=full" style="display:block;text-align:center;margin-top:1.5rem;padding:0.75rem 1rem;background:#B06030;font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book now</a>
-    </div>
+    <!-- Residential hero card -->
+    <div style="border:1.5px solid rgba(176,96,48,0.35);border-radius:2px;padding:clamp(1.4rem,4vw,2rem);background:rgba(176,96,48,0.04);">
 
-    <!-- Resident Bundle -->
-    <div style="flex:0 0 clamp(260px,72vw,320px);scroll-snap-align:start;border:1.5px solid rgba(176,96,48,0.25);border-radius:2px;padding:1.4rem 1.2rem;display:flex;flex-direction:column;">
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.5);margin:0 0 0.5rem;">Stay with us</p>
-      <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:#EDD4B2;margin:0 0 0.3rem;line-height:1;">₹25,500+</p>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0 0 1.2rem;">per person</p>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;font-style:italic;color:rgba(237,212,178,0.55);margin:0 0 1.2rem;line-height:1.6;">Live at Moon.</p>
-      <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Full Festival Pass</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Accommodation</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>All sattvic meals</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>No commuting or planning</li>
-        <li style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Complete residential experience</li>
-      </ul>
-      <a href="#accommodation-options" style="display:block;text-align:center;margin-top:1.5rem;padding:0.75rem 1rem;border:1.5px solid rgba(176,96,48,0.4);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='#B06030'" onmouseout="this.style.borderColor='rgba(176,96,48,0.4)'">See options ↓</a>
-    </div>
+      <!-- Top row: headline + price -->
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.8rem;">
+        <div style="flex:1;min-width:0;">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.2vw,1.3rem);font-weight:700;color:#EDD4B2;margin:0 0 0.35rem;line-height:1.2;">Stay at Moon.</p>
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.8rem;font-weight:300;color:rgba(237,212,178,0.55);margin:0;line-height:1.5;">3 nights at the festival. Accommodation + Full Festival Pass bundled. Wake up at Moon, go to sleep at Moon.</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:700;color:#EDD4B2;margin:0;line-height:1;">₹25,500+</p>
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0.2rem 0 0;">per person</p>
+        </div>
+      </div>
 
+      <!-- What's included: compact row -->
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1.2rem;margin:1rem 0 1.4rem;">
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);display:flex;align-items:center;gap:0.35rem;"><span style="color:#B06030;font-size:0.7rem;">✓</span>Full Festival Pass</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);display:flex;align-items:center;gap:0.35rem;"><span style="color:#B06030;font-size:0.7rem;">✓</span>3 nights accommodation</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);display:flex;align-items:center;gap:0.35rem;"><span style="color:#B06030;font-size:0.7rem;">✓</span>All workshops &amp; gigs</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);display:flex;align-items:center;gap:0.35rem;"><span style="color:#B06030;font-size:0.7rem;">✓</span>Satvik meals option</span>
+      </div>
+
+      <a href="#accommodation-options" style="display:inline-block;padding:0.75rem 1.8rem;background:#B06030;font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Choose your accommodation ↓</a>
+    </div>
   </div>
+
+  <!-- ── CATEGORY 2: FESTIVAL PASS ───────────────────────── -->
+  <div>
+
+    <!-- Category label -->
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;">
+      <div style="flex:1;height:0.5px;background:rgba(176,96,48,0.2);"></div>
+      <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:rgba(237,212,178,0.45);margin:0;white-space:nowrap;">Festival Pass Only</p>
+      <div style="flex:1;height:0.5px;background:rgba(176,96,48,0.2);"></div>
+    </div>
+
+    <!-- Explainer -->
+    <p style="font-family:'Open Sans',sans-serif;font-size:0.8rem;font-weight:300;color:rgba(237,212,178,0.45);margin:0 0 1.2rem;line-height:1.6;">Come for the festival. Arrange your own stay in Palolem or Agonda (10–15 min away).</p>
+
+    <!-- Two pass cards side by side (or stacked on very small screens) -->
+    <div style="display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-right:4%;">
+    <style>#tk-festival-track::-webkit-scrollbar{display:none;}</style>
+
+      <!-- Festival Pass -->
+      <div style="flex:0 0 clamp(240px,46vw,300px);scroll-snap-align:start;border:1.5px solid rgba(176,96,48,0.25);border-radius:2px;padding:1.3rem 1.1rem;display:flex;flex-direction:column;">
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,212,178,0.45);margin:0 0 0.4rem;">Festival Pass</p>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:700;color:#EDD4B2;margin:0 0 0.2rem;line-height:1;">₹16,500</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:300;color:rgba(237,212,178,0.35);margin:0 0 1rem;">per person</p>
+        <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;">
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Festival entry</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Daytime workshops</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Cacao ceremony</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Friday evening gig</li>
+        </ul>
+        <a href="festival-pass.html?type=festival" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;border:1.5px solid rgba(176,96,48,0.35);font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#B06030'" onmouseout="this.style.borderColor='rgba(176,96,48,0.35)'">Book now</a>
+      </div>
+
+      <!-- Full Festival Pass -->
+      <div style="flex:0 0 clamp(240px,46vw,300px);scroll-snap-align:start;border:1.5px solid #B06030;border-radius:2px;padding:1.3rem 1.1rem;display:flex;flex-direction:column;position:relative;">
+        <p style="position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);background:#B06030;color:#191406;font-family:'Josefin Sans',sans-serif;font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.18rem 0.65rem;white-space:nowrap;">Most popular</p>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B06030;margin:0 0 0.4rem;">Full Festival Pass</p>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:700;color:#EDD4B2;margin:0 0 0.2rem;line-height:1;">₹21,000</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:300;color:rgba(237,212,178,0.35);margin:0 0 1rem;">per person</p>
+        <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;">
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Festival entry</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>All daytime workshops</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Cacao ceremony</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>All 3 evening gigs</li>
+          <li style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#B06030;">✓</span>Beach workshops + transport</li>
+        </ul>
+        <a href="festival-pass.html?type=full" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;background:#B06030;font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book now</a>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 <!-- Anchor for accommodation scroll -->
 <div id="accommodation-options"></div>
-
-<!-- ── RESIDENTIAL SEPARATOR ──────────────────────────────── -->
-<section style="background:#1a0e05;border-top:0.5px solid rgba(176,96,48,0.2);border-bottom:0.5px solid rgba(176,96,48,0.2);padding:clamp(2.5rem,6vw,4rem) clamp(1.4rem,5vw,3rem);text-align:center;">
-  <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.52rem,0.9vw,0.62rem);font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:#B06030;margin:0 0 0.8rem;">Or go all in</p>
-  <p style="font-family:'Open Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.15rem);font-weight:300;line-height:1.8;color:rgba(237,212,178,0.75);margin:0 auto;max-width:480px;">Wake up at Moon. Every meal taken care of. Nothing to plan, nothing to rush. Just three days inside the festival.</p>
-</section>
 
 <!-- Sticky CTA scroll trigger -->
 <script>
