@@ -1694,17 +1694,52 @@ async function loadStats() {
     if (!passBookings.length) {
       pl.innerHTML = '<div style="font-size:12px;color:rgba(42,34,24,0.3);padding:12px 0;">No pass bookings yet.</div>';
     } else {
-      const STATUS_COLORS = { paid: '#1e8a3a', pending: '#B06030', cancelled: '#c0392b' };
+      const SC = { paid:'#1e8a3a', pending:'#B06030', upi_pending:'#B06030', cancelled:'#c0392b' };
+      const fmtDate = v => { if(!v) return '—'; const m=v.match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? parseInt(m[3])+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2])-1]+' '+m[1] : v; };
+      // Collect all guest rows for pass bookings (allBookings has one row per guest)
+      const passRefs = new Set(passBookings.map(r => r.booking_ref));
+      const passRows = (allBookings || []).filter(r => passRefs.has(r.booking_ref));
+      const totalGuests = passRows.length;
       pl.innerHTML = `
-        <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:12px;">${passBookings.length} booking${passBookings.length!==1?'s':''}</div>
-        <div style="display:flex;flex-direction:column;gap:0;border:0.5px solid rgba(176,96,48,0.15);border-radius:4px;overflow:hidden;">
-          ${passBookings.map((r,i) => `
-            <div onclick="openDrawer('${r.booking_ref}')" style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:${i%2===0?'transparent':'rgba(176,96,48,0.02)'};border-bottom:0.5px solid rgba(176,96,48,0.08);cursor:pointer;transition:background 0.12s;" onmouseover="this.style.background='rgba(176,96,48,0.05)'" onmouseout="this.style.background='${i%2===0?'transparent':'rgba(176,96,48,0.02)'}'">
-              <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--td-strong);min-width:140px;">${r.full_name||'—'}</span>
-              <span style="font-family:monospace;font-size:11px;color:rgba(176,96,48,0.7);">${r.booking_ref}</span>
-              <span style="font-size:11px;color:rgba(42,34,24,0.5);flex:1;">${r.room_type||''}</span>
-              <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:${STATUS_COLORS[r.status]||'#888'};background:${STATUS_COLORS[r.status]||'#888'}18;border:0.5px solid ${STATUS_COLORS[r.status]||'#888'}44;border-radius:20px;padding:3px 10px;">${r.status}</span>
-            </div>`).join('')}
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:12px;">${passBookings.length} booking${passBookings.length!==1?'s':''} &nbsp;·&nbsp; ${totalGuests} pass${totalGuests!==1?'es':''}</div>
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;font-size:12px;">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(176,96,48,0.18);">
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">#</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Name</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Ref</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Pass</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Phone</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Email</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">City</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Age</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Gender</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Date</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Amount</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${passRows.map((r,i) => `
+            <tr onclick="openDrawer('${r.booking_ref}')" style="border-bottom:0.5px solid rgba(176,96,48,0.08);cursor:pointer;transition:background 0.12s;" onmouseover="this.style.background='rgba(176,96,48,0.04)'" onmouseout="this.style.background=''">
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.35);font-size:11px;">${i+1}</td>
+              <td style="padding:10px 10px;font-weight:600;color:var(--td-strong);">${r.full_name||'—'}</td>
+              <td style="padding:10px 10px;font-family:monospace;font-size:11px;color:rgba(176,96,48,0.75);">${r.booking_ref}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.room_type||'—'}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.whatsapp||'—'}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.email||'—'}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.city||'—'}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.age||'—'}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.gender||'—'}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.5);font-size:11px;white-space:nowrap;">${fmtDate(r.created_at)}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.7);font-size:12px;font-weight:600;">₹${Number(r.total_price||0).toLocaleString('en-IN')}</td>
+              <td style="padding:10px 10px;">
+                <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:${SC[r.status]||'#888'};background:${SC[r.status]||'#888'}18;border:0.5px solid ${SC[r.status]||'#888'}44;border-radius:20px;padding:3px 10px;">${r.status}</span>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
         </div>`;
     }
   }
