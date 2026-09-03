@@ -438,7 +438,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
   let Razorpay;
   try { Razorpay = require('razorpay'); } catch (_) {}
 
-  const { venue, room_type, total_price, total_with_gst, room_number, guests, admin_override, discount, discount_reason } = req.body;
+  const { venue, room_type, total_price, total_with_gst, room_number, guests, admin_override, discount, discount_reason, phase_override } = req.body;
   if (!venue || !room_type || !total_price || !Array.isArray(guests) || !guests.length) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
@@ -459,7 +459,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
   const amountPaise = Math.round(amountWithGst * 1.0236) * 100;
   const guest = guests[0];
 
-  const _phase1 = resolvePhase();
+  const _phase1 = phase_override || resolvePhase();
   const insertBooking = db.prepare(`
     INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, room_number, payment_method, arrival_date, addons, discount, discount_reason, phase, source)
     VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, 'admin')
@@ -541,7 +541,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
 
 // API: admin-created booking (paid immediately, no Razorpay)
 router.post('/api/bookings', requireAdmin, (req, res) => {
-  const { venue, room_type, total_price, room_number, hotel_number, status, send_email, guests, payment_method, arrival_date, addons, gst_number, gst_name, organizerNote, admin_override, discount, discount_reason } = req.body;
+  const { venue, room_type, total_price, room_number, hotel_number, status, send_email, guests, payment_method, arrival_date, addons, gst_number, gst_name, organizerNote, admin_override, discount, discount_reason, phase_override } = req.body;
   if (!venue || !room_type || !total_price || !Array.isArray(guests) || !guests.length) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
@@ -559,7 +559,7 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
   const bookingStatus = status || 'paid';
   const paid_at = bookingStatus === 'paid' ? new Date().toISOString() : null;
 
-  const _phase2 = resolvePhase();
+  const _phase2 = phase_override || resolvePhase();
   const insertBooking = db.prepare(`
     INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, room_number, paid_at, payment_method, arrival_date, addons, gst_number, gst_name, organizer_note, discount, discount_reason, phase, source)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin')

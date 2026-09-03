@@ -1361,6 +1361,17 @@
       </div>
     </div>
 
+    <!-- Pricing phase override -->
+    <div style="margin-bottom:12px;">
+      <label class="ab-label">Pricing Phase</label>
+      <select id="ab-phase-override" class="ab-input" onchange="updatePriceFromVenue()" style="max-width:200px;">
+        <option value="earlyBird">Early Bird</option>
+        <option value="phase2" selected>Phase 2 (current)</option>
+        <option value="phase3">Phase 3</option>
+        <option value="phase4">Phase 4</option>
+      </select>
+    </div>
+
     <!-- Price pill + Guests side by side -->
     <div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:16px;">
       <div id="ab-price-pill" style="display:none;flex:1;padding:8px 12px;background:rgba(176,96,48,0.09);border:0.5px solid rgba(176,96,48,0.22);border-radius:2px;">
@@ -4244,6 +4255,8 @@ function openAddBooking() {
   _sbtn.disabled = false;
   document.getElementById('ab-guests-wrap').innerHTML = '';
   document.getElementById('ab-error').style.display = 'none';
+  const phSel = document.getElementById('ab-phase-override');
+  if (phSel) phSel.value = window._currentPhase || 'phase2';
   window._abAddons = [];
   abGoToPage1();
   abRenderAddonList();
@@ -4513,7 +4526,9 @@ function populateRoomSelector() {
 function updatePriceFromVenue() {
   const venue    = document.getElementById('ab-venue').value;
   const roomType = document.getElementById('ab-room-type').value;
-  const perPerson = window.getVenuePrice(venue, roomType);
+  const phaseOverride = document.getElementById('ab-phase-override')?.value || window._currentPhase;
+  const tiers = window.VENUE_PRICES?.[venue]?.[roomType];
+  const perPerson = tiers ? (typeof tiers === 'number' ? tiers : (tiers[phaseOverride] ?? tiers.phase2 ?? 0)) : 0;
   const guestCount = Math.max(1, abGuestCount);
   document.getElementById('ab-price').value = perPerson ? perPerson * guestCount : '';
   const pill = document.getElementById('ab-price-pill');
@@ -4704,7 +4719,7 @@ async function submitAddBooking() {
         gst_number: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gstin')?.value.trim().toUpperCase() || null) : null,
         gst_name: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gst-name')?.value.trim() || null) : null,
         addons: window._abAddons?.length ? window._abAddons.map(a => a.price + ':' + a.name).join('|') : null,
-        admin_override: true,
+        admin_override: true, phase_override: document.getElementById("ab-phase-override")?.value || null,
         guests,
       };
 
@@ -4764,7 +4779,7 @@ async function submitAddBooking() {
           gst_number: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gstin')?.value.trim().toUpperCase() || null) : null,
           gst_name: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gst-name')?.value.trim() || null) : null,
           addons: window._abAddons?.length ? window._abAddons.map(a => a.price + ':' + a.name).join('|') : null,
-          admin_override: true,
+          admin_override: true, phase_override: document.getElementById("ab-phase-override")?.value || null,
           discount: totalDiscount || null,
           discount_reason: discount_reason || null,
           guests,
