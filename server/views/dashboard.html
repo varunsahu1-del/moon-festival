@@ -1079,20 +1079,26 @@
     </div>
     <button onclick="openAddBooking()" class="add-booking-btn" style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;background:rgba(176,96,48,0.15);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);padding:8px 18px;cursor:pointer;border-radius:2px;">+ Add Booking</button>
   </div>
-  <div class="stats-grid" id="statsGrid">
+  <!-- Sales group -->
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(42,34,24,0.35);margin-bottom:10px;">Sales</div>
+  <div class="stats-grid" id="statsGrid" style="margin-bottom:20px;">
     <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Total Collected</div><div class="stat-value" id="s-revenue">—</div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.22);"></div><div class="stat-label">GST Collected</div><div class="stat-value" id="s-gst">—</div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:rgba(176,96,48,0.18);"></div><div class="stat-label">Early Bird Bookings</div><div class="stat-value" id="s-phase-eb">—</div></div>
-    <div class="stat-card" style="display:none;"><div class="stat-icon" style="background:rgba(140,184,168,0.28);"></div><div class="stat-label">Phase 2 Bookings</div><div class="stat-value" id="s-phase-p1">—</div></div>
-    <div class="stat-card" style="display:none;"><div class="stat-icon" style="background:rgba(155,143,174,0.28);"></div><div class="stat-label">Phase 3 Bookings</div><div class="stat-value" id="s-phase-p2">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(232,168,180,0.32);"></div><div class="stat-label">Pending Amount</div><div class="stat-value" id="s-pending-amount">—</div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.28);"></div><div class="stat-label">Admin Add-ons Collected</div><div class="stat-value" id="s-addon-revenue">—</div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:rgba(230,126,34,0.18);"></div><div class="stat-label">Admin Add-ons Pending</div><div class="stat-value" id="s-addon-pending">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Avg Bed Rate</div><div class="stat-value" id="s-avgbed">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.22);"></div><div class="stat-label">GST Collected</div><div class="stat-value" id="s-gst">—</div></div>
+  </div>
+  <!-- Bookings group -->
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(42,34,24,0.35);margin-bottom:10px;">Bookings</div>
+  <div class="stats-grid" style="margin-bottom:20px;">
     <div class="stat-card"><div class="stat-icon" style="background:rgba(232,168,180,0.32);"></div><div class="stat-label">Confirmed Bookings</div><div class="stat-value" id="s-bookings">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(232,168,180,0.2);"></div><div class="stat-label">Pending Bookings</div><div class="stat-value" id="s-pending">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(155,143,174,0.28);"></div><div class="stat-label">Stay Guests</div><div class="stat-value" id="s-guests">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.32);"></div><div class="stat-label">Festival Only</div><div class="stat-value" id="s-festival-only">—</div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Avg Bed Rate</div><div class="stat-value" id="s-avgbed">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(176,96,48,0.18);"></div><div class="stat-label">Early Bird Bookings</div><div class="stat-value" id="s-phase-eb">—</div></div>
+    <div class="stat-card" style="display:none;"><div class="stat-icon" style="background:rgba(140,184,168,0.28);"></div><div class="stat-label">Phase 2 Bookings</div><div class="stat-value" id="s-phase-p1">—</div></div>
+    <div class="stat-card" style="display:none;"><div class="stat-icon" style="background:rgba(155,143,174,0.28);"></div><div class="stat-label">Phase 3 Bookings</div><div class="stat-value" id="s-phase-p2">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.28);"></div><div class="stat-label">Admin Add-ons Collected</div><div class="stat-value" id="s-addon-revenue">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(230,126,34,0.18);"></div><div class="stat-label">Admin Add-ons Pending</div><div class="stat-value" id="s-addon-pending">—</div></div>
   </div>
 
   <div class="section-head" style="margin-bottom:14px;"><div class="section-title">Demographics & Sales</div></div>
@@ -1720,7 +1726,7 @@ async function loadStats() {
               <td><span class="ref">${r.booking_ref}</span></td>
               <td>${r.room_type||'—'}</td>
               <td>${r.whatsapp||'—'}</td>
-              <td>${r.email||'—'}</td>
+              <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;color:var(--td-email);">${r.email||'—'}</td>
               <td>${r.city||'—'}</td>
               <td>${r.age||'—'}</td>
               <td>${r.gender||'—'}</td>
