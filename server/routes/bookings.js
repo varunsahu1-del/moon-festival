@@ -626,7 +626,16 @@ router.get('/availability', (req, res) => {
     }
 
     const isDormType = (s.room_type || '').toLowerCase().includes('dorm');
-    const lowThreshold = isDormType ? Math.ceil((s.capacity || 1) * 0.2) : Math.ceil((s.capacity || 1) * 0.6);
+    const roomSize = s.room_size || 1;
+    // For non-dorm rooms: work in rooms, not beds, so badge threshold is meaningful
+    let low;
+    if (isDormType) {
+      low = remaining <= Math.ceil((s.capacity || 1) * 0.2);
+    } else {
+      const totalRooms = Math.ceil((s.capacity || 1) / roomSize);
+      const roomsRemaining = Math.floor(remaining / roomSize);
+      low = roomsRemaining <= Math.ceil(totalRooms * 0.75);
+    }
     return {
       venue: s.venue,
       room_type: s.room_type,
@@ -634,7 +643,8 @@ router.get('/availability', (req, res) => {
       sold_out: s.sold_out,
       remaining,
       capacity: s.capacity,
-      low: remaining <= lowThreshold,
+      room_size: roomSize,
+      low,
       female_only: femaleOnly,
       male_available: maleAvail,
       female_available: femaleAvail,

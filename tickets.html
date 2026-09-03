@@ -2972,8 +2972,9 @@ document.addEventListener('keydown', e => {
         if (s.low) {
           const roomType = row.dataset.roomType || '';
           const isDorm = roomType.toLowerCase().includes('dorm');
-          const unit = isDorm ? (s.remaining === 1 ? ' bed' : ' beds') : (s.remaining === 1 ? ' room' : ' rooms');
-          addBadge('inv-badge--low', (isDorm ? 'Last ' : 'Only ') + s.remaining + unit + (isDorm ? '' : ' left'));
+          const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
+          const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
+          addBadge('inv-badge--low', (isDorm ? 'Last ' : 'Only ') + displayCount + unit + (isDorm ? '' : ' left'));
         }
         return;
       }
@@ -2985,15 +2986,17 @@ document.addEventListener('keydown', e => {
         addBadge('inv-badge--gender-sold', !s.female_available ? 'Women · Sold Out' : 'Men · Sold Out');
       }
 
-      // Low stock (below 20%)
+      // Low stock
       if (s.low && s.remaining > 0) {
         const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
         const roomType = row.dataset.roomType || '';
         const isDorm = roomType.toLowerCase().includes('dorm');
-        const unit = isDorm ? (s.remaining === 1 ? ' bed' : ' beds') : (s.remaining === 1 ? ' room' : ' rooms');
+        // For non-dorm rooms: remaining comes back in beds; convert to rooms
+        const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
+        const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
         const prefix = isDorm ? 'Last ' : 'Only ';
         const suffix = isDorm ? '' : ' left';
-        addBadge('inv-badge--low', genderPrefix + prefix + s.remaining + unit + suffix);
+        addBadge('inv-badge--low', genderPrefix + prefix + displayCount + unit + suffix);
       }
     });
 
@@ -3519,7 +3522,7 @@ function fmtPrice(n) {
   .fp-modal-guest:first-child { border-top:none; padding-top:0; margin-top:0; }
   .fp-modal-guest-label { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#B06030; margin:0 0 1.6rem; }
   .fp-modal-field { display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.8rem; }
-  .fp-modal-label { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#B06030; }
+  .fp-modal-label { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#EDD4B2; }
   .fp-modal-input { background:transparent; border:none; border-bottom:1px solid rgba(176,96,48,0.3); color:#EDD4B2; padding:0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; width:100%; box-sizing:border-box; border-radius:0; }
   .fp-modal-input::placeholder { color:rgba(237,212,178,0.25); }
   .fp-modal-input:focus { outline:none; border-bottom-color:#B06030; }
