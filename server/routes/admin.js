@@ -89,6 +89,13 @@ router.get('/api/stats', requireAdmin, (req, res) => {
     }, 0);
   }, 0);
 
+  // GST from standard payment methods only (UPI, bank transfer, Razorpay — excludes custom/manual entries)
+  const standardPayRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid' AND deleted_at IS NULL AND payment_method IN ('upi','bank_transfer','razorpay')").all();
+  const gstFromStandardPayments = standardPayRows.reduce((sum, r) => {
+    const base = parseInt(String(r.total_price).replace(/[^\d]/g, ''), 10) || 0;
+    return sum + Math.round(base * GST_RATE);
+  }, 0);
+
   const inventory = getInventoryStats(db);
 
   const phaseRows = db.prepare(`
@@ -99,7 +106,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   const phaseStats = { earlyBird: 0, phase1: 0, phase2: 0, phase3: 0, phase4: 0 };
   phaseRows.forEach(r => { if (r.phase in phaseStats) phaseStats[r.phase] = r.c; });
 
-  res.json({ totalBookings, pendingCount, pendingAmount, totalGuests, festivalOnlyCount, totalRevenue, addonRevenue, pendingAddonAmount, avgBedRate, venueBreakdown, inventory, phaseStats });
+  res.json({ totalBookings, pendingCount, pendingAmount, totalGuests, festivalOnlyCount, totalRevenue, addonRevenue, pendingAddonAmount, avgBedRate, venueBreakdown, inventory, phaseStats, gstFromStandardPayments });
 });
 
 // API: all bookings + guests

@@ -1087,6 +1087,7 @@
     <div class="stat-card"><div class="stat-icon" style="background:rgba(232,168,180,0.32);"></div><div class="stat-label">Pending Amount</div><div class="stat-value" id="s-pending-amount">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Avg Bed Rate</div><div class="stat-value" id="s-avgbed">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.22);"></div><div class="stat-label">GST Collected</div><div class="stat-value" id="s-gst">—</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(140,184,168,0.15);"></div><div class="stat-label">GST (UPI / Bank / Razorpay)</div><div class="stat-value" id="s-gst-standard">—</div></div>
   </div>
   <!-- Bookings group -->
   <div style="font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(42,34,24,0.35);margin-bottom:10px;">Bookings</div>
@@ -1645,6 +1646,8 @@ async function loadStats() {
   if (totalSalesEl) totalSalesEl.textContent = '₹' + (roomRev + pendingAmt).toLocaleString('en-IN');
   const gstEl = document.getElementById('s-gst');
   if (gstEl) gstEl.textContent = roomRev > 0 ? '₹' + Math.round(roomRev - roomRev / 1.05).toLocaleString('en-IN') : '—';
+  const gstStdEl = document.getElementById('s-gst-standard');
+  if (gstStdEl) gstStdEl.textContent = d.gstFromStandardPayments > 0 ? '₹' + Number(d.gstFromStandardPayments).toLocaleString('en-IN') : '—';
   const addonEl = document.getElementById('s-addon-revenue');
   if (addonEl) addonEl.textContent = addonRev > 0 ? '₹' + addonRev.toLocaleString('en-IN') : '—';
   const addonPendingEl = document.getElementById('s-addon-pending');
