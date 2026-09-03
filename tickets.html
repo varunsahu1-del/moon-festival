@@ -3534,6 +3534,8 @@ function fmtPrice(n) {
   .fp-modal-proceed:hover { background:#C47D52; }
   .fp-modal-proceed:disabled { opacity:0.5; cursor:not-allowed; }
   .fp-modal-error { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:#e05555; margin:0.8rem 0 0; display:none; }
+  .fp-modal-select { appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23B06030'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 0 center; padding-right:1.2rem; cursor:pointer; }
+  .fp-modal-select option { background:#191406; color:#EDD4B2; }
 </style>
 
 <div class="fp-modal-overlay" id="fpModalOverlay">
@@ -3630,7 +3632,7 @@ function fmtPrice(n) {
         +'<div class="fp-modal-field"><label class="fp-modal-label">WhatsApp Number *</label><div class="fp-modal-wa-row"><select class="fp-modal-cc" id="fp-cc-'+i+'">'+ccSelect+'</select><input class="fp-modal-phone" id="fp-phone-'+i+'" type="tel" placeholder="00000 00000" /></div></div>'
         +'<div class="fp-modal-grid2">'
           +'<div class="fp-modal-field"><label class="fp-modal-label">City</label><div class="fp-city-wrap" style="position:relative;"><input class="fp-modal-input" id="fp-city-'+i+'" type="text" autocomplete="off" placeholder="Start typing..." /><div class="fp-city-box" id="fp-citybox-'+i+'" style="display:none;position:absolute;top:100%;left:0;right:0;background:#1E1A0E;border:1px solid rgba(176,96,48,0.3);z-index:100;max-height:160px;overflow-y:auto;"></div></div></div>'
-          +'<div class="fp-modal-field"><label class="fp-modal-label">Gender *</label><select class="fp-modal-input" id="fp-gender-'+i+'"><option value="">Select</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">Gender *</label><select class="fp-modal-input fp-modal-select" id="fp-gender-'+i+'"><option value="">Select</option><option>Female</option><option>Male</option></select></div>'
           +'<div class="fp-modal-field"><label class="fp-modal-label">Age</label><input class="fp-modal-input" id="fp-age-'+i+'" type="number" min="18" /></div>'
         +'</div>'
         +'</div>';
@@ -3726,18 +3728,30 @@ function fmtPrice(n) {
     if(!_fpBooking)return;
     document.getElementById('fpPayOverlay').classList.remove('open');
     var g=fpCollect();
-    try {
-      var r=await fetch('/api/bookings/razorpay-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref:_fpBooking.booking_ref})});
-      var d=await r.json();
-      if(!r.ok)throw new Error(d.error||'Order failed');
-      var rpTotal=Math.round(_fpTotal*1.0236);
-      new window.Razorpay({key:d.key,amount:d.amount,currency:'INR',order_id:d.order_id,name:'Moon Festival 2026',description:_fpQty+' × '+_fpPass,prefill:{name:g[0].full_name,email:g[0].email,contact:g[0].whatsapp},theme:{color:'#B06030'},handler:async function(response){
+    // Use the Razorpay order created at booking time so the amount
+    // is guaranteed to match what the user saw in the overlay.
+    var orderKey=_fpBooking.razorpay_key;
+    var orderId=_fpBooking.razorpay_order_id;
+    var amountPaise=_fpBooking.amount; // already in paise from /create
+    var rpTotal=Math.round(_fpTotal*1.0236);
+    // Fallback: if booking was created without Razorpay (e.g. test env),
+    // create the order now.
+    if(!orderId||!amountPaise){
+      try{
+        var r=await fetch('/api/bookings/razorpay-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref:_fpBooking.booking_ref})});
+        var d=await r.json();
+        if(!r.ok)throw new Error(d.error||'Order failed');
+        orderKey=d.key; orderId=d.order_id; amountPaise=d.amount;
+      }catch(err){alert('Could not open payment. Please try again.');document.getElementById('fpPayOverlay').classList.add('open');return;}
+    }
+    try{
+      new window.Razorpay({key:orderKey,amount:amountPaise,currency:'INR',order_id:orderId,name:'Moon Festival 2026',description:_fpQty+' × '+_fpPass,prefill:{name:g[0].full_name,email:g[0].email,contact:g[0].whatsapp},theme:{color:'#B06030'},handler:async function(response){
         try{await fetch('/api/bookings/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({razorpay_order_id:response.razorpay_order_id,razorpay_payment_id:response.razorpay_payment_id,razorpay_signature:response.razorpay_signature})});}catch(_){}
         try{fbq('track','Purchase',{value:rpTotal,currency:'INR',content_name:_fpPass});}catch(e){}
         document.body.style.overflow='';
         window.location.href='booking-confirmed.html?ref='+_fpBooking.booking_ref+'&method=razorpay&amount='+rpTotal+'&pixel_fired=1';
       },modal:{ondismiss:function(){document.getElementById('fpPayOverlay').classList.add('open');}}}).open();
-    } catch(err){alert('Could not open payment. Please try again.');document.getElementById('fpPayOverlay').classList.add('open');}
+    }catch(err){alert('Could not open payment. Please try again.');document.getElementById('fpPayOverlay').classList.add('open');}
   };
 
   // Close on overlay click

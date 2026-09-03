@@ -1286,7 +1286,16 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     }
   }
 
-  const base  = parseInt(priceStr, 10);
+  // Include addon costs in the charged total
+  const addonCostForPayment = addonsRaw
+    ? addonsRaw.split('|').reduce((sum, a) => {
+        const idx = a.indexOf(':');
+        const price = parseInt(a.slice(0, idx), 10) || 0;
+        const name = a.slice(idx + 1).trim().toLowerCase();
+        return sum + (name.includes('scooter') ? price : price * guestCount);
+      }, 0)
+    : 0;
+  const base  = parseInt(priceStr, 10) + addonCostForPayment;
   const gst   = Math.round(base * (window._GST_RATE || 0.05));
   const total = base + gst;
 
