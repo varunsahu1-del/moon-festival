@@ -3433,11 +3433,11 @@ function fmtPrice(n) {
     const bookingSection = document.querySelector('#panel-festival > div:nth-child(2)');
     if (closedNotice)   closedNotice.style.display   = festival_pass_open ? 'none'  : '';
     if (bookingSection) bookingSection.style.display  = festival_pass_open ? ''      : 'none';
-    // Show phase banner for earlyBird and phase2
-    if (phase === 'earlyBird' || phase === 'phase2') {
-      const g = document.getElementById('eb-graphic-wrap');
-      if (g) g.style.display = 'block';
-    }
+    // Phase banner hidden for now
+    // if (phase === 'earlyBird' || phase === 'phase2') {
+    //   const g = document.getElementById('eb-graphic-wrap');
+    //   if (g) g.style.display = 'block';
+    // }
     document.querySelectorAll('.room-row[data-room-type]').forEach(row => {
       const card = row.closest('.venue-card');
       if (!card) return;
