@@ -11,6 +11,24 @@ const { checkAvailability, autoAssignRoom, PRICING } = require('../inventory');
 
 const { resolvePhase } = require('../settings');
 
+const AREA_TO_CITY = {
+  thane:"Mumbai",kalyan:"Mumbai",dombivli:"Mumbai","mira road":"Mumbai",vasai:"Mumbai",virar:"Mumbai",
+  andheri:"Mumbai",bandra:"Mumbai",borivali:"Mumbai",malad:"Mumbai",goregaon:"Mumbai",kandivali:"Mumbai",
+  powai:"Mumbai",kurla:"Mumbai",mulund:"Mumbai",ghatkopar:"Mumbai","navi mumbai":"Mumbai",
+  gurugram:"Gurgaon",gurgaon:"Gurgaon",faridabad:"Delhi",ghaziabad:"Delhi",noida:"Delhi",
+  "dona paula":"Goa",panaji:"Goa",panjim:"Goa",palolem:"Goa","margao":"Goa",vasco:"Goa",
+  baner:"Pune",wakad:"Pune",hinjewadi:"Pune","kothrud":"Pune",aundh:"Pune",hadapsar:"Pune",
+  whitefield:"Bengaluru","electronic city":"Bengaluru","koramangala":"Bengaluru",indiranagar:"Bengaluru",
+  "hsr layout":"Bengaluru","jp nagar":"Bengaluru",jayanagar:"Bengaluru",yelahanka:"Bengaluru"
+};
+function normalizeCity(raw){
+  if(!raw)return null;
+  const t=raw.trim();if(!t)return null;
+  const k=t.toLowerCase();
+  if(AREA_TO_CITY[k])return AREA_TO_CITY[k];
+  return t.replace(/\b\w/g,c=>c.toUpperCase());
+}
+
 const screenshotsDir = path.join(__dirname, '../../data/screenshots');
 if (!fs.existsSync(screenshotsDir)) fs.mkdirSync(screenshotsDir, { recursive: true });
 

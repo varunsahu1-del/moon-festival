@@ -295,6 +295,11 @@
     .ab-input:focus { border-color:#B06030;background:#fff; }
     .ab-input option { background:#F7F2EB;color:#2A2218; }
     .ab-input::placeholder { color:rgba(42,34,24,0.28); }
+    .ab-city-wrap { position:relative; }
+    .ab-city-dropdown { position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid rgba(176,96,48,0.3);border-top:none;border-radius:0 0 4px 4px;max-height:180px;overflow-y:auto;z-index:999;display:none; }
+    .ab-city-dropdown.open { display:block; }
+    .ab-city-opt { padding:7px 10px;font-family:'Open Sans',sans-serif;font-size:13px;color:#2A2218;cursor:pointer; }
+    .ab-city-opt:hover,.ab-city-opt.active { background:rgba(176,96,48,0.1); }
     .ab-guest-block { background:rgba(176,96,48,0.05);border:0.5px solid rgba(176,96,48,0.14);border-radius:4px;padding:12px;margin-bottom:8px; }
     .ab-guest-block .ab-guest-title { font-size:8px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;font-family:'Josefin Sans',sans-serif; }
     .ab-remove { background:none;border:none;color:rgba(42,34,24,0.25);cursor:pointer;font-size:13px;line-height:1; }
@@ -4247,6 +4252,7 @@ function openAddBooking() {
   abSetGuestCount(1);
   document.getElementById('addBookingOverlay').style.display = 'block';
   document.body.style.overflow = 'hidden';
+  setTimeout(abInitAllCityInputs, 0);
 }
 
 function closeAddBooking() {
@@ -4340,6 +4346,50 @@ function abUpdateAddonSummary() {
   summaryList.innerHTML = html;
   const priceDisplayVisible = document.getElementById('ab-gst-display')?.style.display === 'block';
   if (!priceDisplayVisible) summaryWrap.style.display = 'block';
+}
+
+const AB_CITIES = [
+  'Mumbai','Delhi','Bengaluru','Hyderabad','Ahmedabad','Chennai','Kolkata','Pune','Jaipur',
+  'Surat','Lucknow','Kanpur','Nagpur','Indore','Thane','Bhopal','Visakhapatnam','Pimpri-Chinchwad',
+  'Patna','Vadodara','Ghaziabad','Ludhiana','Agra','Nashik','Faridabad','Meerut','Rajkot',
+  'Varanasi','Srinagar','Aurangabad','Amritsar','Navi Mumbai','Allahabad','Ranchi','Howrah',
+  'Coimbatore','Jabalpur','Gwalior','Vijayawada','Jodhpur','Madurai','Raipur','Kota','Chandigarh',
+  'Guwahati','Mysuru','Thiruvananthapuram','Dehradun','Gurgaon','Noida','Kochi','Bhubaneswar',
+  'Udaipur','Goa','Mangaluru','Siliguri','Hubli','Tiruchirappalli','Aligarh','Jalandhar','Moradabad',
+  'Gurugram','Shimla','Pondicherry','Jammu','Warangal','Kolhapur','Ajmer','Amravati','Bilaspur',
+  'Durgapur','Asansol','Nanded','Kolhapur','Cuttack','Firozabad','Bikaner','Bellary'
+];
+
+function abInitCityAutocomplete(input) {
+  const drop = input.closest('.ab-city-wrap').querySelector('.ab-city-dropdown');
+  if (!drop || input._cityInit) return;
+  input._cityInit = true;
+  let activeIdx = -1;
+
+  function showOptions(q) {
+    const filtered = q ? AB_CITIES.filter(c => c.toLowerCase().startsWith(q.toLowerCase())) : [];
+    if (!filtered.length) { drop.classList.remove('open'); return; }
+    drop.innerHTML = filtered.slice(0,8).map((c,i) => `<div class="ab-city-opt" data-val="${c}">${c}</div>`).join('');
+    drop.classList.add('open');
+    activeIdx = -1;
+    drop.querySelectorAll('.ab-city-opt').forEach(opt => {
+      opt.addEventListener('mousedown', e => { e.preventDefault(); input.value = opt.dataset.val; drop.classList.remove('open'); });
+    });
+  }
+
+  input.addEventListener('input', () => showOptions(input.value.trim()));
+  input.addEventListener('keydown', e => {
+    const opts = drop.querySelectorAll('.ab-city-opt');
+    if (e.key === 'ArrowDown') { activeIdx = Math.min(activeIdx+1, opts.length-1); opts.forEach((o,i) => o.classList.toggle('active', i===activeIdx)); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { activeIdx = Math.max(activeIdx-1, 0); opts.forEach((o,i) => o.classList.toggle('active', i===activeIdx)); e.preventDefault(); }
+    else if (e.key === 'Enter' && activeIdx >= 0) { input.value = opts[activeIdx].dataset.val; drop.classList.remove('open'); e.preventDefault(); }
+    else if (e.key === 'Escape') { drop.classList.remove('open'); }
+  });
+  input.addEventListener('blur', () => setTimeout(() => { drop.classList.remove('open'); }, 150));
+}
+
+function abInitAllCityInputs() {
+  document.querySelectorAll('.ab-g-city').forEach(inp => abInitCityAutocomplete(inp));
 }
 
 function abPickGender(btn, val) {
@@ -4502,7 +4552,7 @@ function abSetGuestCount(n) {
         </div></div>
       <div><label class="ab-label">WhatsApp</label><input class="ab-input ab-g-wa" placeholder="+91 98765 43210" /></div>
       <div><label class="ab-label">Email</label><input class="ab-input ab-g-email" type="email" placeholder="guest@email.com" /></div>
-      <div><label class="ab-label">City</label><input class="ab-input ab-g-city" placeholder="Mumbai" /></div>
+      <div><label class="ab-label">City</label><div class="ab-city-wrap"><input class="ab-input ab-g-city" placeholder="Start typing..." autocomplete="off" /><div class="ab-city-dropdown"></div></div></div>
       <div><label class="ab-label">Age</label><input class="ab-input ab-g-age" type="number" placeholder="30" min="1" max="99" /></div>
     </div>`;
     wrap.appendChild(div);
@@ -4514,6 +4564,7 @@ function abSetGuestCount(n) {
   }
   document.getElementById('ab-guest-count-display').textContent = n;
   updatePriceFromVenue();
+  setTimeout(abInitAllCityInputs, 0);
 }
 
 function updateAddGuestBtn() {
@@ -4555,7 +4606,7 @@ function addGuestRow() {
     <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
       <div><label class="ab-label">WhatsApp</label><input class="ab-input ab-g-wa" placeholder="+91 98765 43210" /></div>
       <div><label class="ab-label">Email</label><input class="ab-input ab-g-email" type="email" placeholder="email@example.com" /></div>
-      <div><label class="ab-label">City</label><input class="ab-input ab-g-city" placeholder="Mumbai" /></div>
+      <div><label class="ab-label">City</label><div class="ab-city-wrap"><input class="ab-input ab-g-city" placeholder="Start typing..." autocomplete="off" /><div class="ab-city-dropdown"></div></div></div>
     </div>
     <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;">
       <div><label class="ab-label">State</label><input class="ab-input ab-g-state" placeholder="Maharashtra" /></div>
@@ -4564,7 +4615,7 @@ function addGuestRow() {
     </div>
   `;
   wrap.appendChild(div);
-  setTimeout(() => _csInit('ab-g-gender-' + n), 0);
+  setTimeout(() => { _csInit('ab-g-gender-' + n); abInitAllCityInputs(); }, 0);
 }
 
 async function submitAddBooking() {
