@@ -79,7 +79,7 @@
       padding: 0 0 clamp(4rem, 10vw, 8rem);
     }
     .tickets-inner {
-      max-width: 860px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 var(--pad);
     }
@@ -500,8 +500,11 @@
       grid-template-columns: 1fr;
       gap: clamp(0.8rem, 2vw, 1.2rem);
       margin-bottom: clamp(3rem, 7vw, 5rem);
-      padding: 0 var(--pad);
       box-sizing: border-box;
+      width: calc(100vw - 2 * var(--pad));
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
     @media (max-width: 767px) {
       .venue-grid { margin-top: 2rem; }
