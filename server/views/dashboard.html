@@ -1716,7 +1716,9 @@ async function loadStats() {
               <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Age</th>
               <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Gender</th>
               <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Date</th>
-              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Amount</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Base</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">GST</th>
+              <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Total</th>
               <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Status</th>
               <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Verified</th>
               <th style="padding:8px 10px;text-align:left;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-weight:400;">Notes</th>
@@ -1736,7 +1738,9 @@ async function loadStats() {
               <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.age||'—'}</td>
               <td style="padding:10px 10px;color:rgba(42,34,24,0.6);font-size:11px;">${r.gender||'—'}</td>
               <td style="padding:10px 10px;color:rgba(42,34,24,0.5);font-size:11px;white-space:nowrap;">${fmtDate(r.created_at)}</td>
-              <td style="padding:10px 10px;color:rgba(42,34,24,0.7);font-size:12px;font-weight:600;">₹${Number(r.total_price||0).toLocaleString('en-IN')}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.7);font-size:12px;">${(()=>{const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;return b?'₹'+b.toLocaleString('en-IN'):'—';})()}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.45);font-size:11px;">${(()=>{const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;return g?'₹'+g.toLocaleString('en-IN'):'—';})()}</td>
+              <td style="padding:10px 10px;color:rgba(42,34,24,0.85);font-size:12px;font-weight:600;">${(()=>{const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;return (b+g)?'₹'+(b+g).toLocaleString('en-IN'):'—';})()}</td>
               <td style="padding:10px 10px;">
                 <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:${SC[r.status]||'#888'};background:${SC[r.status]||'#888'}18;border:0.5px solid ${SC[r.status]||'#888'}44;border-radius:20px;padding:3px 10px;">${r.status}</span>
               </td>

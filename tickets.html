@@ -3680,8 +3680,8 @@ function fmtPrice(n) {
     btn.disabled=false; btn.textContent='Continue to payment';
   };
 
-  window.fpLaunchUpi=function(){if(!_fpBooking)return;document.getElementById('fpPayOverlay').classList.remove('open');document.body.style.overflow='';window.location.href='upi-pay.html?ref='+_fpBooking.booking_ref+'&amount='+_fpTotal;};
-  window.fpLaunchBank=function(){if(!_fpBooking)return;document.getElementById('fpPayOverlay').classList.remove('open');document.body.style.overflow='';window.location.href='bank-pay.html?ref='+_fpBooking.booking_ref+'&amount='+_fpTotal;};
+  window.fpLaunchUpi=function(){if(!_fpBooking)return;document.getElementById('fpPayOverlay').classList.remove('open');document.body.style.overflow='';fetch('/api/bookings/upi-pending',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({booking_ref:_fpBooking.booking_ref,payment_method:'upi'})}).catch(()=>{});window.location.href='upi-pay.html?ref='+_fpBooking.booking_ref+'&amount='+_fpTotal;};
+  window.fpLaunchBank=function(){if(!_fpBooking)return;document.getElementById('fpPayOverlay').classList.remove('open');document.body.style.overflow='';fetch('/api/bookings/upi-pending',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({booking_ref:_fpBooking.booking_ref,payment_method:'bank_transfer'})}).catch(()=>{});window.location.href='bank-pay.html?ref='+_fpBooking.booking_ref+'&amount='+_fpTotal;};
   window.fpLaunchRazorpay=async function(){
     if(!_fpBooking)return;
     document.getElementById('fpPayOverlay').classList.remove('open');
