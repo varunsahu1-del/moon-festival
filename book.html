@@ -946,7 +946,20 @@ function attachCityAutocomplete(input) {
     items.forEach((el, i) => el.classList.toggle('highlighted', i === highlighted));
   });
 
-  input.addEventListener('blur', () => setTimeout(() => box.classList.remove('open'), 150));
+  input.addEventListener('blur', () => {
+    setTimeout(() => {
+      box.classList.remove('open');
+      const val = input.value.trim();
+      if (val && !cities.some(c => c.toLowerCase() === val.toLowerCase())) {
+        input.value = '';
+        input.placeholder = 'Select a city from the list';
+      } else if (val) {
+        // Normalize to canonical casing
+        const match = cities.find(c => c.toLowerCase() === val.toLowerCase());
+        if (match) input.value = match;
+      }
+    }, 150);
+  });
 }
 
 // ── Build guest fields ────────────────────────────────────────────────────────

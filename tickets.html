@@ -3590,7 +3590,7 @@ function fmtPrice(n) {
         +'<div class="fp-modal-field"><label class="fp-modal-label">Email *</label><input class="fp-modal-input" id="fp-email-'+i+'" type="email" /></div>'
         +'<div class="fp-modal-field"><label class="fp-modal-label">WhatsApp Number *</label><div class="fp-modal-wa-row"><select class="fp-modal-cc" id="fp-cc-'+i+'">'+ccSelect+'</select><input class="fp-modal-phone" id="fp-phone-'+i+'" type="tel" placeholder="00000 00000" /></div></div>'
         +'<div class="fp-modal-grid2">'
-          +'<div class="fp-modal-field"><label class="fp-modal-label">City</label><input class="fp-modal-input" id="fp-city-'+i+'" type="text" /></div>'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">City</label><div class="fp-city-wrap" style="position:relative;"><input class="fp-modal-input" id="fp-city-'+i+'" type="text" autocomplete="off" placeholder="Start typing..." /><div class="fp-city-box" id="fp-citybox-'+i+'" style="display:none;position:absolute;top:100%;left:0;right:0;background:#1E1A0E;border:1px solid rgba(176,96,48,0.3);z-index:100;max-height:160px;overflow-y:auto;"></div></div></div>'
           +'<div class="fp-modal-field"><label class="fp-modal-label">Gender *</label><select class="fp-modal-input" id="fp-gender-'+i+'"><option value="">Select</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>'
           +'<div class="fp-modal-field"><label class="fp-modal-label">Age</label><input class="fp-modal-input" id="fp-age-'+i+'" type="number" min="18" /></div>'
         +'</div>'
@@ -3604,6 +3604,28 @@ function fmtPrice(n) {
     document.getElementById('fpModalPrice').textContent=fmt(price)+' per person';
     document.getElementById('fpQtyVal').textContent=1;
     updateSummary(); buildGuests();
+    for(var ci=0;ci<_fpQty;ci++){(function(idx){
+      var inp=document.getElementById('fp-city-'+idx);
+      var box=document.getElementById('fp-citybox-'+idx);
+      if(!inp||!box)return;
+      var FP_CITIES=['Agra','Ahmedabad','Aizawl','Ajmer','Amritsar','Aurangabad','Bangalore','Bhopal','Bhubaneswar','Chandigarh','Chennai','Coimbatore','Cuttack','Dehradun','Delhi','Goa','Guwahati','Gwalior','Hyderabad','Indore','Jaipur','Jalandhar','Jammu','Jodhpur','Kanpur','Kochi','Kolkata','Kota','Kozhikode','Lucknow','Ludhiana','Madurai','Mangalore','Meerut','Mumbai','Mysore','Nagpur','Nashik','Navi Mumbai','Patna','Pune','Raipur','Rajkot','Ranchi','Surat','Thiruvananthapuram','Tiruchirappalli','Udaipur','Vadodara','Varanasi','Vijayawada','Visakhapatnam','Warangal','Amsterdam','Bangkok','Berlin','Dubai','London','Melbourne','New York','Paris','Singapore','Sydney','Tokyo','Toronto','Vancouver','Zurich'];
+      inp.addEventListener('input',function(){
+        var q=inp.value.trim().toLowerCase();
+        if(!q){box.style.display='none';return;}
+        var m=FP_CITIES.filter(function(c){return c.toLowerCase().startsWith(q);}).slice(0,8);
+        if(!m.length){box.style.display='none';return;}
+        box.innerHTML=m.map(function(c){return '<div style="padding:0.5rem 0.8rem;cursor:pointer;font-family:Open Sans,sans-serif;font-size:0.82rem;color:#EDD4B2;" onmousedown="document.getElementById(\'fp-city-'+idx+'\').value=\''+c+'\';document.getElementById(\'fp-citybox-'+idx+'\').style.display=\'none\';">'+c+'</div>';}).join('');
+        box.style.display='block';
+      });
+      inp.addEventListener('blur',function(){
+        setTimeout(function(){
+          box.style.display='none';
+          var val=inp.value.trim();
+          if(val&&!FP_CITIES.some(function(c){return c.toLowerCase()===val.toLowerCase();})){inp.value='';inp.placeholder='Select a city from the list';}
+          else if(val){var match=FP_CITIES.find(function(c){return c.toLowerCase()===val.toLowerCase();});if(match)inp.value=match;}
+        },200);
+      });
+    })(ci);}
     document.getElementById('fpModalOverlay').classList.add('open');
     document.body.style.overflow='hidden';
     window.scrollTo(0,0);

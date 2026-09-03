@@ -457,7 +457,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
     const { lastInsertRowid } = insertBooking.run(booking_ref, venue, room_type, total_price, guests.length, room_number || null, req.body.payment_method || null, req.body.arrival_date || null, req.body.addons || null, discount || null, discount_reason || null, _phase1);
     bookingId = lastInsertRowid;
     guests.forEach((g, i) => {
-      const nc1 = g.city ? g.city.trim().replace(/\b\w/g, c => c.toUpperCase()) : null;
+      const nc1 = normalizeCity(g.city);
       insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, nc1, g.age ? Number(g.age) : null, g.gender || null);
     });
     db.exec('COMMIT');
@@ -555,7 +555,7 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
   try {
     const { lastInsertRowid } = insertBooking.run(booking_ref, venue, room_type, total_price, guests.length, bookingStatus, room_number || null, paid_at, payment_method || null, arrival_date || null, addons || null, gst_number || null, gst_name || null, organizerNote || null, discount || null, discount_reason || null, _phase2);
     guests.forEach((g, i) => {
-      const nc2 = g.city ? g.city.trim().replace(/\b\w/g, c => c.toUpperCase()) : null;
+      const nc2 = normalizeCity(g.city);
       insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, nc2, Number(g.age), g.gender || null);
     });
     db.exec('COMMIT');
