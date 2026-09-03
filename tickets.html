@@ -87,6 +87,9 @@
     /* ── INCLUSIONS BANNER ───────────────────────────── */
     .incl-collapse-trigger { display: none; }
     @media (max-width: 767px) {
+      .tk-hero-title { font-size: clamp(1rem,2.9vw,2.1rem) !important; letter-spacing: 0.15em !important; }
+      .tk-hero-sub { font-size: clamp(0.5rem,1.1vw,0.78rem) !important; letter-spacing: 0.02em !important; text-transform: none !important; }
+
       .incl-collapse-trigger {
         display: flex;
         width: calc(100% + var(--pad) * 2);
@@ -486,6 +489,9 @@
     .incl-addon-more-btn:hover { color: #C87040; }
     .incl-addon-info { flex: 1; min-width: 0; }
     @media (max-width: 767px) {
+      .tk-hero-title { font-size: clamp(1rem,2.9vw,2.1rem) !important; letter-spacing: 0.15em !important; }
+      .tk-hero-sub { font-size: clamp(0.5rem,1.1vw,0.78rem) !important; letter-spacing: 0.02em !important; text-transform: none !important; }
+
       .incl-addon-row .incl-tile-icon { display: none; }
       .incl-addon-row { flex-wrap: wrap; }
       .incl-addon-meta { width: 100%; text-align: left; margin-top: 0.3rem; }
@@ -501,12 +507,15 @@
       gap: clamp(0.8rem, 2vw, 1.2rem);
       margin-bottom: clamp(3rem, 7vw, 5rem);
       box-sizing: border-box;
-      width: calc(100vw - 2 * var(--pad));
+      width: 100%;
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
     }
     @media (max-width: 767px) {
+      .tk-hero-title { font-size: clamp(1rem,2.9vw,2.1rem) !important; letter-spacing: 0.15em !important; }
+      .tk-hero-sub { font-size: clamp(0.5rem,1.1vw,0.78rem) !important; letter-spacing: 0.02em !important; text-transform: none !important; }
+
       .venue-grid { margin-top: 2rem; }
     }
     @media (min-width: 768px) {
@@ -1332,8 +1341,8 @@
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
-    <h1 class="hero-title" style="font-weight:700;letter-spacing:0.15em;margin-bottom:0.15rem;font-size:clamp(1rem,2.9vw,2.1rem);white-space:nowrap;">Wellness Gathering</h1>
-    <p style="font-family:'Open Sans',sans-serif;font-size:clamp(0.6rem,1.1vw,0.78rem);font-weight:300;letter-spacing:0.02em;color:rgba(237,212,178,0.75);margin:0.2rem 0 0.8rem;">A 3 day gathering of wellness, music, healing, movement, fitness, &amp; arts</p>
+    <h1 class="hero-title tk-hero-title" style="font-weight:700;letter-spacing:0.2em;margin-bottom:0.15rem;font-size:clamp(1.6rem,3.5vw,2.6rem);white-space:nowrap;">Wellness Gathering</h1>
+    <p class="tk-hero-sub" style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.6rem,1.1vw,0.8rem);font-weight:300;letter-spacing:0.25em;text-transform:uppercase;color:#EDD4B2;margin:0.2rem 0 0.8rem;">A 3 day gathering of wellness, music, healing, movement, fitness, &amp; arts</p>
     <div class="hero-cta-row" style="flex-direction:row;flex-wrap:wrap;gap:1rem 1.4rem;align-items:center;">
       <a href="#booking-section" class="btn btn-primary" style="color:#fff;">Book your place ↓</a>
     </div>
@@ -1656,6 +1665,9 @@ try {
         .cd-label { font-family:'Josefin Sans',sans-serif;font-size:0.48rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.4); }
         .cd-sep { font-family:'Open Sans',sans-serif;font-size:clamp(0.9rem,2vw,1.2rem);font-weight:700;color:rgba(176,96,48,0.5);margin-top:clamp(7px,1.5vw,11px);line-height:1; }
         @media (max-width: 767px) {
+      .tk-hero-title { font-size: clamp(1rem,2.9vw,2.1rem) !important; letter-spacing: 0.15em !important; }
+      .tk-hero-sub { font-size: clamp(0.5rem,1.1vw,0.78rem) !important; letter-spacing: 0.02em !important; text-transform: none !important; }
+
           #eb-graphic-wrap { padding: 1.6rem 1rem 1.4rem !important; }
           #tk-phaseLabel { font-size: 0.75rem !important; font-weight: 700 !important; color: #EDD4B2 !important; margin: 0 0 0.9rem !important; letter-spacing: 0.18em !important; }
           #tk-countdown { margin-top: 0 !important; margin-bottom: 0 !important; }
