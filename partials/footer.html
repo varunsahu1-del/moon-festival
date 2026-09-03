@@ -39,6 +39,7 @@
     <style>
       .footer-social-row { display: contents; }
       .footer-top-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: clamp(2rem,4vw,3rem) clamp(1rem,2vw,2rem); padding-bottom: clamp(2.5rem,5vw,4rem); border-bottom: 0.5px solid rgba(237,212,178,0.08); }
+      @media (max-width: 767px) { .footer-newsletter { display: none; } }
       @media (max-width: 680px) {
         .footer-social-row { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,2rem); }
         .footer-top-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem 0.5rem; }
@@ -60,7 +61,7 @@
           </a>
         </div>
       </div>
-      <div>
+      <div class="footer-newsletter">
         <p style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 1.1rem;">Stay Connected</p>
         <form id="newsletterForm" style="display:flex;align-items:center;border-bottom:0.5px solid rgba(237,212,178,0.35);padding-bottom:0.5rem;" onsubmit="submitNewsletter(event)">
           <input id="newsletterEmail" type="email" placeholder="Email" required style="flex:1;background:transparent;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:#EDD4B2;padding:0.3rem 0;letter-spacing:0.04em;" />
