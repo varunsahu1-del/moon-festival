@@ -2904,7 +2904,15 @@ document.addEventListener('keydown', e => {
     const byKey = {};
     stats.forEach(s => { byKey[s.venue + '::' + s.room_type] = s; });
 
+    // Map display names → server room_type names
+    const DISPLAY_TO_SERVER = { 'Room for 2': 'Double Sharing', 'Room for 3': 'Triple Sharing', 'Solo Room': 'Private Room',
+      '4 Bed Female Dorm': '4 Bed Dorm', '6 Bed Mixed Dorm': '6 Bed Dorm' };
     const ROOM_ALIASES = {};
+    document.querySelectorAll('.venue-card').forEach(card => {
+      const v = card.dataset.venue;
+      if (!v) return;
+      Object.entries(DISPLAY_TO_SERVER).forEach(([disp, srv]) => { ROOM_ALIASES[v + '::' + disp] = srv; });
+    });
 
     document.querySelectorAll('.room-row').forEach(row => {
       const venue = row.closest('.venue-card')?.dataset.venue;
