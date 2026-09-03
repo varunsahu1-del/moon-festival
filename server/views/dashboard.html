@@ -1082,6 +1082,7 @@
   <!-- Sales group -->
   <div style="font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(42,34,24,0.35);margin-bottom:10px;">Sales</div>
   <div class="stats-grid" id="statsGrid" style="margin-bottom:20px;">
+    <div class="stat-card"><div class="stat-icon" style="background:rgba(176,96,48,0.22);"></div><div class="stat-label">Total Sales</div><div class="stat-value" id="s-total-sales">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Total Collected</div><div class="stat-value" id="s-revenue">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(232,168,180,0.32);"></div><div class="stat-label">Pending Amount</div><div class="stat-value" id="s-pending-amount">—</div></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(223,184,120,0.28);"></div><div class="stat-label">Avg Bed Rate</div><div class="stat-value" id="s-avgbed">—</div></div>
@@ -1639,6 +1640,9 @@ async function loadStats() {
   const roomRev = d.totalRevenue || 0;
   const addonRev = d.addonRevenue || 0;
   document.getElementById('s-revenue').textContent = '₹' + roomRev.toLocaleString('en-IN');
+  const pendingAmt = Number(d.pendingAmount) || 0;
+  const totalSalesEl = document.getElementById('s-total-sales');
+  if (totalSalesEl) totalSalesEl.textContent = '₹' + (roomRev + pendingAmt).toLocaleString('en-IN');
   const gstEl = document.getElementById('s-gst');
   if (gstEl) gstEl.textContent = roomRev > 0 ? '₹' + Math.round(roomRev - roomRev / 1.05).toLocaleString('en-IN') : '—';
   const addonEl = document.getElementById('s-addon-revenue');
