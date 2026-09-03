@@ -1170,7 +1170,7 @@
           <div class="sort-option phase-option active" data-phase="all">All Phases</div>
           <div class="sort-option phase-option" data-phase="earlyBird">Early Bird</div>
           <div class="sort-option phase-option" data-phase="phase1">Phase 2</div>
-          <div class="sort-option phase-option" data-phase="phase2">Phase 3</div>
+          <div class="sort-option phase-option" data-phase="phase2">Phase 2</div>
           <div style="border-top:0.5px solid rgba(42,34,24,0.08);margin:4px 0;"></div>
           <div style="font-family:'DM Sans',sans-serif;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(42,34,24,0.35);padding:8px 16px 4px;">Payment Status</div>
           <div class="sort-option status-option active" data-status="all">All Statuses</div>
@@ -2649,7 +2649,7 @@ function renderTable() {
     const _tblAccomAmt = isFirstGuest?baseAmt-_tblGuestAddonAmt-(r.addons_collected?_tblExtraAddonAmt:0):0;
     const gstAmt    = isFirstGuest&&baseAmt ? Math.round(baseAmt*(window.__GST_RATE||0.05)) : 0;
     const finalTotal = isFirstGuest&&baseAmt ? baseAmt+gstAmt : 0;
-    const phaseBadgeHtml = r.phase ? `<span style="display:inline-block;font-size:8px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:2px 6px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase1'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase1'?'Phase 2':'Phase 3'}</span>` : '';
+    const phaseBadgeHtml = r.phase ? `<span style="display:inline-block;font-size:8px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:2px 6px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase2'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase2'?'Phase 2':r.phase==='phase3'?'Phase 3':r.phase==='phase4'?'Phase 4':r.phase||''}</span>` : '';
     const fmtArr = v=>{if(!v)return '—';const m=v.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?parseInt(m[3])+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2])-1]:v;};
 
     function cell(k) {
@@ -2658,7 +2658,7 @@ function renderTable() {
         case 'num': return `<td style="color:var(--td-row-num);font-size:11px;">${chronoRank[`${r.booking_ref}:${r.guest_id}`] || i+1}</td>`;
         case 'name': {
           const hb=isFirstGuest&&((NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE))||r.source==='admin'||r.phase);
-          const bd=isFirstGuest?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:${hb?'4px':'0'}">${NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE)?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(176,96,48,0.25);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);border-radius:3px;padding:1px 5px;">NEW</span>':''}${r.source==='admin'?'<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;background:rgba(42,34,24,0.1);color:rgba(42,34,24,0.45);border:0.5px solid rgba(42,34,24,0.2);border-radius:3px;padding:1px 5px;">ORGANISER</span>':''}${r.phase?`<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:1px 5px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase1'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase1'?'Phase 2':'Phase 3'}</span>`:''}</div>`:'';
+          const bd=isFirstGuest?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:${hb?'4px':'0'}">${NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE)?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(176,96,48,0.25);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);border-radius:3px;padding:1px 5px;">NEW</span>':''}${r.source==='admin'?'<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;background:rgba(42,34,24,0.1);color:rgba(42,34,24,0.45);border:0.5px solid rgba(42,34,24,0.2);border-radius:3px;padding:1px 5px;">ORGANISER</span>':''}${r.phase?`<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:1px 5px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase2'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase2'?'Phase 2':r.phase==='phase3'?'Phase 3':r.phase==='phase4'?'Phase 4':r.phase||''}</span>`:''}</div>`:'';
           return `<td style="font-weight:600;color:var(--td-strong);">${bd}${r.full_name||'—'}</td>`;
         }
         case 'ref':       return `<td>${isFirstGuest?`<span class="ref">${r.booking_ref}</span>`:''}</td>`;
@@ -2914,7 +2914,7 @@ function renderDrawer(booking, guests, breakdown) {
           <div style="font-size:13px;font-weight:500;color:var(--td-strong);">${
             booking.phase === 'earlyBird' ? 'Early Bird' :
             booking.phase === 'phase1'    ? 'Phase 2' :
-            booking.phase === 'phase2'    ? 'Phase 3' :
+            booking.phase === 'phase2'    ? 'Phase 2' :
             '<span style="color:rgba(42,34,24,0.3);font-size:11px;">—</span>'
           }</div>
         </div>
@@ -3437,7 +3437,7 @@ document.querySelectorAll('.phase-option').forEach(btn => {
 
 const sortLabels = { date_desc: 'Newest First', date_asc: 'Oldest First', room_number: 'Room No.', gender: 'Gender', city: 'City', age_asc: 'Age ↑', age_desc: 'Age ↓', name: 'Name A–Z' };
 const statusLabels = { all: null, paid: 'Paid', pending: 'Pending', upi_pending: 'UPI Pending', failed: 'Failed' };
-const phaseLabels = { all: null, earlyBird: 'Early Bird', phase1: 'Phase 2', phase2: 'Phase 3' };
+const phaseLabels = { all: null, earlyBird: 'Early Bird', phase2: 'Phase 2', phase3: 'Phase 3', phase4: 'Phase 4' };
 
 async function toggleVerified(ref, verified, td) {
   const res = await adminFetch(`/admin/api/bookings/${ref}/verify`, {
@@ -3954,7 +3954,7 @@ function exportFilteredCSV() {
   const HDR = { name:COLS.name||'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,mail:COLS.mail+' Sent',adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
 
   const fmtArr = v => { if(!v) return ''; const m=v.match(/^(\d{4})-(\d{2})-(\d{2})$/); return m?parseInt(m[3])+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2])-1]:v; };
-  const phName = p => p==='earlyBird'?'Early Bird':p==='phase1'?'Phase 2':p==='phase2'?'Phase 3':p||'';
+  const phName = p => p==='earlyBird'?'Early Bird':p==='phase2'?'Phase 2':p==='phase3'?'Phase 3':p==='phase4'?'Phase 4':p||'';
 
   const esc = v => { const s = String(v??''); return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s.replace(/"/g,'""')}"` : s; };
 
