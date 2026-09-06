@@ -1216,25 +1216,44 @@
   <div class="tab-page" id="tabPageApplications">
     <div class="section-head">
       <div class="section-title">Applications</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;" id="appTypeFilters">
-        <button class="filter-btn app-type-btn active" data-type="all">All</button>
-        <button class="filter-btn app-type-btn" data-type="apply-facilitator">Facilitators</button>
-        <button class="filter-btn app-type-btn" data-type="apply-performance">Performers</button>
-        <button class="filter-btn app-type-btn" data-type="apply-retail">Flea Market</button>
-        <button class="filter-btn app-type-btn" data-type="apply-fb">Food Vendors</button>
-        <button class="filter-btn app-type-btn" data-type="apply-installation">Installations</button>
-        <button class="filter-btn app-type-btn" data-type="apply-volunteer">Moon Crew</button>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;" id="appStatusFilters">
-        <button class="filter-btn app-status-btn active" data-status="all">All statuses</button>
-        <button class="filter-btn app-status-btn" data-status="new">New</button>
-        <button class="filter-btn app-status-btn" data-status="reviewed">Reviewed</button>
-        <button class="filter-btn app-status-btn" data-status="shortlisted">Shortlisted</button>
-        <button class="filter-btn app-status-btn" data-status="accepted">Accepted</button>
-        <button class="filter-btn app-status-btn" data-status="rejected">Rejected</button>
-      </div>
     </div>
     <div class="table-wrap">
+      <div class="search-bar">
+        <input type="text" id="appSearchInput" placeholder="Search by name, email, Instagram…" oninput="renderApplications()" />
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:0 0 12px 0;margin-left:4px;flex-wrap:wrap;">
+        <div style="position:relative;" id="appSortWrap">
+          <button class="filter-btn" id="appSortToggle" onclick="toggleAppSortMenu()">↕ Sort &amp; Filter ▾</button>
+          <div id="appSortMenu" style="display:none;position:fixed;background:#EAE3D8;border:0.5px solid rgba(176,96,48,0.2);border-radius:12px;overflow-y:auto;max-height:80vh;z-index:1000;min-width:210px;box-shadow:0 8px 24px rgba(42,34,24,0.12);">
+            <div id="appClearFilters" style="font-family:'DM Sans',sans-serif;font-size:11px;padding:10px 16px;color:rgba(42,34,24,0.45);border-bottom:0.5px solid rgba(42,34,24,0.1);cursor:pointer;">✕ Clear All Filters</div>
+
+            <div style="font-family:'DM Sans',sans-serif;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(42,34,24,0.35);padding:10px 16px 4px;">Application Type</div>
+            <div class="sort-option app-type-opt active" data-app-type="all">All Types</div>
+            <div class="sort-option app-type-opt" data-app-type="apply-facilitator">Facilitators</div>
+            <div class="sort-option app-type-opt" data-app-type="apply-performance">Performers</div>
+            <div class="sort-option app-type-opt" data-app-type="apply-retail">Flea Market</div>
+            <div class="sort-option app-type-opt" data-app-type="apply-fb">Food Vendors</div>
+            <div class="sort-option app-type-opt" data-app-type="apply-installation">Installations</div>
+            <div class="sort-option app-type-opt" data-app-type="apply-volunteer">Moon Crew</div>
+
+            <div style="border-top:0.5px solid rgba(42,34,24,0.08);margin:4px 0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(42,34,24,0.35);padding:8px 16px 4px;">Status</div>
+            <div class="sort-option app-status-opt active" data-app-status="all">All Statuses</div>
+            <div class="sort-option app-status-opt" data-app-status="new">New</div>
+            <div class="sort-option app-status-opt" data-app-status="reviewed">Reviewed</div>
+            <div class="sort-option app-status-opt" data-app-status="shortlisted">Shortlisted</div>
+            <div class="sort-option app-status-opt" data-app-status="accepted">Accepted</div>
+            <div class="sort-option app-status-opt" data-app-status="rejected">Rejected</div>
+
+            <div style="border-top:0.5px solid rgba(42,34,24,0.08);margin:4px 0;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(42,34,24,0.35);padding:8px 16px 4px;">Sort By</div>
+            <div class="sort-option app-sort-opt active" data-app-sort="date_desc">Date — Newest First</div>
+            <div class="sort-option app-sort-opt" data-app-sort="date_asc">Date — Oldest First</div>
+            <div class="sort-option app-sort-opt" data-app-sort="name">Name A → Z</div>
+          </div>
+        </div>
+        <div id="appFilterChips" style="display:flex;flex-wrap:wrap;align-items:center;gap:5px;"></div>
+      </div>
       <div id="appTableWrap"><div class="empty">Loading applications…</div></div>
     </div>
   </div><!-- /tabPageApplications -->
@@ -5372,8 +5391,9 @@ setInterval(() => { loadStats(); loadInventoryDetail(); loadBookings(); loadAppl
 
 // ── APPLICATIONS ──────────────────────────────────────────────────────────────
 let allApplications = [];
-let activeAppType = 'all';
+let activeAppType   = 'all';
 let activeAppStatus = 'all';
+let activeAppSort   = 'date_desc';
 
 const STATUS_COLORS = {
   new:         { bg: 'rgba(176,96,48,0.15)',   color: '#B06030',  border: 'rgba(176,96,48,0.4)'   },
@@ -5400,12 +5420,32 @@ function renderApplications() {
   const savedLeft = scrollEl ? scrollEl.scrollLeft : 0;
   const savedTop  = scrollEl ? scrollEl.scrollTop  : 0;
 
+  const q = (document.getElementById('appSearchInput') || {}).value || '';
+  const ql = q.toLowerCase();
+
   let filtered = activeAppType === 'all'
     ? allApplications
     : allApplications.filter(a => a.form_type === activeAppType);
   if (activeAppStatus !== 'all') {
     filtered = filtered.filter(a => a.status === activeAppStatus);
   }
+  if (ql) {
+    filtered = filtered.filter(a => {
+      const fields = JSON.parse(a.fields_json || '{}');
+      return (a.applicant || '').toLowerCase().includes(ql)
+        || (a.email || '').toLowerCase().includes(ql)
+        || (a.whatsapp || '').includes(ql)
+        || (fields.instagram || '').toLowerCase().includes(ql);
+    });
+  }
+  if (activeAppSort === 'date_asc') {
+    filtered = [...filtered].sort((a, b) => (a.created_at || '') < (b.created_at || '') ? -1 : 1);
+  } else if (activeAppSort === 'name') {
+    filtered = [...filtered].sort((a, b) => (a.applicant || '').localeCompare(b.applicant || ''));
+  }
+  // date_desc = default order from server (newest first), no re-sort needed
+
+  updateAppFilterChips();
 
   if (!filtered.length) {
     wrap.innerHTML = '<div class="empty">No applications yet.</div>';
@@ -5497,23 +5537,80 @@ function openAppDrawer(id) {
   document.getElementById('drawerOverlay').classList.add('open');
 }
 
-document.querySelectorAll('.app-type-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.app-type-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeAppType = btn.dataset.type;
+// ── App Sort & Filter menu ────────────────────────────────────────────────────
+function toggleAppSortMenu() {
+  const m = document.getElementById('appSortMenu');
+  if (m.style.display !== 'none') { m.style.display = 'none'; return; }
+  const btn = document.getElementById('appSortToggle');
+  const r = btn.getBoundingClientRect();
+  m.style.display = 'block';
+  const menuW = m.offsetWidth || 220;
+  const rightOffset = window.innerWidth - r.right;
+  m.style.top = (r.bottom + 4) + 'px';
+  m.style.maxHeight = (window.innerHeight - r.bottom - 8) + 'px';
+  if (r.right - menuW < 8) {
+    m.style.left = Math.max(8, r.left) + 'px'; m.style.right = 'auto';
+  } else {
+    m.style.left = 'auto'; m.style.right = rightOffset + 'px';
+  }
+}
+
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('appSortWrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('appSortMenu').style.display = 'none';
+});
+
+document.getElementById('appClearFilters').addEventListener('click', () => {
+  activeAppType = 'all'; activeAppStatus = 'all'; activeAppSort = 'date_desc';
+  document.querySelectorAll('.app-type-opt').forEach(o => o.classList.toggle('active', o.dataset.appType === 'all'));
+  document.querySelectorAll('.app-status-opt').forEach(o => o.classList.toggle('active', o.dataset.appStatus === 'all'));
+  document.querySelectorAll('.app-sort-opt').forEach(o => o.classList.toggle('active', o.dataset.appSort === 'date_desc'));
+  if (document.getElementById('appSearchInput')) document.getElementById('appSearchInput').value = '';
+  document.getElementById('appSortMenu').style.display = 'none';
+  renderApplications();
+});
+
+document.querySelectorAll('.app-type-opt').forEach(opt => {
+  opt.addEventListener('click', () => {
+    activeAppType = opt.dataset.appType;
+    document.querySelectorAll('.app-type-opt').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+    document.getElementById('appSortMenu').style.display = 'none';
     renderApplications();
   });
 });
 
-document.querySelectorAll('.app-status-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.app-status-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeAppStatus = btn.dataset.status;
+document.querySelectorAll('.app-status-opt').forEach(opt => {
+  opt.addEventListener('click', () => {
+    activeAppStatus = opt.dataset.appStatus;
+    document.querySelectorAll('.app-status-opt').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+    document.getElementById('appSortMenu').style.display = 'none';
     renderApplications();
   });
 });
+
+document.querySelectorAll('.app-sort-opt').forEach(opt => {
+  opt.addEventListener('click', () => {
+    activeAppSort = opt.dataset.appSort;
+    document.querySelectorAll('.app-sort-opt').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+    document.getElementById('appSortMenu').style.display = 'none';
+    renderApplications();
+  });
+});
+
+function updateAppFilterChips() {
+  const c = document.getElementById('appFilterChips');
+  if (!c) return;
+  const chips = [];
+  const TYPE_LABELS = { 'apply-facilitator':'Facilitators','apply-performance':'Performers','apply-retail':'Flea Market','apply-fb':'Food Vendors','apply-installation':'Installations','apply-volunteer':'Moon Crew' };
+  const SORT_LABELS = { 'date_asc':'Date ↑','name':'Name A→Z' };
+  if (activeAppType !== 'all') chips.push(TYPE_LABELS[activeAppType] || activeAppType);
+  if (activeAppStatus !== 'all') chips.push(activeAppStatus.charAt(0).toUpperCase() + activeAppStatus.slice(1));
+  if (activeAppSort !== 'date_desc') chips.push(SORT_LABELS[activeAppSort] || activeAppSort);
+  c.innerHTML = chips.map(t => `<span style="background:rgba(176,96,48,0.12);border:0.5px solid rgba(176,96,48,0.35);border-radius:20px;padding:3px 10px;font-size:10px;color:#B06030;font-family:'DM Sans',sans-serif;">${t}</span>`).join('');
+}
 
 // ── Mobile nav drawer ───────────────────────────────────────────────────────
 function toggleMobileMenu() {
