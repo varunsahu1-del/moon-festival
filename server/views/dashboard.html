@@ -1225,6 +1225,14 @@
         <button class="filter-btn app-type-btn" data-type="apply-installation">Installations</button>
         <button class="filter-btn app-type-btn" data-type="apply-volunteer">Moon Crew</button>
       </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;" id="appStatusFilters">
+        <button class="filter-btn app-status-btn active" data-status="all">All statuses</button>
+        <button class="filter-btn app-status-btn" data-status="new">New</button>
+        <button class="filter-btn app-status-btn" data-status="reviewed">Reviewed</button>
+        <button class="filter-btn app-status-btn" data-status="shortlisted">Shortlisted</button>
+        <button class="filter-btn app-status-btn" data-status="accepted">Accepted</button>
+        <button class="filter-btn app-status-btn" data-status="rejected">Rejected</button>
+      </div>
     </div>
     <div class="table-wrap">
       <div id="appTableWrap"><div class="empty">Loading applications…</div></div>
@@ -5365,12 +5373,14 @@ setInterval(() => { loadStats(); loadInventoryDetail(); loadBookings(); loadAppl
 // ── APPLICATIONS ──────────────────────────────────────────────────────────────
 let allApplications = [];
 let activeAppType = 'all';
+let activeAppStatus = 'all';
 
 const STATUS_COLORS = {
-  new:      { bg: 'rgba(176,96,48,0.15)',  color: '#B06030',  border: 'rgba(176,96,48,0.4)'  },
-  reviewed: { bg: 'rgba(52,152,219,0.15)', color: '#3498db',  border: 'rgba(52,152,219,0.4)' },
-  accepted: { bg: 'rgba(39,174,96,0.15)',  color: '#2ecc71',  border: 'rgba(39,174,96,0.4)'  },
-  rejected: { bg: 'rgba(192,57,43,0.15)',  color: '#e74c3c',  border: 'rgba(192,57,43,0.4)'  },
+  new:         { bg: 'rgba(176,96,48,0.15)',   color: '#B06030',  border: 'rgba(176,96,48,0.4)'   },
+  reviewed:    { bg: 'rgba(52,152,219,0.15)',  color: '#3498db',  border: 'rgba(52,152,219,0.4)'  },
+  shortlisted: { bg: 'rgba(155,100,220,0.15)', color: '#9B64DC',  border: 'rgba(155,100,220,0.4)' },
+  accepted:    { bg: 'rgba(39,174,96,0.15)',   color: '#2ecc71',  border: 'rgba(39,174,96,0.4)'   },
+  rejected:    { bg: 'rgba(192,57,43,0.15)',   color: '#e74c3c',  border: 'rgba(192,57,43,0.4)'   },
 };
 
 async function loadApplications() {
@@ -5386,9 +5396,16 @@ async function loadApplications() {
 
 function renderApplications() {
   const wrap = document.getElementById('appTableWrap');
-  const filtered = activeAppType === 'all'
+  const scrollEl = wrap.querySelector('.table-scroll');
+  const savedLeft = scrollEl ? scrollEl.scrollLeft : 0;
+  const savedTop  = scrollEl ? scrollEl.scrollTop  : 0;
+
+  let filtered = activeAppType === 'all'
     ? allApplications
     : allApplications.filter(a => a.form_type === activeAppType);
+  if (activeAppStatus !== 'all') {
+    filtered = filtered.filter(a => a.status === activeAppStatus);
+  }
 
   if (!filtered.length) {
     wrap.innerHTML = '<div class="empty">No applications yet.</div>';
@@ -5417,7 +5434,7 @@ function renderApplications() {
       <td onclick="event.stopPropagation()">
         <select onchange="updateAppStatus(${a.id}, this.value)"
           style="background:${s.bg};border:0.5px solid ${s.border};color:${s.color};font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 7px;border-radius:2px;outline:none;cursor:pointer;">
-          ${['new','reviewed','accepted','rejected'].map(v =>
+          ${['new','reviewed','shortlisted','accepted','rejected'].map(v =>
             `<option value="${v}" ${a.status===v?'selected':''} style="background:#1a1508;color:#EDD4B2;">${v}</option>`
           ).join('')}
         </select>
@@ -5431,6 +5448,9 @@ function renderApplications() {
     </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
+
+  const newScrollEl = wrap.querySelector('.table-scroll');
+  if (newScrollEl) { newScrollEl.scrollLeft = savedLeft; newScrollEl.scrollTop = savedTop; }
 }
 
 async function updateAppStatus(id, status) {
@@ -5482,6 +5502,15 @@ document.querySelectorAll('.app-type-btn').forEach(btn => {
     document.querySelectorAll('.app-type-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeAppType = btn.dataset.type;
+    renderApplications();
+  });
+});
+
+document.querySelectorAll('.app-status-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.app-status-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeAppStatus = btn.dataset.status;
     renderApplications();
   });
 });
