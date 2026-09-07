@@ -2964,7 +2964,7 @@ function renderDrawer(booking, guests, breakdown) {
             <button onclick="startEditField('price','${escQ(booking.total_price)}','${ref}')" style="background:none;border:none;font-size:13px;color:rgba(176,96,48,0.4);cursor:pointer;padding:2px;line-height:1;" title="Edit accommodation base price">✎</button>
           </div>
           <div id="dr-price-edit" style="display:none;margin-top:6px;">
-            <div style="font-size:10px;color:var(--td-mid);margin-bottom:4px;">Accommodation base (excl. GST &amp; add-ons)</div>
+            <div style="font-size:10px;color:var(--td-mid);margin-bottom:4px;">Post-discount total (incl. add-ons, excl. GST) — editing this recalculates everything</div>
             <input id="dr-price-input" style="width:100%;font-size:14px;padding:7px 10px;border:0.5px solid rgba(176,96,48,0.4);border-radius:3px;background:rgba(176,96,48,0.05);color:var(--td-strong);font-family:inherit;outline:none;" value="${escQ(booking.total_price)}" />
           </div>`;
           })()}

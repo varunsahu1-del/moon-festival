@@ -138,7 +138,7 @@ router.post('/submit', upload.any(), async (req, res) => {
 
     const attachments = files.map(f => ({
       filename: f.originalname,
-      content:  f.buffer,
+      content:  f.buffer.toString('base64'),
       contentType: f.mimetype,
     }));
 
