@@ -50,9 +50,10 @@ function computeBreakdown(booking) {
   // So compute accomBase without extraAddonTotal, then add it back for grandTotal.
   const accomBase = storedTotal - addonTotal + discount;
 
-  const subtotal   = storedTotal + extraAddonTotal; // include admin add-ons in pre-GST total
+  // Admin add-ons (extra_addons) are collected separately at face value — no GST on them.
+  const subtotal   = storedTotal;
   const gst        = Math.round(subtotal * GST_RATE);
-  const grandTotal = subtotal + gst;
+  const grandTotal = subtotal + gst + extraAddonTotal;
 
   return {
     accomBase,       // full accommodation pre-discount (÷ guest_count for per-person rate)
