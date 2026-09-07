@@ -3425,7 +3425,7 @@ function daoConfirm() {
   // Persist addons in sessionStorage so book.html can recover them if URL params are lost
   try {
     sessionStorage.setItem('mf_pending_addons', addonsStr);
-    sessionStorage.setItem('mf_pending_price', String(totalPrice));
+    sessionStorage.setItem('mf_pending_price', String(baseOnlyPrice)); // base only — addons stored separately
     sessionStorage.setItem('mf_pending_venue', _daoVenue);
     sessionStorage.setItem('mf_pending_room', _daoRoomType);
   } catch(e) {}
