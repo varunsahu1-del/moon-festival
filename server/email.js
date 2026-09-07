@@ -292,9 +292,11 @@ async function sendConfirmation({ booking, guests }) {
   };
 
   let invoiceBuffer = null;
-  try {
-    invoiceBuffer = await generateInvoice({ booking, guests });
-  } catch (e) { console.error('[invoice]', e.message); }
+  if (booking.gst_number) {
+    try {
+      invoiceBuffer = await generateInvoice({ booking, guests });
+    } catch (e) { console.error('[invoice]', e.message); }
+  }
 
   if (invoiceBuffer) {
     mailOptions.attachments = [{
