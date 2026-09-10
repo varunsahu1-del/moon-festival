@@ -17,6 +17,10 @@ server/moonfestival.db
 data/moonfestival.db-shm
 data/moonfestival.db-wal
 
+# Sponsorship / partnerships source assets
+Sponsorship page images/
+partnerships-src/
+
 # Video files
 *.mov
 *.MOV
