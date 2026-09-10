@@ -80,8 +80,8 @@ const PRICING = {
     'Double Sharing': { earlyBird: 34500, phase2: 36000, phase3: 37500, phase4: 39000, extraDay: 2500 },
     'Triple Sharing': { earlyBird: 29500, phase2: 31000, phase3: 32500, phase4: 34000, extraDay: 1500 },
     'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 49500, phase4: 51000, extraDay: 3000 },
-    '4 Bed Dorm':     { earlyBird: 25500, phase2: 27000, phase3: 28500, phase4: 30000, extraDay: 800  },
-    '6 Bed Dorm':     { earlyBird: 24000, phase2: 25500, phase3: 27000, phase4: 28500, extraDay: 700  },
+    '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 28500, phase4: 30000, extraDay: 800  },
+    '6 Bed Dorm':     { earlyBird: 24000, phase2: 24000, phase3: 27000, phase4: 28500, extraDay: 700  },
   },
   'Marron · Sea View': {
     'Double Sharing': { earlyBird: 49900, phase2: 51400, phase3: 52900, phase4: 54400, extraDay: 4500 },
@@ -99,9 +99,9 @@ const PRICING = {
     'Private Room':   { earlyBird: 81900, phase2: 83400, phase3: 84900, phase4: 86400, extraDay: 12000 },
   },
   'Ourem Palace': {
-    'Double Sharing': { earlyBird: 44500, phase2: 46000, phase3: 47500, phase4: 49000, extraDay: 3500 },
+    'Double Sharing': { earlyBird: 44500, phase2: 40500, phase3: 47500, phase4: 49000, extraDay: 3500 },
     'Triple Sharing': { earlyBird: 36000, phase2: 37500, phase3: 39000, phase4: 40500, extraDay: 2100 },
-    'Private Room':   { earlyBird: 58900, phase2: 60400, phase3: 61900, phase4: 63400, extraDay: 6000 },
+    'Private Room':   { earlyBird: 58900, phase2: 55000, phase3: 61900, phase4: 63400, extraDay: 6000 },
   },
   'Teraria': {
     'Double Sharing': { earlyBird: 32000, phase2: 33500, phase3: 35000, phase4: 36500, extraDay: 3000 },
