@@ -136,30 +136,33 @@
     }
     /* ── TICKET TABS ─────────────────────────────────── */
     /* ── Join cards ─────────────────────────────── */
-    .join-card {
+    .join-card-outer {
       flex: 1;
+      filter: drop-shadow(0 0 0.6px rgba(176,96,48,0.55)) drop-shadow(0 0 0.6px rgba(176,96,48,0.55));
+      transition: filter 0.22s;
+    }
+    .join-card-outer:hover,
+    .join-card-outer:has(.join-card--active) {
+      filter: drop-shadow(0 0 0.6px rgba(176,96,48,0.9)) drop-shadow(0 0 0.6px rgba(176,96,48,0.9));
+    }
+    .join-card {
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 0;
       background: rgba(176,96,48,0.03);
       border: none;
-      box-shadow: inset 0 0 0 0.5px rgba(176,96,48,0.5);
       clip-path: polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);
       border-radius: 0;
       padding: clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,1.8rem);
       cursor: pointer;
       text-align: left;
-      transition: box-shadow 0.22s, background 0.22s;
+      transition: background 0.22s;
       position: relative;
+      box-sizing: border-box;
     }
-    .join-card:hover {
-      box-shadow: inset 0 0 0 0.5px rgba(176,96,48,0.8);
-      background: rgba(176,96,48,0.11);
-    }
-    .join-card--active {
-      box-shadow: inset 0 0 0 0.5px rgba(176,96,48,0.8);
-      background: rgba(176,96,48,0.08);
-    }
+    .join-card:hover { background: rgba(176,96,48,0.11); }
+    .join-card--active { background: rgba(176,96,48,0.08); }
     .jcard-num {
       font-family: 'Josefin Sans', sans-serif;
       font-size: clamp(0.9rem,1.5vw,1.15rem);
@@ -218,7 +221,9 @@
     .join-card:hover .jcard-cta,
     .join-card--active .jcard-cta { color: #B06030; }
     @media (max-width: 540px) {
-      #join-cards { flex-direction: column; }
+      .jcard-num { font-size: 0.78rem; }
+      .jcard-desc { font-size: 0.7rem; }
+      .join-card { padding: 1.1rem 0.9rem; }
     }
 
     .ticket-tabs-bar {
@@ -1750,17 +1755,20 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
   <div id="join-cards" style="display:flex;gap:clamp(0.8rem,2vw,1.2rem);max-width:720px;margin:0 auto clamp(1.4rem,3vw,2rem);padding:0 clamp(0.6rem,3vw,1.2rem);">
 
     <!-- Card 1: Stay + Festival -->
-    <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
-      <div class="jcard-num">Stay + Festival Pass</div>
-      <div class="jcard-desc">Your stay and the <strong>full festival</strong>, together.</div>
-
-    </button>
+    <div class="join-card-outer">
+      <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
+        <div class="jcard-num">Stay + Festival Pass</div>
+        <div class="jcard-desc">Your stay and the <strong>full festival</strong>, together.</div>
+      </button>
+    </div>
 
     <!-- Card 2: Festival Only -->
-    <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
-      <div class="jcard-num">Festival Only Pass</div>
-      <div class="jcard-desc">Just the festival — sort your own stay.</div>
-    </button>
+    <div class="join-card-outer">
+      <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
+        <div class="jcard-num">Festival Only Pass</div>
+        <div class="jcard-desc">Just the festival — sort your own stay.</div>
+      </button>
+    </div>
 
   </div>
 
