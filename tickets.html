@@ -142,21 +142,22 @@
       flex-direction: column;
       gap: 0;
       background: rgba(176,96,48,0.03);
-      border: 0.5px solid rgba(176,96,48,0.5);
+      border: none;
+      box-shadow: inset 0 0 0 0.5px rgba(176,96,48,0.5);
       clip-path: polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);
       border-radius: 0;
       padding: clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,1.8rem);
       cursor: pointer;
       text-align: left;
-      transition: border-color 0.22s, background 0.22s;
+      transition: box-shadow 0.22s, background 0.22s;
       position: relative;
     }
     .join-card:hover {
-      border-color: rgba(176,96,48,0.8);
+      box-shadow: inset 0 0 0 0.5px rgba(176,96,48,0.8);
       background: rgba(176,96,48,0.11);
     }
     .join-card--active {
-      border-color: rgba(176,96,48,0.8);
+      box-shadow: inset 0 0 0 0.5px rgba(176,96,48,0.8);
       background: rgba(176,96,48,0.08);
     }
     .jcard-num {
