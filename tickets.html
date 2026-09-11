@@ -151,13 +151,6 @@
       transition: border-color 0.22s, background 0.22s;
       position: relative;
     }
-    .join-card::before {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 0.5px solid rgba(176,96,48,0.2);
-      pointer-events: none;
-    }
     .join-card:hover {
       border-color: rgba(176,96,48,0.8);
       background: rgba(176,96,48,0.11);
@@ -165,9 +158,6 @@
     .join-card--active {
       border-color: rgba(176,96,48,0.8);
       background: rgba(176,96,48,0.08);
-    }
-    .join-card--active::before {
-      border-color: rgba(176,96,48,0.35);
     }
     .jcard-num {
       font-family: 'Josefin Sans', sans-serif;
