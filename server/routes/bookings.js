@@ -91,6 +91,9 @@ router.post('/create', async (req, res) => {
         ORDER BY b.created_at DESC LIMIT 1
       `).get(venue, roomType, cutoff, primaryEmail);
       if (existing) {
+        // Update addons + total_price in case the new submission has different selections
+        db.prepare('UPDATE bookings SET total_price=?, addons=?, arrival_date=? WHERE id=?')
+          .run(totalPrice, addons || null, arrival_date, existing.id);
         const existingGuests = db.prepare('SELECT * FROM guests WHERE booking_id = ? ORDER BY guest_number').all(existing.id);
         return res.json({ booking_ref: existing.booking_ref, guests: existingGuests, _deduplicated: true });
       }
