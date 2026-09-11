@@ -141,8 +141,9 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      background: transparent;
-      border: 1px solid rgba(176,96,48,0.3);
+      background: rgba(176,96,48,0.03);
+      border: 0.5px solid rgba(176,96,48,0.5);
+      clip-path: polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);
       border-radius: 0;
       padding: clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,1.8rem);
       cursor: pointer;
@@ -150,13 +151,23 @@
       transition: border-color 0.22s, background 0.22s;
       position: relative;
     }
+    .join-card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 0.5px solid rgba(176,96,48,0.2);
+      pointer-events: none;
+    }
     .join-card:hover {
-      border-color: rgba(176,96,48,0.65);
-      background: rgba(176,96,48,0.04);
+      border-color: rgba(176,96,48,0.8);
+      background: rgba(176,96,48,0.11);
     }
     .join-card--active {
-      border-color: rgba(176,96,48,0.75);
-      background: rgba(176,96,48,0.06);
+      border-color: rgba(176,96,48,0.8);
+      background: rgba(176,96,48,0.08);
+    }
+    .join-card--active::before {
+      border-color: rgba(176,96,48,0.35);
     }
     .jcard-num {
       font-family: 'Josefin Sans', sans-serif;
@@ -216,9 +227,7 @@
     .join-card:hover .jcard-cta,
     .join-card--active .jcard-cta { color: #B06030; }
     @media (max-width: 540px) {
-      #join-cards { flex-direction: column; gap: 0; }
-      .join-card { border-bottom: none; }
-      .join-card:last-child { border-bottom: 1px solid rgba(176,96,48,0.3); }
+      #join-cards { flex-direction: column; }
     }
 
     .ticket-tabs-bar {
@@ -1747,7 +1756,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
   </div>
 
   <!-- Two-way selector cards -->
-  <div id="join-cards" style="display:flex;gap:0;max-width:720px;margin:0 auto clamp(1.4rem,3vw,2rem);padding:0 clamp(0.6rem,3vw,1.2rem);">
+  <div id="join-cards" style="display:flex;gap:clamp(0.8rem,2vw,1.2rem);max-width:720px;margin:0 auto clamp(1.4rem,3vw,2rem);padding:0 clamp(0.6rem,3vw,1.2rem);">
 
     <!-- Card 1: Stay + Festival -->
     <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
