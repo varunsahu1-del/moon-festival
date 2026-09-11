@@ -136,33 +136,24 @@
     }
     /* ── TICKET TABS ─────────────────────────────────── */
     /* ── Join cards ─────────────────────────────── */
-    .join-card-outer {
-      flex: 1;
-      filter: drop-shadow(0 0 0.6px rgba(176,96,48,0.55)) drop-shadow(0 0 0.6px rgba(176,96,48,0.55));
-      transition: filter 0.22s;
-    }
-    .join-card-outer:hover,
-    .join-card-outer:has(.join-card--active) {
-      filter: drop-shadow(0 0 0.6px rgba(176,96,48,0.9)) drop-shadow(0 0 0.6px rgba(176,96,48,0.9));
-    }
+    .join-card-outer { flex: 1; }
     .join-card {
       width: 100%;
       display: flex;
       flex-direction: column;
       gap: 0;
       background: rgba(176,96,48,0.03);
-      border: none;
-      clip-path: polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);
-      border-radius: 0;
+      border: 0.5px solid rgba(176,96,48,0.45);
+      border-radius: 3px;
       padding: clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,1.8rem);
       cursor: pointer;
       text-align: left;
-      transition: background 0.22s;
+      transition: border-color 0.22s, background 0.22s;
       position: relative;
       box-sizing: border-box;
     }
-    .join-card:hover { background: rgba(176,96,48,0.11); }
-    .join-card--active { background: rgba(176,96,48,0.08); }
+    .join-card:hover { border-color: rgba(176,96,48,0.8); background: rgba(176,96,48,0.08); }
+    .join-card--active { border-color: rgba(176,96,48,0.8); background: rgba(176,96,48,0.08); }
     .jcard-num {
       font-family: 'Josefin Sans', sans-serif;
       font-size: clamp(0.9rem,1.5vw,1.15rem);
@@ -1512,131 +1503,18 @@
     <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0 auto;"></div>
   </div>
 
-  <!-- Slider track -->
-  <div id="tk-cards-track" style="display:flex;gap:clamp(0.5rem,1.5vw,0.8rem);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 clamp(1rem,4vw,2rem);padding-right:calc(clamp(1rem,4vw,2rem) + 10%);">
-    <style>#tk-cards-track::-webkit-scrollbar{display:none;}</style>
-
-    <!-- You Dance -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/50.png" alt="You Dance" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Dance</p>
-      </div>
-    </div>
-
-    <!-- You Sing -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/51.png" alt="You Sing" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Sing</p>
-      </div>
-    </div>
-
-    <!-- You Listen -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/52.png" alt="You Listen" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Listen</p>
-      </div>
-    </div>
-
-    <!-- You Practice -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/53.png" alt="You Practice" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Practice</p>
-      </div>
-    </div>
-
-    <!-- You Jam -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/54.png" alt="You Jam" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Jam</p>
-      </div>
-    </div>
-
-    <!-- You Colour -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/55.png" alt="You Colour" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Colour</p>
-      </div>
-    </div>
-
-    <!-- You Rest -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/56.png" alt="You Rest" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Rest</p>
-      </div>
-    </div>
-
-    <!-- You Heal -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/57.png" alt="You Heal" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Heal</p>
-      </div>
-    </div>
-
-    <!-- You Become Family -->
-    <div style="flex:0 0 clamp(220px,42vw,300px);scroll-snap-align:start;border-radius:2px;overflow:hidden;background:#0a0800;">
-      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;">
-        <img src="About Page Images/58.png" alt="You Become Family" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.9);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" />
-      </div>
-      <div style="padding:0.8rem 0.9rem 1rem;">
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.3rem;">You Become Family</p>
-      </div>
-    </div>
-
+  <!-- Experience grid — same layout as about page -->
+  <div id="tk-you-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 clamp(1rem,4vw,2rem);">
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/50.png" alt="You Dance" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Dance</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/51.png" alt="You Sing" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Sing</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/52.png" alt="You Listen" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Listen</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/53.png" alt="You Practice" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Practice</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/54.png" alt="You Jam" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Jam</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/55.png" alt="You Colour" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Colour</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/56.png" alt="You Rest" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Rest</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/57.png" alt="You Heal" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Heal</p></div></div>
+    <div style="background:rgba(237,212,178,0.03);border:0.5px solid rgba(237,212,178,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;aspect-ratio:3/2;overflow:hidden;"><img src="About Page Images/58.png" alt="You Become Family" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.4s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.88)'"/></div><div style="padding:clamp(0.7rem,1.5vw,1rem);"><p style="font-family:'Josefin Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#EDD4B2;margin:0;">You Become Family</p></div></div>
   </div>
-
-  <!-- Dot indicators -->
-  <div id="tk-dots" style="display:flex;justify-content:center;gap:0.4rem;margin-top:1.4rem;"></div>
-  <script>
-  try {
-    (function() {
-      var track = document.getElementById('tk-cards-track');
-      var dotsEl = document.getElementById('tk-dots');
-      if (!track || !dotsEl) return;
-      var cards = track.querySelectorAll(':scope > div[style*="flex:0"]');
-      var n = cards.length;
-      var dots = [];
-      for (var i = 0; i < n; i++) {
-        var d = document.createElement('span');
-        d.style.cssText = 'display:inline-block;width:5px;height:5px;border-radius:50%;background:rgba(176,96,48,0.3);transition:background 0.3s;cursor:pointer;';
-        (function(idx){ d.addEventListener('click', function(){ cards[idx].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'}); }); })(i);
-        dotsEl.appendChild(d);
-        dots.push(d);
-      }
-      function update() {
-        var tw = track.clientWidth;
-        var idx = Math.round(track.scrollLeft / (cards[0] ? cards[0].offsetWidth + 8 : tw));
-        idx = Math.max(0, Math.min(n - 1, idx));
-        dots.forEach(function(d, i){ d.style.background = i === idx ? '#B06030' : 'rgba(176,96,48,0.3)'; });
-      }
-      track.addEventListener('scroll', update, { passive: true });
-      update();
-    })();
-  } catch(e) {}
-  </script>
 </section>
 
 <!-- ── HEALING AT MOON VIDEO ──────────────────────────────── -->
