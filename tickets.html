@@ -177,12 +177,13 @@
     .jcard-desc {
       font-family: 'Open Sans', sans-serif;
       font-size: clamp(0.74rem,1vw,0.84rem);
-      font-weight: 300;
+      font-weight: 600;
       line-height: 1.75;
-      color: rgba(237,212,178,0.55);
+      color: rgba(237,212,178,0.75);
       margin-bottom: 1.1rem;
     }
-    .jcard-desc strong { color: rgba(237,212,178,0.85); font-weight: 400; }
+    .jcard-desc strong { color: rgba(237,212,178,0.85); font-weight: 600; }
+    .jcard-desc em { font-style: normal; font-weight: 300; color: rgba(237,212,178,0.45); }
     .jcard-badge {
       display: inline-block;
       font-family: 'Josefin Sans', sans-serif;
@@ -1637,7 +1638,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
     <div class="join-card-outer">
       <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
         <div class="jcard-num">Stay + Festival Pass</div>
-        <div class="jcard-desc">Your stay and the <strong>full festival</strong>, together.</div>
+        <div class="jcard-desc">Your stay &amp; the full festival, together.</div>
       </button>
     </div>
 
@@ -1645,7 +1646,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
     <div class="join-card-outer">
       <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
         <div class="jcard-num">Festival Only Pass</div>
-        <div class="jcard-desc">Just the festival — sort your own stay.</div>
+        <div class="jcard-desc">Just the festival<em> — sort your own stay.</em></div>
       </button>
     </div>
 
