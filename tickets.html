@@ -147,7 +147,7 @@
       border-radius: 3px;
       padding: clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,1.8rem);
       cursor: pointer;
-      text-align: left;
+      text-align: center;
       transition: border-color 0.22s, background 0.22s;
       position: relative;
       box-sizing: border-box;
@@ -1597,19 +1597,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
     <!-- Card 1: Stay + Festival -->
     <div class="join-card-outer">
       <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
-        <svg width="52" height="28" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:0.75rem;opacity:0.75;">
-          <!-- House -->
-          <path d="M2 14 L10 6 L18 14" stroke="#B06030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M4 12.5 L4 22 L16 22 L16 12.5" stroke="#B06030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="8" y="16" width="4" height="6" rx="0.5" stroke="#B06030" stroke-width="0.8"/>
-          <!-- Plus -->
-          <line x1="21" y1="14" x2="25" y2="14" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
-          <line x1="23" y1="12" x2="23" y2="16" stroke="#B06030" stroke-width="1" stroke-linecap="round"/>
-          <!-- Ticket -->
-          <path d="M27 9 C31 8 41 8 45 9 C45.5 10.2 46 11.5 45.5 12.5 C44.5 13.2 44 14 45.5 14.8 C46 15.8 45.5 17.2 45 18 C41 19 31 19 27 18 C26.5 17 26 15.8 27.5 14.8 C29 14 28.5 13.2 27.5 12.5 C27 11.5 26.5 10.2 27 9 Z" stroke="#B06030" stroke-width="1" fill="none" stroke-linejoin="round"/>
-          <line x1="31.5" y1="9.5" x2="31.5" y2="18" stroke="#B06030" stroke-width="0.75" stroke-dasharray="2 1.5"/>
-          <circle cx="37.5" cy="13.5" r="1.8" stroke="#B06030" stroke-width="0.8" fill="none"/>
-        </svg>
+        <svg width="38" height="38" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.75rem;opacity:0.75;"><path d="M2 10 L10 3 L18 10" stroke="#B06030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 9 L4 17 L16 17 L16 9" stroke="#B06030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="12" width="4" height="5" rx="0.5" stroke="#B06030" stroke-width="0.8"/></svg>
         <div class="jcard-num">Stay + Festival Pass</div>
         <div class="jcard-desc">Your stay &amp; the full festival, together.</div>
       </button>
@@ -1618,7 +1606,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
     <!-- Card 2: Festival Only -->
     <div class="join-card-outer">
       <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:0.75rem;opacity:0.75;"><path d="M3 10 C3 10 5 8 7 10 C9 12 11 8 13 10 C15 12 17 8 19 10 C21 12 23 10 25 10" stroke="#B06030" stroke-width="1" stroke-linecap="round"/><rect x="3" y="12" width="22" height="12" rx="1.5" stroke="#B06030" stroke-width="1"/><line x1="9" y1="12" x2="9" y2="24" stroke="#B06030" stroke-width="0.75"/><line x1="19" y1="12" x2="19" y2="24" stroke="#B06030" stroke-width="0.75"/><circle cx="14" cy="18" r="2" stroke="#B06030" stroke-width="0.9"/></svg>
+        <svg width="38" height="38" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.75rem;opacity:0.75;"><path d="M3 10 C3 10 5 8 7 10 C9 12 11 8 13 10 C15 12 17 8 19 10 C21 12 23 10 25 10" stroke="#B06030" stroke-width="1" stroke-linecap="round"/><rect x="3" y="12" width="22" height="12" rx="1.5" stroke="#B06030" stroke-width="1"/><line x1="9" y1="12" x2="9" y2="24" stroke="#B06030" stroke-width="0.75"/><line x1="19" y1="12" x2="19" y2="24" stroke="#B06030" stroke-width="0.75"/><circle cx="14" cy="18" r="2" stroke="#B06030" stroke-width="0.9"/></svg>
         <div class="jcard-num">Festival Only Pass</div>
         <div class="jcard-desc">Just the festival<em> — sort your own stay.</em></div>
       </button>
