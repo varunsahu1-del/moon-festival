@@ -140,75 +140,84 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      background: rgba(237,212,178,0.04);
-      border: 1.5px solid rgba(237,212,178,0.12);
-      border-radius: 12px;
-      padding: clamp(1rem,2.5vw,1.4rem) clamp(0.9rem,2vw,1.2rem);
+      gap: 0;
+      background: transparent;
+      border: 1px solid rgba(176,96,48,0.3);
+      border-radius: 0;
+      padding: clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,1.8rem);
       cursor: pointer;
       text-align: left;
-      transition: border-color 0.2s, background 0.2s, transform 0.18s;
+      transition: border-color 0.22s, background 0.22s;
       position: relative;
-      overflow: hidden;
     }
     .join-card:hover {
-      border-color: rgba(176,96,48,0.5);
-      background: rgba(176,96,48,0.06);
-      transform: translateY(-2px);
+      border-color: rgba(176,96,48,0.65);
+      background: rgba(176,96,48,0.04);
     }
     .join-card--active {
-      border-color: #B06030;
-      background: rgba(176,96,48,0.1);
+      border-color: rgba(176,96,48,0.75);
+      background: rgba(176,96,48,0.06);
     }
     .jcard-num {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.55rem,0.8vw,0.65rem);
-      font-weight: 700;
-      letter-spacing: 0.18em;
+      font-size: clamp(0.52rem,0.75vw,0.6rem);
+      font-weight: 400;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: #B06030;
+      color: rgba(176,96,48,0.7);
+      margin-bottom: 0.9rem;
     }
     .jcard-title {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.78rem,1.3vw,1rem);
+      font-size: clamp(0.82rem,1.3vw,1rem);
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #EDD4B2;
-      margin-bottom: 0.4rem;
-      line-height: 1.3;
+      margin-bottom: 1rem;
+      line-height: 1.4;
     }
     .jcard-desc {
       font-family: 'Open Sans', sans-serif;
-      font-size: clamp(0.72rem,1vw,0.82rem);
+      font-size: clamp(0.74rem,1vw,0.84rem);
       font-weight: 300;
-      line-height: 1.6;
-      color: rgba(237,212,178,0.7);
+      line-height: 1.75;
+      color: rgba(237,212,178,0.55);
+      margin-bottom: 1.1rem;
     }
-    .jcard-desc strong { color: #EDD4B2; font-weight: 600; }
+    .jcard-desc strong { color: rgba(237,212,178,0.85); font-weight: 400; }
     .jcard-badge {
       display: inline-block;
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.58rem;
+      font-size: 0.52rem;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #B06030;
-      border: 1px solid rgba(176,96,48,0.5);
-      border-radius: 3px;
-      padding: 0.2em 0.55em;
-      margin-top: 0.5rem;
+      color: rgba(176,96,48,0.85);
+      border: 1px solid rgba(176,96,48,0.4);
+      border-radius: 0;
+      padding: 0.3em 0.7em;
+      margin-top: auto;
+      align-self: flex-start;
     }
-    .jcard-icon {
-      font-size: 1.1rem;
-      opacity: 0.5;
-      align-self: flex-end;
+    .jcard-icon { display: none; }
+    .jcard-cta {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(176,96,48,0.7);
+      margin-top: auto;
+      padding-top: 1.2rem;
+      transition: color 0.2s;
     }
-    .join-card--active .jcard-icon { opacity: 0.9; }
-    @media (max-width: 500px) {
-      #join-cards { flex-direction: column; }
-      .join-card { flex-direction: row; align-items: flex-start; gap: 0.9rem; }
-      .jcard-icon { display: none; }
+    .join-card:hover .jcard-cta,
+    .join-card--active .jcard-cta { color: #B06030; }
+    @media (max-width: 540px) {
+      #join-cards { flex-direction: column; gap: 0; }
+      .join-card { border-bottom: none; }
+      .join-card:last-child { border-bottom: 1px solid rgba(176,96,48,0.3); }
     }
 
     .ticket-tabs-bar {
@@ -1737,27 +1746,23 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
   </div>
 
   <!-- Two-way selector cards -->
-  <div id="join-cards" style="display:flex;gap:clamp(0.8rem,2vw,1.2rem);max-width:700px;margin:0 auto clamp(1.4rem,3vw,2rem);padding:0 clamp(0.6rem,3vw,1.2rem);">
+  <div id="join-cards" style="display:flex;gap:0;max-width:720px;margin:0 auto clamp(1.4rem,3vw,2rem);padding:0 clamp(0.6rem,3vw,1.2rem);">
 
     <!-- Card 1: Stay + Festival -->
     <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
-      <div class="jcard-num">1</div>
-      <div class="jcard-body">
-        <div class="jcard-title">Stay + Festival Pass</div>
-        <div class="jcard-desc">Your stay and the <strong>full festival</strong>, together. Choose from <strong>5 places</strong> to stay.</div>
-        <div class="jcard-badge">Most Popular</div>
-      </div>
-      <div class="jcard-icon">🎟</div>
+      <div class="jcard-num">Option 1</div>
+      <div class="jcard-title">Stay + Festival Pass</div>
+      <div class="jcard-desc">Your stay and the <strong>full festival</strong>, together.<br>Choose from <strong>5 places</strong> to stay.</div>
+      <div class="jcard-badge">Most Popular</div>
+      <div class="jcard-cta">View options →</div>
     </button>
 
     <!-- Card 2: Festival Only -->
     <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
-      <div class="jcard-num">2</div>
-      <div class="jcard-body">
-        <div class="jcard-title">Festival Only Pass</div>
-        <div class="jcard-desc">Just the festival — sort your own stay.</div>
-      </div>
-      <div class="jcard-icon">🎟</div>
+      <div class="jcard-num">Option 2</div>
+      <div class="jcard-title">Festival Only Pass</div>
+      <div class="jcard-desc">Just the festival — sort your own stay.</div>
+      <div class="jcard-cta">View options →</div>
     </button>
 
   </div>
