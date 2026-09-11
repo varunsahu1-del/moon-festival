@@ -3323,16 +3323,16 @@ function daoConfirm() {
   if (selectedTribalRadio) {
     addonParts.push('0:Tribal Lunch (' + selectedTribalRadio.value + ' Nov)');
   }
-  const totalPrice = (_daoBase + addonTotal) * _daoCount + addonPerScooter;
+  const baseOnlyPrice = _daoBase * _daoCount;
+  const totalPrice = baseOnlyPrice + addonTotal + addonPerScooter;
   const addonsStr = addonParts.join('|');
   // Persist addons in sessionStorage so book.html can recover them if URL params are lost
   try {
     sessionStorage.setItem('mf_pending_addons', addonsStr);
-    sessionStorage.setItem('mf_pending_price', String(baseOnlyPrice)); // base only — addons stored separately
+    sessionStorage.setItem('mf_pending_price', String(baseOnlyPrice));
     sessionStorage.setItem('mf_pending_venue', _daoVenue);
     sessionStorage.setItem('mf_pending_room', _daoRoomType);
   } catch(e) {}
-  const baseOnlyPrice = _daoBase * _daoCount;
   let url = 'book.html?venue=' + encodeURIComponent(_daoVenue)
           + '&room=' + encodeURIComponent(_daoRoomType)
           + '&price=' + baseOnlyPrice
