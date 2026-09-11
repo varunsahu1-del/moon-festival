@@ -1555,14 +1555,14 @@
 <!-- Healing video lightbox -->
 <div id="healingLightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;" onclick="closeHealingVideo()">
   <div style="width:min(92vw,1100px);position:relative;" onclick="event.stopPropagation()">
-    <iframe id="healingFrame" style="width:100%;aspect-ratio:16/9;display:block;border:none;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <iframe id="healingFrame" style="width:100%;aspect-ratio:16/9;display:block;border:none;" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
     <button onclick="closeHealingVideo()" style="position:absolute;top:-2.4rem;right:0;background:none;border:none;color:rgba(237,212,178,0.6);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">✕ Close</button>
   </div>
 </div>
 <script>
 function openHealingVideo(id) {
   id = id || 'qW4hjrnIBMM';
-  document.getElementById('healingFrame').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&showinfo=0';
+  document.getElementById('healingFrame').src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&showinfo=0&origin=' + encodeURIComponent(window.location.origin);
   document.getElementById('healingLightbox').style.display = 'flex';
 }
 function closeHealingVideo() {
