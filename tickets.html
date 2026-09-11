@@ -160,22 +160,23 @@
     }
     .jcard-num {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.52rem,0.75vw,0.6rem);
-      font-weight: 400;
-      letter-spacing: 0.25em;
+      font-size: clamp(0.9rem,1.5vw,1.15rem);
+      font-weight: 700;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(176,96,48,0.7);
-      margin-bottom: 0.9rem;
+      color: #EDD4B2;
+      margin-bottom: 0.55rem;
+      line-height: 1.3;
     }
     .jcard-title {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.82rem,1.3vw,1rem);
-      font-weight: 700;
-      letter-spacing: 0.22em;
+      font-size: clamp(0.58rem,0.85vw,0.68rem);
+      font-weight: 300;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: #EDD4B2;
-      margin-bottom: 1rem;
-      line-height: 1.4;
+      color: rgba(237,212,178,0.55);
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
     }
     .jcard-desc {
       font-family: 'Open Sans', sans-serif;
@@ -1750,8 +1751,8 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
 
     <!-- Card 1: Stay + Festival -->
     <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
-      <div class="jcard-num">Option 1</div>
-      <div class="jcard-title">Stay + Festival Pass</div>
+      <div class="jcard-num">Stay + Festival Pass</div>
+      <div class="jcard-title">Option 1</div>
       <div class="jcard-desc">Your stay and the <strong>full festival</strong>, together.<br>Choose from <strong>5 places</strong> to stay.</div>
 
       <div class="jcard-cta">View options →</div>
@@ -1759,8 +1760,8 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeHeal
 
     <!-- Card 2: Festival Only -->
     <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
-      <div class="jcard-num">Option 2</div>
-      <div class="jcard-title">Festival Only Pass</div>
+      <div class="jcard-num">Festival Only Pass</div>
+      <div class="jcard-title">Option 2</div>
       <div class="jcard-desc">Just the festival — sort your own stay.</div>
       <div class="jcard-cta">View options →</div>
     </button>
