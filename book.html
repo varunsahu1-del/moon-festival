@@ -821,18 +821,31 @@ if (!venue || !roomType || !priceStr) {
   document.getElementById('bookSummary').textContent = 'No room selected.';
 } else {
   const base  = parseInt(priceStr, 10);
-  const gst   = Math.round(base * (window._GST_RATE || 0.05));
-  const total = base + gst;
   const fmt   = n => '₹' + n.toLocaleString('en-IN');
 
   const isFestivalOnly = venue === 'Festival Access';
   const checkIn  = hasExtraDay ? '26 Nov' : '27 Nov';
 
+  // Parse addons early so we can include them in GST/total
+  const addonItemsEarly = addonsRaw
+    ? addonsRaw.split('|').map(a => {
+        const idx = a.indexOf(':');
+        return { price: parseInt(a.slice(0, idx), 10) || 0, name: a.slice(idx + 1).trim() };
+      })
+    : [];
+  const addonTotal = addonItemsEarly.reduce((sum, a) => {
+    const isFlat = a.name.toLowerCase().includes('scooter');
+    return sum + (isFlat ? a.price : a.price * guestCount);
+  }, 0);
+
+  const gst   = Math.round((base + addonTotal) * (window._GST_RATE || 0.05));
+  const total = base + addonTotal + gst;
+
   document.getElementById('bsVenueLine').textContent = venue;
   document.getElementById('bsRoomLine').textContent  = roomType;
   document.getElementById('bsDateLine').textContent  = isFestivalOnly ? '' : checkIn + ' – 30 Nov';
   document.getElementById('bpTotal').textContent     = fmt(total);
-  document.getElementById('bpBreakdown').textContent = fmt(base) + ' + GST';
+  document.getElementById('bpBreakdown').textContent = fmt(base + addonTotal) + ' + GST';
   document.getElementById('bookSummaryCard').style.display = 'block';
   document.getElementById('bpGstLine').textContent   = fmt(gst);
   document.getElementById('bpTotalLine').textContent = fmt(total);
@@ -849,13 +862,7 @@ if (!venue || !roomType || !priceStr) {
   const roomNote = ROOM_NOTES[roomType];
   if (roomNote) { noteEl.textContent = roomNote; noteEl.style.display = 'block'; }
 
-  // Parse addons into {price, name} pairs
-  const addonItems = addonsRaw
-    ? addonsRaw.split('|').map(a => {
-        const idx = a.indexOf(':');
-        return { price: parseInt(a.slice(0, idx), 10) || 0, name: a.slice(idx + 1).trim() };
-      })
-    : [];
+  const addonItems = addonItemsEarly;
 
   // Paid row: name left, price right
   const row = (label, amt) => {
