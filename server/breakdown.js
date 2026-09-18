@@ -7,8 +7,8 @@ const { GST_RATE } = require('./inventory');
  * This function reverses that to show the full itemised breakdown.
  */
 function computeBreakdown(booking) {
-  const storedTotal = parseInt(String(booking.total_price || '0').replace(/[^\d]/g, ''), 10) || 0;
-  const discount    = parseInt(String(booking.discount    || '0').replace(/[^\d]/g, ''), 10) || 0;
+  const storedTotal = Math.round(parseFloat(String(booking.total_price || '0').replace(/[^\d.]/g, '')) || 0);
+  const discount    = Math.round(parseFloat(String(booking.discount    || '0').replace(/[^\d.]/g, '')) || 0);
   const collected   = !!booking.addons_collected;
 
   function parseParts(str) {

@@ -213,7 +213,7 @@ async function sendConfirmation({ booking, guests }) {
     + '<tr><td style="' + LBL + '">Accommodation</td></tr>'
     + '<tr><td style="' + VAL + '">' + booking.venue + ' &nbsp;·&nbsp; ' + booking.room_type + '</td></tr>'
     + '<tr><td style="' + LBL + '">Amount Paid</td></tr>'
-    + '<tr><td style="' + VAL0 + '">₹' + Math.round(parseInt(String(booking.total_price).replace(/[^\d]/g,''),10) * 1.05).toLocaleString('en-IN') + '<span style="font-size:12px;color:' + C.muted + ';font-weight:300;"> (incl. 5% GST)</span></td></tr>'
+    + '<tr><td style="' + VAL0 + '">₹' + Math.round((parseFloat(String(booking.total_price).replace(/[^\d.]/g,''))||0) * 1.05).toLocaleString('en-IN') + '<span style="font-size:12px;color:' + C.muted + ';font-weight:300;"> (incl. 5% GST)</span></td></tr>'
     + '</table>'
     + '</td></tr>'
 
@@ -320,7 +320,7 @@ async function sendConfirmation({ booking, guests }) {
       + '</tr>';
   }).join('');
 
-  const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
+  const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,'')) || 0);
   const totalWithGst = Math.round(baseAmt * 1.05);
 
   const paymentLabel = { upi: 'UPI', bank_transfer: 'Bank Transfer', razorpay: 'Razorpay', cash: 'Cash' };
@@ -408,7 +408,7 @@ async function sendFailedPaymentAlert({ booking, guests }) {
       + '</tr>';
   }).join('');
 
-  const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
+  const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,'')) || 0);
   const totalWithGst = Math.round(baseAmt * 1.05);
 
   const addonsRow = addonItems.length
@@ -464,8 +464,8 @@ async function sendModificationEmail({ booking, guests, oldVenue, oldRoomType, o
   const primary  = guests[0];
   const firstName = primary.full_name.split(' ')[0];
 
-  const newAmtFmt  = '₹' + Math.round(Number(String(booking.total_price).replace(/[^\d]/g,'')) * 1.05).toLocaleString('en-IN') + ' <span style="font-size:11px;font-weight:300;color:' + C.muted + ';">(incl. GST)</span>';
-  const oldAmtFmt  = '₹' + Math.round(Number(String(oldPrice).replace(/[^\d]/g,'')) * 1.05).toLocaleString('en-IN') + ' <span style="font-size:11px;font-weight:300;color:' + C.muted + ';">(incl. GST)</span>';
+  const newAmtFmt  = '₹' + Math.round((parseFloat(String(booking.total_price).replace(/[^\d.]/g,''))||0) * 1.05).toLocaleString('en-IN') + ' <span style="font-size:11px;font-weight:300;color:' + C.muted + ';">(incl. GST)</span>';
+  const oldAmtFmt  = '₹' + Math.round((parseFloat(String(oldPrice).replace(/[^\d.]/g,''))||0) * 1.05).toLocaleString('en-IN') + ' <span style="font-size:11px;font-weight:300;color:' + C.muted + ';">(incl. GST)</span>';
   const extraFmt   = extraAmount > 0 ? '₹' + Math.round(extraAmount * 1.05).toLocaleString('en-IN') : null;
 
   const paymentRow = extraFmt
@@ -749,7 +749,7 @@ async function sendUpiAlert({ booking, guests }) {
   if (!process.env.RESEND_API_KEY) return;
   
   const primary = guests[0] || {};
-  const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
+  const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,'')) || 0);
   const totalWithGst = Math.round(baseAmt * 1.05);
   const ADMIN_EMAILS = ['moonyogaadventures@gmail.com'];
 
@@ -810,7 +810,7 @@ async function sendUpiPendingGuest({ booking, guests }) {
   
   const primary = guests[0] || {};
   const firstName = (primary.full_name || 'there').split(' ')[0];
-  const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
+  const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,'')) || 0);
   const totalWithGst = Math.round(baseAmt * 1.05);
 
   const addonItems = booking.addons

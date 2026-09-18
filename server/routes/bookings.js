@@ -108,9 +108,9 @@ router.post('/create', async (req, res) => {
 
     const booking_ref = nextRef();
 
-    // Extract numeric price (e.g. "₹45,500" → 45500), then add 5% GST for Razorpay
-    const amountRaw = String(totalPrice).replace(/[^\d]/g, '');
-    const baseAmount = parseInt(amountRaw, 10);
+    // Normalize price: strip currency/commas but keep decimal, then round (guards against raw JS floats like "21000.0")
+    const amountRaw = String(totalPrice).replace(/[^\d.]/g, '');
+    const baseAmount = Math.round(parseFloat(amountRaw) || 0);
 
     // Server-side price floor: client cannot submit less than the active phase price × guest count
     const priceTiers = PRICING[venue]?.[roomType];
@@ -185,7 +185,8 @@ router.post('/create', async (req, res) => {
         db.exec('ROLLBACK');
         return res.status(409).json({ error: finalCheck.reason, sold_out: true });
       }
-      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, totalPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase());
+      const storedPrice = '₹' + baseAmount.toLocaleString('en-IN');
+      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase());
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
         const normCity = normalizeCity(g.city);
@@ -463,7 +464,7 @@ router.post('/upi-collect', async (req, res) => {
     const primaryGuest = guests[0];
 
     // Amount in paise (booking total_price is base; add 5% GST)
-    const amountRaw = String(booking.total_price).replace(/[^\d]/g, '');
+    const amountRaw = String(booking.total_price).replace(/[^\d.]/g, '');
     const amountWithGst = Math.round(parseInt(amountRaw, 10) * 1.05);
 
     // Create Razorpay UPI collect payment
@@ -548,7 +549,7 @@ router.post('/razorpay-order', async (req, res) => {
   if (booking.status === 'paid') return res.status(400).json({ error: 'Already paid' });
   const rzp = getRazorpay();
   if (!rzp) return res.status(503).json({ error: 'Razorpay not configured' });
-  const baseInr = parseInt(String(booking.total_price).replace(/[^\d]/g, ''), 10) || 0;
+  const baseInr = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g, '')) || 0);
   const withGst = Math.round(baseInr * 1.05);
   const amountPaise = Math.round(withGst * 1.0236) * 100;
   try {
@@ -583,7 +584,7 @@ router.get('/lookup', (req, res) => {
   const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(ref);
   if (!booking) return res.status(404).json({ error: 'Not found' });
   const guests = db.prepare('SELECT full_name, email, whatsapp, gender FROM guests WHERE booking_id=? ORDER BY guest_number').all(booking.id);
-  const baseAmt = parseInt(String(booking.total_price).replace(/[^\d]/g, ''), 10) || 0;
+  const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g, '')) || 0);
   res.json({
     booking_ref:       booking.booking_ref,
     venue:             booking.venue,
