@@ -684,10 +684,15 @@
         <script>if(location.hostname==='localhost'||location.hostname==='127.0.0.1')document.getElementById('fillTestDataBtn').style.display='block';</script>
         <div id="bookingPersons"></div>
 
-        <!-- Notes to organizer -->
-        <div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid rgba(176,96,48,0.15);">
-          <label class="booking-label" for="bf-organizer-note" style="display:block;margin-bottom:0.5rem;">Notes to Organizer <span style="font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.06em;text-transform:none;font-size:0.6rem;">(optional)</span></label>
-          <textarea class="booking-input" id="bf-organizer-note" rows="3" placeholder="Roommate requests, dietary requirements, accessibility needs, special requests…" style="resize:vertical;min-height:72px;line-height:1.5;"></textarea>
+        <!-- Notes to organizer accordion -->
+        <div style="margin-top:2rem;">
+          <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;" onclick="(function(){var f=document.getElementById('notesFields');var i=document.getElementById('notesToggleIcon');var open=f.style.display!=='none'&&f.style.display!=='';f.style.display=open?'none':'block';i.textContent=open?'+':'−';})()">
+            <span id="notesToggleIcon" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:0.5px solid rgba(176,96,48,0.5);color:rgba(237,212,178,0.6);font-size:0.85rem;line-height:1;flex-shrink:0;">+</span>
+            <span class="booking-label" style="margin:0;cursor:pointer;">Add special requests <span style="font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.06em;text-transform:none;font-size:0.6rem;">(roommate, dietary, accessibility…)</span></span>
+          </label>
+          <div id="notesFields" style="display:none;margin-top:1rem;">
+            <textarea class="booking-input" id="bf-organizer-note" rows="3" placeholder="Roommate requests, dietary requirements, accessibility needs, special requests…" style="resize:vertical;min-height:72px;line-height:1.5;"></textarea>
+          </div>
         </div>
 
         <!-- Billing details toggle -->
