@@ -328,9 +328,9 @@
     }
     .wa-cc-select:focus { border-color: #B06030; background: rgba(176,96,48,0.28); }
 
-    /* GST checkbox */
-    #gstToggle:checked { background: #B06030; border-color: #B06030; }
-    #gstToggle:checked::after { content: ''; display: block; width: 4px; height: 8px; border: 1.5px solid #EDD4B2; border-top: none; border-left: none; transform: rotate(45deg) translate(2px, -1px); position: absolute; top: 1px; left: 4px; }
+    /* Billing toggle checkbox */
+    #billingToggle:checked { background: #B06030; border-color: #B06030; }
+    #billingToggle:checked::after { content: ''; display: block; width: 4px; height: 8px; border: 1.5px solid #EDD4B2; border-top: none; border-left: none; transform: rotate(45deg) translate(2px, -1px); position: absolute; top: 1px; left: 4px; }
 
     /* Custom state picker */
     .state-picker-wrap { position: relative; }
@@ -690,19 +690,27 @@
           <textarea class="booking-input" id="bf-organizer-note" rows="3" placeholder="Roommate requests, dietary requirements, accessibility needs, special requests…" style="resize:vertical;min-height:72px;line-height:1.5;"></textarea>
         </div>
 
-        <!-- GST checkbox toggle -->
+        <!-- Billing details toggle -->
         <div style="margin-top:2rem;">
           <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;">
-            <input type="checkbox" id="gstToggle" onchange="document.getElementById('gstFields').style.display=this.checked?'block':'none'" style="appearance:none;-webkit-appearance:none;width:16px;height:16px;border:0.5px solid rgba(176,96,48,0.5);background:transparent;cursor:pointer;flex-shrink:0;position:relative;" />
-            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.55);">I have a GST number</span>
+            <input type="checkbox" id="billingToggle" onchange="document.getElementById('billingFields').style.display=this.checked?'block':'none'" style="appearance:none;-webkit-appearance:none;width:16px;height:16px;border:0.5px solid rgba(176,96,48,0.5);background:transparent;cursor:pointer;flex-shrink:0;position:relative;" />
+            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.55);">Add billing details</span>
           </label>
-          <div id="gstFields" style="display:none;margin-top:1.2rem;">
+          <div id="billingFields" style="display:none;margin-top:1.2rem;">
             <div class="booking-field">
-              <label class="booking-label" for="bf-gst-number">GSTIN</label>
+              <label class="booking-label" for="bf-address-1">Address</label>
+              <input class="booking-input" id="bf-address-1" type="text" placeholder="Flat / Building / Street" />
+            </div>
+            <div class="booking-field">
+              <label class="booking-label" for="bf-pin-1">PIN Code</label>
+              <input class="booking-input" id="bf-pin-1" type="text" placeholder="400052" maxlength="6" />
+            </div>
+            <div class="booking-field">
+              <label class="booking-label" for="bf-gst-number">GSTIN <span style="font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.06em;text-transform:none;font-size:0.6rem;">(optional)</span></label>
               <input class="booking-input" id="bf-gst-number" type="text" placeholder="22AAAAA0000A1Z5" maxlength="15" style="text-transform:uppercase;" />
             </div>
             <div class="booking-field">
-              <label class="booking-label" for="bf-gst-name">Company / Legal Name</label>
+              <label class="booking-label" for="bf-gst-name">Company / Legal Name <span style="font-weight:300;color:rgba(237,212,178,0.35);letter-spacing:0.06em;text-transform:none;font-size:0.6rem;">(optional)</span></label>
               <input class="booking-input" id="bf-gst-name" type="text" placeholder="As per GST registration" />
             </div>
           </div>
@@ -1010,11 +1018,7 @@ function buildPersonFields(count) {
       + '<input class="booking-input" id="bf-age-' + i + '" type="number" placeholder="Age (18+)" min="18" max="99" />'
       + '</div>'
       + (i === 1 ? (
-          '<div class="booking-field">'
-        + '<label class="booking-label" for="bf-address-1">Address <span style="font-weight:300;color:rgba(237,212,178,0.4);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(for invoice)</span></label>'
-        + '<input class="booking-input" id="bf-address-1" type="text" placeholder="Flat / Building / Street" />'
-        + '</div>'
-        + '<div class="booking-field"><label class="booking-label">State</label>'
+          '<div class="booking-field"><label class="booking-label">State</label>'
         + '<div class="state-picker-wrap" id="bf-state-wrap-1">'
         + '<button type="button" class="state-picker-btn" id="bf-state-btn-1" aria-haspopup="listbox" tabindex="0">'
         + '<span id="bf-state-label-1">Select state</span>'
@@ -1024,10 +1028,6 @@ function buildPersonFields(count) {
         + '<div class="state-picker-dd" id="bf-state-dd-1" role="listbox">'
         + ['Outside India','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Delhi'].map(s => '<div class="state-picker-opt" data-value="' + s + '">' + s + '</div>').join('')
         + '</div></div></div>'
-        + '<div class="booking-field">'
-        + '<label class="booking-label" for="bf-pin-1">PIN Code</label>'
-        + '<input class="booking-input" id="bf-pin-1" type="text" placeholder="400052" maxlength="6" />'
-        + '</div>'
       ) : '')
       + '<div class="booking-field" id="bf-gender-wrap-' + i + '">'
       + '<label class="booking-label">Gender</label>'
@@ -1128,7 +1128,6 @@ function _restoreFormData() {
       if (r) r.checked = true;
     }
   }
-  if (d.address) set('bf-address-1', d.address);
   if (d.state) {
     set('bf-state-1', d.state);
     const lbl = document.getElementById('bf-state-label-1');
@@ -1136,11 +1135,12 @@ function _restoreFormData() {
     if (lbl) lbl.textContent = d.state;
     if (btn) btn.classList.add('has-value');
   }
-  if (d.pin)      set('bf-pin-1', d.pin);
   if (d.note)     set('bf-organizer-note', d.note);
-  if (d.gst_num || d.gst_name) {
-    document.getElementById('gstToggle').checked = true;
-    document.getElementById('gstFields').style.display = 'block';
+  if (d.address || d.pin || d.gst_num || d.gst_name) {
+    document.getElementById('billingToggle').checked = true;
+    document.getElementById('billingFields').style.display = 'block';
+    if (d.address) set('bf-address-1', d.address);
+    if (d.pin)     set('bf-pin-1', d.pin);
     set('bf-gst-number', d.gst_num);
     set('bf-gst-name',   d.gst_name);
   }
@@ -1198,12 +1198,9 @@ function devAutofill() {
     const maleRadio = document.getElementById('bf-gender-' + n + '-m');
     if (maleRadio) maleRadio.checked = true;
   }
-  const addr     = document.getElementById('bf-address-1');
   const stateInp = document.getElementById('bf-state-1');
   const stateLbl = document.getElementById('bf-state-label-1');
   const stateBtn = document.getElementById('bf-state-btn-1');
-  const pin      = document.getElementById('bf-pin-1');
-  if (addr)  addr.value = 'B/202 Shree Amrit CHS, Carter Road';
   if (stateInp) {
     stateInp.value = 'Maharashtra';
     if (stateLbl) stateLbl.textContent = 'Maharashtra';
@@ -1211,7 +1208,6 @@ function devAutofill() {
     document.querySelectorAll('#bf-state-dd-1 .state-picker-opt')
       .forEach(o => o.classList.toggle('selected', o.dataset.value === 'Maharashtra'));
   }
-  if (pin) pin.value = '400052';
 }
 
 // ── Form submit ───────────────────────────────────────────────────────────────
