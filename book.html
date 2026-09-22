@@ -344,12 +344,12 @@
       border-bottom: 0.5px solid rgba(237,212,178,0.2);
       padding: 0.5em 0;
       cursor: pointer;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(237,212,178,0.35);
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.82rem, 1.3vw, 0.9rem);
+      font-weight: 300;
+      letter-spacing: normal;
+      text-transform: none;
+      color: rgba(237,212,178,0.2);
       transition: border-color 0.2s, color 0.2s;
       outline: none;
       text-align: left;
@@ -1023,7 +1023,7 @@ function buildPersonFields(count) {
           '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0.5rem;"><label class="booking-label">State <span style="font-weight:300;color:rgba(237,212,178,0.35);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(optional)</span></label>'
         + '<div class="state-picker-wrap" id="bf-state-wrap-1">'
         + '<button type="button" class="state-picker-btn" id="bf-state-btn-1" aria-haspopup="listbox" tabindex="0">'
-        + '<span id="bf-state-label-1">Select state</span>'
+        + '<span id="bf-state-label-1">State</span>'
         + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>'
         + '</button>'
         + '<input type="hidden" id="bf-state-1" />'
