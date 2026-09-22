@@ -33,6 +33,7 @@ app.use('/api/newsletter', require('./routes/newsletter'));
 
 // Public pricing endpoint (no auth) — used by tickets.html and book.html
 app.use('/api/public/pricing', require('./routes/public-pricing'));
+app.use('/img', require('./routes/images'));
 
 // Custom payment page + API
 app.get('/pay', (req, res) => res.sendFile('pay.html', { root: path.join(__dirname, '..') }));
