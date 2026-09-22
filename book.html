@@ -1556,6 +1556,11 @@ async function reserveBankSpot(e) {
   document.getElementById('bankWaVarun').href = `https://wa.me/919820791100?text=${msg}`;
   document.getElementById('bankWaKaran').href = `https://wa.me/919930920313?text=${msg}`;
 
+  await fetch('/api/bookings/upi-pending', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ booking_ref: ref, payment_method: 'bank_transfer' }),
+  }).catch(() => {});
   window.location.href = `bank-pay.html?ref=${bookingData.booking_ref}&amount=${_payState.totalWithGst}`;
 }
 

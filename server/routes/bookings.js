@@ -241,7 +241,7 @@ router.post('/verify', async (req, res) => {
     }
 
     db.prepare(`
-      UPDATE bookings SET status='paid', razorpay_payment_id=?, paid_at=CURRENT_TIMESTAMP
+      UPDATE bookings SET status='paid', razorpay_payment_id=?, payment_method='razorpay', paid_at=CURRENT_TIMESTAMP
       WHERE razorpay_order_id=?
     `).run(razorpay_payment_id, razorpay_order_id);
 
@@ -310,7 +310,7 @@ router.post('/paylink-webhook', express.raw({ type: 'application/json' }), async
       if (pay?.order_id) {
         const booking = db.prepare('SELECT * FROM bookings WHERE razorpay_order_id=? AND deleted_at IS NULL').get(pay.order_id);
         if (booking && booking.status !== 'paid') {
-          db.prepare(`UPDATE bookings SET status='paid', razorpay_payment_id=?, paid_at=CURRENT_TIMESTAMP WHERE id=?`)
+          db.prepare(`UPDATE bookings SET status='paid', razorpay_payment_id=?, payment_method='razorpay', paid_at=CURRENT_TIMESTAMP WHERE id=?`)
             .run(pay.id, booking.id);
           db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'edit', 'Marked paid via payment.captured webhook')").run(booking.booking_ref);
           const updatedBooking = db.prepare('SELECT * FROM bookings WHERE id=?').get(booking.id);
