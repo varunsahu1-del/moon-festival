@@ -937,6 +937,44 @@ const cities = [
   'Singapore','Sydney','Tokyo','Toronto','Vancouver','Zurich'
 ];
 
+const cityStateMap = {
+  'Agra':'Uttar Pradesh','Ahmedabad':'Gujarat','Aizawl':'Mizoram','Ajmer':'Rajasthan',
+  'Aligarh':'Uttar Pradesh','Allahabad':'Uttar Pradesh','Amritsar':'Punjab',
+  'Aurangabad':'Maharashtra','Bangalore':'Karnataka','Bhopal':'Madhya Pradesh',
+  'Bhubaneswar':'Odisha','Chandigarh':'Punjab','Chennai':'Tamil Nadu',
+  'Coimbatore':'Tamil Nadu','Cuttack':'Odisha','Dehradun':'Uttarakhand','Delhi':'Delhi',
+  'Dhanbad':'Jharkhand','Faridabad':'Haryana','Ghaziabad':'Uttar Pradesh','Goa':'Goa',
+  'Guwahati':'Assam','Gwalior':'Madhya Pradesh','Howrah':'West Bengal',
+  'Hyderabad':'Telangana','Imphal':'Manipur','Indore':'Madhya Pradesh',
+  'Itanagar':'Arunachal Pradesh','Jaipur':'Rajasthan','Jalandhar':'Punjab',
+  'Jammu':'Jammu & Kashmir','Jamshedpur':'Jharkhand','Jodhpur':'Rajasthan',
+  'Kanpur':'Uttar Pradesh','Kochi':'Kerala','Kolkata':'West Bengal','Kota':'Rajasthan',
+  'Kozhikode':'Kerala','Lucknow':'Uttar Pradesh','Ludhiana':'Punjab',
+  'Madurai':'Tamil Nadu','Mangalore':'Karnataka','Meerut':'Uttar Pradesh',
+  'Mumbai':'Maharashtra','Mysore':'Karnataka','Nagpur':'Maharashtra','Nashik':'Maharashtra',
+  'Navi Mumbai':'Maharashtra','Patna':'Bihar','Pune':'Maharashtra','Raipur':'Chhattisgarh',
+  'Rajkot':'Gujarat','Ranchi':'Jharkhand','Surat':'Gujarat',
+  'Thiruvananthapuram':'Kerala','Tiruchirappalli':'Tamil Nadu','Udaipur':'Rajasthan',
+  'Vadodara':'Gujarat','Varanasi':'Uttar Pradesh','Vijayawada':'Andhra Pradesh',
+  'Visakhapatnam':'Andhra Pradesh','Warangal':'Telangana',
+};
+
+function autoFillState(cityName) {
+  const state = cityStateMap[cityName];
+  if (!state) return;
+  const btn   = document.getElementById('bf-state-btn-1');
+  const label = document.getElementById('bf-state-label-1');
+  const inp   = document.getElementById('bf-state-1');
+  if (!btn || !label || !inp) return;
+  inp.value = state;
+  label.textContent = state;
+  btn.classList.add('has-value');
+  // highlight the matching option in the dropdown
+  document.querySelectorAll('#bf-state-dd-1 .state-picker-opt').forEach(o => {
+    o.classList.toggle('selected', o.dataset.value === state);
+  });
+}
+
 function attachCityAutocomplete(input) {
   const wrap = input.closest('.city-autocomplete');
   if (!wrap) return;
@@ -952,7 +990,12 @@ function attachCityAutocomplete(input) {
     highlighted = -1;
     box.innerHTML = matches.map(c => `<div class="city-suggestion">${c}</div>`).join('');
     box.querySelectorAll('.city-suggestion').forEach(el => {
-      el.addEventListener('mousedown', () => { input.value = el.textContent; box.classList.remove('open'); });
+      el.addEventListener('mousedown', () => {
+        const city = el.textContent;
+        input.value = city;
+        box.classList.remove('open');
+        autoFillState(city);
+      });
     });
     box.classList.add('open');
   });
@@ -962,7 +1005,14 @@ function attachCityAutocomplete(input) {
     if (!items.length) return;
     if (e.key === 'ArrowDown') { e.preventDefault(); highlighted = Math.min(highlighted + 1, items.length - 1); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); highlighted = Math.max(highlighted - 1, 0); }
-    else if (e.key === 'Enter' && highlighted >= 0) { e.preventDefault(); input.value = items[highlighted].textContent; box.classList.remove('open'); return; }
+    else if (e.key === 'Enter' && highlighted >= 0) {
+      e.preventDefault();
+      const city = items[highlighted].textContent;
+      input.value = city;
+      box.classList.remove('open');
+      autoFillState(city);
+      return;
+    }
     else if (e.key === 'Escape') { box.classList.remove('open'); return; }
     items.forEach((el, i) => el.classList.toggle('highlighted', i === highlighted));
   });
@@ -975,9 +1025,8 @@ function attachCityAutocomplete(input) {
         input.value = '';
         input.placeholder = 'Select a city from the list';
       } else if (val) {
-        // Normalize to canonical casing
         const match = cities.find(c => c.toLowerCase() === val.toLowerCase());
-        if (match) input.value = match;
+        if (match) { input.value = match; autoFillState(match); }
       }
     }, 150);
   });
