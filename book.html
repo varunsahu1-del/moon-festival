@@ -687,7 +687,8 @@
         <!-- Notes to organizer toggle -->
         <div style="margin-top:2rem;">
           <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;">
-            <input type="checkbox" id="notesToggle" onchange="document.getElementById('notesFields').style.display=this.checked?'block':'none'" style="appearance:none;-webkit-appearance:none;width:16px;height:16px;border:0.5px solid rgba(176,96,48,0.5);background:transparent;cursor:pointer;flex-shrink:0;position:relative;" />
+            <input type="checkbox" id="notesToggle" onchange="document.getElementById('notesFields').style.display=this.checked?'block':'none';document.getElementById('notesToggleSign').textContent=this.checked?'−':'+'" style="display:none;" />
+            <span id="notesToggleSign" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:0.5px solid rgba(176,96,48,0.5);color:rgba(237,212,178,0.55);font-size:0.75rem;line-height:1;flex-shrink:0;cursor:pointer;" onclick="document.getElementById('notesToggle').click()">+</span>
             <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,212,178,0.55);">Add special requests</span>
           </label>
           <div id="notesFields" style="display:none;margin-top:1.2rem;">
