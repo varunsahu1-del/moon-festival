@@ -66,11 +66,11 @@ router.post('/create', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Validate every guest has a recognised gender — prevents gender-rule bypass
-    const VALID_GENDERS = new Set(['Male', 'Female']);
+    // Validate gender when provided — allows blank/null but rejects nonsense values
+    const VALID_GENDERS = new Set(['Male', 'Female', '', null, undefined]);
     for (const g of guests) {
-      if (!VALID_GENDERS.has(g.gender)) {
-        return res.status(400).json({ error: `Guest "${g.full_name || '?'}" has an invalid or missing gender. Please select Male or Female for every guest.` });
+      if (g.gender && !['Male','Female'].includes(g.gender)) {
+        return res.status(400).json({ error: `Guest "${g.full_name || '?'}" has an unrecognised gender value.` });
       }
     }
 

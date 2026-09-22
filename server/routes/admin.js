@@ -8,6 +8,7 @@ const { sendConfirmation, sendQuote } = require('../email');
 const { computeBreakdown } = require('../breakdown');
 
 const { readSettings, writeSettings, resolvePhase } = require('../settings');
+const { sendCapiPurchase } = require('../capi');
 
 const AREA_TO_CITY = {
   thane:"Mumbai",kalyan:"Mumbai",dombivli:"Mumbai","mira road":"Mumbai",vasai:"Mumbai",virar:"Mumbai",
@@ -679,6 +680,24 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
   const nowPaid = status === 'paid' && old?.status !== 'paid';
   db.prepare(`UPDATE bookings SET total_price=?, status=?, room_number=?, addons=?${nowPaid ? ", paid_at=CURRENT_TIMESTAMP" : ""} WHERE booking_ref=?`)
     .run(total_price, status, room_number || null, addons || null, req.params.ref);
+
+  // Fire Meta CAPI Purchase event when admin marks a booking as paid
+  if (nowPaid) {
+    try {
+      const bk = db.prepare('SELECT venue, room_type, total_price FROM bookings WHERE booking_ref=?').get(req.params.ref);
+      const guest1 = db.prepare('SELECT email, whatsapp FROM guests WHERE booking_id=(SELECT id FROM bookings WHERE booking_ref=?) AND guest_number=1').get(req.params.ref);
+      const amountStr = bk?.total_price || total_price || '0';
+      const amountINR = Math.round(parseFloat(String(amountStr).replace(/[^\d.]/g, '')) || 0);
+      sendCapiPurchase({
+        bookingRef: req.params.ref,
+        amountINR,
+        venue: bk?.venue || '',
+        roomType: bk?.room_type || '',
+        email: guest1?.email || '',
+        phone: guest1?.whatsapp || '',
+      });
+    } catch (e) { console.error('[capi] error preparing event:', e.message); }
+  }
 
   // Log meaningful changes
   if (old) {

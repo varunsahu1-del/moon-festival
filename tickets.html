@@ -16,7 +16,7 @@
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
   document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init','2620039581784763');fbq('track','PageView');
+  fbq('init','2620039581784763');fbq('track','PageView');fbq('track','ViewContent');
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2620039581784763&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
@@ -29,13 +29,13 @@
   <meta property="og:site_name" content="Moon Festival" />
   <meta property="og:url" content="https://moonfestival.in/tickets.html" />
   <meta property="og:title" content="Tickets — Moon Festival 2026" />
-  <meta property="og:description" content="Get your Moon Festival 2026 ticket. Choose your accommodation venue and secure your place. 27–30 November · South Goa, India." />
+  <meta property="og:description" content="Get your Moon Festival 2026 ticket. Choose your accommodation venue and secure your place. 27–29 November · South Goa, India." />
   <meta property="og:image" content="https://moonfestival.in/Home%20Page%20Images/1.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Tickets — Moon Festival 2026" />
-  <meta name="twitter:description" content="Get your Moon Festival 2026 ticket. Choose your accommodation venue and secure your place. 27–30 November · South Goa, India." />
+  <meta name="twitter:description" content="Get your Moon Festival 2026 ticket. Choose your accommodation venue and secure your place. 27–29 November · South Goa, India." />
   <meta name="twitter:image" content="https://moonfestival.in/Home%20Page%20Images/1.jpg" />
-  <meta name="description" content="Get your Moon Festival 2026 ticket. Choose your accommodation venue and secure your place. 27–30 November · South Goa, India." />
+  <meta name="description" content="Get your Moon Festival 2026 ticket. Choose your accommodation venue and secure your place. 27–29 November · South Goa, India." />
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root { --ink: #191406; --ink-2: #191406; }
@@ -1421,8 +1421,12 @@
 
 <!-- ── STICKY BOOK CTA (appears on scroll) ────────────────── -->
 <!-- ── FULL-BLEED HERO ────────────────────────────────────── -->
+<!-- ── SEE ROOMS CTA ──────────────────────────────────────── -->
+<div style="background:#191406;text-align:center;padding:1rem 1rem 0;margin-top:100px;">
+  <a href="#booking-section" onclick="event.preventDefault();document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})" style="display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;background:rgba(176,96,48,0.18);border:0.5px solid rgba(176,96,48,0.45);padding:0.55em 1.6em;cursor:pointer;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(176,96,48,0.32)'" onmouseout="this.style.background='rgba(176,96,48,0.18)'">See rooms &nbsp;↓</a>
+</div>
 <!-- ── BY THE NUMBERS ─────────────────────────────────────── -->
-<div style="background:#191406;border-bottom:0.5px solid rgba(237,212,178,0.08);padding:clamp(1.2rem,2.5vw,1.8rem) clamp(0.8rem,3vw,2rem);margin-top:100px;">
+<div style="background:#191406;border-bottom:0.5px solid rgba(237,212,178,0.08);padding:clamp(1.2rem,2.5vw,1.8rem) clamp(0.8rem,3vw,2rem);"><!-- margin-top moved to See Rooms div above -->
   <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;gap:clamp(0.8rem,3vw,2.5rem);">
     <div style="text-align:center;flex-shrink:0;"><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.1rem,3vw,2.2rem);font-weight:700;letter-spacing:0.1em;color:#EDD4B2;margin:0;line-height:1;">5</p><p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(0.5rem,1.2vw,0.6rem);font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0.3rem 0 0;">Years</p></div>
     <span style="width:1px;height:1.8rem;background:rgba(237,212,178,0.12);display:block;flex-shrink:0;"></span>
@@ -2443,12 +2447,14 @@ document.querySelectorAll('.btn-book').forEach(btn => {
     const roomType  = DISPLAY_TO_SERVER[rawRoomType] || rawRoomType;
     const priceRaw  = row.dataset.couponPrice || row.querySelector('.room-price').textContent.replace(/[^\d]/g, '');
     const count     = parseInt(row.querySelector('.stepper-count').textContent, 10) || 1;
+    try{fbq('track','AddToCart',{content_name:venueName+' · '+rawRoomType,currency:'INR',value:parseInt(priceRaw,10)*count});}catch(_){}
     window.location.href = 'book.html?venue=' + encodeURIComponent(venueName)
       + '&room=' + encodeURIComponent(roomType)
       + '&price=' + priceRaw
       + '&guests=' + count;
   });
 });
+let _pubConfig = null;
 async function getPublicConfig() {
   if (_pubConfig) return _pubConfig;
   try {
@@ -3109,7 +3115,6 @@ function openDestinyAddonModal(roomType, basePrice, count, max, venueName, extra
   document.querySelectorAll('.dao-addon-row').forEach(r => r.classList.remove('dao-selected'));
   const extraDayCb = document.getElementById('dao-extra-day-cb');
   const mealsCb    = document.getElementById('dao-meals-cb');
-  if (extraDayCb) { extraDayCb.checked = true; extraDayCb.closest('.dao-addon-row').classList.add('dao-selected'); }
   if (mealsCb)    { mealsCb.checked = true;    mealsCb.closest('.dao-addon-row').classList.add('dao-selected'); }
   daoUpdateUI();
   document.getElementById('destinyAddonOverlay').style.display = 'block';
@@ -3331,6 +3336,7 @@ function daoConfirm() {
     sessionStorage.setItem('mf_pending_venue', _daoVenue);
     sessionStorage.setItem('mf_pending_room', _daoRoomType);
   } catch(e) {}
+  try{fbq('track','AddToCart',{content_name:_daoVenue+' · '+_daoRoomType,currency:'INR',value:baseOnlyPrice*_daoCount});}catch(_){}
   let url = 'book.html?venue=' + encodeURIComponent(_daoVenue)
           + '&room=' + encodeURIComponent(_daoRoomType)
           + '&price=' + baseOnlyPrice

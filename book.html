@@ -1010,15 +1010,15 @@ function buildPersonFields(count) {
       + '<input class="booking-input" id="bf-email-' + i + '" type="email" placeholder="your@email.com" autocomplete="email" />'
       + '</div>'
       + '<div class="booking-field">'
-      + '<label class="booking-label" for="bf-city-' + i + '">City</label>'
+      + '<label class="booking-label" for="bf-city-' + i + '">City <span style="font-weight:300;color:rgba(237,212,178,0.35);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(optional)</span></label>'
       + '<div class="city-autocomplete"><input class="booking-input" id="bf-city-' + i + '" type="text" placeholder="Where are you based?" autocomplete="off" /></div>'
       + '</div>'
       + '<div class="booking-field">'
-      + '<label class="booking-label" for="bf-age-' + i + '">Age</label>'
+      + '<label class="booking-label" for="bf-age-' + i + '">Age <span style="font-weight:300;color:rgba(237,212,178,0.35);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(optional)</span></label>'
       + '<input class="booking-input" id="bf-age-' + i + '" type="number" placeholder="Age (18+)" min="18" max="99" />'
       + '</div>'
       + (i === 1 ? (
-          '<div class="booking-field"><label class="booking-label">State</label>'
+          '<div class="booking-field"><label class="booking-label">State <span style="font-weight:300;color:rgba(237,212,178,0.35);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(optional)</span></label>'
         + '<div class="state-picker-wrap" id="bf-state-wrap-1">'
         + '<button type="button" class="state-picker-btn" id="bf-state-btn-1" aria-haspopup="listbox" tabindex="0">'
         + '<span id="bf-state-label-1">Select state</span>'
@@ -1228,26 +1228,10 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     const em = document.getElementById('bf-email-' + n);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { showFieldError(em, 'Please enter a valid email address.'); valid = false; }
     const city = document.getElementById('bf-city-' + n);
-    if (!city.value.trim()) { showFieldError(city, 'Please enter your city.'); valid = false; }
-    if (n === 1) {
-      const stateVal = (document.getElementById('bf-state-1') || {}).value || '';
-      if (!stateVal) {
-        const stateBtn = document.getElementById('bf-state-btn-1');
-        if (stateBtn) { showFieldError(stateBtn, 'Please select your state.'); }
-        valid = false;
-      }
-    }
+    // city, state, age, gender are optional
     const age = document.getElementById('bf-age-' + n);
     const ageVal = parseInt(age.value, 10);
-    if (!age.value || isNaN(ageVal) || ageVal < 18 || ageVal > 99) { showFieldError(age, 'Please enter a valid age (18 or above).'); valid = false; }
-    const genderSelected = document.querySelector(`input[name="bf-gender-${n}"]:checked`);
-    if (!genderSelected) {
-      const genderWrap = document.getElementById(`bf-gender-wrap-${n}`);
-      let err = genderWrap.querySelector('.field-error');
-      if (!err) { err = document.createElement('span'); err.className = 'field-error'; genderWrap.appendChild(err); }
-      err.textContent = 'Please select a gender.';
-      valid = false;
-    }
+    if (age.value && (isNaN(ageVal) || ageVal < 18 || ageVal > 99)) { showFieldError(age, 'Age must be 18 or above.'); valid = false; }
   });
 
   if (!valid) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
