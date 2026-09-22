@@ -33,6 +33,22 @@ app.use('/api/newsletter', require('./routes/newsletter'));
 
 // Public pricing endpoint (no auth) — used by tickets.html and book.html
 app.use('/api/public/pricing', require('./routes/public-pricing'));
+
+// Public tribal lunch availability (defined in admin router but needed unauthenticated)
+app.get('/api/public/tribal-lunch', (() => {
+  const { DatabaseSync } = require('node:sqlite');
+  const db = new DatabaseSync(require('path').join(__dirname, '../data/moonfestival.db'));
+  return (req, res) => {
+    const TRIBAL_CAP = 70;
+    const byDay = {};
+    ['27','28','29'].forEach(d => {
+      const row = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as total FROM bookings WHERE status IN ('paid','pending','upi_pending') AND addons LIKE ?`).get(`%Tribal Lunch (${d} Nov)%`);
+      const booked = row ? row.total : 0;
+      byDay[d] = { booked, cap: TRIBAL_CAP, remaining: Math.max(0, TRIBAL_CAP - booked), soldOut: booked >= TRIBAL_CAP };
+    });
+    res.json({ cap: TRIBAL_CAP, byDay });
+  };
+})());
 app.use('/img', require('./routes/images'));
 
 // Custom payment page + API
