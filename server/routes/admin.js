@@ -1087,7 +1087,7 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
       callback_method: 'get',
     });
 
-    db.prepare("UPDATE bookings SET status='pending', razorpay_order_id=? WHERE booking_ref=?")
+    db.prepare("UPDATE bookings SET status='pending', razorpay_order_id=?, payment_method=NULL WHERE booking_ref=?")
       .run(plink.id, booking.booking_ref);
 
     // Auto-send modification email (with payment link) to guests and BCC admin
