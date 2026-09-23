@@ -2980,7 +2980,7 @@ document.addEventListener('keydown', e => {
         </div>
 
         <label class="dao-addon-row" id="dao-extra-day-row">
-          <span class="dao-check-wrap"><input type="checkbox" class="dao-cb" id="dao-extra-day-cb" data-price="0" /><span class="dao-box"></span></span>
+          <span class="dao-check-wrap"><input type="checkbox" class="dao-cb" id="dao-extra-day-cb" data-price="0" checked /><span class="dao-box"></span></span>
           <span class="dao-addon-info">
             <span class="dao-addon-name">Arrive Early · 26 Nov</span>
             <span class="dao-addon-desc">Festival begins 7am on the 27th</span>
@@ -3111,6 +3111,7 @@ function openDestinyAddonModal(roomType, basePrice, count, max, venueName, extra
   document.querySelectorAll('.dao-addon-row').forEach(r => r.classList.remove('dao-selected'));
   const extraDayCb = document.getElementById('dao-extra-day-cb');
   const mealsCb    = document.getElementById('dao-meals-cb');
+  if (extraDayCb) { extraDayCb.checked = true;  extraDayCb.closest('.dao-addon-row').classList.add('dao-selected'); }
   if (mealsCb)    { mealsCb.checked = true;    mealsCb.closest('.dao-addon-row').classList.add('dao-selected'); }
   daoUpdateUI();
   document.getElementById('destinyAddonOverlay').style.display = 'block';
