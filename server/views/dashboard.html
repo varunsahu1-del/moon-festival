@@ -1761,7 +1761,7 @@ async function loadStats() {
           </tr></thead>
           <tbody>
             ${passRows.map((r,i) => {
-              const b=parseInt(String(r.total_price||0).replace(/[^\d]/g,''),10)||0;
+              const b=Math.round(parseFloat(String(r.total_price||0))||0);
               const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;
               return `<tr onclick="openDrawer('${r.booking_ref}')">
               <td onclick="event.stopPropagation()"><input type="checkbox" class="pass-row-chk" data-ref="${r.booking_ref}" onchange="updatePassBulkBar()" style="accent-color:#B06030;cursor:pointer;" /></td>
@@ -2483,7 +2483,7 @@ function renderCharts() {
   allBookings.forEach(r => {
     if (seen.has(r.booking_ref) || r.status !== 'paid') return;
     seen.add(r.booking_ref);
-    const amt = parseInt(String(r.total_price).replace(/[^\d]/g, ''), 10) || 0;
+    const amt = Math.round(parseFloat(String(r.total_price))||0);
     venueRev[r.venue] = (venueRev[r.venue] || 0) + amt;
   });
   const venueEntries = Object.entries(venueRev).sort((a,b) => b[1]-a[1]);
@@ -2732,7 +2732,7 @@ function renderTable() {
     const bkGuests = bookingMap[r.booking_ref]?.guests||[];
     const roommates = bkGuests.filter(g=>g.guest_id!==r.guest_id&&g.full_name).map(g=>g.full_name);
     const roommateHtml = roommates.length ? `<span style="font-size:11px;color:rgba(42,34,24,0.55);">${roommates.join(', ')}</span>` : '<span style="color:rgba(237,212,178,0.2);font-size:11px;">—</span>';
-    const baseAmt = parseInt(String(r.total_price).replace(/[^\d]/g,''),10)||0;
+    const baseAmt = Math.round(parseFloat(String(r.total_price))||0);
     const _tblGuestCount = r.guest_count || 1;
     const _tblGuestAddonPerPerson = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
     const _tblGuestAddonAmt = _tblGuestAddonPerPerson * _tblGuestCount;
@@ -3588,7 +3588,7 @@ async function adminResendPaylink(ref, btn) {
   // Fetch booking amount to decide whether to offer split
   const r = await fetch('/admin/api/bookings/' + ref);
   const { booking } = await r.json();
-  const base = parseInt(String(booking.total_price).replace(/[^\d]/g,''), 10) || 0;
+  const base = Math.round(parseFloat(String(booking.total_price))||0);
   const totalWithGst = Math.round(base * 1.05);
 
   if (totalWithGst <= 100000) {
@@ -4086,7 +4086,7 @@ function exportFilteredCSV() {
     const isFirstGuest = i===0 || rows[i-1].booking_ref !== r.booking_ref;
     const bkGuests = (bookingMap[r.booking_ref]?.guests||[]);
     const roommates = bkGuests.filter(g=>g.guest_id!==r.guest_id&&g.full_name).map(g=>g.full_name).join('; ');
-    const baseAmt = parseInt(String(r.total_price).replace(/[^\d]/g,''),10)||0;
+    const baseAmt = Math.round(parseFloat(String(r.total_price))||0);
     const csvGuestCount = r.guest_count || 1;
     const guestAddonAmt = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0)*csvGuestCount:0;
     const extraAddonAmt = isFirstGuest?(r.extra_addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
