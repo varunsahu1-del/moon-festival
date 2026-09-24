@@ -1781,7 +1781,10 @@ async function loadStats() {
               <td><span class="badge badge-${r.status}">${r.status}</span></td>
               <td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>
               <td class="td-wrap" style="font-size:11px;color:var(--td-mid);">${r.organizer_note||'—'}</td>
-              <td onclick="event.stopPropagation()"><button onclick="resendConfirmation('${r.booking_ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.12);border:0.5px solid rgba(50,150,50,0.35);color:#2e7d32;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Confirm</button></td>
+              <td onclick="event.stopPropagation()" style="white-space:nowrap;display:flex;gap:5px;padding:8px 6px;">
+                ${r.status!=='paid'?`<button onclick="event.stopPropagation();adminResendPaylink('${r.booking_ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.12);border:0.5px solid rgba(176,96,48,0.35);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">↗ Pay Link</button>`:''}
+                <button onclick="event.stopPropagation();resendConfirmation('${r.booking_ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.12);border:0.5px solid rgba(50,150,50,0.35);color:#2e7d32;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Confirm</button>
+              </td>
             </tr>`;}).join('')}
           </tbody>
         </table>
