@@ -50,13 +50,13 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   // Sum total_price — strip non-numeric chars and sum in JS (stored as formatted string)
   const priceRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid' AND deleted_at IS NULL").all();
   const totalRevenue = priceRows.reduce((sum, r) => {
-    const base = Math.round(parseFloat(String(r.total_price)) || 0);
+    const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     return sum + Math.round(base * 1.05);
   }, 0);
 
   const pendingRows = db.prepare("SELECT total_price, extra_addons, addons_collected FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL").all();
   const pendingAmount = pendingRows.reduce((sum, r) => {
-    const accom = Math.round(parseFloat(String(r.total_price)) || 0);
+    const accom = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     const gst = Math.round(accom * GST_RATE);
     const extraAddonAmt = (!r.addons_collected && r.extra_addons)
       ? r.extra_addons.split('|').filter(Boolean).reduce((s, p) => { const ci = p.indexOf(':'); return s + (ci >= 0 ? parseInt(p.slice(0, ci)) || 0 : 0); }, 0)
@@ -93,7 +93,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   // GST from standard payment methods only (UPI, bank transfer, Razorpay — excludes custom/manual entries)
   const standardPayRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid' AND deleted_at IS NULL AND payment_method IN ('upi','bank_transfer','razorpay')").all();
   const gstFromStandardPayments = standardPayRows.reduce((sum, r) => {
-    const base = Math.round(parseFloat(String(r.total_price)) || 0);
+    const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     return sum + Math.round(base * GST_RATE);
   }, 0);
 
@@ -210,7 +210,7 @@ router.patch('/api/bookings/:ref/addons-collected', requireAdmin, (req, res) => 
   const booking = db.prepare('SELECT total_price, addons_collected FROM bookings WHERE booking_ref=?').get(req.params.ref);
   if (!booking) return res.status(404).json({ error: 'Not found' });
 
-  const baseNum = Math.round(parseFloat(String(booking.total_price)) || 0);
+  const baseNum = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,"")) || 0);
   const wasCollected = !!booking.addons_collected;
   let newBase = baseNum;
   if (collected && !wasCollected) newBase = baseNum + addonAmt;
@@ -238,7 +238,7 @@ router.post('/api/bookings/:ref/resend-paylink', requireAdmin, async (req, res) 
 
     const guests = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(booking.id);
     const primary = guests[0] || {};
-    const baseAmt = Math.round(parseFloat(String(booking.total_price)) || 0);
+    const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,"")) || 0);
     const amountWithGst = Math.round(baseAmt * 1.05);
     const amountPaise   = Math.round(amountWithGst * 1.0236) * 100;
 
@@ -462,7 +462,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
 
   const booking_ref = nextRef();
   // total_price is pre-GST base (venue + addons); apply GST then Razorpay fee
-  const baseAmt = Math.round(parseFloat(String(total_price)) || 0);
+  const baseAmt = Math.round(parseFloat(String(total_price).replace(/[^\d.]/g,"")) || 0);
   const amountWithGst = Math.round(baseAmt * 1.05);
   const amountPaise = Math.round(amountWithGst * 1.0236) * 100;
   const guest = guests[0];
@@ -979,7 +979,7 @@ router.post('/api/bookings/:ref/transfer', requireAdmin, async (req, res) => {
   }
 
   const formatted = '₹' + Number(new_total).toLocaleString('en-IN');
-  const oldBasePrice = Math.round(parseFloat(String(booking.total_price)) || 0);
+  const oldBasePrice = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,"")) || 0);
   const oldVenue = booking.venue, oldRoomType = booking.room_type, oldPrice = booking.total_price;
   // Only mark pending when upgrading to a more expensive option; never auto-promote pending→paid
   const newStatus = (booking.status === 'paid' && Number(new_total) > oldBasePrice) ? 'pending' : booking.status;
@@ -1052,8 +1052,8 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
     const guests = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(booking.id);
     const primary = guests[0] || {};
 
-    const oldAmtFmt = old_price ? `₹${Number(String(old_price).replace(/[^\d]/g,'')).toLocaleString('en-IN')}` : '';
-    const newAmtFmt = `₹${Math.round(parseFloat(String(booking.total_price))||0).toLocaleString('en-IN')}`;
+    const oldAmtFmt = old_price ? `₹${Math.round(parseFloat(String(old_price).replace(/[^\d.]/g,''))||0).toLocaleString('en-IN')}` : '';
+    const newAmtFmt = `₹${Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,''))||0).toLocaleString('en-IN')}`;
     const description = old_venue && old_room_type
       ? `MF2026 Upgrade: ${old_venue} ${old_room_type} (${oldAmtFmt}) → ${booking.venue} ${booking.room_type} (${newAmtFmt}). Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. GST ₹${gst.toLocaleString('en-IN')} + 2.36% fee.`
       : `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. 5% GST + 2.36% fee.`;
@@ -1641,7 +1641,7 @@ router.get('/api/ca-report', requireAdmin, async (req, res) => {
   let sumTaxable = 0, sumCGST = 0, sumSGST = 0, sumIGST = 0, sumTotal = 0;
 
   for (const b of bookings) {
-    const totalRaw = Math.round(parseFloat(String(b.total_price)) || 0);
+    const totalRaw = Math.round(parseFloat(String(b.total_price).replace(/[^\d.]/g,"")) || 0);
     const taxable  = totalRaw;
     const isMH     = (b.state || '').toLowerCase().includes('maharashtra');
     const cgst     = isMH ? Math.round(taxable * (GST_RATE / 2)) : 0;
