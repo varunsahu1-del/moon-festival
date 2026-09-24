@@ -464,8 +464,8 @@ router.post('/upi-collect', async (req, res) => {
     const primaryGuest = guests[0];
 
     // Amount in paise (booking total_price is base; add 5% GST)
-    const amountRaw = String(booking.total_price).replace(/[^\d.]/g, '');
-    const amountWithGst = Math.round(parseInt(amountRaw, 10) * 1.05);
+    const amountRaw = Math.round(parseFloat(String(booking.total_price)) || 0);
+    const amountWithGst = Math.round(amountRaw * 1.05);
 
     // Create Razorpay UPI collect payment
     const payment = await rzp.payments.createUpi({

@@ -576,9 +576,9 @@ function validateBookingPrice({ venue, room_type, guest_count, addons, discount,
     return s + (ci >= 0 ? parseInt(a.slice(0, ci), 10) || 0 : 0);
   }, 0);
 
-  const disc = parseInt(String(discount || '0').replace(/[^\d]/g, ''), 10) || 0;
+  const disc = Math.round(parseFloat(String(discount || '0')) || 0);
   const net = accomBase - disc + addonTotal;
-  const submitted = parseInt(String(total_price || '0').replace(/[^\d]/g, ''), 10) || 0;
+  const submitted = Math.round(parseFloat(String(total_price || '0')) || 0);
 
   if (Math.abs(submitted - net) > 1) {
     return { valid: false, expected: net, submitted,

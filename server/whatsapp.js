@@ -14,7 +14,7 @@ function buildStats() {
   const newApps       = db.prepare("SELECT COUNT(*) as c FROM applications WHERE status='new'").get().c;
 
   const priceRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid'").all();
-  const revenue = priceRows.reduce((sum, r) => sum + (parseInt(String(r.total_price).replace(/[^\d]/g, ''), 10) || 0), 0);
+  const revenue = priceRows.reduce((sum, r) => sum + (Math.round(parseFloat(String(r.total_price)) || 0)), 0);
   const revenueStr = '₹' + revenue.toLocaleString('en-IN');
 
   const inventory = getInventoryStats(db);
