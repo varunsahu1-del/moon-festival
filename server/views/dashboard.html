@@ -3041,7 +3041,7 @@ function renderDrawer(booking, guests, breakdown) {
         </div>
         ${booking.arrival_date ? `<div style="${FIELD}">
           <div style="${LBL}">${COLS.arrival}</div>
-          <div style="${VAL}">${fmtArr(booking.arrival_date)}</div>
+          <div style="${VAL}">${(v=>{const m=v.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?parseInt(m[3])+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2])-1]:v;})(booking.arrival_date)}</div>
         </div>` : ''}
         <div style="${FIELD}">
           <div style="${LBL}">Booking Date</div>
