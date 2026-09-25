@@ -2930,6 +2930,8 @@ function renderDrawer(booking, guests, breakdown) {
   dc.dataset.addons = booking.addons || '';
   dc.dataset.extraAddons = booking.extra_addons || '';
   dc.dataset.guestNames = guests.map(g => g.full_name).filter(Boolean).join('|');
+  dc.dataset.venue = booking.venue || '';
+  dc.dataset.roomType = booking.room_type || '';
 
   // ── shared micro-styles ──────────────────────────────────────────
   const LBL = 'font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:5px;font-family:"Josefin Sans",sans-serif;';
@@ -5772,7 +5774,7 @@ function _rebuildAddonsList(ref, addons) {
 }
 
 const ADDON_CATALOG = [
-  { name: 'Arrive Early · 26 Nov',        price: 6500 },
+  { name: 'Arrive Early · 26 Nov',        price: 0, extraDayPrice: true },
   { name: 'Meals · 27–29 Nov',            price: window.__FOOD_PRICE||3600, hasSub: true },
   { name: 'Ayurvedic Massage',            price: 1500 },
   { name: 'Scooter Rental · 4 Days',      price: 2600 },
@@ -5798,10 +5800,14 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
   // Check if Meals is already in the booking (guest addons or existing extra_addons)
   const dc2 = document.getElementById('drawerContent');
   const existingGuestAddons = dc2 ? (dc2.dataset.addons || '') : '';
+  const _dcVenue = dc2 ? (dc2.dataset.venue || '') : '';
+  const _dcRoomType = dc2 ? (dc2.dataset.roomType || '') : '';
+  const _extraDayAmt = (window.VENUE_PRICES && _dcVenue && _dcRoomType) ? (window.VENUE_PRICES[_dcVenue]?.[_dcRoomType]?.extraDay || 0) : 0;
   const mealsCatalog = ADDON_CATALOG.find(a => a.hasSub);
   const mealsAlreadyBooked = existingGuestAddons.split('|').some(p => p.includes('Meals') || p.includes('6 Meals'));
   // mealsOnly items: only show when meals is already booked OR being selected now
-  const available = ADDON_CATALOG.filter(a => !a.mealsOnly && (!existingNames.has(a.name) || a.name === currentName));
+  const available = ADDON_CATALOG.filter(a => !a.mealsOnly && (!existingNames.has(a.name) || a.name === currentName))
+    .map(a => a.extraDayPrice ? {...a, price: _extraDayAmt} : a);
 
   const form = document.createElement('div');
   form.className = 'addon-edit-form';
