@@ -3044,6 +3044,10 @@ function renderDrawer(booking, guests, breakdown) {
           <div style="${VAL}">${booking.arrival_date}</div>
         </div>` : ''}
         <div style="${FIELD}">
+          <div style="${LBL}">Booking Date</div>
+          <div style="${VAL}">${booking.created_at ? new Date(booking.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—'}</div>
+        </div>
+        <div style="${FIELD}">
           <div style="${LBL}">Venue · Room type</div>
           <div style="${VAL}">${booking.venue}</div>
           <div style="font-size:12px;color:rgba(42,34,24,0.4);margin-top:2px;">${booking.room_type}</div>
