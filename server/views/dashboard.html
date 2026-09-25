@@ -3001,7 +3001,7 @@ function renderDrawer(booking, guests, breakdown) {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-bottom:4px;">
         <div style="${FIELD}">
           <div style="${LBL}">${COLS.paymentMethod}</div>
-          <span class="pm-cell" data-ref="${ref}" data-pm="${booking.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:13px;font-weight:500;cursor:pointer;color:${booking.payment_method ? 'var(--td-strong)' : 'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);display:inline-block;">${booking.payment_method ? fmtPm(booking.payment_method) : '— set'}</span>
+          ${ (()=>{ const _canShowPm = booking.status==='paid'||booking.status==='upi_pending'; return `<span class="pm-cell" data-ref="${ref}" data-pm="${booking.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:13px;font-weight:500;cursor:pointer;color:${(booking.payment_method&&_canShowPm) ? 'var(--td-strong)' : 'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);display:inline-block;">${(booking.payment_method&&_canShowPm) ? fmtPm(booking.payment_method) : '— set'}</span>`; })() }
         </div>
         <div style="${FIELD}">
           <div style="${LBL}">${COLS.phase}</div>
@@ -3041,7 +3041,7 @@ function renderDrawer(booking, guests, breakdown) {
         </div>
         ${booking.arrival_date ? `<div style="${FIELD}">
           <div style="${LBL}">${COLS.arrival}</div>
-          <div style="${VAL}">${booking.arrival_date}</div>
+          <div style="${VAL}">${fmtArr(booking.arrival_date)}</div>
         </div>` : ''}
         <div style="${FIELD}">
           <div style="${LBL}">Booking Date</div>
