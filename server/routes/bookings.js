@@ -22,8 +22,8 @@ const AREA_TO_CITY = {
   "hsr layout":"Bengaluru","jp nagar":"Bengaluru",jayanagar:"Bengaluru",yelahanka:"Bengaluru"
 };
 function normalizeCity(raw){
-  if(!raw)return null;
-  const t=raw.trim();if(!t)return null;
+  if(!raw)return '';
+  const t=raw.trim();if(!t)return '';
   const k=t.toLowerCase();
   if(AREA_TO_CITY[k])return AREA_TO_CITY[k];
   return t.replace(/\b\w/g,c=>c.toUpperCase());
@@ -190,7 +190,6 @@ router.post('/create', async (req, res) => {
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
         const normCity = normalizeCity(g.city);
-        if (!normCity) throw Object.assign(new Error(`Guest ${i + 1}: City is required. Please enter your city.`), { clientError: true });
         insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, normCity, g.age ? Number(g.age) : null, g.gender || null, g.address || null, g.state || null, g.pin || null);
       });
       db.exec('COMMIT');
