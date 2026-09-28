@@ -1066,7 +1066,7 @@ function buildPersonFields(count) {
       + '</div>'
       + '<div style="display:flex;gap:1.5rem;padding:1.4rem 0 0;">'
       + '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0.5rem;">'
-      + '<label class="booking-label" for="bf-city-' + i + '">City <span style="font-weight:300;color:rgba(237,212,178,0.35);text-transform:none;letter-spacing:0.05em;font-size:0.6rem;">(optional)</span></label>'
+      + '<label class="booking-label" for="bf-city-' + i + '">City</label>'
       + '<div class="city-autocomplete"><input class="booking-input" id="bf-city-' + i + '" type="text" placeholder="City" autocomplete="off" /></div>'
       + '</div>'
       + (i === 1 ? (
@@ -1313,6 +1313,16 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
       pin:       n === 1 ? (document.getElementById('bf-pin-1') || {}).value?.trim() || null : null,
     };
   });
+
+  // Client-side city check
+  for (let i = 0; i < guests.length; i++) {
+    if (!guests[i].city) {
+      const cityEl = document.getElementById('bf-city-' + (i + 1));
+      if (cityEl) { cityEl.focus(); cityEl.style.borderColor = '#c0392b'; setTimeout(() => cityEl.style.borderColor = '', 3000); }
+      alert('Please enter your city' + (guests.length > 1 ? ' for guest ' + (i + 1) : '') + '.');
+      submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
+    }
+  }
 
   // Client-side gender check
   const ROOM_SIZES = { 'Double Sharing': 2, 'Triple Sharing': 3, '4 Bed Female Dorm': 4, '6 Bed Mixed Dorm': 6, '10 Bed Female Dorm': 10 };
