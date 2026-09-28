@@ -190,6 +190,7 @@ router.post('/create', async (req, res) => {
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
         const normCity = normalizeCity(g.city);
+        if (!normCity) throw Object.assign(new Error(`Guest ${i + 1}: City is required. Please enter your city.`), { clientError: true });
         insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, normCity, g.age ? Number(g.age) : null, g.gender || null, g.address || null, g.state || null, g.pin || null);
       });
       db.exec('COMMIT');
@@ -221,6 +222,7 @@ router.post('/create', async (req, res) => {
     });
   } catch (err) {
     console.error('[bookings/create]', err);
+    if (err.clientError) return res.status(400).json({ error: err.message });
     res.status(500).json({ error: 'Failed to create booking' });
   }
 });

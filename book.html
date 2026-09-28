@@ -1314,6 +1314,16 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     };
   });
 
+  // Client-side city check
+  for (let i = 0; i < guests.length; i++) {
+    if (!guests[i].city) {
+      const cityEl = document.getElementById('bf-city-' + (i + 1));
+      if (cityEl) { cityEl.focus(); cityEl.style.borderColor = '#c0392b'; }
+      alert('Please enter your city' + (guests.length > 1 ? ' for guest ' + (i + 1) : '') + '.');
+      submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
+    }
+  }
+
   // Client-side gender check
   const ROOM_SIZES = { 'Double Sharing': 2, 'Triple Sharing': 3, '4 Bed Female Dorm': 4, '6 Bed Mixed Dorm': 6, '10 Bed Female Dorm': 10 };
   const roomSize = ROOM_SIZES[roomType];
