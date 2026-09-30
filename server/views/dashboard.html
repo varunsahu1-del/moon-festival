@@ -2883,6 +2883,7 @@ function renderTable() {
     return `<tr data-ref="${r.booking_ref}" style="${borderStyle}${leftBorder}background:${groupBg};">${activeCols.map(cell).join('')}</tr>`;
   }).join('');
 
+  const _prevScrollLeft = wrap.querySelector('.table-scroll')?.scrollLeft || 0;
   wrap.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;padding:0 0 10px 2px;gap:10px;flex-wrap:wrap;">
       <div style="font-size:11px;color:var(--td-strong);letter-spacing:0.08em;text-transform:uppercase;">${rows.length} registrations</div>
@@ -2897,6 +2898,8 @@ function renderTable() {
       <tbody>${tbodyHtml}</tbody>
     </table></div>
   `;
+
+  if (_prevScrollLeft) { const ts = wrap.querySelector('.table-scroll'); if (ts) ts.scrollLeft = _prevScrollLeft; }
 
   wrap.querySelectorAll('tbody tr').forEach(tr => {
     tr.addEventListener('click', () => openDrawer(tr.dataset.ref));
@@ -5482,7 +5485,14 @@ loadInventoryDetail();
 loadBookings();
 loadApplications();
 initPhase();
-setInterval(() => { loadStats(); loadInventoryDetail(); loadBookings(); loadApplications(); }, 30000);
+setInterval(() => {
+  // Skip full refresh if admin is actively typing a note
+  const activeNote = document.activeElement;
+  const hasUnsavedNote = activeNote && activeNote.classList.contains('guest-notes-input');
+  const pendingNotes = document.querySelectorAll('.note-save-btn:not([style*="display: none"]):not([style*="display:none"])');
+  if (hasUnsavedNote || pendingNotes.length > 0) return;
+  loadStats(); loadInventoryDetail(); loadBookings(); loadApplications();
+}, 30000);
 
 // ── APPLICATIONS ──────────────────────────────────────────────────────────────
 let allApplications = [];
