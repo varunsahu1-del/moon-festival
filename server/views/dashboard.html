@@ -1143,7 +1143,15 @@
 
   <!-- Festival Passes tab -->
   <div class="tab-page" id="tabPagePasses">
-  <div class="section-head" style="margin-bottom:20px;"><div class="section-title">Festival Passes</div></div>
+  <!-- Pass stats row -->
+  <div class="stats-grid" id="passStatsGrid" style="margin-bottom:20px;"></div>
+  <!-- Pending pass payments -->
+  <div id="passPendingPanel" style="margin-bottom:24px;display:none;">
+    <div style="font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(42,34,24,0.35);margin-bottom:10px;">Needs Payment</div>
+    <div id="passPendingList" style="display:flex;flex-direction:column;gap:6px;"></div>
+  </div>
+  <!-- Inventory capacity cards -->
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(42,34,24,0.35);margin-bottom:10px;">Pass Inventory</div>
   <div id="festivalPassesGrid"><div class="empty" style="font-size:11px;">Loading…</div></div>
   <div id="festivalPassesList" style="margin-top:28px;"></div>
   </div><!-- /tabPagePasses -->
@@ -1708,6 +1716,55 @@ async function loadStats() {
 
   // Festival passes summary on Passes tab
   const passes = (d.inventory || []).filter(i => i.venue === 'Festival Access');
+
+  // Pass stats + pending panel
+  (function() {
+    const passAll = (allBookings || []).filter(r => r.venue === 'Festival Access');
+    const seenRef = new Set();
+    const passBookingsUniq = passAll.filter(r => { if(seenRef.has(r.booking_ref))return false; seenRef.add(r.booking_ref); return true; });
+    const paidRows   = passAll.filter(r => r.status === 'paid');
+    const pendRows   = passBookingsUniq.filter(r => r.status === 'pending' || r.status === 'upi_pending');
+    const totalPasses = passAll.length;
+    const paidPasses  = paidRows.length;
+
+    const sumAmt = rows => rows.reduce((s,r) => s + Math.round(parseFloat(String(r.total_price||0).replace(/[^\d.]/g,''))||0), 0);
+    const collected = Math.round(sumAmt(paidRows) * 1.05);
+    const pendAmt   = Math.round(sumAmt(pendRows) * 1.05);
+
+    const sg = document.getElementById('passStatsGrid');
+    if (sg) sg.innerHTML = `
+      <div class="stat-card"><div class="stat-label">Passes Sold</div><div class="stat-value">${totalPasses}</div></div>
+      <div class="stat-card"><div class="stat-label">Confirmed</div><div class="stat-value">${paidPasses}</div></div>
+      <div class="stat-card"><div class="stat-label">Pending Payments</div><div class="stat-value">${pendRows.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Collected</div><div class="stat-value">${collected ? '₹'+collected.toLocaleString('en-IN') : '—'}</div></div>
+      <div class="stat-card"><div class="stat-label">Pending Amount</div><div class="stat-value" style="color:#B06030;">${pendAmt ? '₹'+pendAmt.toLocaleString('en-IN') : '—'}</div></div>
+    `;
+
+    const panel = document.getElementById('passPendingPanel');
+    const list  = document.getElementById('passPendingList');
+    if (panel && list && pendRows.length) {
+      panel.style.display = '';
+      list.innerHTML = pendRows.map(r => {
+        const amt = Math.round(parseFloat(String(r.total_price||0).replace(/[^\d.]/g,''))||0);
+        const total = Math.round(amt * 1.05);
+        const tag = r.status === 'upi_pending'
+          ? `<span style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;background:rgba(140,100,40,0.12);color:#7a6010;border:0.5px solid rgba(140,100,40,0.3);padding:2px 7px;border-radius:2px;font-family:'Josefin Sans',sans-serif;">UPI Pending</span>`
+          : `<span style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;background:rgba(176,96,48,0.12);color:#B06030;border:0.5px solid rgba(176,96,48,0.3);padding:2px 7px;border-radius:2px;font-family:'Josefin Sans',sans-serif;">Awaiting Payment</span>`;
+        return `<div onclick="openDrawer('${r.booking_ref}')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(176,96,48,0.05);border:0.5px solid rgba(176,96,48,0.18);border-radius:8px;cursor:pointer;gap:12px;" onmouseover="this.style.background='rgba(176,96,48,0.1)'" onmouseout="this.style.background='rgba(176,96,48,0.05)'">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-weight:600;color:var(--td-strong);">${r.full_name||'—'}</span>
+            <span class="ref" style="font-size:10px;">${r.booking_ref}</span>
+            ${tag}
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <span style="font-weight:600;color:var(--td-strong);">${total?'₹'+total.toLocaleString('en-IN'):'—'}</span>
+            <button onclick="event.stopPropagation();adminResendPaylink('${r.booking_ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.12);border:0.5px solid rgba(176,96,48,0.35);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">↗ Pay Link</button>
+          </div>
+        </div>`;
+      }).join('');
+    } else if (panel) panel.style.display = 'none';
+  })();
+
   const pg = document.getElementById('festivalPassesGrid');
   if (pg) {
     if (!passes.length) { pg.innerHTML = '<div class="empty" style="font-size:11px;">No festival pass data.</div>'; }
