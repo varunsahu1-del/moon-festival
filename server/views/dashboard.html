@@ -1727,8 +1727,10 @@ async function loadStats() {
     const totalPasses = passAll.length;
     const paidPasses  = paidRows.length;
 
+    const seenPaidRef = new Set();
+    const paidBookingsUniq = passAll.filter(r => r.status === 'paid' && !seenPaidRef.has(r.booking_ref) && seenPaidRef.add(r.booking_ref));
     const sumAmt = rows => rows.reduce((s,r) => s + Math.round(parseFloat(String(r.total_price||0).replace(/[^\d.]/g,''))||0), 0);
-    const collected = Math.round(sumAmt(paidRows) * 1.05);
+    const collected = Math.round(sumAmt(paidBookingsUniq) * 1.05);
     const pendAmt   = Math.round(sumAmt(pendRows) * 1.05);
 
     const sg = document.getElementById('passStatsGrid');
@@ -1829,7 +1831,8 @@ async function loadStats() {
           </tr></thead>
           <tbody>
             ${passRows.map((r,i) => {
-              const b=Math.round(parseFloat(String(r.total_price||0).replace(/[^\d.]/g,""))||0);
+              const gc=Math.max(1,parseInt(r.guest_count)||1);
+              const b=Math.round((parseFloat(String(r.total_price||0).replace(/[^\d.]/g,""))||0)/gc);
               const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;
               return `<tr onclick="openDrawer('${r.booking_ref}')">
               <td onclick="event.stopPropagation()"><input type="checkbox" class="pass-row-chk" data-ref="${r.booking_ref}" onchange="updatePassBulkBar()" style="accent-color:#B06030;cursor:pointer;" /></td>
