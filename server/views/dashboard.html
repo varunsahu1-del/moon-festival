@@ -1791,7 +1791,7 @@ async function loadStats() {
               <td style="font-weight:600;color:var(--td-strong);">${(b+g)?'₹'+(b+g).toLocaleString('en-IN'):'—'}</td>
               <td><span class="badge badge-${r.status}">${r.status}</span></td>
               <td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>
-              <td onclick="event.stopPropagation()"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add note…" onclick="event.stopPropagation()">${r.notes||''}</textarea></td>
+              <td onclick="event.stopPropagation()" style="min-width:160px;"><div style="display:flex;flex-direction:column;gap:4px;"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add note…" onclick="event.stopPropagation()">${r.notes||''}</textarea><button class="note-save-btn" data-guest-id="${r.guest_id}" onclick="event.stopPropagation();saveAdminNote(this)" style="display:none;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;padding:3px 10px;cursor:pointer;align-self:flex-end;">Save</button></div></td>
               <td onclick="event.stopPropagation()" style="white-space:nowrap;display:flex;gap:5px;padding:8px 6px;">
                 ${r.status!=='paid'?`<button onclick="event.stopPropagation();adminResendPaylink('${r.booking_ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.12);border:0.5px solid rgba(176,96,48,0.35);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">↗ Pay Link</button>`:''}
                 <button onclick="event.stopPropagation();resendConfirmation('${r.booking_ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.12);border:0.5px solid rgba(50,150,50,0.35);color:#2e7d32;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Confirm</button>
@@ -1800,17 +1800,14 @@ async function loadStats() {
           </tbody>
         </table>
         </div></div>`;
-      // wire up admin-note auto-save for passes list
+      // wire up note Save button for passes list
       pl.querySelectorAll('.guest-notes-input').forEach(ta => {
         const ar = () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; };
         ta.addEventListener('input', ar); ar();
-        let sv = ta.value;
-        ta.addEventListener('blur', async () => {
-          const val = ta.value; if (val === sv) return;
-          const res = await adminFetch(`/admin/api/guests/${ta.dataset.guestId}/notes`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({notes:val}) }, { onSuccess: () => window._showSaveToast('Note saved ✓') });
-          if (!res) { sv=val; ta.style.borderColor='#f39c12'; setTimeout(()=>{ta.style.borderColor='';},1500); }
-          else if (res.ok) { sv=val; ta.style.borderColor='#2ecc71'; setTimeout(()=>{ta.style.borderColor='';},1000); window._showSaveToast('Note saved ✓'); }
-          else { ta.style.borderColor='#e74c3c'; setTimeout(()=>{ta.style.borderColor='';},2000); alert('Failed to save note.'); }
+        ta.dataset.saved = ta.value;
+        ta.addEventListener('input', () => {
+          const btn = ta.closest('td')?.querySelector('.note-save-btn');
+          if (btn) btn.style.display = ta.value !== (ta.dataset.saved||'') ? 'block' : 'none';
         });
       });
     }
@@ -2869,7 +2866,7 @@ function renderTable() {
         case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0236).toLocaleString('en-IN'):''}</td>`;
         case 'verified': return isFirstGuest ? `<td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>` : '<td></td>';
         case 'mail':       return `<td>${isFirstGuest?(r.email_sent?'<span style="color:#2ecc71;font-size:11px;">✓ Sent</span>':'<span style="color:var(--td-muted);font-size:11px;">—</span>'):''}</td>`;
-        case 'adminNotes': return `<td class="td-wrap"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea></td>`;
+        case 'adminNotes': return `<td class="td-wrap" onclick="event.stopPropagation()" style="min-width:180px;"><div style="display:flex;flex-direction:column;gap:4px;"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea><button class="note-save-btn" data-guest-id="${r.guest_id}" onclick="event.stopPropagation();saveAdminNote(this)" style="display:none;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;padding:3px 10px;cursor:pointer;align-self:flex-end;">Save</button></div></td>`;
         case 'guestNote':  return `<td class="td-wrap" style="font-size:11px;color:rgba(42,34,24,0.6);"><div style="max-height:72px;overflow-y:auto;">${isFirstGuest?(r.organizer_note||''):''}</div></td>`;
         case 'whatsapp':   return `<td>${r.whatsapp||'—'}</td>`;
         case 'city':       return `<td>${r.city||'—'}</td>`;
@@ -2933,38 +2930,43 @@ function renderTable() {
     input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
   });
 
-  // Notes: auto-save on blur, auto-resize rows
+  // Notes: show Save button on input, auto-resize
   wrap.querySelectorAll('.guest-notes-input').forEach(ta => {
-    const autoResize = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
-    ta.addEventListener('input', autoResize);
-    autoResize();
-    let savedValue = ta.value;
-    ta.addEventListener('blur', async () => {
-      const val = ta.value;
-      if (val === savedValue) return;
-      const guestId = ta.dataset.guestId;
-      const res = await adminFetch(`/admin/api/guests/${guestId}/notes`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ notes: val }),
-      }, { onSuccess: () => window._showSaveToast('Note saved ✓') });
-      if (!res) {
-        // offline-queued — optimistic green flash
-        savedValue = val;
-        ta.style.borderColor = '#f39c12';
-        setTimeout(() => { ta.style.borderColor = ''; }, 1500);
-      } else if (res.ok) {
-        savedValue = val;
-        ta.style.borderColor = '#2ecc71';
-        setTimeout(() => { ta.style.borderColor = ''; }, 1000);
-        window._showSaveToast('Note saved ✓');
-      } else {
-        ta.style.borderColor = '#e74c3c';
-        setTimeout(() => { ta.style.borderColor = ''; }, 2000);
-        alert('Failed to save admin note — please try again.');
-      }
+    const ar = () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; };
+    ta.addEventListener('input', ar); ar();
+    ta.addEventListener('input', () => {
+      const btn = ta.closest('td')?.querySelector('.note-save-btn');
+      if (btn) btn.style.display = ta.value !== (ta.dataset.saved||'') ? 'block' : 'none';
     });
+    ta.dataset.saved = ta.value;
   });
+}
+
+async function saveAdminNote(btn) {
+  const guestId = btn.dataset.guestId;
+  const ta = btn.closest('td')?.querySelector('.guest-notes-input');
+  if (!ta) return;
+  const val = ta.value;
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  const res = await adminFetch(`/admin/api/guests/${guestId}/notes`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ notes: val }),
+  });
+  btn.disabled = false;
+  if (!res || res.ok) {
+    ta.dataset.saved = val;
+    btn.style.display = 'none';
+    btn.textContent = 'Save';
+    window._showSaveToast('Note saved ✓');
+    ta.style.borderColor = '#2ecc71';
+    setTimeout(() => { ta.style.borderColor = ''; }, 1000);
+  } else {
+    btn.textContent = 'Save';
+    ta.style.borderColor = '#e74c3c';
+    setTimeout(() => { ta.style.borderColor = ''; }, 2000);
+    alert('Failed to save note — please try again.');
+  }
 }
 
 async function openDrawer(ref) {
