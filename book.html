@@ -1326,8 +1326,10 @@ async function applyPromo() {
 
 function showFieldError(input, msg) {
   input.classList.add('input-error');
-  let err = input.parentElement.querySelector('.field-error');
-  if (!err) { err = document.createElement('span'); err.className = 'field-error'; input.parentElement.appendChild(err); }
+  // For inputs inside a flex row (e.g. wa-row), attach error to the parent booking-field instead
+  const container = input.closest('.booking-field') || input.parentElement;
+  let err = container.querySelector('.field-error');
+  if (!err) { err = document.createElement('span'); err.className = 'field-error'; container.appendChild(err); }
   err.textContent = msg;
   input.addEventListener('input', () => { input.classList.remove('input-error'); if (err) err.textContent = ''; }, { once: true });
 }
