@@ -1391,7 +1391,7 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     if (age.value && (isNaN(ageVal) || ageVal < 18 || ageVal > 99)) { showFieldError(age, 'Age must be 18 or above.'); valid = false; }
   });
 
-  if (!valid) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  if (!valid) { const firstErr = document.querySelector('.input-error, .field-error'); if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
 
   const submitBtn = document.getElementById('bookSubmitBtn');
   submitBtn.disabled = true;
