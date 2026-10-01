@@ -77,36 +77,36 @@ const ROOM_LABELS = {
 // food add-on is flat ₹3000/day (brunch + dinner), handled client-side
 const PRICING = {
   'Bhakti Kutir': {
-    'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 37500, phase4: 39000, extraDay: 2500 },
-    'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 32500, phase4: 34000, extraDay: 1500 },
-    'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 49500, phase4: 51000, extraDay: 3000 },
+    'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 36000, phase4: 39000, extraDay: 2500 },
+    'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 30500, phase4: 34000, extraDay: 1500 },
+    'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 48500, phase4: 51000, extraDay: 3000 },
     '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 28500, phase4: 30000, extraDay: 800  },
     '6 Bed Dorm':     { earlyBird: 24000, phase2: 24000, phase3: 27000, phase4: 28500, extraDay: 700  },
   },
   'Marron · Sea View': {
-    'Double Sharing': { earlyBird: 49900, phase2: 51400, phase3: 52900, phase4: 54400, extraDay: 4500 },
-    'Triple Sharing': { earlyBird: 39900, phase2: 41400, phase3: 42900, phase4: 44400, extraDay: 3000 },
-    'Private Room':   { earlyBird: 71900, phase2: 73400, phase3: 74900, phase4: 76400, extraDay: 8500 },
+    'Double Sharing': { earlyBird: 49900, phase2: 51400, phase3: 51400, phase4: 54400, extraDay: 4500 },
+    'Triple Sharing': { earlyBird: 39900, phase2: 41400, phase3: 41400, phase4: 44400, extraDay: 3000 },
+    'Private Room':   { earlyBird: 71900, phase2: 73400, phase3: 73400, phase4: 76400, extraDay: 8500 },
   },
   'Marron · Garden': {
-    'Double Sharing': { earlyBird: 39500, phase2: 41000, phase3: 42500, phase4: 44000, extraDay: 3500 },
-    'Triple Sharing': { earlyBird: 32500, phase2: 34000, phase3: 35500, phase4: 37000, extraDay: 2500 },
-    'Private Room':   { earlyBird: 54900, phase2: 56400, phase3: 57900, phase4: 59400, extraDay: 6500 },
+    'Double Sharing': { earlyBird: 39500, phase2: 41000, phase3: 41000, phase4: 44000, extraDay: 3500 },
+    'Triple Sharing': { earlyBird: 32500, phase2: 34000, phase3: 34000, phase4: 37000, extraDay: 2500 },
+    'Private Room':   { earlyBird: 54900, phase2: 56400, phase3: 56400, phase4: 59400, extraDay: 6500 },
   },
   'Destiny': {
-    'Double Sharing': { earlyBird: 55000, phase2: 56500, phase3: 58000, phase4: 59500, extraDay: 7000  },
-    'Triple Sharing': { earlyBird: 47500, phase2: 49000, phase3: 50500, phase4: 52000, extraDay: 4500  },
-    'Private Room':   { earlyBird: 81900, phase2: 83400, phase3: 84900, phase4: 86400, extraDay: 12000 },
+    'Double Sharing': { earlyBird: 55000, phase2: 56500, phase3: 56500, phase4: 59500, extraDay: 7000  },
+    'Triple Sharing': { earlyBird: 47500, phase2: 49000, phase3: 49000, phase4: 52000, extraDay: 4500  },
+    'Private Room':   { earlyBird: 81900, phase2: 83400, phase3: 83400, phase4: 86400, extraDay: 12000 },
   },
   'Ourem Palace': {
-    'Double Sharing': { earlyBird: 44500, phase2: 40000, phase3: 47500, phase4: 49000, extraDay: 3500 },
+    'Double Sharing': { earlyBird: 44500, phase2: 40000, phase3: 40500, phase4: 49000, extraDay: 3500 },
     'Triple Sharing': { earlyBird: 36000, phase2: 37500, phase3: 39000, phase4: 40500, extraDay: 2100 },
-    'Private Room':   { earlyBird: 58900, phase2: 55000, phase3: 61900, phase4: 63400, extraDay: 6000 },
+    'Private Room':   { earlyBird: 58900, phase2: 55000, phase3: 56500, phase4: 63400, extraDay: 6000 },
   },
   'Teraria': {
-    'Double Sharing': { earlyBird: 32000, phase2: 33500, phase3: 35000, phase4: 36500, extraDay: 3000 },
+    'Double Sharing': { earlyBird: 32000, phase2: 33500, phase3: 34000, phase4: 36500, extraDay: 3000 },
     'Triple Sharing': { earlyBird: 29500, phase2: 31000, phase3: 32500, phase4: 34000, extraDay: 1500 },
-    'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 48100, phase4: 49600, extraDay: 4500 },
+    'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 47000, phase4: 49600, extraDay: 4500 },
   },
   'Festival Access': {
     'Festival Pass':      { flat: 16500, extraDay: 0 },
