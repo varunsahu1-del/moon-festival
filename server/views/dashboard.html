@@ -5401,18 +5401,23 @@ async function createPromoCode() {
   const discount = parseInt(document.getElementById('pc-discount')?.value, 10);
   const max = (document.getElementById('pc-max')?.value || '').trim();
   const msg = document.getElementById('pc-msg');
+  if (!msg) return;
   if (!code || !discount) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent='Code and discount are required.'; return; }
-  const res = await fetch('/admin/api/promo-codes', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
-  });
-  const data = await res.json();
-  if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed'; return; }
-  msg.style.display='block'; msg.style.color='#2a7a3b'; msg.textContent='Code created!';
-  document.getElementById('pc-code').value=''; document.getElementById('pc-discount').value=''; document.getElementById('pc-max').value='';
-  setTimeout(() => { msg.style.display='none'; }, 2000);
-  loadPromoCodes();
+  try {
+    const res = await fetch('/admin/api/promo-codes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
+    });
+    const data = await res.json();
+    if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed'; return; }
+    msg.style.display='block'; msg.style.color='#2a7a3b'; msg.textContent='✓ Code created!';
+    document.getElementById('pc-code').value=''; document.getElementById('pc-discount').value=''; document.getElementById('pc-max').value='';
+    setTimeout(() => { msg.style.display='none'; }, 2500);
+    loadPromoCodes();
+  } catch(e) {
+    msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent='Network error — try again.';
+  }
 }
 
 async function togglePromoCode(id, active) {
