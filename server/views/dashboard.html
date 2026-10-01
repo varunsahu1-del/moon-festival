@@ -1301,7 +1301,7 @@
   <!-- Promos tab -->
   <div class="tab-page" id="tabPagePromos">
     <div class="section-title" style="margin-bottom:24px;">Promo Codes</div>
-    <div style="background:#F0EBE2;border-radius:14px;padding:28px 32px;max-width:560px;border:1px solid rgba(42,34,24,0.08);">
+    <div style="background:#F0EBE2;border-radius:14px;padding:28px 32px 16px;max-width:560px;border:1px solid rgba(42,34,24,0.08);">
       <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(42,34,24,0.55);line-height:1.6;margin-bottom:20px;">
         Create discount codes guests can enter at checkout. Discount is deducted per person.
       </div>
@@ -5386,7 +5386,7 @@ async function loadPromoCodes() {
     '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Max</th>' +
     '<th style="text-align:center;padding:6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Active</th>' +
     '<th></th></tr></thead><tbody>' +
-    codes.map(c => `<tr style="border-bottom:0.5px solid rgba(42,34,24,0.06);">
+    codes.map((c, i) => `<tr style="${i < codes.length - 1 ? 'border-bottom:0.5px solid rgba(42,34,24,0.06);' : ''}">
       <td style="padding:8px 8px 8px 0;font-weight:600;letter-spacing:0.08em;">${c.code}</td>
       <td style="padding:8px;text-align:right;">₹${Number(c.discount).toLocaleString('en-IN')}</td>
       <td style="padding:8px;text-align:right;">${c.used_count}</td>
