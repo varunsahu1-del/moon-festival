@@ -2908,7 +2908,7 @@ document.addEventListener('keydown', e => {
       const isBhaktiRoom = venue === 'Bhakti Kutir' && !isDorm;
       if ((isBhaktiRoom || s.low) && s.remaining > 0) {
         const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
-        const isBhaktiDouble = venue === 'Bhakti Kutir' && roomTypeName === 'Double Sharing';
+        const isBhaktiDouble = venue === 'Bhakti Kutir' && roomTypeName === 'Room for 2';
         if (isBhaktiDouble) {
           addBadge('inv-badge--low', 'Fastest Selling');
         } else {
