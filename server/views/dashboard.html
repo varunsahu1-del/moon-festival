@@ -1063,6 +1063,7 @@
     <button class="page-tab tab-desktop-only" onclick="switchTab('applications')" id="tabApplications">Applications <span class="tab-badge" id="appBadge"></span></button>
     <button class="page-tab tab-desktop-only" onclick="switchTab('custompay')">Custom Pay</button>
     <button class="page-tab tab-desktop-only" onclick="switchTab('synopsis')">Synopsis</button>
+    <button class="page-tab tab-desktop-only" onclick="switchTab('promos')">Promos</button>
     <button class="page-tab tab-desktop-only" onclick="switchTab('settings')">Settings</button>
   </div>
 
@@ -1297,7 +1298,34 @@
     </div>
   </div><!-- /tabPageSynopsis -->
 
-  <!-- Settings tab -->
+  <!-- Promos tab -->
+  <div class="tab-page" id="tabPagePromos">
+    <div class="section-title" style="margin-bottom:24px;">Promo Codes</div>
+    <div style="background:#F0EBE2;border-radius:14px;padding:28px 32px;max-width:560px;border:1px solid rgba(42,34,24,0.08);">
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(42,34,24,0.55);line-height:1.6;margin-bottom:20px;">
+        Create discount codes guests can enter at checkout. Discount is deducted per person.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 100px 80px auto;gap:8px;align-items:end;margin-bottom:16px;">
+        <div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Code</div>
+          <input id="pc-code" type="text" placeholder="FRIEND100" maxlength="20" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;text-transform:uppercase;letter-spacing:0.08em;" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" />
+        </div>
+        <div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">₹/person</div>
+          <input id="pc-discount" type="number" placeholder="1000" min="1" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;" />
+        </div>
+        <div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Max uses</div>
+          <input id="pc-max" type="number" placeholder="∞" min="1" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;" />
+        </div>
+        <button onclick="createPromoCode()" style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;background:#2A2218;color:#EDD4B2;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;margin-bottom:1px;">+ Add</button>
+      </div>
+      <div id="pc-msg" style="font-family:'DM Sans',sans-serif;font-size:12px;margin-bottom:12px;display:none;"></div>
+      <div id="pc-list"></div>
+    </div>
+  </div><!-- /tabPagePromos -->
+
+<!-- Settings tab -->
   <div class="tab-page" id="tabPageSettings">
     <div class="section-title" style="margin-bottom:24px;">Settings</div>
 
@@ -1313,102 +1341,7 @@
       </button>
     </div>
 
-    <!-- Promo Codes -->
-    <div style="background:#F0EBE2;border-radius:14px;padding:28px 32px;max-width:560px;border:1px solid rgba(42,34,24,0.08);margin-top:24px;">
-      <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:#2A2218;margin-bottom:6px;">Promo Codes</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(42,34,24,0.55);line-height:1.6;margin-bottom:20px;">
-        Create discount codes guests can enter at checkout. Discount is per person.
-      </div>
-
-      <!-- Create form -->
-      <div style="display:grid;grid-template-columns:1fr 100px 80px auto;gap:8px;align-items:end;margin-bottom:16px;">
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Code</div>
-          <input id="pc-code" type="text" placeholder="FRIEND100" maxlength="20" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;text-transform:uppercase;letter-spacing:0.08em;" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" />
-        </div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Disc ₹/person</div>
-          <input id="pc-discount" type="number" placeholder="1000" min="1" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;" />
-        </div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Max uses</div>
-          <input id="pc-max" type="number" placeholder="∞" min="1" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;" />
-        </div>
-        <button onclick="createPromoCode()" style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;background:#2A2218;color:#EDD4B2;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;margin-bottom:1px;">+ Add</button>
-      </div>
-      <div id="pc-msg" style="font-family:'DM Sans',sans-serif;font-size:12px;margin-bottom:12px;display:none;"></div>
-
-      <!-- List -->
-      <div id="pc-list"></div>
-    </div>
   </div><!-- /tabPageSettings -->
-
-  <script>
-  async function loadPromoCodes() {
-    const res = await fetch('/admin/api/promo-codes');
-    const codes = await res.json();
-    const el = document.getElementById('pc-list');
-    if (!codes.length) { el.innerHTML = '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:rgba(42,34,24,0.4);">No codes yet.</div>'; return; }
-    el.innerHTML = '<table style="width:100%;border-collapse:collapse;font-family:\'DM Sans\',sans-serif;font-size:13px;">' +
-      '<thead><tr style="border-bottom:1px solid rgba(42,34,24,0.1);">' +
-      '<th style="text-align:left;padding:6px 8px 6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Code</th>' +
-      '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">₹/person</th>' +
-      '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Used</th>' +
-      '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Max</th>' +
-      '<th style="text-align:center;padding:6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Active</th>' +
-      '<th></th></tr></thead><tbody>' +
-      codes.map(c => `<tr style="border-bottom:0.5px solid rgba(42,34,24,0.06);">
-        <td style="padding:8px 8px 8px 0;font-weight:600;letter-spacing:0.08em;">${c.code}</td>
-        <td style="padding:8px;text-align:right;">₹${Number(c.discount).toLocaleString('en-IN')}</td>
-        <td style="padding:8px;text-align:right;">${c.used_count}</td>
-        <td style="padding:8px;text-align:right;">${c.max_uses ?? '∞'}</td>
-        <td style="padding:8px;text-align:center;">
-          <input type="checkbox" ${c.active ? 'checked' : ''} onchange="togglePromoCode(${c.id}, this.checked)" style="cursor:pointer;" />
-        </td>
-        <td style="padding:8px 0 8px 8px;text-align:right;">
-          <button onclick="deletePromoCode(${c.id})" style="background:none;border:none;color:rgba(176,60,40,0.6);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:4px;" title="Delete">✕</button>
-        </td>
-      </tr>`).join('') + '</tbody></table>';
-  }
-
-  async function createPromoCode() {
-    const code = document.getElementById('pc-code').value.trim();
-    const discount = parseInt(document.getElementById('pc-discount').value, 10);
-    const max = document.getElementById('pc-max').value.trim();
-    const msg = document.getElementById('pc-msg');
-    if (!code || !discount) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent='Code and discount are required.'; return; }
-    const res = await fetch('/admin/api/promo-codes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
-    });
-    const data = await res.json();
-    if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed'; return; }
-    msg.style.display='block'; msg.style.color='#2a7a3b'; msg.textContent='Code created!';
-    document.getElementById('pc-code').value=''; document.getElementById('pc-discount').value=''; document.getElementById('pc-max').value='';
-    setTimeout(() => { msg.style.display='none'; }, 2000);
-    loadPromoCodes();
-  }
-
-  async function togglePromoCode(id, active) {
-    await fetch('/admin/api/promo-codes/' + id, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ active: active ? 1 : 0 })
-    });
-    loadPromoCodes();
-  }
-
-  async function deletePromoCode(id) {
-    if (!confirm('Delete this promo code?')) return;
-    await fetch('/admin/api/promo-codes/' + id, { method: 'DELETE' });
-    loadPromoCodes();
-  }
-
-  // Load when settings tab is opened
-  const _origSwitchTab = window.switchTab;
-  window.switchTab = function(tab) { _origSwitchTab && _origSwitchTab(tab); if (tab === 'settings') loadPromoCodes(); };
-  </script>
 
   <!-- Mobile nav drawer -->
   <div id="mobileNavDrawer" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:8888;">
@@ -1436,6 +1369,7 @@
         <a href="/admin/api/invoices/download" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4h5l3 3v7H4V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9 4v3h3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M6 10h4M6 12h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Invoices ZIP</a>
         <a href="/admin/api/db-backup" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="4" rx="5" ry="2" stroke="currentColor" stroke-width="1.3"/><path d="M3 4v4c0 1.1 2.24 2 5 2s5-.9 5-2V4" stroke="currentColor" stroke-width="1.3"/><path d="M3 8v4c0 1.1 2.24 2 5 2s5-.9 5-2V8" stroke="currentColor" stroke-width="1.3"/></svg>DB Backup</a>
         <div style="height:1px;background:rgba(42,34,24,0.1);margin:8px 20px;"></div>
+        <a href="#" onclick="switchTab('promos');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="13" cy="11" r="2.5" stroke="currentColor" stroke-width="1.2"/></svg>Promos</a>
         <a href="#" onclick="switchTab('settings');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Settings</a>
       </nav>
       <div style="padding:0 20px;">
@@ -5434,6 +5368,62 @@ function switchTab(name) {
   if (name === 'passes') loadStats();
   if (name === 'synopsis') loadSynopsis();
   if (name === 'custompay') loadCustomPay();
+  if (name === 'promos') loadPromoCodes();
+}
+
+async function loadPromoCodes() {
+  const res = await fetch('/admin/api/promo-codes');
+  if (!res.ok) return;
+  const codes = await res.json();
+  const el = document.getElementById('pc-list');
+  if (!el) return;
+  if (!codes.length) { el.innerHTML = '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:rgba(42,34,24,0.4);">No codes yet.</div>'; return; }
+  el.innerHTML = '<table style="width:100%;border-collapse:collapse;font-family:\'DM Sans\',sans-serif;font-size:13px;">' +
+    '<thead><tr style="border-bottom:1px solid rgba(42,34,24,0.1);">' +
+    '<th style="text-align:left;padding:6px 8px 6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Code</th>' +
+    '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">₹/person</th>' +
+    '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Used</th>' +
+    '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Max</th>' +
+    '<th style="text-align:center;padding:6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Active</th>' +
+    '<th></th></tr></thead><tbody>' +
+    codes.map(c => `<tr style="border-bottom:0.5px solid rgba(42,34,24,0.06);">
+      <td style="padding:8px 8px 8px 0;font-weight:600;letter-spacing:0.08em;">${c.code}</td>
+      <td style="padding:8px;text-align:right;">₹${Number(c.discount).toLocaleString('en-IN')}</td>
+      <td style="padding:8px;text-align:right;">${c.used_count}</td>
+      <td style="padding:8px;text-align:right;">${c.max_uses ?? '∞'}</td>
+      <td style="padding:8px;text-align:center;"><input type="checkbox" ${c.active ? 'checked' : ''} onchange="togglePromoCode(${c.id}, this.checked)" style="cursor:pointer;" /></td>
+      <td style="padding:8px 0 8px 8px;text-align:right;"><button onclick="deletePromoCode(${c.id})" style="background:none;border:none;color:rgba(176,60,40,0.6);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:4px;" title="Delete">✕</button></td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+async function createPromoCode() {
+  const code = (document.getElementById('pc-code')?.value || '').trim();
+  const discount = parseInt(document.getElementById('pc-discount')?.value, 10);
+  const max = (document.getElementById('pc-max')?.value || '').trim();
+  const msg = document.getElementById('pc-msg');
+  if (!code || !discount) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent='Code and discount are required.'; return; }
+  const res = await fetch('/admin/api/promo-codes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
+  });
+  const data = await res.json();
+  if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed'; return; }
+  msg.style.display='block'; msg.style.color='#2a7a3b'; msg.textContent='Code created!';
+  document.getElementById('pc-code').value=''; document.getElementById('pc-discount').value=''; document.getElementById('pc-max').value='';
+  setTimeout(() => { msg.style.display='none'; }, 2000);
+  loadPromoCodes();
+}
+
+async function togglePromoCode(id, active) {
+  await fetch('/admin/api/promo-codes/' + id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: active ? 1 : 0 }) });
+  loadPromoCodes();
+}
+
+async function deletePromoCode(id) {
+  if (!confirm('Delete this promo code?')) return;
+  await fetch('/admin/api/promo-codes/' + id, { method: 'DELETE' });
+  loadPromoCodes();
 }
 
 async function loadSynopsis() {
