@@ -5372,7 +5372,7 @@ function switchTab(name) {
 }
 
 async function loadPromoCodes() {
-  const res = await fetch('/admin/api/promo-codes');
+  const res = await fetch('/admin/promo-codes');
   if (!res.ok) return;
   const codes = await res.json();
   const el = document.getElementById('pc-list');
@@ -5404,7 +5404,7 @@ async function createPromoCode() {
   if (!msg) return;
   if (!code || !discount) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent='Code and discount are required.'; return; }
   try {
-    const res = await fetch('/admin/api/promo-codes', {
+    const res = await fetch('/admin/promo-codes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
@@ -5421,13 +5421,13 @@ async function createPromoCode() {
 }
 
 async function togglePromoCode(id, active) {
-  await fetch('/admin/api/promo-codes/' + id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: active ? 1 : 0 }) });
+  await fetch('/admin/promo-codes/' + id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: active ? 1 : 0 }) });
   loadPromoCodes();
 }
 
 async function deletePromoCode(id) {
   if (!confirm('Delete this promo code?')) return;
-  await fetch('/admin/api/promo-codes/' + id, { method: 'DELETE' });
+  await fetch('/admin/promo-codes/' + id, { method: 'DELETE' });
   loadPromoCodes();
 }
 
