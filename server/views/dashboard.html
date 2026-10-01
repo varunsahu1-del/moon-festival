@@ -5426,9 +5426,11 @@ async function togglePromoCode(id, active) {
 }
 
 async function deletePromoCode(id) {
-  if (!confirm('Delete this promo code?')) return;
-  await fetch('/admin/promo-codes/' + id, { method: 'DELETE' });
-  loadPromoCodes();
+  try {
+    const res = await fetch('/admin/promo-codes/' + id, { method: 'DELETE' });
+    if (!res.ok) { alert('Could not delete — try again.'); return; }
+    loadPromoCodes();
+  } catch(_) { alert('Network error — try again.'); }
 }
 
 async function loadSynopsis() {
