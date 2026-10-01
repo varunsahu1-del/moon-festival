@@ -31,7 +31,8 @@ const { appendBookingRow, updateBookingRow, syncAllBookings } = require('../shee
 
 function requireAdmin(req, res, next) {
   if (req.session.admin) return next();
-  if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'Session expired — please refresh the page and log in again.' });
+  const wantsJson = req.path.startsWith('/api/') || (req.headers['content-type'] || '').includes('application/json') || (req.headers['accept'] || '').includes('application/json');
+  if (wantsJson) return res.status(401).json({ error: 'Session expired — please refresh the page and log in again.' });
   res.redirect('/admin/login');
 }
 

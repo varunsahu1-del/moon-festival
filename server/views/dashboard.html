@@ -5409,8 +5409,8 @@ async function createPromoCode() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
     });
-    const data = await res.json();
-    if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed'; return; }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed (status '+res.status+')'; return; }
     msg.style.display='block'; msg.style.color='#2a7a3b'; msg.textContent='✓ Code created!';
     document.getElementById('pc-code').value=''; document.getElementById('pc-discount').value=''; document.getElementById('pc-max').value='';
     setTimeout(() => { msg.style.display='none'; }, 2500);
