@@ -671,6 +671,21 @@
       </div>
 
       <div class="book-price-box" id="bookPriceBox" style="display:none;"></div>
+
+      <!-- Promo code -->
+      <div id="promoSection" style="display:none;margin-top:1rem;">
+        <div style="display:flex;gap:8px;align-items:stretch;">
+          <input id="promoInput" type="text" placeholder="Promo code" autocomplete="off" spellcheck="false"
+            style="flex:1;background:rgba(237,212,178,0.07);border:0.5px solid rgba(176,96,48,0.3);color:#EDD4B2;font-family:'Open Sans',sans-serif;font-size:0.85rem;padding:9px 12px;outline:none;border-radius:2px;letter-spacing:0.06em;text-transform:uppercase;"
+            oninput="promoReset()" />
+          <button type="button" id="promoApplyBtn" onclick="applyPromo()"
+            style="background:rgba(176,96,48,0.18);border:0.5px solid rgba(176,96,48,0.4);color:#EDD4B2;font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;padding:9px 16px;cursor:pointer;border-radius:2px;white-space:nowrap;">
+            Apply
+          </button>
+        </div>
+        <p id="promoMsg" style="font-family:'Open Sans',sans-serif;font-size:0.78rem;margin:6px 0 0;display:none;"></p>
+      </div>
+
       <div id="bookErrorMsg"></div>
 
       <form id="bookingForm" class="booking-form" novalidate>
@@ -855,14 +870,29 @@ if (!venue || !roomType || !priceStr) {
   const gst   = Math.round((base + addonTotal) * (window._GST_RATE || 0.05));
   const total = base + addonTotal + gst;
 
+  window._baseForPromo    = base + addonTotal; // pre-GST, pre-discount
+  window._addonTotalForPromo = addonTotal;
+  window._promoDiscount   = 0;
+  window._promoCode       = null;
+
+  function refreshPriceDisplay() {
+    const disc = window._promoDiscount || 0;
+    const newBase = window._baseForPromo - disc;
+    const newGst  = Math.round(newBase * (window._GST_RATE || 0.05));
+    const newTotal = newBase + newGst;
+    document.getElementById('bpTotal').textContent     = fmt(newTotal);
+    document.getElementById('bpBreakdown').textContent = fmt(newBase) + ' + GST';
+    document.getElementById('bpGstLine').textContent   = fmt(newGst);
+    document.getElementById('bpTotalLine').textContent = fmt(newTotal);
+  }
+  window._refreshPriceDisplay = refreshPriceDisplay;
+
   document.getElementById('bsVenueLine').textContent = venue;
   document.getElementById('bsRoomLine').textContent  = roomType;
   document.getElementById('bsDateLine').textContent  = isFestivalOnly ? '' : checkIn + ' – 30 Nov';
-  document.getElementById('bpTotal').textContent     = fmt(total);
-  document.getElementById('bpBreakdown').textContent = fmt(base + addonTotal) + ' + GST';
   document.getElementById('bookSummaryCard').style.display = 'block';
-  document.getElementById('bpGstLine').textContent   = fmt(gst);
-  document.getElementById('bpTotalLine').textContent = fmt(total);
+  if (!isFestivalOnly) document.getElementById('promoSection').style.display = 'block';
+  refreshPriceDisplay();
 
   const ROOM_NOTES = {
     'Triple Sharing': '1 bed in a 3-bed room',
@@ -1228,6 +1258,47 @@ document.getElementById('bf-gst-name')?.addEventListener('input', _saveFormData)
 _clearPendingBooking();
 
 // ── Validation helpers ────────────────────────────────────────────────────────
+function promoReset() {
+  window._promoDiscount = 0;
+  window._promoCode = null;
+  const msg = document.getElementById('promoMsg');
+  if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
+  if (window._refreshPriceDisplay) window._refreshPriceDisplay();
+}
+
+async function applyPromo() {
+  const input = document.getElementById('promoInput');
+  const msg   = document.getElementById('promoMsg');
+  const btn   = document.getElementById('promoApplyBtn');
+  const code  = (input?.value || '').trim().toUpperCase();
+  if (!code) return;
+  btn.disabled = true; btn.textContent = '…';
+  try {
+    const res  = await fetch('/api/bookings/promo/' + encodeURIComponent(code));
+    const data = await res.json();
+    if (!res.ok) {
+      msg.style.display = 'block';
+      msg.style.color = '#c0392b';
+      msg.textContent = data.error || 'Invalid promo code';
+      window._promoDiscount = 0; window._promoCode = null;
+    } else {
+      const discPerPerson = data.discount;
+      const totalDisc = discPerPerson * Math.max(1, guestCount);
+      window._promoDiscount = totalDisc;
+      window._promoCode = data.code;
+      msg.style.display = 'block';
+      msg.style.color = '#5a9e6a';
+      msg.textContent = '✓ ' + data.code + ' applied — ₹' + discPerPerson.toLocaleString('en-IN') + '/person discount';
+    }
+  } catch(_) {
+    msg.style.display = 'block';
+    msg.style.color = '#c0392b';
+    msg.textContent = 'Could not verify code. Please try again.';
+  }
+  btn.disabled = false; btn.textContent = 'Apply';
+  if (window._refreshPriceDisplay) window._refreshPriceDisplay();
+}
+
 function showFieldError(input, msg) {
   input.classList.add('input-error');
   let err = input.parentElement.querySelector('.field-error');
@@ -1351,7 +1422,9 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
         return sum + (name.includes('scooter') ? price : price * guestCount);
       }, 0)
     : 0;
-  const base  = parseInt(priceStr, 10) + addonCostForPayment;
+  const baseBeforeDiscount = parseInt(priceStr, 10) + addonCostForPayment;
+  const promoDiscountAmt   = window._promoDiscount || 0;
+  const base  = baseBeforeDiscount - promoDiscountAmt;
   const gst   = Math.round(base * (window._GST_RATE || 0.05));
   const total = base + gst;
 
@@ -1370,6 +1443,7 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
         organizerNote: document.getElementById('bf-organizer-note')?.value?.trim() || null,
         gstNumber: document.getElementById('bf-gst-number').value || null,
         gstName:   document.getElementById('bf-gst-name').value || null,
+        promoCode: window._promoCode || null,
       })
     });
     bookingData = await res.json();

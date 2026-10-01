@@ -52,11 +52,23 @@ function getRazorpay() {
   return new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
 }
 
+// GET /api/promo/:code — validate a promo code (public)
+router.get('/promo/:code', (req, res) => {
+  const code = (req.params.code || '').trim();
+  if (!code) return res.status(400).json({ error: 'No code provided' });
+  const promo = db.prepare('SELECT * FROM promo_codes WHERE code=? COLLATE NOCASE').get(code);
+  if (!promo || !promo.active) return res.status(404).json({ error: 'Invalid or expired promo code' });
+  if (promo.max_uses !== null && promo.used_count >= promo.max_uses) {
+    return res.status(410).json({ error: 'This promo code has reached its usage limit' });
+  }
+  res.json({ valid: true, discount: promo.discount, code: promo.code });
+});
+
 // POST /api/bookings/create
 // Body: { venue, roomType, totalPrice, guests: [{full_name, whatsapp, email, city, age}] }
 router.post('/create', async (req, res) => {
   try {
-    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote } = req.body;
+    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode } = req.body;
 
     // Derive arrival date from addons — extra day add-on means 26 Nov, otherwise 27 Nov
     const addonNames = addons ? addons.split('|').map(a => a.split(':').slice(1).join(':').trim().toLowerCase()) : [];
@@ -112,13 +124,26 @@ router.post('/create', async (req, res) => {
     const amountRaw = String(totalPrice).replace(/[^\d.]/g, '');
     const baseAmount = Math.round(parseFloat(amountRaw) || 0);
 
+    // Validate promo code if provided
+    let promoDiscount = 0;
+    let validatedPromoCode = null;
+    if (promoCode) {
+      const promo = db.prepare('SELECT * FROM promo_codes WHERE code=? COLLATE NOCASE').get(promoCode.trim());
+      if (!promo || !promo.active) return res.status(400).json({ error: 'Invalid or expired promo code' });
+      if (promo.max_uses !== null && promo.used_count >= promo.max_uses) {
+        return res.status(400).json({ error: 'This promo code has reached its usage limit' });
+      }
+      promoDiscount = promo.discount * guests.length;
+      validatedPromoCode = promo.code;
+    }
+
     // Server-side price floor: client cannot submit less than the active phase price × guest count
     const priceTiers = PRICING[venue]?.[roomType];
     if (priceTiers) {
       const activePhase = resolvePhase();
       const minExpected = (priceTiers.flat ?? priceTiers[activePhase] ?? priceTiers.earlyBird ?? 0) * guests.length;
-      if (baseAmount < minExpected) {
-        return res.status(400).json({ error: `Invalid price submitted. Minimum for ${venue} ${roomType} is ₹${minExpected.toLocaleString('en-IN')} for ${guests.length} guest(s).` });
+      if (baseAmount < minExpected - promoDiscount) {
+        return res.status(400).json({ error: `Invalid price submitted. Minimum for ${venue} ${roomType} is ₹${(minExpected - promoDiscount).toLocaleString('en-IN')} for ${guests.length} guest(s).` });
       }
     }
 
@@ -139,8 +164,8 @@ router.post('/create', async (req, res) => {
     }
 
     const insertBooking = db.prepare(`
-      INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, razorpay_order_id, gst_number, gst_name, addons, arrival_date, organizer_note, phase)
-      VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, razorpay_order_id, gst_number, gst_name, addons, arrival_date, organizer_note, phase, discount, discount_reason, promo_code)
+      VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const insertGuest = db.prepare(`
@@ -186,7 +211,7 @@ router.post('/create', async (req, res) => {
         return res.status(409).json({ error: finalCheck.reason, sold_out: true });
       }
       const storedPrice = '₹' + baseAmount.toLocaleString('en-IN');
-      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase());
+      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null);
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
         const normCity = normalizeCity(g.city);
@@ -202,6 +227,9 @@ router.post('/create', async (req, res) => {
 
     if (payment_link_url) {
       db.prepare('UPDATE bookings SET payment_link_url=? WHERE booking_ref=?').run(payment_link_url, booking_ref);
+    }
+    if (validatedPromoCode) {
+      db.prepare('UPDATE promo_codes SET used_count=used_count+1 WHERE code=? COLLATE NOCASE').run(validatedPromoCode);
     }
 
     // Alert admin of every new booking so drop-offs are visible

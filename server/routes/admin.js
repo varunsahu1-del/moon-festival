@@ -1853,4 +1853,35 @@ router.get('/api/synopsis', requireAdmin, (req, res) => {
   res.json({ venues, passes, mailers: { totalBookings, linksSent, confirmationsSent, paidCount, pendingCount, addonEmailsSent, withAddons } });
 });
 
+// GET /admin/api/promo-codes
+router.get('/promo-codes', (req, res) => {
+  const codes = db.prepare('SELECT * FROM promo_codes ORDER BY created_at DESC').all();
+  res.json(codes);
+});
+
+// POST /admin/api/promo-codes
+router.post('/promo-codes', (req, res) => {
+  const { code, discount, max_uses } = req.body;
+  if (!code || !discount) return res.status(400).json({ error: 'Code and discount are required' });
+  const clean = String(code).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20);
+  if (!clean) return res.status(400).json({ error: 'Invalid code format' });
+  const existing = db.prepare('SELECT id FROM promo_codes WHERE code=? COLLATE NOCASE').get(clean);
+  if (existing) return res.status(409).json({ error: 'Code already exists' });
+  db.prepare('INSERT INTO promo_codes (code, discount, max_uses) VALUES (?, ?, ?)').run(clean, parseInt(discount), max_uses ?? null);
+  res.json({ ok: true, code: clean });
+});
+
+// PATCH /admin/api/promo-codes/:id
+router.patch('/promo-codes/:id', (req, res) => {
+  const { active } = req.body;
+  db.prepare('UPDATE promo_codes SET active=? WHERE id=?').run(active ? 1 : 0, req.params.id);
+  res.json({ ok: true });
+});
+
+// DELETE /admin/api/promo-codes/:id
+router.delete('/promo-codes/:id', (req, res) => {
+  db.prepare('DELETE FROM promo_codes WHERE id=?').run(req.params.id);
+  res.json({ ok: true });
+});
+
 module.exports = router;

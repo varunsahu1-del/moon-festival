@@ -137,9 +137,21 @@ db.exec(`
   );
 `);
 
+db.exec(`CREATE TABLE IF NOT EXISTS promo_codes (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  code        TEXT UNIQUE NOT NULL COLLATE NOCASE,
+  discount    INTEGER NOT NULL,
+  max_uses    INTEGER DEFAULT NULL,
+  used_count  INTEGER NOT NULL DEFAULT 0,
+  active      INTEGER NOT NULL DEFAULT 1,
+  description TEXT,
+  created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+)`);
+
 // Migrations
 try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified INTEGER DEFAULT 0`); } catch(_) {}
 try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified_at DATETIME`); } catch(_) {}
+try { db.exec(`ALTER TABLE bookings ADD COLUMN promo_code TEXT`); } catch(_) {}
 
 function nextRef() {
   const row = db.prepare("SELECT MAX(CAST(SUBSTR(booking_ref,4) AS INTEGER)) as m FROM bookings WHERE booking_ref LIKE 'MF-%'").get();
