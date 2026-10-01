@@ -8,8 +8,8 @@
 
 const INVENTORY = [
   // Bhakti Kutir
-  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 22, rooms: 11, room_size: 2, gender_rule: 'same_gender', label: '11 rooms × 2' },
-  { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 24, rooms: 8,  room_size: 3, gender_rule: 'same_gender', label: '8 rooms × 3' },
+  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 30, rooms: 15, room_size: 2, gender_rule: 'same_gender', label: '15 rooms × 2' },
+  { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 12, rooms: 4,  room_size: 3, gender_rule: 'same_gender', label: '4 rooms × 3' },
   { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 4,  rooms: 4,  room_size: 1, gender_rule: 'any',         label: '4 rooms' },
   { venue: 'Bhakti Kutir', room_type: '4 Bed Dorm',     unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'female_only', label: '4 beds' },
   { venue: 'Bhakti Kutir', room_type: '6 Bed Dorm',     unit: 'beds',  capacity: 6,  rooms: 1,  room_size: 6, gender_rule: 'any',         label: '6 beds' },
@@ -63,8 +63,8 @@ const ROOM_LABELS = {
     'OP-11', 'OP-12', 'OP-13', 'OP-14',
   ],
   'Bhakti Kutir': {
-    'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11'],
-    'Triple Sharing': ['BK-T01','BK-T02','BK-T03','BK-T04','BK-T05','BK-T06','BK-T07','BK-T08'],
+    'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14','BK-D15'],
+    'Triple Sharing': ['BK-T01','BK-T02','BK-T03','BK-T04'],
     'Private Room':    ['BK-S01','BK-S02','BK-S03','BK-S04'],
     '4 Bed Dorm':     ['DORM-F4'],
     '6 Bed Dorm':     ['DORM-M6'],
