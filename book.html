@@ -725,17 +725,21 @@
         </div>
 
         <!-- Promo code -->
-        <div id="promoSection" style="display:none;margin-top:1.2rem;">
-          <div style="display:flex;gap:6px;align-items:center;">
-            <input id="promoInput" type="text" placeholder="Have a promo code?" autocomplete="off" spellcheck="false"
-              style="flex:1;max-width:220px;background:transparent;border:none;border-bottom:0.5px solid rgba(176,96,48,0.3);color:rgba(237,212,178,0.55);font-family:'Open Sans',sans-serif;font-size:0.72rem;padding:5px 2px;outline:none;letter-spacing:0.08em;"
-              oninput="promoReset()" />
+        <div id="promoSection" style="display:none;margin-top:1.5rem;">
+          <div class="form-group" style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="flex:1;">
+              <label style="font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.45);display:block;margin-bottom:6px;">Promo Code</label>
+              <input id="promoInput" type="text" placeholder="Enter code" autocomplete="off" spellcheck="false"
+                class="booking-input"
+                style="text-transform:uppercase;letter-spacing:0.1em;"
+                oninput="promoReset()" />
+            </div>
             <button type="button" id="promoApplyBtn" onclick="applyPromo()"
-              style="background:transparent;border:none;color:rgba(237,212,178,0.35);font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;padding:4px 0 4px 8px;cursor:pointer;white-space:nowrap;">
+              style="background:transparent;border:1px solid rgba(176,96,48,0.35);color:rgba(237,212,178,0.5);font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;padding:9px 14px;cursor:pointer;white-space:nowrap;margin-bottom:1px;">
               Apply
             </button>
           </div>
-          <p id="promoMsg" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;margin:5px 0 0;display:none;"></p>
+          <p id="promoMsg" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;margin:6px 0 0;display:none;"></p>
         </div>
 
         <div class="book-submit-row">
