@@ -2908,9 +2908,14 @@ document.addEventListener('keydown', e => {
       const isBhaktiRoom = venue === 'Bhakti Kutir' && !isDorm;
       if ((isBhaktiRoom || s.low) && s.remaining > 0) {
         const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
-        const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
-        const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-        addBadge('inv-badge--low', genderPrefix + 'Last ' + displayCount + unit);
+        const isBhaktiDouble = venue === 'Bhakti Kutir' && roomTypeName === 'Double Sharing';
+        if (isBhaktiDouble) {
+          addBadge('inv-badge--low', 'Fastest Selling');
+        } else {
+          const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
+          const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
+          addBadge('inv-badge--low', genderPrefix + 'Last ' + displayCount + unit);
+        }
       }
     });
 
