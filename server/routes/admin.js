@@ -676,10 +676,11 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
     }
   }
 
-  const old = db.prepare('SELECT total_price, status, room_number FROM bookings WHERE booking_ref=?').get(req.params.ref);
+  const old = db.prepare('SELECT total_price, status, room_number, addons FROM bookings WHERE booking_ref=?').get(req.params.ref);
   const nowPaid = status === 'paid' && old?.status !== 'paid';
+  const addonsToSave = addons !== undefined ? (addons || null) : (old?.addons || null);
   db.prepare(`UPDATE bookings SET total_price=?, status=?, room_number=?, addons=?${nowPaid ? ", paid_at=CURRENT_TIMESTAMP" : ""} WHERE booking_ref=?`)
-    .run(total_price, status, room_number || null, addons || null, req.params.ref);
+    .run(total_price, status, room_number || null, addonsToSave, req.params.ref);
 
   // Fire Meta CAPI Purchase event when admin marks a booking as paid
   if (nowPaid) {
