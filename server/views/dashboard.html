@@ -1345,7 +1345,7 @@
 
   <script>
   async function loadPromoCodes() {
-    const res = await fetch('/admin/api/promo-codes', { headers: { 'x-admin': '1' } });
+    const res = await fetch('/admin/api/promo-codes');
     const codes = await res.json();
     const el = document.getElementById('pc-list');
     if (!codes.length) { el.innerHTML = '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:rgba(42,34,24,0.4);">No codes yet.</div>'; return; }
@@ -1379,7 +1379,7 @@
     if (!code || !discount) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent='Code and discount are required.'; return; }
     const res = await fetch('/admin/api/promo-codes', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin': '1' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
     });
     const data = await res.json();
@@ -1393,7 +1393,7 @@
   async function togglePromoCode(id, active) {
     await fetch('/admin/api/promo-codes/' + id, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'x-admin': '1' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ active: active ? 1 : 0 })
     });
     loadPromoCodes();
@@ -1401,7 +1401,7 @@
 
   async function deletePromoCode(id) {
     if (!confirm('Delete this promo code?')) return;
-    await fetch('/admin/api/promo-codes/' + id, { method: 'DELETE', headers: { 'x-admin': '1' } });
+    await fetch('/admin/api/promo-codes/' + id, { method: 'DELETE' });
     loadPromoCodes();
   }
 

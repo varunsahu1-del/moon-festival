@@ -1854,13 +1854,13 @@ router.get('/api/synopsis', requireAdmin, (req, res) => {
 });
 
 // GET /admin/api/promo-codes
-router.get('/promo-codes', (req, res) => {
+router.get('/promo-codes', requireAdmin, (req, res) => {
   const codes = db.prepare('SELECT * FROM promo_codes ORDER BY created_at DESC').all();
   res.json(codes);
 });
 
 // POST /admin/api/promo-codes
-router.post('/promo-codes', (req, res) => {
+router.post('/promo-codes', requireAdmin, (req, res) => {
   const { code, discount, max_uses } = req.body;
   if (!code || !discount) return res.status(400).json({ error: 'Code and discount are required' });
   const clean = String(code).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20);
@@ -1872,14 +1872,14 @@ router.post('/promo-codes', (req, res) => {
 });
 
 // PATCH /admin/api/promo-codes/:id
-router.patch('/promo-codes/:id', (req, res) => {
+router.patch('/promo-codes/:id', requireAdmin, (req, res) => {
   const { active } = req.body;
   db.prepare('UPDATE promo_codes SET active=? WHERE id=?').run(active ? 1 : 0, req.params.id);
   res.json({ ok: true });
 });
 
 // DELETE /admin/api/promo-codes/:id
-router.delete('/promo-codes/:id', (req, res) => {
+router.delete('/promo-codes/:id', requireAdmin, (req, res) => {
   db.prepare('DELETE FROM promo_codes WHERE id=?').run(req.params.id);
   res.json({ ok: true });
 });
