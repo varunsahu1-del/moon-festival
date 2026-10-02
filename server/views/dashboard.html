@@ -4084,9 +4084,16 @@ function openPmEditor(cell) {
   customInput.style.cssText = 'font-size:11px;font-family:inherit;border:0.5px solid rgba(176,96,48,0.4);border-radius:3px;padding:3px 6px;background:#fff;color:var(--td-strong);display:none;';
   if (isCustom) { customInput.value = current; customInput.style.display = ''; }
 
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = 'Save';
+  saveBtn.style.cssText = 'display:none;font-size:10px;font-family:inherit;letter-spacing:0.08em;text-transform:uppercase;background:#2A2218;color:#EDD4B2;border:none;border-radius:3px;padding:4px 10px;cursor:pointer;white-space:nowrap;';
+
   sel.addEventListener('change', () => {
-    customInput.style.display = sel.value === '__custom__' ? '' : 'none';
-    if (sel.value !== '__custom__') customInput.value = '';
+    const isCustom = sel.value === '__custom__';
+    customInput.style.display = isCustom ? '' : 'none';
+    saveBtn.style.display = isCustom ? '' : 'none';
+    if (!isCustom) { customInput.value = ''; setTimeout(save, 50); }
+    if (isCustom) customInput.focus();
   });
 
   const save = async () => {
@@ -4100,9 +4107,7 @@ function openPmEditor(cell) {
     else if (!res.ok) { alert('Failed to save payment method — please try again.'); cell.innerHTML = fmtPm(current) || '— set'; return; }
     else { window._showSaveToast('Payment method saved ✓'); }
     if (bookingMap[ref]) bookingMap[ref].payment_method = val;
-    // Keep allBookings in sync so re-renders show the updated value
     allBookings.filter(b => b.booking_ref === ref).forEach(b => { b.payment_method = val; });
-    // Sync all pm-cell elements for this booking (table row + drawer)
     document.querySelectorAll(`.pm-cell[data-ref="${ref}"]`).forEach(el => {
       el.dataset.pm = val;
       el.innerHTML = fmtPm(val);
@@ -4110,12 +4115,14 @@ function openPmEditor(cell) {
     });
   };
 
+  saveBtn.addEventListener('mousedown', e => { e.preventDefault(); save(); });
   sel.addEventListener('keydown', e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') { cell.innerHTML = fmtPm(current)||'— set'; } });
   customInput.addEventListener('keydown', e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') { cell.innerHTML = fmtPm(current)||'— set'; } });
-  sel.addEventListener('blur', () => { if (sel.value !== '__custom__') setTimeout(save, 120); });
-  customInput.addEventListener('blur', () => setTimeout(save, 120));
+  sel.addEventListener('blur', () => { if (sel.value !== '__custom__') setTimeout(save, 150); });
 
-  wrap.appendChild(sel); wrap.appendChild(customInput);
+  if (isCustom) saveBtn.style.display = '';
+
+  wrap.appendChild(sel); wrap.appendChild(customInput); wrap.appendChild(saveBtn);
   cell.appendChild(wrap);
   sel.focus();
 }
