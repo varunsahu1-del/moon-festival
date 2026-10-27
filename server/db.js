@@ -52,7 +52,7 @@ if (!existingBookingCols.includes('gst_number'))  db.exec("ALTER TABLE bookings 
 if (!existingBookingCols.includes('gst_name'))    db.exec("ALTER TABLE bookings ADD COLUMN gst_name TEXT");
 if (!existingBookingCols.includes('email_sent'))  db.exec("ALTER TABLE bookings ADD COLUMN email_sent INTEGER DEFAULT 0");
 if (!existingBookingCols.includes('addons'))        db.exec("ALTER TABLE bookings ADD COLUMN addons TEXT");
-if (!existingBookingCols.includes('payment_method')) db.exec("ALTER TABLE bookings ADD COLUMN payment_method TEXT DEFAULT 'razorpay'");
+if (!existingBookingCols.includes('payment_method')) db.exec("ALTER TABLE bookings ADD COLUMN payment_method TEXT");
 if (!existingBookingCols.includes('upi_screenshot')) db.exec("ALTER TABLE bookings ADD COLUMN upi_screenshot TEXT");
 if (!existingBookingCols.includes('arrival_date'))   db.exec("ALTER TABLE bookings ADD COLUMN arrival_date TEXT");
 if (!existingBookingCols.includes('organizer_note')) db.exec("ALTER TABLE bookings ADD COLUMN organizer_note TEXT");
