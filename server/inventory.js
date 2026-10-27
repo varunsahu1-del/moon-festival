@@ -17,9 +17,9 @@ const INVENTORY = [
   { venue: 'Destiny', room_type: 'Double Sharing', unit: 'beds',  capacity: 6,  rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
   { venue: 'Destiny', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
   { venue: 'Destiny', room_type: 'Private Room',   unit: 'rooms', capacity: 1,  rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
-  // Ourem Palace (10 rooms: 5 private + 5 double)
+  // Ourem Palace (9 rooms: 4 private + 5 double)
   { venue: 'Ourem Palace', room_type: 'Double Sharing', unit: 'beds',  capacity: 10, rooms: 5,  room_size: 2, gender_rule: 'same_gender', label: '5 rooms × 2 beds' },
-  { venue: 'Ourem Palace', room_type: 'Private Room',   unit: 'rooms', capacity: 5,  rooms: 5,  room_size: 1, gender_rule: 'any',         label: '5 rooms' },
+  { venue: 'Ourem Palace', room_type: 'Private Room',   unit: 'rooms', capacity: 4,  rooms: 4,  room_size: 1, gender_rule: 'any',         label: '4 rooms' },
   // Teraria (combined pool of 5 rooms)
   { venue: 'Teraria', room_type: 'Double Sharing', unit: 'beds',  capacity: 4,  rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'Teraria', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
@@ -40,7 +40,7 @@ const ROOM_LABELS = {
   ],
   'Ourem Palace': {
     'Double Sharing': ['OW-D01','OW-D02','OW-D03','OW-D04','OW-D05'],
-    'Private Room':   ['OW-P01','OW-P02','OW-P03','OW-P04','OW-P05'],
+    'Private Room':   ['OW-P01','OW-P02','OW-P03','OW-P04'],
   },
   'Bhakti Kutir': {
     'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14','BK-D15','BK-D16','BK-D17'],
