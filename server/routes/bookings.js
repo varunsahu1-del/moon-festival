@@ -672,8 +672,10 @@ router.get('/availability', (req, res) => {
       const femaleSpare     = (s.femaleBeds || 0) % s.room_size === 0 ? 0 : s.room_size - (s.femaleBeds || 0) % s.room_size;
       const maleBedsLeft    = maleSpare + emptyRooms * s.room_size;
       const femaleBedsLeft  = femaleSpare + emptyRooms * s.room_size;
-      male_remaining   = maleAvail   ? maleBedsLeft   : 0;
-      female_remaining = femaleAvail ? femaleBedsLeft : 0;
+      // Only count SPARE beds in partial rooms — empty rooms are fungible (one gender
+      // will get the whole room) so don't claim them for both genders simultaneously.
+      male_remaining   = maleAvail   ? maleSpare   : 0;
+      female_remaining = femaleAvail ? femaleSpare : 0;
       if (!maleAvail && femaleAvail)  remaining = femaleBedsLeft;
       else if (maleAvail && !femaleAvail) remaining = maleBedsLeft;
       // both available: show the smaller of the two so the badge is conservative
