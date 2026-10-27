@@ -6,10 +6,13 @@ const fs = require('fs');
 const multer = require('multer');
 // express is used for raw body parsing on the webhook route
 const { db, nextRef } = require('../db');
-const { sendConfirmation, sendFailedPaymentAlert, sendUpiAlert, sendUpiPendingGuest, sendCustomPaymentAlert, sendNewBookingAlert } = require('../email');
+const { sendConfirmation, sendFailedPaymentAlert, sendUpiAlert, sendUpiPendingGuest, sendCustomPaymentAlert, sendNewBookingAlert, sendInvoiceEmail } = require('../email');
 const { checkAvailability, autoAssignRoom, PRICING } = require('../inventory');
 
 const { resolvePhase } = require('../settings');
+
+// Ensure days_selected column exists (safe to run every startup)
+try { db.exec("ALTER TABLE bookings ADD COLUMN days_selected TEXT"); } catch(_) {}
 
 const AREA_TO_CITY = {
   thane:"Mumbai",kalyan:"Mumbai",dombivli:"Mumbai","mira road":"Mumbai",vasai:"Mumbai",virar:"Mumbai",
@@ -61,14 +64,14 @@ router.get('/promo/:code', (req, res) => {
   if (promo.max_uses !== null && promo.used_count >= promo.max_uses) {
     return res.status(410).json({ error: 'This promo code has reached its usage limit' });
   }
-  res.json({ valid: true, discount: promo.discount, code: promo.code });
+  res.json({ valid: true, discount: promo.discount, discount_type: promo.discount_type || 'flat', code: promo.code });
 });
 
 // POST /api/bookings/create
 // Body: { venue, roomType, totalPrice, guests: [{full_name, whatsapp, email, city, age}] }
 router.post('/create', async (req, res) => {
   try {
-    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode } = req.body;
+    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode, daysSelected } = req.body;
 
     // Derive arrival date from addons — extra day add-on means 26 Nov, otherwise 27 Nov
     const addonNames = addons ? addons.split('|').map(a => a.split(':').slice(1).join(':').trim().toLowerCase()) : [];
@@ -127,28 +130,38 @@ router.post('/create', async (req, res) => {
     // Validate promo code if provided
     let promoDiscount = 0;
     let validatedPromoCode = null;
+    let validatedPromo = null;
     if (promoCode) {
       const promo = db.prepare('SELECT * FROM promo_codes WHERE code=? COLLATE NOCASE').get(promoCode.trim());
       if (!promo || !promo.active) return res.status(400).json({ error: 'Invalid or expired promo code' });
       if (promo.max_uses !== null && promo.used_count >= promo.max_uses) {
         return res.status(400).json({ error: 'This promo code has reached its usage limit' });
       }
-      promoDiscount = promo.discount * guests.length;
       validatedPromoCode = promo.code;
+      validatedPromo = promo;
+      // flat discount: straightforward; pct discount: computed against catalog price below
+      if (promo.discount_type !== 'pct') {
+        promoDiscount = promo.discount * guests.length;
+      }
     }
 
     // Server-side price floor: client cannot submit less than the active phase price × guest count
     const priceTiers = PRICING[venue]?.[roomType];
     if (priceTiers) {
       const activePhase = resolvePhase();
-      const minExpected = (priceTiers.flat ?? priceTiers[activePhase] ?? priceTiers.earlyBird ?? 0) * guests.length;
+      const standardPrice = priceTiers.flat ?? priceTiers[activePhase] ?? priceTiers.earlyBird ?? 0;
+      const minExpected = standardPrice * guests.length;
+      // For pct promos, compute discount against the catalog price (not the submitted amount)
+      if (validatedPromo && validatedPromo.discount_type === 'pct') {
+        promoDiscount = Math.round(standardPrice * (validatedPromo.discount / 100)) * guests.length;
+      }
       if (baseAmount < minExpected - promoDiscount) {
         return res.status(400).json({ error: `Invalid price submitted. Minimum for ${venue} ${roomType} is ₹${(minExpected - promoDiscount).toLocaleString('en-IN')} for ${guests.length} guest(s).` });
       }
     }
 
     const amountWithGst = Math.round(baseAmount * 1.05);
-    const amountWithSurcharge = Math.round(amountWithGst * 1.0236);
+    const amountWithSurcharge = Math.round(amountWithGst * 1.0242);
     const amountPaise = amountWithSurcharge * 100;
 
     let razorpay_order_id = null;
@@ -164,8 +177,8 @@ router.post('/create', async (req, res) => {
     }
 
     const insertBooking = db.prepare(`
-      INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, razorpay_order_id, gst_number, gst_name, addons, arrival_date, organizer_note, phase, discount, discount_reason, promo_code)
-      VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, razorpay_order_id, gst_number, gst_name, addons, arrival_date, organizer_note, phase, discount, discount_reason, promo_code, days_selected, razorpay_fee_pct)
+      VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const insertGuest = db.prepare(`
@@ -211,12 +224,14 @@ router.post('/create', async (req, res) => {
         return res.status(409).json({ error: finalCheck.reason, sold_out: true });
       }
       const storedPrice = '₹' + baseAmount.toLocaleString('en-IN');
-      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null);
+      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null, daysSelected || null, 0.0242);
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
+        const label = guests.length > 1 ? ` for guest ${i + 1}` : '';
         const normCity = normalizeCity(g.city);
-        if (!normCity) throw Object.assign(new Error(`Please enter your city${guests.length > 1 ? ' for guest ' + (i + 1) : ''}.`), { clientError: true });
-        insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, normCity, g.age ? Number(g.age) : null, g.gender || null, g.address || null, g.state || null, g.pin || null);
+        if (!normCity) throw Object.assign(new Error(`Please enter your city${label}.`), { clientError: true });
+        if (!g.age) throw Object.assign(new Error(`Please enter your age${label}.`), { clientError: true });
+        insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, normCity, Number(g.age), g.gender || null, g.address || null, g.state || null, g.pin || null);
       });
       db.exec('COMMIT');
       autoAssignRoom(db, lastInsertRowid);
@@ -251,7 +266,10 @@ router.post('/create', async (req, res) => {
   } catch (err) {
     console.error('[bookings/create]', err);
     if (err.clientError) return res.status(400).json({ error: err.message });
-    res.status(500).json({ error: 'Failed to create booking' });
+    if (err.errstr === 'constraint failed' && err.message?.includes('guests.age')) {
+      return res.status(400).json({ error: 'Please enter your age to continue.' });
+    }
+    res.status(500).json({ error: 'Failed to create booking. Please try again or contact us on WhatsApp.' });
   }
 });
 
@@ -581,7 +599,7 @@ router.post('/razorpay-order', async (req, res) => {
   if (!rzp) return res.status(503).json({ error: 'Razorpay not configured' });
   const baseInr = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g, '')) || 0);
   const withGst = Math.round(baseInr * 1.05);
-  const amountPaise = Math.round(withGst * 1.0236) * 100;
+  const amountPaise = Math.round(withGst * 1.0242) * 100;
   try {
     const order = await rzp.orders.create({
       amount: amountPaise,
@@ -684,6 +702,38 @@ router.get('/availability', (req, res) => {
       female_available: femaleAvail,
     };
   }));
+});
+
+// Admin: preview invoice PDF in browser
+router.get('/invoice/:ref/preview', async (req, res) => {
+  const { ref } = req.params;
+  try {
+    const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref = ? AND deleted_at IS NULL').get(ref);
+    if (!booking) return res.status(404).send('Not found');
+    const guests = db.prepare('SELECT * FROM guests WHERE booking_id = ? ORDER BY guest_number').all(booking.id);
+    const { generateInvoice } = require('../invoice');
+    const buf = await generateInvoice({ booking, guests });
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename="Moon-Invoice-' + ref + '.pdf"');
+    res.send(buf);
+  } catch (e) {
+    res.status(500).send('Invoice error: ' + e.message);
+  }
+});
+
+// Admin: send invoice email for a specific booking
+router.post('/send-invoice/:ref', async (req, res) => {
+  const { ref } = req.params;
+  try {
+    const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref = ? AND deleted_at IS NULL').get(ref);
+    if (!booking) return res.status(404).json({ error: 'Booking not found' });
+    const guests = db.prepare('SELECT * FROM guests WHERE booking_id = ? ORDER BY guest_number').all(booking.id);
+    await sendInvoiceEmail({ booking, guests });
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('[send-invoice]', e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 module.exports = router;
