@@ -354,7 +354,7 @@ function getInventoryStats(db) {
     }
 
     // Standalone venues (Bhakti Kutir, Festival Access, etc.)
-    const { paid, pending, total, fullRooms, partialRooms, maleBeds, femaleBeds } = getUsed(db, item.venue, item.room_type, item.unit, item.room_size);
+    const { paid, pending, total, fullRooms, partialRooms, maleBeds, femaleBeds, partialMaleBeds, partialFemaleBeds } = getUsed(db, item.venue, item.room_type, item.unit, item.room_size);
     const available = Math.max(0, item.capacity - total);
     const pct = Math.round((total / item.capacity) * 100);
     stats.push({
@@ -368,6 +368,8 @@ function getInventoryStats(db) {
       occupied: paid,
       fullRooms: fullRooms || 0,
       partialRooms: partialRooms || 0,
+      partialMaleBeds: partialMaleBeds || 0,
+      partialFemaleBeds: partialFemaleBeds || 0,
       pending,
       available,
       maleBeds,
