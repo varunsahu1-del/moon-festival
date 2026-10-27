@@ -662,6 +662,7 @@ router.get('/availability', (req, res) => {
     // shows the right count (not total beds, which overstates when one gender's
     // slots are absorbed by partial rooms of the other gender).
     let remaining = s.available;
+    let male_remaining = null, female_remaining = null;
     if (s.gender_rule === 'same_gender' && s.room_size && s.capacity) {
       const totalRooms      = s.capacity / s.room_size;
       const maleRoomsUsed   = Math.ceil((s.maleBeds || 0) / s.room_size);
@@ -671,6 +672,8 @@ router.get('/availability', (req, res) => {
       const femaleSpare     = (s.femaleBeds || 0) % s.room_size === 0 ? 0 : s.room_size - (s.femaleBeds || 0) % s.room_size;
       const maleBedsLeft    = maleSpare + emptyRooms * s.room_size;
       const femaleBedsLeft  = femaleSpare + emptyRooms * s.room_size;
+      male_remaining   = maleAvail   ? maleBedsLeft   : 0;
+      female_remaining = femaleAvail ? femaleBedsLeft : 0;
       if (!maleAvail && femaleAvail)  remaining = femaleBedsLeft;
       else if (maleAvail && !femaleAvail) remaining = maleBedsLeft;
       // both available: show the smaller of the two so the badge is conservative
@@ -694,6 +697,8 @@ router.get('/availability', (req, res) => {
       available: s.available,
       sold_out: s.sold_out,
       remaining,
+      male_remaining,
+      female_remaining,
       capacity: s.capacity,
       room_size: roomSize,
       low,

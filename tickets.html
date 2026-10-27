@@ -1082,6 +1082,7 @@
       font-weight: 700;
     }
     .price-future {
+      display: none !important;
       font-family: 'Open Sans', sans-serif;
       font-size: clamp(0.68rem, 1vw, 0.78rem);
       font-weight: 300;
@@ -1104,9 +1105,10 @@
     .stepper-btn {
       background: none;
       border: none;
-      color: #B06030;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.9rem;
+      color: rgba(237,212,178,0.3);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
       width: 2rem;
       height: 2rem;
       cursor: pointer;
@@ -1115,7 +1117,10 @@
       justify-content: center;
       transition: background 0.18s;
       flex-shrink: 0;
+      line-height: 1;
     }
+    .stepper-btn.stepper-dec { color: rgba(237,212,178,0.3); }
+    .stepper-btn.stepper-inc { color: #B06030 !important; }
     .stepper-btn:hover { background: rgba(176,96,48,0.12); }
     .stepper-btn:disabled { opacity: 0.25; cursor: default; }
     .stepper-wrap {
@@ -1170,9 +1175,15 @@
       opacity: 1;
     }
     .room-row.sold-out {
-      opacity: 0.45;
       pointer-events: none;
     }
+    .room-row.sold-out .room-info,
+    .room-row.sold-out .stepper-wrap,
+    .room-row.sold-out .room-note,
+    .room-row.sold-out .room-bottom {
+      opacity: 0.65;
+    }
+    .room-row.sold-out .price-wrap { display: flex; align-items: center; justify-content: flex-end; }
     .room-row.sold-out .btn-book { display: none; }
     .room-type-row {
       display: flex;
@@ -1197,7 +1208,7 @@
     }
     .sold-out-badge {
       color: #fff;
-      background: #b02020;
+      background: #E53030;
       border: none;
       letter-spacing: 0.16em;
       margin-left: auto;
@@ -1915,7 +1926,7 @@
     </div>
 
     <!-- ── MAROON · SEA VIEW ──────────────────────────── -->
-    <div class="venue-card" data-venue="Marron · Sea View">
+    <div class="venue-card" data-venue="Marron · Sea View" style="display:none;">
       <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">5 Min Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span></div>
       <img class="venue-hero-img" src="/img/Stay Page Images/Marron/Marron Sea View Combined/1.jpeg?w=800" alt="Marron Sea View" loading="lazy" />
       <div style="position:absolute;bottom:12px;right:12px;z-index:10;display:flex;gap:4px;">
@@ -1960,7 +1971,7 @@
     </div>
 
     <!-- ── MAROON · GARDEN ────────────────────────────── -->
-    <div class="venue-card" data-venue="Marron · Garden">
+    <div class="venue-card" data-venue="Marron · Garden" style="display:none;">
       <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">5 Min Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span><span class="venue-hero-badge">Garden View</span></div>
       <img class="venue-hero-img" src="/img/Stay Page Images/Marron/Maroon Luxury garden cottage/1.jpeg?w=800" alt="Marron Garden" loading="lazy" />
       <div style="position:absolute;bottom:12px;right:12px;z-index:10;display:flex;gap:4px;">
@@ -2066,13 +2077,13 @@
           <button class="see-details-btn" data-venue="dormitory">See Details <span class="arrow">→</span></button>
         </div>
         <ul class="room-list">
-          <li class="room-row" data-max="4" data-base-price="25500" data-extra-day="800" data-room-type="4 Bed Dorm" data-price-phase1="28000" data-price-phase2="25500">
+          <li class="room-row" data-max="4" data-base-price="25500" data-extra-day="800" data-room-type="4 Bed Mixed Dorm" data-price-phase1="28000" data-price-phase2="25000">
             <div class="room-top">
             <div class="room-info">
-              <p class="room-type">4 Bed Female Dorm</p>
-            <p class="room-note" data-note="{n} {bed} in a 4-bed dorm">1 bed in a 4-bed dorm · females only</p>
+              <p class="room-type">4 Bed Mixed Dorm</p>
+            <p class="room-note" data-note="{n} {bed} in a 4-bed dorm">1 bed in a 4-bed mixed dorm</p>
             </div>
-            <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹25,500</span><span class="price-future">₹25,500</span></div>
+            <div class="price-wrap"><span class="price-eb-label">Early Bird</span><span class="room-price">₹25,500</span><span class="price-future">₹25,000</span></div>
           </div>
             <div class="room-bottom">
             <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
@@ -2126,52 +2137,121 @@
     </div>
 
     <!-- booking section (shown when festival_pass_open = true) -->
-    <div style="padding:clamp(2rem,5vw,3.5rem) clamp(1.4rem,5vw,3rem);">
+    <div style="padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,4vw,2.5rem);">
+      <div class="venue-grid" style="max-width:960px;margin-bottom:0;">
 
-      <!-- Pass cards -->
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;padding-top:0.9rem;">
-
-        <!-- Festival Pass -->
-        <div style="flex:1;min-width:220px;border:1.5px solid rgba(176,96,48,0.25);border-radius:2px;padding:1.3rem 1.1rem;display:flex;flex-direction:column;">
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.92rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.3rem;">3 Day Workshops Pass</p>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(237,212,178,0.45);margin:0 0 1.4rem;line-height:1.35;">For the daytime experience</p>
-          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:700;color:#EDD4B2;margin:0 0 0.2rem;line-height:1;">₹16,500</p>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:300;color:rgba(237,212,178,0.35);margin:0 0 1rem;">per person</p>
-          <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;">
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>Festival entry</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>All daytime workshops</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>All ceremonies &amp; Circles</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>Friday Night Performance (8.30–10pm)</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Sat &amp; Sun Night Performances</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Beach sunset workshops on day two</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Stay</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Meals</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Tribal lunch</li>
-          </ul>
-          <a href="#" onclick="openFpModal('Festival Pass',16500);return false;" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;border:1.5px solid rgba(176,96,48,0.35);font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#B06030'" onmouseout="this.style.borderColor='rgba(176,96,48,0.35)'">Book now</a>
+        <!-- ── Full Festival Pass ── -->
+        <div class="venue-card" style="position:relative;">
+          <span style="position:absolute;top:0;left:0;font-family:'Josefin Sans',sans-serif;font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:#8B2020;color:#EDD4B2;padding:5px 10px;z-index:1;">Most Popular</span>
+          <span id="inv-full" style="display:none;position:absolute;top:0;right:0;font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;background:#6B8F71;color:#fff;padding:10px 12px;z-index:1;text-align:center;line-height:1.25;min-width:56px;"></span>
+          <div class="venue-card-body" style="padding-top:2rem;">
+            <div class="venue-meta" style="margin-bottom:0.3rem;">
+              <h3 class="venue-name" style="margin-top:0.5rem;">Full Festival Pass</h3>
+            </div>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.45);margin:0.2rem 0 0.7rem;line-height:1.5;">Every workshop, ceremony &amp; performance. 27–29 Nov.</p>
+            <ul class="room-list">
+              <li class="room-row">
+                <div class="room-top">
+                  <div class="room-info">
+                    <p class="room-type" style="color:#B06030;">3 Days Festival Pass</p>
+                    <p class="room-note">Fri · Sat · Sun</p>
+                  </div>
+                  <div class="price-wrap"><span class="room-price" id="fp3-price" style="font-family:'Open Sans',sans-serif;">₹21,000</span></div>
+                </div>
+                <div class="room-bottom">
+                  <div class="stepper-wrap">
+                    <div class="bed-stepper">
+                      <button class="stepper-btn stepper-dec" onclick="fpCardQty('fp3',-1)" style="color:rgba(237,212,178,0.35);">−</button>
+                      <span class="stepper-count" id="fp3-qty">1</span>
+                      <button class="stepper-btn stepper-inc" onclick="fpCardQty('fp3',1)" style="color:#B06030;">+</button>
+                    </div>
+                    <span class="stepper-label">Guests</span>
+                  </div>
+                  <button class="btn-book" data-fp-only="true" onclick="openFpFromCard('Full Festival Pass',21000,null)">Book</button>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Full Festival Pass -->
-        <div style="flex:1;min-width:220px;border:1.5px solid #B06030;border-radius:2px;padding:1.3rem 1.1rem;display:flex;flex-direction:column;position:relative;">
-          <p style="position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);background:#B06030;color:#191406;font-family:'Open Sans',sans-serif;font-size:0.52rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:0.18rem 0.65rem;white-space:nowrap;">Most popular</p>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.92rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.75);margin:0 0 0.3rem;">3 Day Full Festival Pass</p>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:300;color:#C47D52;margin:0 0 1.4rem;line-height:1.35;">For the whole of Moon — day &amp; night</p>
-          <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:700;color:#EDD4B2;margin:0 0 0.2rem;line-height:1;">₹21,000</p>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:300;color:rgba(237,212,178,0.35);margin:0 0 1rem;">per person</p>
-          <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;">
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>Festival entry</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>All daytime workshops</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>All ceremonies &amp; Circles</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>All 3 Night Performances (8.30–10pm)</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:#6B9E6B;">✓</span>Beach sunset workshops on day two</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Stay</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Meals</li>
-            <li style="font-family:'Open Sans',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(237,212,178,0.6);padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:rgba(180,80,80,0.7);">✗</span>Tribal lunch</li>
-          </ul>
-          <a href="#" onclick="openFpModal('Full Festival Pass',21000);return false;" style="display:block;text-align:center;margin-top:1.3rem;padding:0.7rem 1rem;background:#B06030;font-family:'Open Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;text-decoration:none;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#C47D52'" onmouseout="this.style.background='#B06030'">Book now</a>
+        <!-- ── Weekend Pass ── -->
+        <div class="venue-card" style="position:relative;">
+          <span id="inv-wknd" style="display:none;position:absolute;top:0;right:0;font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;background:#6B8F71;color:#fff;padding:10px 12px;z-index:1;text-align:center;line-height:1.25;min-width:56px;"></span>
+          <div class="venue-card-body">
+            <div class="venue-meta">
+              <h3 class="venue-name">Weekend Pass</h3>
+            </div>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.55);margin:0.1rem 0 1.4rem;line-height:1.5;">Full access · 28–29 Nov.</p>
+            <ul class="room-list">
+              <li class="room-row">
+                <div class="room-top">
+                  <div class="room-info">
+                    <p class="room-type">Weekend Pass</p>
+                    <p class="room-note">Sat &amp; Sun</p>
+                  </div>
+                  <div class="price-wrap"><span class="room-price" id="wknd-price" style="font-family:'Open Sans',sans-serif;">₹14,500</span></div>
+                </div>
+                <div class="room-bottom">
+                  <div class="stepper-wrap">
+                    <div class="bed-stepper">
+                      <button class="stepper-btn stepper-dec" onclick="fpCardQty('wknd',-1)" style="color:rgba(237,212,178,0.35);">−</button>
+                      <span class="stepper-count" id="wknd-qty">1</span>
+                      <button class="stepper-btn stepper-inc" onclick="fpCardQty('wknd',1)" style="color:#B06030;">+</button>
+                    </div>
+                    <span class="stepper-label">Guests</span>
+                  </div>
+                  <button class="btn-book" data-fp-only="true" onclick="openFpFromCard('Weekend Pass',14500,['28 Nov (Sat)','29 Nov (Sun)'])">Book</button>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
 
-      </div>
+        <!-- ── Single Day Pass ── -->
+        <div class="venue-card" style="position:relative;">
+          <span id="inv-single" style="display:none;position:absolute;top:0;right:0;font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;background:#6B8F71;color:#fff;padding:10px 12px;z-index:1;text-align:center;line-height:1.25;min-width:56px;"></span>
+          <div class="venue-card-body">
+            <div class="venue-meta">
+              <h3 class="venue-name">Single Day Pass</h3>
+            </div>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.55);margin:0.1rem 0 0.8rem;line-height:1.5;">Full access · choose Fri 27, Sat 28 or Sun 29 Nov.</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem;margin-bottom:0.9rem;" id="dayToggleRow">
+              <button id="dayBtn-fri" onclick="toggleDay('fri')" style="padding:0.65rem 0.3rem;border:0.5px solid rgba(176,96,48,0.25);background:transparent;color:rgba(237,212,178,0.45);font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.15s;text-align:center;">
+                <span style="display:block;font-size:0.88rem;font-weight:700;line-height:1.2;">FRI</span><span style="font-size:0.6rem;font-weight:300;">27 Nov</span>
+              </button>
+              <button id="dayBtn-sat" onclick="toggleDay('sat')" style="padding:0.65rem 0.3rem;border:0.5px solid rgba(176,96,48,0.25);background:transparent;color:rgba(237,212,178,0.45);font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.15s;text-align:center;">
+                <span style="display:block;font-size:0.88rem;font-weight:700;line-height:1.2;">SAT</span><span style="font-size:0.6rem;font-weight:300;">28 Nov</span>
+              </button>
+              <button id="dayBtn-sun" onclick="toggleDay('sun')" style="padding:0.65rem 0.3rem;border:0.5px solid rgba(176,96,48,0.25);background:transparent;color:rgba(237,212,178,0.45);font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.15s;text-align:center;">
+                <span style="display:block;font-size:0.88rem;font-weight:700;line-height:1.2;">SUN</span><span style="font-size:0.6rem;font-weight:300;">29 Nov</span>
+              </button>
+            </div>
+            <ul class="room-list">
+              <li class="room-row">
+                <div class="room-top">
+                  <div class="room-info">
+                    <p class="room-type">Single Day Pass</p>
+                    <p class="room-note">Pick a day above</p>
+                  </div>
+                  <div class="price-wrap"><span class="room-price" id="sdp-price" style="font-family:'Open Sans',sans-serif;">₹7,500</span></div>
+                </div>
+                <div class="room-bottom">
+                  <div class="stepper-wrap">
+                    <div class="bed-stepper">
+                      <button class="stepper-btn stepper-dec" onclick="fpCardQty('sdp',-1)" style="color:rgba(237,212,178,0.35);">−</button>
+                      <span class="stepper-count" id="sdp-qty">1</span>
+                      <button class="stepper-btn stepper-inc" onclick="fpCardQty('sdp',1)" style="color:#B06030;">+</button>
+                    </div>
+                    <span class="stepper-label">Guests</span>
+                  </div>
+                  <button class="btn-book" data-fp-only="true" id="dayPassBookBtn" onclick="openDayPassModal()" style="opacity:0.35;pointer-events:none;">Book</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /venue-grid -->
     </div>
     </div><!-- /booking section -->
 
@@ -2394,7 +2474,8 @@ function applyCoupon() {
     });
 
     msg.innerHTML = '✓ Community price applied — ₹3,300/day · ₹9,000 full pass';
-    msg.style.color = '#7aba7a';
+    msg.style.color = '#7aab8a';
+    msg.style.fontWeight = '600';
     msg.style.display = 'block';
   } else {
     msg.textContent = 'Invalid coupon code.';
@@ -2412,16 +2493,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const TOOLTIP = {
     'Room for 2':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add a 2nd guest — you\'ll be in the same room.',
     'Room for 3':  'Price is <strong>per person</strong>. Use <strong>+</strong> to add up to 2 more guests — everyone gets a bed in the same room.',
-    '4 Bed Dorm':      'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
+    '4 Bed Mixed Dorm': 'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
     '6 Bed Dorm':      'Price is <strong>per person</strong>. Use <strong>+</strong> to add guests — everyone gets their own bed in the same dorm.',
     'Solo Room':    '<strong>For 1 person only.</strong> Travelling with someone? Choose <strong>Room for 2</strong> and tap <strong>+</strong> to add your partner — you\'ll share the same room.',
   };
-  const PER_PERSON_TYPES = new Set(['Room for 2','Room for 3','4 Bed Dorm','6 Bed Dorm']);
+  const PER_PERSON_TYPES = new Set(['Room for 2','Room for 3','4 Bed Mixed Dorm','6 Bed Dorm']);
 
 
 });
 document.querySelectorAll('.btn-book').forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    // Festival-only pass buttons have their own onclick — skip global handler
+    if (btn.dataset.fpOnly) return;
     const row  = btn.closest('.room-row');
     const card = btn.closest('.venue-card');
     // Festival Access passes skip the add-on modal
@@ -2513,6 +2596,7 @@ function toggleInclusions(btn) {
 
 // Bed steppers
 document.querySelectorAll('.room-row').forEach(row => {
+  if (row.closest('.venue-card') && row.querySelector('[onclick^="fpCardQty"]')) return;
   const max = parseInt(row.dataset.max) || 1;
   const dec = row.querySelector('.stepper-dec');
   const inc = row.querySelector('.stepper-inc');
@@ -2812,7 +2896,7 @@ document.addEventListener('keydown', e => {
 
     // Map display names → server room_type names
     const DISPLAY_TO_SERVER = { 'Room for 2': 'Double Sharing', 'Room for 3': 'Triple Sharing', 'Solo Room': 'Private Room',
-      '4 Bed Female Dorm': '4 Bed Dorm', '6 Bed Mixed Dorm': '6 Bed Dorm' };
+      '6 Bed Mixed Dorm': '6 Bed Dorm' };
     const ROOM_ALIASES = {};
     document.querySelectorAll('.venue-card').forEach(card => {
       const v = card.dataset.venue;
@@ -2864,7 +2948,12 @@ document.addEventListener('keydown', e => {
 
       if (s.sold_out) {
         row.classList.add('sold-out');
-        addBadge('sold-out-badge', 'Sold Out');
+        const priceWrap = row.querySelector('.price-wrap');
+        if (priceWrap) {
+          priceWrap.innerHTML = '<span class="inv-badge sold-out-badge">Sold Out</span>';
+        } else {
+          addBadge('sold-out-badge', 'Sold Out');
+        }
         return;
       }
 
@@ -2909,14 +2998,25 @@ document.addEventListener('keydown', e => {
       const isDorm = roomTypeName.toLowerCase().includes('dorm');
       const isBhaktiRoom = venue === 'Bhakti Kutir' && !isDorm;
       if ((isBhaktiRoom || s.low) && s.remaining > 0) {
-        const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
         const isBhaktiDouble = venue === 'Bhakti Kutir' && roomTypeName === 'Room for 2';
         if (isBhaktiDouble) {
           addBadge('inv-badge--low', 'Fastest Selling');
         } else {
-          const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
-          const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-          addBadge('inv-badge--low', genderPrefix + 'Last ' + displayCount + unit);
+          // Both genders low in a same-gender room: show each count separately
+          const bothGenderLow = s.male_available && s.female_available
+            && s.male_remaining != null && s.female_remaining != null
+            && s.male_remaining > 0 && s.female_remaining > 0
+            && !isDorm;
+          if (bothGenderLow) {
+            const mLabel = s.male_remaining === 1 ? '1 Male bed' : s.male_remaining + ' Male beds';
+            const fLabel = s.female_remaining === 1 ? '1 Female bed' : s.female_remaining + ' Female beds';
+            addBadge('inv-badge--low', mLabel + ' · ' + fLabel);
+          } else {
+            const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
+            const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
+            const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
+            addBadge('inv-badge--low', genderPrefix + 'Last ' + displayCount + unit);
+          }
         }
       }
     });
@@ -3357,8 +3457,22 @@ function fmtPrice(n) {
   try {
     const res = await fetch('/api/public/pricing');
     if (!res.ok) return;
-    const { phase, prices, festival_pass_open, gst_rate } = await res.json();
+    const { phase, prices, festival_pass_open, gst_rate, pass_inventory } = await res.json();
     if (gst_rate) window._GST_RATE = gst_rate;
+    // Inventory badges on Festival Only Pass cards
+    if (pass_inventory) {
+      function setInvBadge(elId, inv) {
+        const el = document.getElementById(elId);
+        if (!el || !inv) return;
+        el.style.display = '';
+        const left = inv.left;
+        el.innerHTML = left + ' left';
+        el.style.background = left <= 5 ? '#7A3B2E' : '#6B8F71';
+      }
+      setInvBadge('inv-full',   pass_inventory['Full Festival Pass']);
+      setInvBadge('inv-wknd',   pass_inventory['Weekend Pass']);
+      setInvBadge('inv-single', pass_inventory['Single Day Pass']);
+    }
     // Wire festival-pass WhatsApp link from config
     getPublicConfig().then(cfg => {
       const waNum = cfg.admin_whatsapp || '919820791100';
@@ -3379,7 +3493,7 @@ function fmtPrice(n) {
       const card = row.closest('.venue-card');
       if (!card) return;
       const venue    = card.dataset.venue;
-      const ROOM_MAP = { 'Room for 3': 'Triple Sharing', 'Room for 2': 'Double Sharing', 'Solo Room': 'Private Room', '4 Bed Dorm': '4 Bed Dorm', '6 Bed Dorm': '6 Bed Dorm' };
+      const ROOM_MAP = { 'Room for 3': 'Triple Sharing', 'Room for 2': 'Double Sharing', 'Solo Room': 'Private Room', '4 Bed Mixed Dorm': '4 Bed Mixed Dorm', '6 Bed Dorm': '6 Bed Dorm' };
       const roomType = ROOM_MAP[row.dataset.roomType] || row.dataset.roomType;
       if (!venue || !roomType || !prices[venue]?.[roomType]) return;
       const { active, phase4, extraDay } = prices[venue][roomType];
@@ -3431,15 +3545,17 @@ function fmtPrice(n) {
   .fp-modal-overlay.open { display:block; }
   .fp-modal-wrap { max-width:520px; margin:0 auto; padding:clamp(2rem,6vw,3.5rem) clamp(1.2rem,5vw,2.5rem); background:#191406; min-height:100vh; }
   .fp-modal-eyebrow { font-family:'Josefin Sans',sans-serif; font-size:0.6rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(237,212,178,0.45); margin:0 0 0.5rem; }
-  .fp-modal-title { font-family:'Josefin Sans',sans-serif; font-size:clamp(1.3rem,4vw,1.9rem); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#EDD4B2; margin:0 0 0.2rem; line-height:1.1; }
-  .fp-modal-price { font-family:'Josefin Sans',sans-serif; font-size:clamp(1rem,2.5vw,1.3rem); font-weight:700; color:#B06030; margin:0 0 1.8rem; }
+  .fp-modal-title { font-family:'Open Sans',sans-serif; font-size:clamp(1rem,3vw,1.25rem); font-weight:600; letter-spacing:0.01em; text-transform:none; color:#EDD4B2; margin:0 0 0.15rem; line-height:1.2; }
+  .fp-modal-price { font-family:'Open Sans',sans-serif; font-size:clamp(0.82rem,2vw,0.92rem); font-weight:300; color:rgba(237,212,178,0.5); margin:0 0 1.4rem; }
   .fp-modal-close { position:fixed; top:1rem; right:1rem; background:rgba(25,20,6,0.8); border:0.5px solid rgba(176,96,48,0.25); color:rgba(237,212,178,0.5); width:2.2rem; height:2.2rem; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; z-index:10; border-radius:2px; }
   .fp-modal-close:hover { color:#EDD4B2; border-color:#B06030; }
   .fp-modal-section { font-family:'Josefin Sans',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:rgba(237,212,178,0.4); margin:0 0 0.9rem; }
-  .fp-modal-qty-row { display:flex; align-items:center; border:1px solid rgba(176,96,48,0.3); border-radius:2px; width:fit-content; margin-bottom:1.8rem; }
-  .fp-modal-qty-btn { background:none; border:none; color:#EDD4B2; font-size:1.2rem; width:2.6rem; height:2.6rem; cursor:pointer; transition:background 0.15s; }
+  .fp-modal-qty-wrap { display:flex; align-items:center; gap:0.8rem; margin-bottom:1.6rem; }
+  .fp-modal-qty-label { font-family:'Open Sans',sans-serif; font-size:0.82rem; font-weight:300; color:rgba(237,212,178,0.45); }
+  .fp-modal-qty-row { display:flex; align-items:center; border:0.5px solid rgba(176,96,48,0.3); border-radius:2px; width:fit-content; }
+  .fp-modal-qty-btn { background:none; border:none; color:rgba(237,212,178,0.6); font-size:1rem; width:1.9rem; height:1.9rem; cursor:pointer; transition:background 0.15s; }
   .fp-modal-qty-btn:hover { background:rgba(176,96,48,0.12); }
-  .fp-modal-qty-val { font-family:'Josefin Sans',sans-serif; font-size:1rem; font-weight:700; color:#EDD4B2; width:2.4rem; text-align:center; border-left:1px solid rgba(176,96,48,0.2); border-right:1px solid rgba(176,96,48,0.2); padding:0.5rem 0; }
+  .fp-modal-qty-val { font-family:'Open Sans',sans-serif; font-size:0.88rem; font-weight:400; color:#EDD4B2; width:1.8rem; text-align:center; border-left:0.5px solid rgba(176,96,48,0.2); border-right:0.5px solid rgba(176,96,48,0.2); padding:0.35rem 0; }
   .fp-modal-summary { background:rgba(176,96,48,0.06); border:0.5px solid rgba(176,96,48,0.18); padding:0.8rem 1rem; margin-bottom:1.8rem; }
   .fp-modal-sum-row { display:flex; justify-content:space-between; font-family:'Open Sans',sans-serif; font-size:0.8rem; font-weight:300; color:rgba(237,212,178,0.55); padding:0.2rem 0; }
   .fp-modal-sum-total { border-top:1px solid rgba(176,96,48,0.2); margin-top:0.4rem; padding-top:0.6rem; color:#EDD4B2; font-weight:600; font-size:0.9rem; }
@@ -3452,19 +3568,39 @@ function fmtPrice(n) {
   .fp-modal-input { background:transparent; border:none; border-bottom:1px solid rgba(176,96,48,0.3); color:#EDD4B2; padding:0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; width:100%; box-sizing:border-box; border-radius:0; }
   .fp-modal-input::placeholder { color:rgba(237,212,178,0.25); }
   .fp-modal-input:focus { outline:none; border-bottom-color:#B06030; }
-  .fp-modal-wa-row { display:flex; gap:0; border-bottom:1px solid rgba(176,96,48,0.3); }
-  .fp-modal-cc { background:transparent; border:none; color:rgba(237,212,178,0.7); padding:0.55rem 0.6rem 0.55rem 0; font-family:'Open Sans',sans-serif; font-size:0.88rem; flex-shrink:0; max-width:130px; }
-  .fp-modal-cc:focus { outline:none; }
+  .fp-modal-wa-row { display:flex; gap:0; border-bottom:1px solid rgba(176,96,48,0.3); align-items:center; }
+  .fp-modal-cc-wrap { position:relative; flex-shrink:0; }
+  .fp-modal-cc-trigger { display:flex; align-items:center; gap:0.45rem; background:transparent; border:none; border-right:0.5px solid rgba(176,96,48,0.2); color:rgba(237,212,178,0.7); padding:0.55rem 0.7rem 0.55rem 0; font-family:'Open Sans',sans-serif; font-size:0.88rem; cursor:pointer; white-space:nowrap; }
+  .fp-modal-cc-trigger .fp-cdd-arrow { color:#B06030; font-size:0.6rem; }
+  .fp-modal-cc-menu { display:none; position:absolute; top:calc(100% + 2px); left:0; min-width:160px; background:#1a1508; border:0.5px solid rgba(176,96,48,0.3); z-index:300; max-height:220px; overflow-y:auto; }
+  .fp-modal-cc-menu.open { display:block; }
+  .fp-modal-cc-option { padding:0.6rem 0.9rem; font-family:'Open Sans',sans-serif; font-size:0.82rem; font-weight:300; color:rgba(237,212,178,0.75); cursor:pointer; border-bottom:0.5px solid rgba(176,96,48,0.08); white-space:nowrap; }
+  .fp-modal-cc-option:hover, .fp-modal-cc-option.selected { background:rgba(176,96,48,0.1); color:#EDD4B2; }
   .fp-modal-phone { background:transparent; border:none; color:#EDD4B2; padding:0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; flex:1; min-width:0; box-sizing:border-box; }
   .fp-modal-phone::placeholder { color:rgba(237,212,178,0.25); }
   .fp-modal-phone:focus { outline:none; }
-  .fp-modal-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .fp-modal-grid2 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+  .fp-accordion { margin-bottom:0.5rem; }
+  .fp-acc-row { border-top:0.5px solid rgba(176,96,48,0.18); }
+  .fp-acc-row:last-child { border-bottom:0.5px solid rgba(176,96,48,0.18); }
+  .fp-acc-trigger { width:100%; background:none; border:none; display:flex; align-items:center; gap:0.9rem; padding:1.1rem 0; cursor:pointer; color:rgba(237,212,178,0.55); font-family:'Open Sans',sans-serif; font-size:0.78rem; font-weight:300; letter-spacing:0.02em; text-transform:none; text-align:left; }
+  .fp-acc-trigger:hover { color:rgba(237,212,178,0.8); }
+  .fp-acc-icon { width:1.2rem; height:1.2rem; border:0.5px solid rgba(176,96,48,0.5); display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:#B06030; flex-shrink:0; line-height:1; transition:transform 0.2s; }
+  .fp-acc-body { padding-bottom:1.2rem; }
   .fp-modal-proceed { width:100%; background:#B06030; color:#EDD4B2; border:none; padding:1.1rem; font-family:'Josefin Sans',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; border-radius:2px; transition:background 0.2s; margin-top:1.8rem; }
   .fp-modal-proceed:hover { background:#C47D52; }
   .fp-modal-proceed:disabled { opacity:0.5; cursor:not-allowed; }
   .fp-modal-error { font-family:'Open Sans',sans-serif; font-size:0.78rem; color:#e05555; margin:0.8rem 0 0; display:none; }
-  .fp-modal-select { appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23B06030'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 0 center; padding-right:1.2rem; cursor:pointer; }
-  .fp-modal-select option { background:#191406; color:#EDD4B2; }
+  .fp-cdd { position:relative; width:100%; }
+  .fp-cdd-trigger { width:100%; background:transparent; border:none; border-bottom:1px solid rgba(176,96,48,0.3); color:#EDD4B2; padding:0.55rem 1.4rem 0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; text-align:left; cursor:pointer; display:flex; align-items:center; justify-content:space-between; }
+  .fp-cdd-trigger[data-empty="true"] { color:rgba(237,212,178,0.25); }
+  .fp-cdd-arrow { color:#B06030; font-size:0.6rem; flex-shrink:0; }
+  .fp-cdd-menu { display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; background:#1a1508; border:0.5px solid rgba(176,96,48,0.3); z-index:200; }
+  .fp-cdd-menu.open { display:block; }
+  .fp-cdd-option { padding:0.7rem 1rem; font-family:'Open Sans',sans-serif; font-size:0.88rem; font-weight:300; color:rgba(237,212,178,0.75); cursor:pointer; border-bottom:0.5px solid rgba(176,96,48,0.1); }
+  .fp-cdd-option:last-child { border-bottom:none; }
+  .fp-cdd-option:hover { background:rgba(176,96,48,0.1); color:#EDD4B2; }
+  .fp-cdd-option.selected { color:#EDD4B2; }
 </style>
 
 <div class="fp-modal-overlay" id="fpModalOverlay">
@@ -3474,20 +3610,79 @@ function fmtPrice(n) {
     <h2 class="fp-modal-title" id="fpModalTitle"></h2>
     <p class="fp-modal-price" id="fpModalPrice"></p>
 
-    <p class="fp-modal-section">Number of passes</p>
-    <div class="fp-modal-qty-row">
-      <button class="fp-modal-qty-btn" onclick="fpQtyChange(-1)">−</button>
-      <div class="fp-modal-qty-val" id="fpQtyVal">1</div>
-      <button class="fp-modal-qty-btn" onclick="fpQtyChange(1)">+</button>
+    <div class="fp-modal-qty-wrap">
+      <span class="fp-modal-qty-label">Passes</span>
+      <div class="fp-modal-qty-row">
+        <button class="fp-modal-qty-btn" onclick="fpQtyChange(-1)">−</button>
+        <div class="fp-modal-qty-val" id="fpQtyVal">1</div>
+        <button class="fp-modal-qty-btn" onclick="fpQtyChange(1)">+</button>
+      </div>
+    </div>
+
+    <!-- Meals add-on -->
+    <div id="fpMealsAddonRow" style="display:none;margin-bottom:1.6rem;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,212,178,0.55);">Add-ons</span>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.58rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:rgba(176,96,48,0.8);border:0.5px solid rgba(176,96,48,0.4);padding:0.2rem 0.55rem;">Per person</span>
+      </div>
+      <div id="fpMealsCard" onclick="fpToggleMeals()" style="display:flex;align-items:center;gap:0.9rem;border:0.5px solid rgba(176,96,48,0.35);padding:0.85rem 1rem;cursor:pointer;background:transparent;transition:background 0.15s;">
+        <div id="fpMealsCheck" style="width:1.1rem;height:1.1rem;border:0.5px solid rgba(176,96,48,0.5);background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;">
+          <span id="fpMealsCheckTick" style="display:none;color:#B06030;font-size:0.75rem;line-height:1;">✓</span>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,212,178,0.85);margin:0 0 0.2rem;" id="fpMealsTitle">Meals</p>
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.38);margin:0;" id="fpMealsDesc">Lunch &amp; dinner · all days</p>
+        </div>
+        <span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.65);flex-shrink:0;" id="fpMealsPrice"></span>
+      </div>
     </div>
 
     <div class="fp-modal-summary" id="fpSummary">
+      <div class="fp-modal-sum-row" id="fpSumDaysRow" style="display:none;"><span id="fpSumDaysLabel" style="color:rgba(237,212,178,0.45);font-size:0.72rem;"></span><span></span></div>
       <div class="fp-modal-sum-row"><span id="fpSumLabel"></span><span id="fpSumBase"></span></div>
+      <div class="fp-modal-sum-row" id="fpSumDiscountRow" style="display:none;"><span id="fpSumDiscountLabel">Promo discount</span><span id="fpSumDiscount"></span></div>
+      <div class="fp-modal-sum-row" id="fpSumMealsRow" style="display:none;"><span id="fpSumMealsLabel">Meals add-on</span><span id="fpSumMeals"></span></div>
       <div class="fp-modal-sum-row"><span>GST (5%)</span><span id="fpSumGst"></span></div>
       <div class="fp-modal-sum-row fp-modal-sum-total"><span>Total</span><span id="fpSumTotal"></span></div>
     </div>
 
     <div id="fpGuestsList"></div>
+
+    <!-- Accordion sections -->
+    <div class="fp-accordion">
+
+      <!-- Promo Code -->
+      <div class="fp-acc-row">
+        <button type="button" class="fp-acc-trigger" onclick="fpToggleAcc('fpAccPromo',this)">
+          <span class="fp-acc-icon">+</span>
+          <span>Have a promo code?</span>
+        </button>
+        <div class="fp-acc-body" id="fpAccPromo" style="display:none;">
+          <div style="display:flex;gap:0.5rem;">
+            <input id="fpCouponInput" type="text" placeholder="Enter code" class="fp-modal-input" style="flex:1;font-size:0.82rem;padding:0.5rem 0;" onkeydown="if(event.key==='Enter'){event.preventDefault();fpApplyCoupon();}" />
+            <button type="button" onclick="fpApplyCoupon()" style="font-family:'Josefin Sans',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:transparent;border:1px solid rgba(176,96,48,0.35);color:#B06030;padding:0.5rem 0.9rem;border-radius:2px;cursor:pointer;white-space:nowrap;">Apply</button>
+          </div>
+          <p id="fpCouponMsg" style="font-family:'Open Sans',sans-serif;font-size:0.75rem;margin:0.5rem 0 0;display:none;"></p>
+        </div>
+      </div>
+
+      <!-- Billing & GST Details -->
+      <div class="fp-acc-row">
+        <button class="fp-acc-trigger" onclick="fpToggleAcc('fpAccBilling',this)">
+          <span class="fp-acc-icon">+</span>
+          <span>Add billing &amp; GST details</span>
+        </button>
+        <div class="fp-acc-body" id="fpAccBilling" style="display:none;">
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0 0 1rem;line-height:1.6;">For a GST invoice. Leave blank if you don't need one.</p>
+          <div class="fp-modal-field"><label class="fp-modal-label">Company / Name</label><input class="fp-modal-input" id="fpBillName" type="text" /></div>
+          <div class="fp-modal-field"><label class="fp-modal-label">GSTIN</label><input class="fp-modal-input" id="fpBillGst" type="text" placeholder="22AAAAA0000A1Z5" /></div>
+          <div class="fp-modal-field"><label class="fp-modal-label">Billing Address</label><input class="fp-modal-input" id="fpBillAddr" type="text" /></div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.3);margin:1.4rem 0 1.8rem;line-height:1.6;">5% GST is included in the total above. For a GST invoice, add billing details above.</p>
 
     <button class="fp-modal-proceed" id="fpProceedBtn" onclick="fpProceed()">Continue to payment</button>
     <p class="fp-modal-error" id="fpError"></p>
@@ -3527,7 +3722,7 @@ function fmtPrice(n) {
           Razorpay
         </span>
       </div>
-      <p class="pay-method-desc">Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.85);font-weight:600;">+2.36% fee</span><br><span id="fpPayRpTotal"></span></p>
+      <p class="pay-method-desc">Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.85);font-weight:600;">+2.42% fee</span><br><span id="fpPayRpTotal"></span></p>
     </div>
     <div style="margin-top:1.4rem;padding-top:1.1rem;border-top:0.5px solid rgba(176,96,48,0.15);text-align:center;">
       <a href="https://wa.me/919820791100" target="_blank" rel="noopener" style="font-family:'Open Sans',sans-serif;font-size:0.75rem;font-weight:300;color:#EDD4B2;text-decoration:none;" onmouseover="this.style.color='#B06030'" onmouseout="this.style.color='#EDD4B2'">Questions? WhatsApp Varun → +91 98207 91100</a>
@@ -3537,19 +3732,201 @@ function fmtPrice(n) {
 
 <script>
 (function() {
-  var _fpPass = null, _fpPrice = 0, _fpQty = 1, _fpBooking = null, _fpTotal = 0;
+  var _fpPass = null, _fpPrice = 0, _fpQty = 1, _fpBooking = null, _fpTotal = 0, _fpDays = [], _fpCouponDiscount = 0, _fpCouponCode = null;
+
+  // Day pass coupon prices (per person, pre-GST)
+  var FP_COUPON_PRICES = {
+    'Full Festival Pass': 19000,
+    '1 Day Pass': 6500,
+    'Weekend Pass': 13000,
+  };
+
+  // Pass card qty state
+  var _fpCardQtys = { fp3: 1, wknd: 1, sdp: 1 };
+  var _sdpSelectedDay = null; // single day pass: 'fri', 'sat', or 'sun'
+  var DAY_LABELS = { fri: '27 Nov (Fri)', sat: '28 Nov (Sat)', sun: '29 Nov (Sun)' };
+  var MEAL_DAY_PRICE = 1500; // ₹750 × 2 meals per day
+
+  var _fpCardBasePrices = { fp3: 21000, wknd: 14500, sdp: 7500 };
+
+  window.fpCardQty = function(card, d) {
+    _fpCardQtys[card] = Math.max(1, Math.min(10, _fpCardQtys[card] + d));
+    var el = document.getElementById(card + '-qty');
+    if (el) el.textContent = _fpCardQtys[card];
+    // update displayed price
+    var priceEl = document.getElementById(card + '-price');
+    if (priceEl) {
+      var total = _fpCardBasePrices[card] * _fpCardQtys[card];
+      priceEl.textContent = '₹' + total.toLocaleString('en-IN');
+    }
+  };
+
+  window.fpCddToggle = function(cddId) {
+    var cdd = document.getElementById(cddId);
+    if (!cdd) return;
+    var menu = cdd.querySelector('.fp-cdd-menu');
+    var isOpen = menu.classList.contains('open');
+    // close all open menus first
+    document.querySelectorAll('.fp-cdd-menu.open').forEach(function(m){ m.classList.remove('open'); });
+    if (!isOpen) menu.classList.add('open');
+  };
+  window.fpCddPick = function(cddId, value, label) {
+    var cdd = document.getElementById(cddId);
+    if (!cdd) return;
+    cdd.querySelector('.fp-cdd-label').textContent = label;
+    cdd.querySelector('.fp-cdd-trigger').dataset.empty = 'false';
+    cdd.querySelector('.fp-cdd-trigger').dataset.value = value;
+    var hidden = cdd.querySelector('input[type=hidden]');
+    if (hidden) hidden.value = value;
+    cdd.querySelectorAll('.fp-cdd-option').forEach(function(o){
+      o.classList.toggle('selected', o.textContent.trim() === label);
+    });
+    cdd.querySelector('.fp-cdd-menu').classList.remove('open');
+  };
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.fp-cdd')) {
+      document.querySelectorAll('.fp-cdd-menu.open').forEach(function(m){ m.classList.remove('open'); });
+    }
+  });
+
+  window.fpToggleAcc = function(id, btn) {
+    var body = document.getElementById(id);
+    if (!body) return;
+    var open = body.style.display !== 'none';
+    body.style.display = open ? 'none' : 'block';
+    var icon = btn.querySelector('.fp-acc-icon');
+    if (icon) icon.textContent = open ? '+' : '−';
+  };
+
+  // Single Day Pass — radio-style, one day at a time
+  window.toggleDay = function(day) {
+    _sdpSelectedDay = (_sdpSelectedDay === day) ? null : day;
+    ['fri','sat','sun'].forEach(function(d) {
+      var btn = document.getElementById('dayBtn-' + d);
+      if (!btn) return;
+      var on = d === _sdpSelectedDay;
+      btn.style.background = on ? 'rgba(176,96,48,0.15)' : 'transparent';
+      btn.style.borderColor = on ? '#B06030' : 'rgba(176,96,48,0.25)';
+      btn.style.color = on ? '#EDD4B2' : 'rgba(237,212,178,0.45)';
+    });
+    var bookBtn = document.getElementById('dayPassBookBtn');
+    if (bookBtn) {
+      if (_sdpSelectedDay) { bookBtn.style.opacity = '1'; bookBtn.style.pointerEvents = 'auto'; }
+      else { bookBtn.style.opacity = '0.35'; bookBtn.style.pointerEvents = 'none'; }
+    }
+  };
+
+  window.openDayPassModal = function() {
+    if (!_sdpSelectedDay) return;
+    var day = DAY_LABELS[_sdpSelectedDay];
+    openFpFromCard('Single Day Pass', 7500, [day]);
+  };
+
+  window.openFpFromCard = function(passName, price, days) {
+    var cardKey = passName === 'Full Festival Pass' ? 'fp3' : passName === 'Weekend Pass' ? 'wknd' : 'sdp';
+    var qty = _fpCardQtys[cardKey] || 1;
+    openFpModal(passName, price, days || [], qty, 0);
+  };
+
+  // Unused now but keep for compat
+  window.dayQtyChange = function(d) {};
+  window.toggleDayMeals = function() {};
   var CC_OPTS = ['+91 India','+1 US/Canada','+44 UK','+61 Australia','+64 NZ','+353 Ireland','+65 Singapore','+60 Malaysia','+66 Thailand','+62 Indonesia','+63 Philippines','+84 Vietnam','+81 Japan','+82 Korea','+971 UAE','+974 Qatar','+966 Saudi Arabia','+92 Pakistan','+94 Sri Lanka','+977 Nepal','+880 Bangladesh','+49 Germany','+33 France','+39 Italy','+34 Spain','+31 Netherlands','+41 Switzerland','+46 Sweden','+47 Norway','+45 Denmark','+7 Russia','+27 South Africa','+254 Kenya','+234 Nigeria','+55 Brazil','+52 Mexico','+54 Argentina'];
-  var ccSelect = CC_OPTS.map(function(o){var c=o.split(' ')[0];return '<option value="'+c+'"'+(c==='+91'?' selected':'')+'>'+o+'</option>';}).join('');
+  function buildCcDropdown(i) {
+    var id = 'fp-cc-cdd-' + i;
+    var opts = CC_OPTS.map(function(o) {
+      var c = o.split(' ')[0];
+      return '<div class="fp-modal-cc-option'+(c==='+91'?' selected':'')+'" data-val="'+c+'" onclick="fpCcPick(\''+id+'\',\''+c+'\',\''+o.split(' ').slice(0,2).join(' ')+'\')">'+o+'</div>';
+    }).join('');
+    return '<div class="fp-modal-cc-wrap" id="'+id+'">'
+      + '<input type="hidden" id="fp-cc-'+i+'" value="+91" />'
+      + '<button type="button" class="fp-modal-cc-trigger" onclick="fpCcToggle(\''+id+'\')">'
+      + '<span id="'+id+'-label">+91 India</span>'
+      + '<span class="fp-cdd-arrow">▾</span>'
+      + '</button>'
+      + '<div class="fp-modal-cc-menu" id="'+id+'-menu">'+opts+'</div>'
+      + '</div>';
+  }
+  window.fpCcToggle = function(id) {
+    var menu = document.getElementById(id + '-menu');
+    if (!menu) return;
+    var wasOpen = menu.classList.contains('open');
+    document.querySelectorAll('.fp-modal-cc-menu.open').forEach(function(m) { m.classList.remove('open'); });
+    if (!wasOpen) menu.classList.add('open');
+  };
+  window.fpCcPick = function(id, val, label) {
+    var inp = document.getElementById(id.replace('fp-cc-cdd-', 'fp-cc-'));
+    if (inp) inp.value = val;
+    var lbl = document.getElementById(id + '-label');
+    if (lbl) lbl.textContent = label;
+    var menu = document.getElementById(id + '-menu');
+    if (menu) { menu.querySelectorAll('.fp-modal-cc-option').forEach(function(o) { o.classList.toggle('selected', o.dataset.val === val); }); menu.classList.remove('open'); }
+  };
+  document.addEventListener('click', function(e) { if (!e.target.closest('.fp-modal-cc-wrap')) { document.querySelectorAll('.fp-modal-cc-menu.open').forEach(function(m){ m.classList.remove('open'); }); } });
 
   function fmt(n){return '₹'+n.toLocaleString('en-IN');}
   function updateSummary(){
-    var base=_fpPrice*_fpQty, gst=Math.round(base*0.05), total=base+gst;
+    var base=_fpPrice*_fpQty;
+    var discount=_fpCouponDiscount*_fpQty;
+    var discountedBase=base-discount;
+    var mealsTotal=_fpMealDays*MEAL_DAY_PRICE*_fpQty;
+    var gst=Math.round((discountedBase+mealsTotal)*0.05);
+    var total=discountedBase+mealsTotal+gst;
     _fpTotal=total;
     document.getElementById('fpSumLabel').textContent=_fpQty+' × '+_fpPass;
     document.getElementById('fpSumBase').textContent=fmt(base);
     document.getElementById('fpSumGst').textContent=fmt(gst);
     document.getElementById('fpSumTotal').textContent=fmt(total);
+    // Days row
+    var daysRow=document.getElementById('fpSumDaysRow');
+    var daysLbl=document.getElementById('fpSumDaysLabel');
+    if (daysRow && daysLbl) {
+      if (_fpDays && _fpDays.length) { daysRow.style.display='flex'; daysLbl.textContent=_fpDays.join(' · '); }
+      else daysRow.style.display='none';
+    }
+    // Meals row
+    var mr=document.getElementById('fpSumMealsRow');
+    var mv=document.getElementById('fpSumMeals');
+    var ml=document.getElementById('fpSumMealsLabel');
+    if (mr && mv) {
+      mr.style.display=mealsTotal?'flex':'none';
+      mv.textContent=mealsTotal?fmt(mealsTotal):'';
+      if (ml) ml.textContent = 'Brunch & Dinner × ' + _fpQty + (_fpQty > 1 ? ' guests' : ' guest');
+    }
+    // Discount row
+    var dr=document.getElementById('fpSumDiscountRow');
+    var dv=document.getElementById('fpSumDiscount');
+    if (dr && dv) { dr.style.display=discount?'flex':'none'; dv.textContent=discount?'−'+fmt(discount):''; }
   }
+  window.fpApplyCoupon = async function() {
+    var inp = document.getElementById('fpCouponInput');
+    var msg = document.getElementById('fpCouponMsg');
+    if (!inp || !msg) return;
+    var code = inp.value.trim().toUpperCase();
+    if (!code) return;
+    msg.textContent = 'Checking…'; msg.style.color = 'rgba(237,212,178,0.4)'; msg.style.display = 'block';
+    try {
+      var res = await fetch('/api/bookings/promo/' + encodeURIComponent(code));
+      var data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.valid) { msg.textContent = 'Invalid or expired promo code.'; msg.style.color = '#c07070'; return; }
+      var discount = data.discount_type === 'pct'
+        ? Math.round(_fpPrice * data.discount / 100)
+        : data.discount;
+      if (discount <= 0) { msg.textContent = 'No discount applies to this pass.'; msg.style.color = 'rgba(237,212,178,0.4)'; return; }
+      _fpCouponDiscount = discount; _fpCouponCode = code;
+      inp.disabled = true;
+      var applyBtn = document.querySelector('#fpModalOverlay button[onclick="fpApplyCoupon()"]');
+      if (applyBtn) { applyBtn.disabled = true; applyBtn.style.opacity = '0.4'; }
+      var label = data.discount_type === 'pct' ? data.discount + '% off' : '₹' + discount.toLocaleString('en-IN') + ' off per person';
+      msg.innerHTML = '✓ Promo applied — ' + label;
+      msg.style.color = '#7aab8a';
+      msg.style.fontWeight = '600';
+      updateSummary();
+    } catch(e) {
+      msg.textContent = 'Could not check code — try again.'; msg.style.color = '#c07070';
+    }
+  };
+
   function buildGuests(){
     var list=document.getElementById('fpGuestsList'); list.innerHTML='';
     for(var i=0;i<_fpQty;i++){
@@ -3558,21 +3935,62 @@ function fmtPrice(n) {
         +'<p class="fp-modal-guest-label">'+label+'</p>'
         +'<div class="fp-modal-field"><label class="fp-modal-label">Full name *</label><input class="fp-modal-input" id="fp-name-'+i+'" type="text" /></div>'
         +'<div class="fp-modal-field"><label class="fp-modal-label">Email *</label><input class="fp-modal-input" id="fp-email-'+i+'" type="email" /></div>'
-        +'<div class="fp-modal-field"><label class="fp-modal-label">WhatsApp Number *</label><div class="fp-modal-wa-row"><select class="fp-modal-cc" id="fp-cc-'+i+'">'+ccSelect+'</select><input class="fp-modal-phone" id="fp-phone-'+i+'" type="tel" placeholder="00000 00000" /></div></div>'
+        +'<div class="fp-modal-field"><label class="fp-modal-label">WhatsApp Number *</label><div class="fp-modal-wa-row">'+buildCcDropdown(i)+'<input class="fp-modal-phone" id="fp-phone-'+i+'" type="tel" placeholder="00000 00000" style="border:none;flex:1;padding-left:8px;" /></div></div>'
         +'<div class="fp-modal-grid2">'
           +'<div class="fp-modal-field"><label class="fp-modal-label">City</label><div class="fp-city-wrap" style="position:relative;"><input class="fp-modal-input" id="fp-city-'+i+'" type="text" autocomplete="off" placeholder="Start typing..." /><div class="fp-city-box" id="fp-citybox-'+i+'" style="display:none;position:absolute;top:100%;left:0;right:0;background:#1E1A0E;border:1px solid rgba(176,96,48,0.3);z-index:100;max-height:160px;overflow-y:auto;"></div></div></div>'
-          +'<div class="fp-modal-field"><label class="fp-modal-label">Gender *</label><select class="fp-modal-input fp-modal-select" id="fp-gender-'+i+'"><option value="">Select</option><option>Female</option><option>Male</option></select></div>'
-          +'<div class="fp-modal-field"><label class="fp-modal-label">Age</label><input class="fp-modal-input" id="fp-age-'+i+'" type="number" min="18" /></div>'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">Gender *</label><div class="fp-cdd" id="fp-gender-cdd-'+i+'"><button type="button" class="fp-cdd-trigger" data-empty="true" data-value="" onclick="fpCddToggle(\'fp-gender-cdd-'+i+'\')"><span class="fp-cdd-label">Select</span><span class="fp-cdd-arrow">▾</span></button><div class="fp-cdd-menu"><div class="fp-cdd-option" onclick="fpCddPick(\'fp-gender-cdd-'+i+'\',\'Female\',\'Female\')">Female</div><div class="fp-cdd-option" onclick="fpCddPick(\'fp-gender-cdd-'+i+'\',\'Male\',\'Male\')">Male</div></div><input type="hidden" id="fp-gender-'+i+'" /></div></div>'
+          +'<div class="fp-modal-field"><label class="fp-modal-label">Age</label><input class="fp-modal-input" id="fp-age-'+i+'" type="number" min="18" max="99" placeholder="e.g. 28" /></div>'
         +'</div>'
         +'</div>';
     }
   }
 
-  window.openFpModal = function(passName, price) {
-    _fpPass=passName; _fpPrice=price; _fpQty=1; _fpBooking=null;
+  var _fpMealsOn = false;   // meals toggle
+  var _fpMealDaysMax = 0;   // days for current pass (1/2/3)
+  var _fpMealDays = 0;      // kept for summary calc: equals max when on, 0 when off
+
+  function updateMealsCardVisual() {
+    var card = document.getElementById('fpMealsCard');
+    var check = document.getElementById('fpMealsCheck');
+    var tick = document.getElementById('fpMealsCheckTick');
+    if (card) {
+      card.style.background = _fpMealsOn ? 'rgba(176,96,48,0.1)' : 'transparent';
+      card.style.borderColor = _fpMealsOn ? 'rgba(176,96,48,0.7)' : 'rgba(176,96,48,0.35)';
+    }
+    if (check) check.style.background = _fpMealsOn ? 'rgba(176,96,48,0.2)' : 'transparent';
+    if (tick) tick.style.display = _fpMealsOn ? 'block' : 'none';
+  }
+
+  window.fpToggleMeals = function() {
+    _fpMealsOn = !_fpMealsOn;
+    _fpMealDays = _fpMealsOn ? _fpMealDaysMax : 0;
+    updateMealsCardVisual();
+    updateSummary();
+  };
+
+  window.openFpModal = function(passName, price, days, qty, mealsPerPerson) {
+    _fpPass=passName; _fpPrice=price; _fpQty=qty||1; _fpBooking=null; _fpCouponDiscount=0; _fpCouponCode=null;
+    _fpMealsOn = false;
+    _fpMealDays = 0;
+    _fpMealDaysMax = passName === 'Full Festival Pass' ? 3 : passName === 'Weekend Pass' ? 2 : 1;
+    _fpDays = days || [];
+    var mealsRow = document.getElementById('fpMealsAddonRow');
+    if (mealsRow) mealsRow.style.display = 'block';
+    updateMealsCardVisual();
+    var mDesc = document.getElementById('fpMealsDesc');
+    if (mDesc) {
+      var dayWord = _fpMealDaysMax === 1 ? '1 day' : _fpMealDaysMax + ' days';
+      mDesc.textContent = 'Lunch & dinner · ' + dayWord;
+    }
+    updateMealsDisplay();
+    // Reset coupon UI
+    var ci = document.getElementById('fpCouponInput'); if (ci) { ci.value = ''; ci.disabled = false; }
+    var cm = document.getElementById('fpCouponMsg'); if (cm) { cm.style.display = 'none'; }
+    var cab = document.querySelector('#fpModalOverlay button[onclick="fpApplyCoupon()"]');
+    if (cab) { cab.disabled = false; cab.style.opacity = '1'; }
     document.getElementById('fpModalTitle').textContent=passName;
     document.getElementById('fpModalPrice').textContent=fmt(price)+' per person';
-    document.getElementById('fpQtyVal').textContent=1;
+    document.getElementById('fpQtyVal').textContent=_fpQty;
     updateSummary(); buildGuests();
     for(var ci=0;ci<_fpQty;ci++){(function(idx){
       var inp=document.getElementById('fp-city-'+idx);
@@ -3609,21 +4027,59 @@ function fmtPrice(n) {
     if(n===_fpQty) return;
     _fpQty=n;
     document.getElementById('fpQtyVal').textContent=n;
+    updateMealsDisplay();
     updateSummary(); buildGuests();
   };
 
-  function fpShowError(msg){var el=document.getElementById('fpError');el.textContent=msg;el.style.display=msg?'block':'none';}
+  function updateMealsDisplay() {
+    var mPrice = document.getElementById('fpMealsPrice');
+    if (!mPrice) return;
+    var perPerson = _fpMealDaysMax * MEAL_DAY_PRICE;
+    if (_fpQty > 1) {
+      mPrice.textContent = '₹' + perPerson.toLocaleString('en-IN') + ' × ' + _fpQty + ' = ₹' + (perPerson * _fpQty).toLocaleString('en-IN');
+    } else {
+      mPrice.textContent = '₹' + perPerson.toLocaleString('en-IN') + ' per person';
+    }
+  }
+
+  function fpShowError(msg, fieldEl) {
+    var el = document.getElementById('fpError');
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+    if (msg) {
+      var overlay = document.getElementById('fpModalOverlay');
+      var target = fieldEl || el;
+      var targetTop = target.getBoundingClientRect().top + overlay.scrollTop - overlay.getBoundingClientRect().top - 80;
+      overlay.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+      if (fieldEl) {
+        fieldEl.style.borderColor = 'rgba(192,57,43,0.7)';
+        fieldEl.addEventListener('input', function clear() {
+          fieldEl.style.borderColor = '';
+          fieldEl.removeEventListener('input', clear);
+        }, { once: true });
+        setTimeout(function(){ fieldEl.focus(); }, 300);
+      }
+    }
+  }
   function fpCollect(){
     var g=[];
     for(var i=0;i<_fpQty;i++){
-      var name=(document.getElementById('fp-name-'+i)||{}).value||'';
-      var email=(document.getElementById('fp-email-'+i)||{}).value||'';
+      var nameEl=document.getElementById('fp-name-'+i);
+      var emailEl=document.getElementById('fp-email-'+i);
+      var phoneEl=document.getElementById('fp-phone-'+i);
+      var genderEl=document.getElementById('fp-gender-'+i);
+      var name=(nameEl||{}).value||'';
+      var email=(emailEl||{}).value||'';
       var cc=(document.getElementById('fp-cc-'+i)||{}).value||'+91';
-      var phone=(document.getElementById('fp-phone-'+i)||{}).value||'';
+      var phone=(phoneEl||{}).value||'';
       var city=(document.getElementById('fp-city-'+i)||{}).value||'';
-      var gender=(document.getElementById('fp-gender-'+i)||{}).value||'';
+      var gender=(genderEl||{}).value||'';
       var age=(document.getElementById('fp-age-'+i)||{}).value||'';
-      if(!name||!email||!phone||!gender){return null;}
+      var gLabel = _fpQty > 1 ? ' (Guest '+(i+1)+')' : '';
+      if(!name){ fpShowError('Please enter full name'+gLabel+'.', nameEl); return null; }
+      if(!email){ fpShowError('Please enter email'+gLabel+'.', emailEl); return null; }
+      if(!phone){ fpShowError('Please enter WhatsApp number'+gLabel+'.', phoneEl); return null; }
+      if(!gender){ fpShowError('Please select gender'+gLabel+'.', null); return null; }
       g.push({full_name:name,email:email,whatsapp:cc+' '+phone.trim(),city:city,gender:gender,age:age});
     }
     return g;
@@ -3632,17 +4088,23 @@ function fmtPrice(n) {
   window.fpProceed = async function() {
     var btn=document.getElementById('fpProceedBtn');
     var g=fpCollect();
-    if(!g){fpShowError('Please fill in all required fields.');return;}
+    if(!g){ return; }
     fpShowError('');
     btn.disabled=true; btn.textContent='Please wait…';
     try {
-      var res=await fetch('/api/bookings/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venue:'Festival Access',roomType:_fpPass,totalPrice:_fpPrice*_fpQty,guests:g})});
+      var discountedPricePerPerson=_fpPrice-(_fpCouponDiscount||0);
+      var mealsTotal=(_fpMealDays||0)*MEAL_DAY_PRICE*_fpQty;
+      var payload={venue:'Festival Access',roomType:_fpPass,totalPrice:discountedPricePerPerson*_fpQty+mealsTotal,guests:g};
+      if(_fpDays&&_fpDays.length) payload.daysSelected=_fpDays.join(', ');
+      if(_fpCouponCode) payload.promoCode=_fpCouponCode;
+      if(_fpMealDays){var mAmt=_fpMealDays*MEAL_DAY_PRICE;payload.addons=mAmt+':Meals ('+_fpMealDays+' day'+(_fpMealDays>1?'s':'')+')';}
+      var res=await fetch('/api/bookings/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       var data=await res.json();
       if(!res.ok){fpShowError(data.error||'Something went wrong.');btn.disabled=false;btn.textContent='Continue to payment';return;}
       _fpBooking=data;
       // Open pay overlay
       document.getElementById('fpModalOverlay').classList.remove('open');
-      var rpTotal=Math.round(_fpTotal*1.0236);
+      var rpTotal=Math.round(_fpTotal*1.0242);
       document.getElementById('fpPayRef').textContent='Booking ref: '+data.booking_ref+' · '+fmt(_fpTotal);
       document.getElementById('fpPayUpiDesc').textContent=fmt(_fpTotal)+' · Instant confirmation';
       document.getElementById('fpPayRpTotal').textContent='Total '+fmt(rpTotal);
@@ -3662,7 +4124,7 @@ function fmtPrice(n) {
     var orderKey=_fpBooking.razorpay_key;
     var orderId=_fpBooking.razorpay_order_id;
     var amountPaise=_fpBooking.amount; // already in paise from /create
-    var rpTotal=Math.round(_fpTotal*1.0236);
+    var rpTotal=Math.round(_fpTotal*1.0242);
     // Fallback: if booking was created without Razorpay (e.g. test env),
     // create the order now.
     if(!orderId||!amountPaise){
