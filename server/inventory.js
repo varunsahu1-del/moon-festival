@@ -24,9 +24,12 @@ const INVENTORY = [
   { venue: 'Teraria', room_type: 'Double Sharing', unit: 'beds',  capacity: 4,  rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'Teraria', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
   { venue: 'Teraria', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2, room_size: 1, gender_rule: 'any',         label: '2 rooms' },
-  // La La Land (5 double + 5 private)
-  { venue: 'La La Land', room_type: 'Double Sharing', unit: 'beds',  capacity: 10, rooms: 5, room_size: 2, gender_rule: 'same_gender', label: '5 rooms × 2 beds' },
-  { venue: 'La La Land', room_type: 'Private Room',   unit: 'rooms', capacity: 5,  rooms: 5, room_size: 1, gender_rule: 'any',         label: '5 rooms' },
+  // La La Land Chalets (7 double + 5 private)
+  { venue: 'La La Land Chalets', room_type: 'Double Sharing', unit: 'beds',  capacity: 14, rooms: 7, room_size: 2, gender_rule: 'same_gender', label: '7 rooms × 2 beds' },
+  { venue: 'La La Land Chalets', room_type: 'Private Room',   unit: 'rooms', capacity: 5,  rooms: 5, room_size: 1, gender_rule: 'any',         label: '5 rooms' },
+  // La La Land Cottages (2 double + 3 private)
+  { venue: 'La La Land Cottages', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
+  { venue: 'La La Land Cottages', room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
   { venue: 'Festival Access', room_type: 'Full Festival Pass', unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
   { venue: 'Festival Access', room_type: 'Weekend Pass',       unit: 'beds', capacity: 200, room_size: 1, gender_rule: 'any', label: '200 passes' },
   { venue: 'Festival Access', room_type: 'Single Day Pass',    unit: 'beds', capacity: 300, room_size: 1, gender_rule: 'any', label: '300 passes' },
@@ -45,9 +48,13 @@ const ROOM_LABELS = {
     'Double Sharing': ['OW-D01','OW-D02','OW-D03','OW-D04'],
     'Private Room':   ['OW-P01','OW-P02','OW-P03','OW-P04','OW-P06'],
   },
-  'La La Land': {
-    'Double Sharing': ['LL-D01','LL-D02','LL-D03','LL-D04','LL-D05'],
-    'Private Room':   ['LL-P01','LL-P02','LL-P03','LL-P04','LL-P05'],
+  'La La Land Chalets': {
+    'Double Sharing': ['LLC-D01','LLC-D02','LLC-D03','LLC-D04','LLC-D05','LLC-D06','LLC-D07'],
+    'Private Room':   ['LLC-P01','LLC-P02','LLC-P03','LLC-P04','LLC-P05'],
+  },
+  'La La Land Cottages': {
+    'Double Sharing': ['LLE-D01','LLE-D02'],
+    'Private Room':   ['LLE-P01','LLE-P02','LLE-P03'],
   },
   'Bhakti Kutir': {
     'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14','BK-D15','BK-D16','BK-D17'],
@@ -95,9 +102,13 @@ const PRICING = {
     'Triple Sharing': { earlyBird: 29500, phase2: 31000, phase3: 32500, phase4: 34000, extraDay: 1500 },
     'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 47000, phase4: 49600, extraDay: 4500 },
   },
-  'La La Land': {
+  'La La Land Chalets': {
     'Double Sharing': { earlyBird: 39750, phase2: 39750, phase3: 39750, phase4: 39750, extraDay: 3000 },
     'Private Room':   { earlyBird: 49900, phase2: 49900, phase3: 49900, phase4: 49900, extraDay: 5000 },
+  },
+  'La La Land Cottages': {
+    'Double Sharing': { earlyBird: 42000, phase2: 42000, phase3: 42000, phase4: 42000, extraDay: 3250 },
+    'Private Room':   { earlyBird: 54400, phase2: 54400, phase3: 54400, phase4: 54400, extraDay: 6500 },
   },
   'Festival Access': {
     'Full Festival Pass': { flat: 21000, extraDay: 0 },
