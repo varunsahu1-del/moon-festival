@@ -1058,8 +1058,8 @@
   <!-- Page tabs -->
   <div class="page-tabs">
     <button class="page-tab active" onclick="switchTab('dashboard')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:5px;"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/></svg>Dashboard</button>
-    <button class="page-tab" onclick="switchTab('registrations')" id="tabRegistrations"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:5px;"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Attendees <span class="tab-badge" id="attendeesBadge" style="display:none;"></span></button>
-    <button class="page-tab" onclick="switchTab('passes')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:5px;"><rect x="1" y="4" width="14" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><line x1="5" y1="4" x2="5" y2="12" stroke="currentColor" stroke-width="1.1" stroke-dasharray="1.5 1.5"/><circle cx="11" cy="8" r="1.5" fill="currentColor"/></svg>Passes</button>
+    <button class="page-tab" onclick="switchTab('registrations')" id="tabRegistrations"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:5px;"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Stay + Festival Pass <span class="tab-badge" id="attendeesBadge" style="display:none;"></span></button>
+    <button class="page-tab" onclick="switchTab('passes')"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:5px;"><rect x="1" y="4" width="14" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><line x1="5" y1="4" x2="5" y2="12" stroke="currentColor" stroke-width="1.1" stroke-dasharray="1.5 1.5"/><circle cx="11" cy="8" r="1.5" fill="currentColor"/></svg>Festival Only Pass</button>
     <button class="page-tab tab-desktop-only" onclick="switchTab('applications')" id="tabApplications">Applications <span class="tab-badge" id="appBadge"></span></button>
     <button class="page-tab tab-desktop-only" onclick="switchTab('custompay')">Custom Pay</button>
     <button class="page-tab tab-desktop-only" onclick="switchTab('synopsis')">Synopsis</button>
@@ -1105,14 +1105,20 @@
   </div>
 
   <!-- Action panel -->
-  <div id="dashActionPanel" style="margin-bottom:28px;display:none;">
-    <div class="section-head" style="margin-bottom:12px;"><div class="section-title">Needs Attention</div></div>
-    <div id="dashActionList" style="display:flex;flex-direction:column;gap:8px;"></div>
+  <div id="dashActionPanel" style="margin-bottom:16px;display:none;">
+    <div onclick="toggleDashSection('dashActionList','dashActionChevron1')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 0;border-bottom:0.5px solid rgba(42,34,24,0.1);margin-bottom:0;user-select:none;">
+      <div class="section-title">Needs Attention <span id="dashActionBadge" style="font-size:10px;background:rgba(176,96,48,0.15);color:#B06030;border-radius:20px;padding:1px 7px;margin-left:6px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;"></span></div>
+      <span id="dashActionChevron1" style="font-size:12px;color:rgba(42,34,24,0.4);transition:transform 0.2s;">▾</span>
+    </div>
+    <div id="dashActionList" style="display:flex;flex-direction:column;gap:8px;padding-top:12px;"></div>
   </div>
   <!-- Recent bookings -->
-  <div style="margin-bottom:28px;">
-    <div class="section-head" style="margin-bottom:12px;"><div class="section-title">Recent Bookings</div></div>
-    <div id="dashRecentList" style="display:flex;flex-direction:column;gap:6px;"></div>
+  <div style="margin-bottom:16px;">
+    <div onclick="toggleDashSection('dashRecentList','dashRecentChevron')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 0;border-bottom:0.5px solid rgba(42,34,24,0.1);margin-bottom:0;user-select:none;">
+      <div class="section-title">Recent Bookings</div>
+      <span id="dashRecentChevron" style="font-size:12px;color:rgba(42,34,24,0.4);transition:transform 0.2s;">▾</span>
+    </div>
+    <div id="dashRecentList" style="display:flex;flex-direction:column;gap:6px;padding-top:12px;"></div>
   </div>
 
   <div class="section-head" style="margin-bottom:14px;"><div class="section-title">Demographics & Sales</div></div>
@@ -1305,13 +1311,20 @@
       <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(42,34,24,0.55);line-height:1.6;margin-bottom:20px;">
         Create discount codes guests can enter at checkout. Discount is deducted per person.
       </div>
-      <div style="display:grid;grid-template-columns:1fr 100px 80px auto;gap:8px;align-items:end;margin-bottom:16px;">
+      <div style="display:grid;grid-template-columns:1fr 60px 100px 80px auto;gap:8px;align-items:end;margin-bottom:16px;">
         <div>
           <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Code</div>
           <input id="pc-code" type="text" placeholder="FRIEND100" maxlength="20" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;text-transform:uppercase;letter-spacing:0.08em;" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" />
         </div>
         <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">₹/person</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">Type</div>
+          <select id="pc-type" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 4px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;">
+            <option value="flat">₹</option>
+            <option value="pct">%</option>
+          </select>
+        </div>
+        <div>
+          <div id="pc-discount-label" style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(42,34,24,0.4);margin-bottom:4px;">₹ / person</div>
           <input id="pc-discount" type="number" placeholder="1000" min="1" style="width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;background:#fff;border:1px solid rgba(42,34,24,0.15);border-radius:6px;outline:none;" />
         </div>
         <div>
@@ -1320,6 +1333,7 @@
         </div>
         <button onclick="createPromoCode()" style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;background:#2A2218;color:#EDD4B2;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;margin-bottom:1px;">+ Add</button>
       </div>
+      <script>document.getElementById('pc-type').addEventListener('change',function(){document.getElementById('pc-discount-label').textContent=this.value==='pct'?'% off':'₹ / person';document.getElementById('pc-discount').placeholder=this.value==='pct'?'20':'1000';});</script>
       <div id="pc-msg" style="font-family:'DM Sans',sans-serif;font-size:12px;margin-bottom:12px;display:none;"></div>
       <div id="pc-list"></div>
     </div>
@@ -1356,8 +1370,8 @@
       <nav style="flex:1;overflow-y:auto;padding:8px 0;">
         <!-- Main tabs -->
         <a href="#" onclick="switchTab('dashboard');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>Dashboard</a>
-        <a href="#" onclick="switchTab('registrations');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Attendees</a>
-        <a href="#" onclick="switchTab('passes');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="4" x2="5" y2="12" stroke="currentColor" stroke-width="1.1" stroke-dasharray="1.5 1.5"/><circle cx="11" cy="8" r="1.5" fill="currentColor"/></svg>Passes</a>
+        <a href="#" onclick="switchTab('registrations');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Stay + Festival Pass</a>
+        <a href="#" onclick="switchTab('passes');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="4" x2="5" y2="12" stroke="currentColor" stroke-width="1.1" stroke-dasharray="1.5 1.5"/><circle cx="11" cy="8" r="1.5" fill="currentColor"/></svg>Festival Only Pass</a>
         <a href="#" onclick="switchTab('applications');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="8.5" x2="11" y2="8.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M9 11.5l1.5 1.5L13 10" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>Applications <span id="appBadgeMob" style="background:#C47D52;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;display:none;"></span></a>
         <a href="#" onclick="switchTab('custompay');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="1" y1="6.5" x2="15" y2="6.5" stroke="currentColor" stroke-width="1.3"/><rect x="3" y="9" width="3" height="1.5" rx="0.5" fill="currentColor"/></svg>Custom Pay</a>
         <a href="#" onclick="switchTab('synopsis');toggleMobileMenu();return false;" class="mob-nav-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><line x1="8" y1="5" x2="8" y2="8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.8" fill="currentColor"/></svg>Synopsis</a>
@@ -1554,6 +1568,27 @@
         <textarea id="ab-organizer-note" class="ab-input" rows="2" placeholder="Special requests, dietary needs…" style="resize:vertical;line-height:1.5;"></textarea>
       </div>
 
+      <!-- How did they hear about us -->
+      <div style="margin-bottom:12px;">
+        <label class="ab-label">How did they hear about us? <span style="opacity:0.4;text-transform:none;letter-spacing:normal;font-family:'DM Sans',sans-serif;">(optional)</span></label>
+        <select id="ab-referral-source" class="ab-input" onchange="abToggleReferralCustom()">
+          <option value="">— select —</option>
+          <option value="Instagram Ad">Instagram Ad</option>
+          <option value="Instagram Post (organic)">Instagram Post (organic)</option>
+          <option value="Through a friend">Through a friend</option>
+          <option value="Through family">Through family</option>
+          <option value="Been following us">Been following us for a while</option>
+          <option value="Previous attendee">Previous retreat attendee</option>
+          <option value="Previous Moon attendee">Previous Moon attendee</option>
+          <option value="Facilitator recommendation">Facilitator recommendation</option>
+          <option value="Google Search">Google Search</option>
+          <option value="ChatGPT / AI">ChatGPT / AI</option>
+          <option value="WhatsApp">WhatsApp forward / group</option>
+          <option value="Other">Other (specify below)</option>
+        </select>
+        <input id="ab-referral-custom" class="ab-input" type="text" placeholder="Describe how they heard…" style="display:none;margin-top:6px;" />
+      </div>
+
       <!-- Action -->
       <div style="margin-bottom:16px;">
         <label class="ab-label">Action</label>
@@ -1688,6 +1723,7 @@ const COLS = {
   adminNotes:    'Admin Notes',
   arrival:       'Arrival',
   propertyRoomNo:'Hotel Room No.',
+  referral:      'How They Heard',
 };
 
 let allBookings = [];
@@ -1752,13 +1788,13 @@ async function loadStats() {
     const passAll = (allBookings || []).filter(r => r.venue === 'Festival Access');
     const seenRef = new Set();
     const passBookingsUniq = passAll.filter(r => { if(seenRef.has(r.booking_ref))return false; seenRef.add(r.booking_ref); return true; });
-    const paidRows   = passAll.filter(r => r.status === 'paid');
+    const paidRows   = passAll.filter(r => r.status === 'paid' || r.status === 'cancelled');
     const pendRows   = passBookingsUniq.filter(r => r.status === 'pending' || r.status === 'upi_pending');
     const totalPasses = passAll.length;
     const paidPasses  = paidRows.length;
 
     const seenPaidRef = new Set();
-    const paidBookingsUniq = passAll.filter(r => r.status === 'paid' && !seenPaidRef.has(r.booking_ref) && seenPaidRef.add(r.booking_ref));
+    const paidBookingsUniq = passAll.filter(r => (r.status === 'paid' || r.status === 'cancelled') && !seenPaidRef.has(r.booking_ref) && seenPaidRef.add(r.booking_ref));
     const sumAmt = rows => rows.reduce((s,r) => s + Math.round(parseFloat(String(r.total_price||0).replace(/[^\d.]/g,''))||0), 0);
     const collected = Math.round(sumAmt(paidBookingsUniq) * 1.05);
     const pendAmt   = Math.round(sumAmt(pendRows) * 1.05);
@@ -1768,6 +1804,7 @@ async function loadStats() {
       <div class="stat-card"><div class="stat-label">Passes Sold</div><div class="stat-value">${totalPasses}</div></div>
       <div class="stat-card"><div class="stat-label">Confirmed</div><div class="stat-value">${paidPasses}</div></div>
       <div class="stat-card"><div class="stat-label">Pending Payments</div><div class="stat-value">${pendRows.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Total Sales</div><div class="stat-value">${(collected+pendAmt) ? '₹'+(collected+pendAmt).toLocaleString('en-IN') : '—'}</div></div>
       <div class="stat-card"><div class="stat-label">Collected</div><div class="stat-value">${collected ? '₹'+collected.toLocaleString('en-IN') : '—'}</div></div>
       <div class="stat-card"><div class="stat-label">Pending Amount</div><div class="stat-value" style="color:#B06030;">${pendAmt ? '₹'+pendAmt.toLocaleString('en-IN') : '—'}</div></div>
     `;
@@ -1796,6 +1833,7 @@ async function loadStats() {
       }).join('');
     } else if (panel) panel.style.display = 'none';
   })();
+
 
   const pg = document.getElementById('festivalPassesGrid');
   if (pg) {
@@ -1828,7 +1866,7 @@ async function loadStats() {
             if (r.venue !== 'Festival Access') return false;
             if (seen.has(r.booking_ref)) return false;
             seen.add(r.booking_ref); return true;
-          }).sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+          }).sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
         })()
       : [];
     if (!passBookings.length) {
@@ -1838,7 +1876,10 @@ async function loadStats() {
       const fmtDate = v => { if(!v) return '—'; const m=v.match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? parseInt(m[3])+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2])-1]+' '+m[1] : v; };
       // Collect all guest rows for pass bookings (allBookings has one row per guest)
       const passRefs = new Set(passBookings.map(r => r.booking_ref));
-      const passRows = (allBookings || []).filter(r => passRefs.has(r.booking_ref));
+      const passRowsOrdered = (allBookings || []).filter(r => passRefs.has(r.booking_ref))
+        .sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
+      // Number oldest=1, display newest at top
+      const passRows = passRowsOrdered.map((r,i) => ({...r, _num: i+1})).reverse();
       const totalGuests = passRows.length;
       pl.innerHTML = `
         <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:12px;">${passBookings.length} booking${passBookings.length!==1?'s':''} &nbsp;·&nbsp; ${totalGuests} pass${totalGuests!==1?'es':''}</div>
@@ -1854,9 +1895,9 @@ async function loadStats() {
         <table>
           <thead><tr>
             <th style="width:32px;"><input type="checkbox" id="pass-chk-all" onchange="passToggleSelectAll(this)" style="accent-color:#B06030;cursor:pointer;" /></th>
-            <th>#</th><th>Name</th><th>Ref</th><th>Pass</th><th>Phone</th><th>Email</th>
+            <th>#</th><th>Name</th><th>Status</th><th>Ref</th><th>Pass</th><th>Phone</th><th>Email</th>
             <th>City</th><th>Age</th><th>Gender</th><th>Date</th>
-            <th>Base</th><th>GST</th><th>Total</th><th>Status</th>
+            <th>Base</th><th>GST</th><th>Total</th>
             <th>Verified</th><th>Notes</th><th></th>
           </tr></thead>
           <tbody>
@@ -1864,10 +1905,12 @@ async function loadStats() {
               const gc=Math.max(1,parseInt(r.guest_count)||1);
               const b=Math.round((parseFloat(String(r.total_price||0).replace(/[^\d.]/g,""))||0)/gc);
               const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;
+              const isCancelledPass = r.status === 'cancelled';
               return `<tr onclick="openDrawer('${r.booking_ref}')">
               <td onclick="event.stopPropagation()"><input type="checkbox" class="pass-row-chk" data-ref="${r.booking_ref}" onchange="updatePassBulkBar()" style="accent-color:#B06030;cursor:pointer;" /></td>
-              <td style="color:var(--td-mid);font-size:11px;">${i+1}</td>
-              <td style="font-weight:600;color:var(--td-strong);">${r.full_name||'—'}</td>
+              <td style="color:var(--td-mid);font-size:11px;">${r._num}</td>
+              <td style="font-weight:600;color:var(--td-strong);">${r.full_name||'—'} ${isCancelledPass?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(192,57,43,0.12);color:#b02a2a;border:0.5px solid rgba(192,57,43,0.4);border-radius:3px;padding:1px 5px;vertical-align:middle;">CANCELLED</span>':''}</td>
+              <td><span class="badge badge-${r.status}">${r.status}</span></td>
               <td><span class="ref">${r.booking_ref}</span></td>
               <td>${r.room_type==='Festival Pass'?'Workshops Pass':(r.room_type||'—')}</td>
               <td>${r.whatsapp||'—'}</td>
@@ -1879,7 +1922,6 @@ async function loadStats() {
               <td>${b?'₹'+b.toLocaleString('en-IN'):'—'}</td>
               <td style="color:var(--td-gst);">${g?'₹'+g.toLocaleString('en-IN'):'—'}</td>
               <td style="font-weight:600;color:var(--td-strong);">${(b+g)?'₹'+(b+g).toLocaleString('en-IN'):'—'}</td>
-              <td><span class="badge badge-${r.status}">${r.status}</span></td>
               <td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>
               <td onclick="event.stopPropagation()" style="min-width:160px;"><div style="display:flex;flex-direction:column;gap:4px;"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add note…" onclick="event.stopPropagation()">${r.notes||''}</textarea><button class="note-save-btn" data-guest-id="${r.guest_id}" onclick="event.stopPropagation();saveAdminNote(this)" style="display:none;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;padding:3px 10px;cursor:pointer;align-self:flex-end;">Save</button></div></td>
               <td onclick="event.stopPropagation()" style="white-space:nowrap;display:flex;gap:5px;padding:8px 6px;">
@@ -2118,12 +2160,12 @@ async function loadInventoryDetail() {
     }
 
     if (BEDS_VENUES.includes(venue)) {
-      // Bhakti Kutir and Dormitory — show as room grid using predefined ROOM_LABELS
+      // Bhakti Kutir, Ourem Palace, Dormitory — show as room grid using predefined ROOM_LABELS
       const venueLabels = window.__ROOM_LABELS?.[venue]; // { 'Double Sharing': [...], 'Triple Sharing': [...] }
       const roomTypes = [...new Set(stats.inventory.filter(i => i.venue === venue).map(i => i.room_type))];
 
       const isDorm = venue === 'Dormitory';
-      html += `<div class="inv-venue-section">`;
+      html += `<div class="inv-venue-section" data-venue="${venue}">`;
       if (isDorm) html += `<div style="display:flex;gap:12px;align-items:flex-start;">`;
 
       roomTypes.forEach((rt, idx) => {
@@ -2317,7 +2359,7 @@ function _openRoomPicker({ el, guestId, guestRoom, name, venue, roomType }) {
   const venueLbls = window.__ROOM_LABELS?.[venue];
   let labels = [];
   if (Array.isArray(venueLbls)) {
-    // Combined venue (Destiny, Teraria, Lala Land, Ourem Palace) — flat array
+    // Combined venue (Destiny, Teraria, Lala Land) — flat array
     // Filter out rooms claimed by a booking of a DIFFERENT room_type to prevent cross-type moves
     const roomsWithOtherType = new Set(
       allBookings
@@ -2692,6 +2734,34 @@ async function loadBookings() {
   renderCharts();
   updateVenueCounts();
   refreshDashboardActionPanel();
+  initDashAccordions();
+  // If passes tab is already visible, re-render its booking-dependent sections
+  if (document.getElementById('tabPagePasses').classList.contains('active')) loadStats();
+}
+
+function toggleDashSection(listId, chevronId) {
+  const list = document.getElementById(listId);
+  const chev = document.getElementById(chevronId);
+  if (!list) return;
+  const open = list.style.display !== 'none';
+  list.style.display = open ? 'none' : '';
+  if (chev) chev.style.transform = open ? 'rotate(-90deg)' : '';
+  try { localStorage.setItem('dash_'+listId, open ? '0' : '1'); } catch(e){}
+}
+function initDashAccordions() {
+  ['dashActionList','dashRecentList'].forEach(id => {
+    const el = document.getElementById(id);
+    const saved = (() => { try { return localStorage.getItem('dash_'+id); } catch(e){ return null; } })();
+    const chev = document.getElementById(id==='dashActionList'?'dashActionChevron1':'dashRecentChevron');
+    // default closed; open only if explicitly saved as open
+    if (saved === '1') {
+      if (el) el.style.display = '';
+      if (chev) chev.style.transform = '';
+    } else {
+      if (el) el.style.display = 'none';
+      if (chev) chev.style.transform = 'rotate(-90deg)';
+    }
+  });
 }
 
 function refreshDashboardActionPanel() {
@@ -2705,7 +2775,9 @@ function refreshDashboardActionPanel() {
   const panel = document.getElementById('dashActionPanel');
   const list  = document.getElementById('dashActionList');
   if (panel && list) {
-    panel.style.display = '';
+    panel.style.display = actionItems.length ? '' : 'none';
+    const badge = document.getElementById('dashActionBadge');
+    if (badge) badge.textContent = actionItems.length || '';
     list.innerHTML = actionItems.length ? actionItems.map(r => {
       const amt = Math.round(parseFloat(String(r.total_price||0).replace(/[^\d.]/g,''))||0);
       const total = amt ? Math.round(amt * 1.05) : 0;
@@ -2884,9 +2956,9 @@ function renderTable() {
   if (!rows.length) { wrap.innerHTML = '<div class="empty">No bookings match.</div>'; return; }
 
   // ── Column lists per table mode ───────────────────────────────────────────
-  const BOOKING_COLS    = ['chk','num','name','date','ref','status','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase','verified'];
+  const BOOKING_COLS    = ['chk','num','name','status','date','ref','payment','screenshot','venue','room','roomNo','propRoomNo','roommates','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','mail','adminNotes','guestNote','whatsapp','city','gender','age','email','arrival','phase','referral','verified'];
   const ROOMING_COLS    = ['chk','num','name','ref','venue','room','roomNo','propRoomNo','age','gender','city','roommates','phase','adminNotes','guestNote','arrival'];
-  const ACCOUNTING_COLS = ['chk','num','name','date','ref','status','payment','screenshot','venue','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','adminNotes','mail','phase'];
+  const ACCOUNTING_COLS = ['chk','num','name','status','date','ref','payment','screenshot','venue','roomCost','addons','adminAddons','discount','gst','finalTotal','razorpayAmt','adminNotes','mail','phase'];
   const COL_HEADERS = { chk:'',num:'#',name:'Name',date:COLS.date,ref:'Ref',status:COLS.status,payment:COLS.paymentMethod,screenshot:COLS.screenshot,venue:COLS.venue,room:COLS.room,roommates:COLS.roommates,roomCost:COLS.roomCost,addons:COLS.addons,adminAddons:COLS.adminAddons,discount:COLS.discount,gst:COLS.gst,finalTotal:COLS.finalTotal,razorpayAmt:COLS.razorpayAmt,verified:COLS.verified,mail:COLS.mail,adminNotes:COLS.adminNotes,guestNote:COLS.guestNote,whatsapp:COLS.whatsapp,city:COLS.city,gender:COLS.gender,age:COLS.age,email:COLS.email,arrival:COLS.arrival,roomNo:COLS.roomNo,propRoomNo:COLS.propertyRoomNo,phase:COLS.phase };
   const activeCols = tableMode==='rooming' ? ROOMING_COLS : tableMode==='accounting' ? ACCOUNTING_COLS : BOOKING_COLS;
   const thRow = activeCols.map(k => k==='chk' ? `<th style="width:32px;"><input type="checkbox" id="chk-all" title="Select all" onclick="toggleSelectAll(this)" style="accent-color:#B06030;cursor:pointer;" /></th>` : `<th>${COL_HEADERS[k]||k}</th>`).join('');
@@ -2922,14 +2994,15 @@ function renderTable() {
         case 'chk': return `<td style="width:32px;" onclick="event.stopPropagation();">${isFirstGuest?`<input type="checkbox" class="row-chk" data-ref="${r.booking_ref}" onchange="updateBulkBar()" style="accent-color:#B06030;cursor:pointer;" />`:''}  </td>`;
         case 'num': return `<td style="color:var(--td-row-num);font-size:11px;">${rows.length - i}</td>`;
         case 'name': {
-          const hb=isFirstGuest&&((NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE))||r.source==='admin'||r.phase);
-          const bd=isFirstGuest?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:${hb?'4px':'0'}">${NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE)?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(176,96,48,0.25);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);border-radius:3px;padding:1px 5px;">NEW</span>':''}${r.source==='admin'?'<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;background:rgba(42,34,24,0.1);color:rgba(42,34,24,0.45);border:0.5px solid rgba(42,34,24,0.2);border-radius:3px;padding:1px 5px;">ORGANISER</span>':''}${r.phase?`<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:1px 5px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase2'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase2'?'Phase 2':r.phase==='phase3'?'Phase 3':r.phase==='phase4'?'Phase 4':r.phase||''}</span>`:''}</div>`:'';
-          return `<td style="font-weight:600;color:var(--td-strong);">${bd}${r.full_name||'—'}</td>`;
+          const isCancelled = r.status === 'cancelled';
+          const hb=isFirstGuest&&((NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE))||r.source==='admin'||r.phase||isCancelled);
+          const bd=isFirstGuest?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:${hb?'4px':'0'}">${isCancelled?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(192,57,43,0.12);color:#b02a2a;border:0.5px solid rgba(192,57,43,0.4);border-radius:3px;padding:1px 5px;">CANCELLED</span>':''}${NEW_SINCE&&new Date(r.created_at)>new Date(NEW_SINCE)&&!isCancelled?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(176,96,48,0.25);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);border-radius:3px;padding:1px 5px;">NEW</span>':''}${r.source==='admin'?'<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;background:rgba(42,34,24,0.1);color:rgba(42,34,24,0.45);border:0.5px solid rgba(42,34,24,0.2);border-radius:3px;padding:1px 5px;">ORGANISER</span>':''}${r.phase?`<span style="display:inline-block;font-size:7.5px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:1px 5px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase2'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase2'?'Phase 2':r.phase==='phase3'?'Phase 3':r.phase==='phase4'?'Phase 4':r.phase||''}</span>`:''}</div>`:'';
+          return `<td style="font-weight:600;color:var(--td-strong);${isCancelled?'opacity:0.5;text-decoration:line-through;':''}">${bd}${r.full_name||'—'}</td>`;
         }
         case 'ref':       return `<td>${isFirstGuest?`<span class="ref">${r.booking_ref}</span>`:''}</td>`;
         case 'date':      return `<td>${isFirstGuest?new Date(r.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):''}</td>`;
         case 'status':    return `<td>${isFirstGuest?`<span class="badge badge-${r.status}">${r.status==='upi_pending'?(r.payment_method==='cash'?'Cash Pending':r.payment_method==='bank_transfer'?'Bank Transfer':'UPI Pending'):r.status}</span>${r.status==='failed'?` <button onclick="event.stopPropagation();resendPayLink('${r.booking_ref}',this)" style="margin-left:6px;font-size:10px;padding:2px 7px;background:rgba(192,57,43,0.18);color:#e74c3c;border:0.5px solid rgba(192,57,43,0.4);border-radius:3px;cursor:pointer;letter-spacing:0.04em;">↩ Resend</button>`:''}${r.status==='upi_pending'?` <button class="btn-confirm-upi" onclick="event.stopPropagation();confirmUpi('${r.booking_ref}',this,'${r.payment_method||''}')">✓ Confirm</button>`:''}`:''}</td>`;
-        case 'payment':   { const _showPm = r.status==='paid'||r.status==='upi_pending'; return `<td>${isFirstGuest?`<span class="pm-cell" data-ref="${r.booking_ref}" data-pm="${r.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:11px;cursor:pointer;color:${(r.payment_method&&_showPm)?'var(--td-strong)':'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);white-space:nowrap;">${(r.payment_method&&_showPm)?fmtPm(r.payment_method):'— set'}</span>`:''}</td>`; }
+        case 'payment':   { return `<td>${isFirstGuest?`<span class="pm-cell" data-ref="${r.booking_ref}" data-pm="${r.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:11px;cursor:pointer;color:${r.payment_method?'var(--td-strong)':'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);white-space:nowrap;">${r.payment_method?fmtPm(r.payment_method):'— set'}</span>`:''}</td>`; }
         case 'screenshot':return `<td>${isFirstGuest&&r.upi_screenshot?`<a href="#" onclick="event.stopPropagation();openScreenshot('/data/screenshots/${r.upi_screenshot}')" style="font-size:11px;color:#B06030;text-decoration:none;">📎 View</a>`:''}</td>`;
         case 'venue':     return `<td>${isFirstGuest?r.venue:''}</td>`;
         case 'room':      return `<td>${isFirstGuest?r.room_type:''}</td>`;
@@ -2953,7 +3026,7 @@ function renderTable() {
         case 'discount':   return `<td>${isFirstGuest&&r.discount?`<span style="color:#c0392b;font-weight:600;">−₹${Number(r.discount).toLocaleString('en-IN')}</span>${r.discount_reason?`<br><span style="font-size:10px;color:var(--td-muted);">${r.discount_reason}</span>`:''}`:''}</td>`;
         case 'gst':        return `<td style="color:var(--td-gst);font-size:11px;">${gstAmt?'₹'+gstAmt.toLocaleString('en-IN'):''}</td>`;
         case 'finalTotal': return `<td style="font-weight:600;color:var(--td-strong);">${finalTotal?'₹'+finalTotal.toLocaleString('en-IN'):''}</td>`;
-        case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0236).toLocaleString('en-IN'):''}</td>`;
+        case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0242).toLocaleString('en-IN'):''}</td>`;
         case 'verified': return isFirstGuest ? `<td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>` : '<td></td>';
         case 'mail':       return `<td>${isFirstGuest?(r.email_sent?'<span style="color:#2ecc71;font-size:11px;">✓ Sent</span>':'<span style="color:var(--td-muted);font-size:11px;">—</span>'):''}</td>`;
         case 'adminNotes': return `<td class="td-wrap" onclick="event.stopPropagation()" style="min-width:180px;"><div style="display:flex;flex-direction:column;gap:4px;"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea><button class="note-save-btn" data-guest-id="${r.guest_id}" onclick="event.stopPropagation();saveAdminNote(this)" style="display:none;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;padding:3px 10px;cursor:pointer;align-self:flex-end;">Save</button></div></td>`;
@@ -2966,6 +3039,7 @@ function renderTable() {
         case 'arrival':    return `<td style="font-size:11px;font-weight:500;white-space:nowrap;">${isFirstGuest?fmtArr(r.arrival_date):''}</td>`;
         case 'phase':      return `<td>${isFirstGuest&&r.phase?phaseBadgeHtml:(isFirstGuest?'<span style="color:var(--td-muted);font-size:11px;">—</span>':'')}</td>`;
         case 'roommates':  return `<td>${roommateHtml}</td>`;
+        case 'referral':   return isFirstGuest ? `<td onclick="event.stopPropagation()" style="min-width:140px;"><div style="display:flex;align-items:center;gap:6px;">${r.referral_source ? `<span style="font-size:11px;color:rgba(42,34,24,0.75);background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.2);padding:2px 7px;border-radius:2px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.04em;">${r.referral_source}</span>` : `<span style="color:var(--td-muted);font-size:11px;">—</span>`}<button onclick="event.stopPropagation();openDrawer('${r.booking_ref}')" style="font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:transparent;border:0.5px solid rgba(176,96,48,0.3);color:rgba(176,96,48,0.7);border-radius:2px;padding:2px 6px;cursor:pointer;" title="Edit in drawer">✎</button></div></td>` : '<td></td>';
         default: return '<td></td>';
       }
     }
@@ -3111,6 +3185,7 @@ function renderDrawer(booking, guests, breakdown) {
   dc.dataset.guestNames = guests.map(g => g.full_name).filter(Boolean).join('|');
   dc.dataset.venue = booking.venue || '';
   dc.dataset.roomType = booking.room_type || '';
+  dc.dataset.status = booking.status || '';
 
   // ── shared micro-styles ──────────────────────────────────────────
   const LBL = 'font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);margin-bottom:5px;font-family:"Josefin Sans",sans-serif;';
@@ -3134,7 +3209,9 @@ function renderDrawer(booking, guests, breakdown) {
   const bookingIsPaid = booking.status === 'paid';
 
   // ── tab content builders ─────────────────────────────────────────
-  function tabBooking() { return `
+  function tabBooking() {
+    const isFestivalPass = booking.venue === 'Festival Access';
+    return `
     <div style="padding:28px 24px 8px;">
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-bottom:4px;">
@@ -3158,14 +3235,15 @@ function renderDrawer(booking, guests, breakdown) {
             const rowStyle = 'display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;';
             const lblStyle = 'font-size:11px;color:rgba(42,34,24,0.45);';
             const valStyle = 'font-size:11px;color:rgba(42,34,24,0.65);';
+            const accomLabel = isFestivalPass ? (booking.room_type || 'Festival Pass') : 'Accommodation';
             return `<div style="margin-top:10px;padding:10px 12px;background:rgba(42,34,24,0.04);border-radius:4px;border:0.5px solid rgba(42,34,24,0.08);">
-              <div style="${rowStyle}"><span style="${lblStyle}">Accommodation</span><span style="${valStyle}">₹${accomBase.toLocaleString('en-IN')}</span></div>
-              ${addonTotal > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Guest add-ons</span><span style="${valStyle}">₹${addonTotal.toLocaleString('en-IN')}</span></div>` : ''}
-              ${extraAddonTotal > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Admin add-ons${bdCollected ? ' ✓' : ' (unpaid)'}</span><span style="${valStyle}${!bdCollected?';color:#c0752a;':''}">₹${extraAddonTotal.toLocaleString('en-IN')}</span></div>` : ''}
+              <div style="${rowStyle}"><span style="${lblStyle}">${accomLabel}</span><span style="${valStyle}">₹${accomBase.toLocaleString('en-IN')}</span></div>
               ${discount > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Discount</span><span style="font-size:11px;color:#c0392b;font-weight:600;">−₹${discount.toLocaleString('en-IN')}</span></div>` : ''}
-              <div style="${rowStyle}"><span style="${lblStyle}">GST (5%)</span><span style="${valStyle}">₹${gst.toLocaleString('en-IN')}</span></div>
-              <div style="border-top:0.5px solid rgba(42,34,24,0.1);margin-top:5px;padding-top:5px;${rowStyle}"><span style="font-size:11px;font-weight:600;color:rgba(42,34,24,0.6);">Total incl. GST</span><span style="font-size:12px;font-weight:700;color:#B06030;">₹${grandTotal.toLocaleString('en-IN')}</span></div>
-              ${booking.payment_method === 'razorpay' && grandTotal > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Razorpay charged (2.36%)</span><span style="${valStyle}">₹${Math.round(grandTotal * 1.0236).toLocaleString('en-IN')}</span></div>` : ''}
+              ${addonLines.map(l => `<div style="${rowStyle}"><span style="${lblStyle}">${l.name}${l.count > 1 ? ' ×' + l.count : ''}</span><span style="${valStyle}">₹${l.total.toLocaleString('en-IN')}</span></div>`).join('')}
+              ${extraAddonTotal > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Admin add-ons${bdCollected ? ' ✓' : ' (unpaid)'}</span><span style="${valStyle}${!bdCollected?';color:#c0752a;':''}">₹${extraAddonTotal.toLocaleString('en-IN')}</span></div>` : ''}
+              ${booking.no_gst ? `<div style="${rowStyle}"><span style="${lblStyle}">GST</span><span style="font-size:11px;color:#2d7a4f;font-weight:600;">Waived</span></div>` : `<div style="${rowStyle}"><span style="${lblStyle}">GST (5%)</span><span style="${valStyle}">₹${gst.toLocaleString('en-IN')}</span></div>`}
+              <div style="border-top:0.5px solid rgba(42,34,24,0.1);margin-top:5px;padding-top:5px;${rowStyle}"><span style="font-size:11px;font-weight:600;color:rgba(42,34,24,0.6);">${booking.no_gst ? 'Total' : 'Total incl. GST'}</span><span style="font-size:12px;font-weight:700;color:#B06030;">₹${grandTotal.toLocaleString('en-IN')}</span></div>
+              ${booking.payment_method === 'razorpay' && grandTotal > 0 ? (() => { const rzpPct = booking.razorpay_fee_pct || 0.0242; const rzpLabel = (rzpPct * 100).toFixed(2) + '%'; return `<div style="${rowStyle}"><span style="${lblStyle}">Razorpay charged (${rzpLabel})</span><span style="${valStyle}">₹${Math.round(grandTotal * (1 + rzpPct)).toLocaleString('en-IN')}</span></div>`; })() : ''}
             </div>`;
           })()}
         </div>
@@ -3182,7 +3260,7 @@ function renderDrawer(booking, guests, breakdown) {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-bottom:4px;">
         <div style="${FIELD}">
           <div style="${LBL}">${COLS.paymentMethod}</div>
-          ${ (()=>{ const _canShowPm = booking.status==='paid'||booking.status==='upi_pending'; return `<span class="pm-cell" data-ref="${ref}" data-pm="${booking.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:13px;font-weight:500;cursor:pointer;color:${(booking.payment_method&&_canShowPm) ? 'var(--td-strong)' : 'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);display:inline-block;">${(booking.payment_method&&_canShowPm) ? fmtPm(booking.payment_method) : '— set'}</span>`; })() }
+          ${ (()=>{ return `<span class="pm-cell" data-ref="${ref}" data-pm="${booking.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:13px;font-weight:500;cursor:pointer;color:${booking.payment_method ? 'var(--td-strong)' : 'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);display:inline-block;">${booking.payment_method ? fmtPm(booking.payment_method) : '— set'}</span>`; })() }
         </div>
         <div style="${FIELD}">
           <div style="${LBL}">${COLS.phase}</div>
@@ -3204,6 +3282,7 @@ function renderDrawer(booking, guests, breakdown) {
       <div style="height:0.5px;background:rgba(176,96,48,0.1);margin-bottom:24px;"></div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;">
+        ${isFestivalPass ? '' : `
         <div style="${FIELD}">
           <div style="${LBL}">${COLS.roomNo}</div>
           <div style="display:flex;align-items:center;gap:8px;">
@@ -3219,20 +3298,28 @@ function renderDrawer(booking, guests, breakdown) {
           <div style="${VAL}font-weight:600;">
             ${effectiveRoom ? `<span class="hotel-num-cell" data-venue="${booking.venue.replace(/"/g,'&quot;')}" data-label="${effectiveRoom}" style="cursor:pointer;border-bottom:0.5px dashed rgba(176,96,48,0.35);">${hn || '—'}</span>` : '<span style="opacity:0.3;">—</span>'}
           </div>
-        </div>
-        ${booking.arrival_date ? `<div style="${FIELD}">
+        </div>`}
+        ${isFestivalPass ? `<div style="${FIELD}">
+          <div style="${LBL}">Festival Dates</div>
+          <div style="${VAL}">${(()=>{const rt=booking.room_type||'';if(rt==='Full Festival Pass'||rt==='Festival Pass')return '27 · 28 · 29 Nov';if(rt==='Weekend Pass')return '28 · 29 Nov';if(booking.days_selected)return booking.days_selected.replace(/\s*\(.*?\)/g,'').trim();return '—';})()}</div>
+        </div>` : (booking.arrival_date ? `<div style="${FIELD}">
           <div style="${LBL}">${COLS.arrival}</div>
           <div style="${VAL}">${(v=>{const m=v.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?parseInt(m[3])+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2])-1]:v;})(booking.arrival_date)}</div>
-        </div>` : ''}
+        </div>` : '')}
         <div style="${FIELD}">
           <div style="${LBL}">Booking Date</div>
           <div style="${VAL}">${booking.created_at ? new Date(booking.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—'}</div>
         </div>
+        ${isFestivalPass ? `
+        <div style="${FIELD}">
+          <div style="${LBL}">Pass Type</div>
+          <div style="${VAL}">${booking.room_type}</div>
+        </div>` : `
         <div style="${FIELD}">
           <div style="${LBL}">Venue · Room type</div>
           <div style="${VAL}">${booking.venue}</div>
           <div style="font-size:12px;color:rgba(42,34,24,0.4);margin-top:2px;">${booking.room_type}</div>
-        </div>
+        </div>`}
       </div>
 
       ${(booking.gst_number || booking.gst_name) ? `
@@ -3269,8 +3356,47 @@ function renderDrawer(booking, guests, breakdown) {
 
       <div style="height:0.5px;background:rgba(176,96,48,0.1);margin-bottom:24px;"></div>
 
+      <!-- Referral source -->
+      ${(()=>{
+        const KNOWN = ['Instagram Ad','Instagram Post (organic)','Through a friend','Through family','Been following us','Previous attendee','Previous Moon attendee','Facilitator recommendation','Google Search','ChatGPT / AI','WhatsApp'];
+        const LABELS = {'Instagram Ad':'Instagram Ad','Instagram Post (organic)':'Instagram Post (organic)','Through a friend':'Through a friend','Through family':'Through family','Been following us':'Been following us for a while','Previous attendee':'Previous retreat attendee','Previous Moon attendee':'Previous Moon attendee','Facilitator recommendation':'Facilitator recommendation','Google Search':'Google Search','ChatGPT / AI':'ChatGPT / AI','WhatsApp':'WhatsApp forward / group'};
+        const isOther = booking.referral_source && !KNOWN.includes(booking.referral_source);
+        const curVal = booking.referral_source || '';
+        const curLabel = curVal ? (LABELS[curVal] || curVal) : '— not recorded —';
+        const opts = [
+          {v:'',l:'— not recorded —'},
+          ...KNOWN.map(k=>({v:k,l:LABELS[k]})),
+          {v:'Other',l:'Other'}
+        ].map(o=>`<div class="dr-ref-opt" data-val="${o.v.replace(/"/g,'&quot;')}" onclick="drRefPick('${ref}','${o.v.replace(/'/g,"\\'")}','${(o.l).replace(/'/g,"\\'")}',this)" style="padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(42,34,24,0.75);cursor:pointer;border-bottom:0.5px solid rgba(42,34,24,0.05);${o.v===curVal?'background:rgba(176,96,48,0.07);color:#B06030;':''}" onmouseover="this.style.background='rgba(176,96,48,0.06)'" onmouseout="this.style.background='${o.v===curVal?'rgba(176,96,48,0.07)':'transparent'}';">${o.l}</div>`).join('');
+        return `<div style="margin-bottom:24px;">
+          <div style="${LBL}margin-bottom:10px;">How did they hear about us?</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="position:relative;flex:1;" id="dr-ref-wrap-${ref}">
+              <input type="hidden" id="referral-sel-${ref}" value="${curVal.replace(/"/g,'&quot;')}" />
+              <button type="button" onclick="drRefToggle('${ref}')" id="dr-ref-trigger-${ref}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(250,245,238,0.8);border:0.5px solid rgba(176,96,48,0.35);border-radius:2px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:${curVal?'rgba(42,34,24,0.85)':'rgba(42,34,24,0.35)'};cursor:pointer;text-align:left;">
+                <span id="dr-ref-label-${ref}">${curLabel}</span>
+                <span style="color:#B06030;font-size:9px;flex-shrink:0;">▼</span>
+              </button>
+              <div id="dr-ref-menu-${ref}" style="display:none;position:absolute;top:calc(100% + 2px);left:0;right:0;background:#FAF5EE;border:0.5px solid rgba(176,96,48,0.3);border-radius:2px;z-index:400;max-height:220px;overflow-y:auto;box-shadow:0 4px 16px rgba(42,34,24,0.1);">
+                ${opts}
+              </div>
+            </div>
+            <button onclick="saveReferralSource('${ref}')" style="font-family:'Josefin Sans',sans-serif;letter-spacing:0.12em;text-transform:uppercase;font-size:10px;padding:9px 14px;background:rgba(176,96,48,0.12);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;cursor:pointer;white-space:nowrap;">Save</button>
+          </div>
+          <input id="referral-custom-${ref}" type="text" placeholder="Describe how they heard…"
+            value="${isOther?curVal:''}"
+            style="display:${isOther?'block':'none'};width:100%;margin-top:6px;font-family:'DM Sans',sans-serif;font-size:12px;padding:8px 12px;border:0.5px solid rgba(176,96,48,0.35);border-radius:2px;background:rgba(250,245,238,0.8);color:rgba(42,34,24,0.85);outline:none;box-sizing:border-box;" />
+        </div>`;
+      })()}
+
+      <div style="height:0.5px;background:rgba(176,96,48,0.1);margin-bottom:24px;"></div>
+
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-bottom:8px;">
         <button class="edit-btn" onclick="resendConfirmation('${ref}',this)" style="background:rgba(50,120,50,0.1);border-color:rgba(50,150,50,0.3);color:rgba(60,160,80,0.9);">✉ ${booking.status === 'paid' ? 'Resend' : 'Send'} Confirmation</button>
+        <span style="display:inline-flex;gap:0;border:0.5px solid rgba(176,96,48,0.3);border-radius:3px;overflow:hidden;">
+          <a href="/api/bookings/invoice/${ref}/preview" target="_blank" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.08);color:#B06030;text-decoration:none;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;border-right:0.5px solid rgba(176,96,48,0.2);">📄 View Invoice</a>
+          <button onclick="sendInvoiceToGuest('${ref}',this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.08);color:#B06030;border:none;padding:5px 10px;cursor:pointer;">✉ Send</button>
+        </span>
         ${booking.status !== 'paid' && booking.status !== 'cancelled' ? `<button class="edit-btn" onclick="sendQuoteEmail('${ref}',this)" style="background:rgba(210,170,0,0.1);border-color:rgba(200,160,0,0.4);color:#a07800;">🧾 Send Quote</button>` : ''}
         ${booking.status !== 'paid' && booking.status !== 'cancelled' ? `<button class="edit-btn" onclick="adminResendPaylink('${ref}',this)" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">↗ Send Payment Link</button>` : ''}
         ${booking.transfer_email_pending ? `<button class="edit-btn" id="mod-email-btn-${ref}" onclick="sendModEmailFromBookingTab('${ref}',this)" style="background:rgba(176,96,48,0.1);border-color:rgba(176,96,48,0.35);color:#B06030;">✉ Send Modification Email</button>` : ''}
@@ -3345,17 +3471,55 @@ function renderDrawer(booking, guests, breakdown) {
   function tabAddons() {
     const hasGuest = addonParts.length > 0;
     const hasExtra = extraAddonParts.length > 0;
+
+    // For festival-only passes, meals price varies by days — read from what was stored
+    const isFestivalOnlyBooking = booking.venue === 'Festival Access';
+    // Build catalog: existing addons + standard ones not yet booked
+    const GUEST_ADDON_CATALOG = isFestivalOnlyBooking ? [] : [
+      { key: 'Arrive Early · 26 Nov',     price: null  }, // price varies by venue/room
+      { key: 'Meals · 27–29 Nov',         price: window.__FOOD_PRICE || 3600 },
+      { key: 'Tribal Lunch (27 Nov)',      price: 0 },
+      { key: 'Tribal Lunch (28 Nov)',      price: 0 },
+      { key: 'Tribal Lunch (29 Nov)',      price: 0 },
+      { key: 'Ayurvedic Massage',          price: 1500 },
+      { key: 'Scooter Rental · 4 Days',   price: 2800 },
+    ];
+    // Parse existing into map: label → price
+    const existingMap = {};
+    addonParts.forEach(p => {
+      const ci = p.indexOf(':');
+      if (ci >= 0) { const price = parseInt(p.slice(0,ci))||0; const name = p.slice(ci+1).trim(); existingMap[name] = price; }
+    });
+    // Merge: catalog entries + any existing not in catalog
+    const mergedCatalog = [...GUEST_ADDON_CATALOG];
+    Object.keys(existingMap).forEach(k => { if (!mergedCatalog.some(c=>c.key===k)) mergedCatalog.push({key:k, price:existingMap[k]}); });
+
+    const guestAddonTotalPerPerson = addonParts.reduce((s,p)=>s+addonLineTotal(p),0);
+
     return `<div style="padding:28px 24px 8px;" id="drawer-addons-card-${ref}">
 
-      ${hasGuest ? `
-      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-family:'Josefin Sans',sans-serif;margin-bottom:12px;">Booked by guest</div>
-      <div style="display:flex;flex-direction:column;margin-bottom:8px;">
-        ${_groupAddonParts(addonParts).map(g => _addonRow({ ...g, count: g.count * addonGuestCount, total: g.total * addonGuestCount })).join('')}
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-family:'Josefin Sans',sans-serif;">Booked by guest</div>
+        <span style="font-size:11px;color:rgba(42,34,24,0.35);">× ${addonGuestCount} guest${addonGuestCount>1?'s':''}</span>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(42,34,24,0.03);border-radius:3px;margin-bottom:24px;">
-        <span style="font-size:11px;color:rgba(42,34,24,0.4);">Included in booking total</span>
-        <span style="font-size:13px;font-weight:600;color:rgba(42,34,24,0.45);">₹${(addonParts.reduce((s,p)=>s+addonLineTotal(p),0)*addonGuestCount).toLocaleString('en-IN')}</span>
-      </div>` : ''}
+      <div id="guest-addon-editor-${ref}" style="display:flex;flex-direction:column;gap:2px;margin-bottom:12px;">
+        ${mergedCatalog.map(c => {
+          const isOn = existingMap.hasOwnProperty(c.key);
+          const price = isOn ? existingMap[c.key] : (c.price === null ? 0 : c.price);
+          return `<label style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:4px;cursor:pointer;border:0.5px solid ${isOn?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)'};background:${isOn?'rgba(176,96,48,0.05)':'transparent'};transition:background 0.15s;" onmouseover="if(!this.querySelector('input').checked)this.style.background='rgba(42,34,24,0.03)'" onmouseout="if(!this.querySelector('input').checked)this.style.background='transparent'">
+            <input type="checkbox" data-addon-key="${c.key.replace(/"/g,'&quot;')}" data-addon-price="${price}" ${isOn?'checked':''} style="accent-color:#B06030;width:14px;height:14px;flex-shrink:0;" onchange="this.closest('label').style.background=this.checked?'rgba(176,96,48,0.05)':'transparent';this.closest('label').style.borderColor=this.checked?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)';" />
+            <span style="flex:1;font-size:13px;color:var(--td-strong);">${c.key}</span>
+            <span style="font-size:12px;color:rgba(42,34,24,0.4);flex-shrink:0;">${price>0?'₹'+price.toLocaleString('en-IN'):price===0&&isOn?'Included':'—'}</span>
+          </label>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(42,34,24,0.03);border-radius:3px;margin-bottom:16px;">
+        <span style="font-size:11px;color:rgba(42,34,24,0.4);">Included in booking total (per person × guests)</span>
+        <span style="font-size:13px;font-weight:600;color:rgba(42,34,24,0.45);">₹${(guestAddonTotalPerPerson*addonGuestCount).toLocaleString('en-IN')}</span>
+      </div>
+      <button onclick="saveGuestAddons(this,'${ref}',${booking.total_price},${addonGuestCount})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:#B06030;color:#fff;border:none;padding:9px 20px;border-radius:2px;cursor:pointer;margin-bottom:28px;">Save add-on changes</button>
+
+      <div style="height:0.5px;background:rgba(176,96,48,0.1);margin-bottom:24px;"></div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(42,34,24,0.38);font-family:'Josefin Sans',sans-serif;">Added by you</div>
@@ -3502,7 +3666,8 @@ async function saveInlineField(field, ref) {
     const cur = bookingMap[ref];
     const price = cur?.total_price || cur?.first?.total_price || '';
     const room = cur?.room_number || cur?.first?.room_number || '';
-    await fetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ total_price: price, status, room_number: room }) });
+    const res = await adminFetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ total_price: price, status, room_number: room }) });
+    if (res && !res.ok) { alert('Failed to save status — please try again.'); return; }
     if (bookingMap[ref]) { bookingMap[ref].status = status; if (bookingMap[ref].first) bookingMap[ref].first.status = status; }
     loadStats(); loadBookings();
   }
@@ -3516,7 +3681,8 @@ async function saveInlineFields(ref) {
   const price = priceInput?.value?.trim() || bookingMap[ref]?.total_price || '';
   const room = roomInput?.value?.trim() || '';
   const status = document.getElementById('dr-status-sel')?.value || bookingMap[ref]?.status || 'pending';
-  await fetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ total_price: price, status, room_number: room }) });
+  const res = await adminFetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ total_price: price, status, room_number: room }) });
+  if (res && !res.ok) { btn.textContent = 'Save changes'; btn.disabled = false; alert('Failed to save — please try again.'); return; }
   await openDrawer(ref);
   loadStats(); loadBookings();
 }
@@ -3748,6 +3914,80 @@ function verifiedCellHtml(ref, verified) {
     <input type="checkbox" ${verified?'checked':''} style="display:none;" onchange="toggleVerified('${ref}',this.checked,this.closest('td'))">
     ${verified?'<span style="font-size:10px;font-weight:600;letter-spacing:0.06em;color:#1e8a3a;">VERIFIED</span>':'<span style="font-size:10px;color:rgba(42,34,24,0.3);">—</span>'}
   </label>`;
+}
+
+function drRefToggle(ref) {
+  const menu = document.getElementById('dr-ref-menu-' + ref);
+  if (!menu) return;
+  const isOpen = menu.style.display !== 'none';
+  document.querySelectorAll('[id^="dr-ref-menu-"]').forEach(m => { m.style.display = 'none'; });
+  menu.style.display = isOpen ? 'none' : 'block';
+}
+function drRefPick(ref, val, label, el) {
+  document.getElementById('referral-sel-' + ref).value = val;
+  document.getElementById('dr-ref-label-' + ref).textContent = label;
+  document.getElementById('dr-ref-trigger-' + ref).style.color = val ? 'rgba(42,34,24,0.85)' : 'rgba(42,34,24,0.35)';
+  const custom = document.getElementById('referral-custom-' + ref);
+  if (custom) custom.style.display = val === 'Other' ? 'block' : 'none';
+  const menu = document.getElementById('dr-ref-menu-' + ref);
+  if (menu) { menu.querySelectorAll('.dr-ref-opt').forEach(o => { o.style.background = o.dataset.val === val ? 'rgba(176,96,48,0.07)' : 'transparent'; o.style.color = o.dataset.val === val ? '#B06030' : 'rgba(42,34,24,0.75)'; }); menu.style.display = 'none'; }
+}
+document.addEventListener('click', e => { if (!e.target.closest('[id^="dr-ref-wrap-"]')) document.querySelectorAll('[id^="dr-ref-menu-"]').forEach(m => m.style.display = 'none'); });
+
+async function saveReferralSource(ref) {
+  const sel = document.getElementById(`referral-sel-${ref}`);
+  const custom = document.getElementById(`referral-custom-${ref}`);
+  let value = sel?.value || null;
+  if (value === 'Other') value = custom?.value.trim() || 'Other';
+  const btn = event.target;
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  await fetch(`/admin/api/bookings/${ref}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ referral_source: value }),
+  });
+  btn.textContent = 'Saved ✓'; btn.style.color = 'rgba(60,160,80,0.9)';
+  setTimeout(() => { btn.textContent = 'Save'; btn.disabled = false; btn.style.color = ''; }, 2000);
+  _loadBookingLog(ref);
+}
+
+async function saveGuestAddons(btn, ref, currentTotalPrice, guestCount) {
+  const editor = document.getElementById(`guest-addon-editor-${ref}`);
+  if (!editor) return;
+  const checks = editor.querySelectorAll('input[type=checkbox]');
+  const newParts = [];
+  let newPerPersonTotal = 0;
+  checks.forEach(cb => {
+    if (cb.checked) {
+      const key = cb.dataset.addonKey;
+      const price = parseInt(cb.dataset.addonPrice) || 0;
+      newParts.push(`${price}:${key}`);
+      newPerPersonTotal += price;
+    }
+  });
+  const newAddons = newParts.join('|') || null;
+  // Recalculate total_price: strip old addon total, add new addon total
+  // We need to know old per-person addon total from existing addons string on the booking
+  const dc = document.getElementById('drawerContent');
+  const oldAddonsStr = dc?.dataset.addons || '';
+  let oldPerPersonTotal = 0;
+  (oldAddonsStr ? oldAddonsStr.split('|').filter(Boolean) : []).forEach(p => {
+    const ci = p.indexOf(':'); oldPerPersonTotal += ci>=0 ? (parseInt(p.slice(0,ci))||0) : 0;
+  });
+  const base = currentTotalPrice - oldPerPersonTotal * guestCount;
+  const newTotal = base + newPerPersonTotal * guestCount;
+  if (btn) { btn.textContent = 'Saving…'; btn.disabled = true; }
+  try {
+    const r = await fetch(`/admin/api/bookings/${ref}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ addons: newAddons, total_price: newTotal, status: dc?.dataset?.status || undefined }),
+    });
+    if (!r.ok) { const d = await r.json(); alert(d.error || 'Save failed'); if(btn){btn.textContent='Save add-on changes';btn.disabled=false;} return; }
+    await openDrawer(ref);
+    switchDrawerTab(ref, 'addons');
+    _loadBookingLog(ref);
+  } catch(e) { alert('Error: ' + e.message); if(btn){btn.textContent='Save add-on changes';btn.disabled=false;} }
 }
 
 async function markAddonsCollected(ref, amount, collected, method) {
@@ -4180,6 +4420,22 @@ async function resendConfirmation(ref, btn) {
   }
 }
 
+async function sendInvoiceToGuest(ref, btn) {
+  const orig = btn.textContent;
+  btn.textContent = '…'; btn.disabled = true;
+  try {
+    const res = await fetch(`/api/bookings/send-invoice/${ref}`, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed');
+    btn.textContent = '✓ Invoice Sent';
+    btn.style.color = '#4caf50';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.disabled = false; }, 3000);
+  } catch(e) {
+    alert('Could not send invoice: ' + e.message);
+    btn.textContent = orig; btn.disabled = false;
+  }
+}
+
 async function resendPayLink(ref, btn) {
   const orig = btn.textContent;
   btn.textContent = '…';
@@ -4305,7 +4561,7 @@ function exportFilteredCSV() {
         case 'discount':   return esc(isFirstGuest && r.discount ? r.discount : '');
         case 'gst':        return esc(gstAmt||'');
         case 'finalTotal':   return esc(finalTotal||'');
-        case 'razorpayAmt':  return esc(isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?Math.round(finalTotal*1.0236):'');
+        case 'razorpayAmt':  return esc(isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?Math.round(finalTotal*1.0242):'');
         case 'mail':         return esc(isFirstGuest ? (r.email_sent ? 'Yes' : 'No') : '');
         case 'adminNotes': return esc(r.notes||'');
         case 'guestNote':  return esc(isFirstGuest ? (r.organizer_note||'') : '');
@@ -4318,6 +4574,7 @@ function exportFilteredCSV() {
         case 'roomNo':     return esc(r.effective_room_number||'');
         case 'propRoomNo': return esc(((window.__HOTEL_NUMS||{})[r.venue+'|||'+r.effective_room_number])||'');
         case 'phase':      return esc(isFirstGuest ? phName(r.phase) : '');
+        case 'referral':   return esc(isFirstGuest ? (r.referral_source||'') : '');
         default: return '';
       }
     })].join(',');
@@ -4530,6 +4787,23 @@ function updateActionUI() {
   }
 }
 
+function abToggleReferralCustom() {
+  const sel = document.getElementById('ab-referral-source');
+  const custom = document.getElementById('ab-referral-custom');
+  if (!sel || !custom) return;
+  custom.style.display = sel.value === 'Other' ? 'block' : 'none';
+}
+
+function abGetReferralSource() {
+  const sel = document.getElementById('ab-referral-source');
+  if (!sel || !sel.value) return null;
+  if (sel.value === 'Other') {
+    const custom = document.getElementById('ab-referral-custom')?.value.trim();
+    return custom || 'Other';
+  }
+  return sel.value;
+}
+
 function openAddBooking() {
   document.getElementById('sortMenu').style.display = 'none';
   abGuestCount = 0;
@@ -4563,6 +4837,8 @@ function openAddBooking() {
   document.getElementById('ab-error').style.display = 'none';
   const phSel = document.getElementById('ab-phase-override');
   if (phSel) phSel.value = window._currentPhase || 'phase2';
+  const refSel = document.getElementById('ab-referral-source'); if (refSel) refSel.value = '';
+  const refCustom = document.getElementById('ab-referral-custom'); if (refCustom) { refCustom.value = ''; refCustom.style.display = 'none'; }
   window._abAddons = [];
   abGoToPage1();
   abRenderAddonList();
@@ -4577,6 +4853,11 @@ function openAddBooking() {
 function closeAddBooking() {
   document.getElementById('addBookingOverlay').style.display = 'none';
   document.body.style.overflow = '';
+  // Hard-reset guest state so stale DOM nodes never bleed into the next booking
+  abGuestCount = 0;
+  const wrap = document.getElementById('ab-guests-wrap');
+  if (wrap) wrap.innerHTML = '';
+  window._abAddons = [];
 }
 
 function abGoToPage1() {
@@ -4997,6 +5278,7 @@ async function submitAddBooking() {
   const total_with_gst = total_price_base + gst;
   const total_price_fmt = '₹' + total_price_base.toLocaleString('en-IN');
   const discount_reason = document.getElementById('ab-discount-reason')?.value.trim() || null;
+  const referral_source = abGetReferralSource();
 
   const btn = document.getElementById('ab-submit-btn');
   btn.textContent = action === 'paylink' ? 'Creating link…' : 'Saving…';
@@ -5026,6 +5308,7 @@ async function submitAddBooking() {
         gst_name: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gst-name')?.value.trim() || null) : null,
         addons: window._abAddons?.length ? window._abAddons.map(a => a.price + ':' + a.name).join('|') : null,
         admin_override: true, phase_override: document.getElementById("ab-phase-override")?.value || null,
+        referral_source,
         guests,
       };
 
@@ -5088,6 +5371,7 @@ async function submitAddBooking() {
           admin_override: true, phase_override: document.getElementById("ab-phase-override")?.value || null,
           discount: totalDiscount || null,
           discount_reason: discount_reason || null,
+          referral_source,
           guests,
         }),
       });
@@ -5388,14 +5672,14 @@ async function loadPromoCodes() {
   el.innerHTML = '<table style="width:100%;border-collapse:collapse;font-family:\'DM Sans\',sans-serif;font-size:13px;">' +
     '<thead><tr style="border-bottom:1px solid rgba(42,34,24,0.1);">' +
     '<th style="text-align:left;padding:6px 8px 6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Code</th>' +
-    '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">₹/person</th>' +
+    '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Discount</th>' +
     '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Used</th>' +
     '<th style="text-align:right;padding:6px 8px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Max</th>' +
     '<th style="text-align:center;padding:6px 0;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(42,34,24,0.4);font-weight:600;">Active</th>' +
     '<th></th></tr></thead><tbody>' +
     codes.map((c, i) => `<tr style="${i < codes.length - 1 ? 'border-bottom:0.5px solid rgba(42,34,24,0.06);' : ''}">
       <td style="padding:8px 8px 8px 0;font-weight:600;letter-spacing:0.08em;">${c.code}</td>
-      <td style="padding:8px;text-align:right;">₹${Number(c.discount).toLocaleString('en-IN')}</td>
+      <td style="padding:8px;text-align:right;">${c.discount_type === 'pct' ? c.discount + '%' : '₹' + Number(c.discount).toLocaleString('en-IN')} <span style="font-size:10px;color:rgba(42,34,24,0.35);">/person</span></td>
       <td style="padding:8px;text-align:right;">${c.used_count}</td>
       <td style="padding:8px;text-align:right;">${c.max_uses ?? '∞'}</td>
       <td style="padding:8px;text-align:center;"><input type="checkbox" ${c.active ? 'checked' : ''} onchange="togglePromoCode(${c.id}, this.checked)" style="cursor:pointer;" /></td>
@@ -5414,7 +5698,7 @@ async function createPromoCode() {
     const res = await fetch('/admin/promo-codes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, discount, max_uses: max ? parseInt(max) : null })
+      body: JSON.stringify({ code, discount, discount_type: document.getElementById('pc-type')?.value || 'flat', max_uses: max ? parseInt(max) : null })
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) { msg.style.display='block'; msg.style.color='#c0392b'; msg.textContent=data.error||'Failed (status '+res.status+')'; return; }
@@ -5666,6 +5950,7 @@ const STATUS_COLORS = {
   shortlisted: { bg: 'rgba(155,100,220,0.15)', color: '#9B64DC',  border: 'rgba(155,100,220,0.4)' },
   accepted:    { bg: 'rgba(39,174,96,0.15)',   color: '#2ecc71',  border: 'rgba(39,174,96,0.4)'   },
   rejected:    { bg: 'rgba(192,57,43,0.15)',   color: '#e74c3c',  border: 'rgba(192,57,43,0.4)'   },
+  blacklisted: { bg: 'rgba(30,30,30,0.12)',    color: '#555',     border: 'rgba(30,30,30,0.35)'   },
 };
 
 async function loadApplications() {
@@ -5726,9 +6011,15 @@ function renderApplications() {
     const waNum = (a.whatsapp || '').replace(/\D/g, '');
     const waLink = waNum ? `<a href="https://wa.me/${waNum.startsWith('91')?waNum:'91'+waNum}" onclick="event.stopPropagation()" target="_blank" style="color:#25D366;text-decoration:none;font-size:11px;">📱 ${a.whatsapp}</a>` : '—';
     const emailLink = a.email ? `<a href="mailto:${a.email}" onclick="event.stopPropagation()" style="color:var(--td-email);text-decoration:none;font-size:11px;">${a.email}</a>` : '—';
-    return `<tr onclick="openAppDrawer(${a.id})" style="cursor:pointer;">
+    const outreachSent = !['apply-retail','apply-fb'].includes(a.form_type);
+    const isBlacklisted = a.status === 'blacklisted';
+    return `<tr onclick="openAppDrawer(${a.id})" style="cursor:pointer;${isBlacklisted?'opacity:0.55;':''}">
+      <td style="width:4px;padding:0;background:${isBlacklisted?'#1a1a1a':'transparent'};"></td>
       <td style="color:var(--td-row-num);font-size:11px;width:32px;">${filtered.length - idx}</td>
-      <td style="color:var(--td-strong);font-weight:500;">${a.applicant || '—'}</td>
+      <td style="color:var(--td-strong);font-weight:500;">
+        ${isBlacklisted?'<span style="display:inline-block;font-size:8px;font-weight:800;letter-spacing:0.1em;background:#1a1a1a;color:#fff;padding:1px 5px;border-radius:2px;margin-right:6px;vertical-align:middle;">BL</span>':''}
+        <span style="${isBlacklisted?'text-decoration:line-through;':''}">${a.applicant || '—'}</span>
+      </td>
       <td style="color:var(--td-mid);font-size:11px;">${a.form_label}</td>
       <td style="color:var(--td-room);">${extra}</td>
       <td style="color:var(--td-mid);">${title}</td>
@@ -5736,10 +6027,11 @@ function renderApplications() {
       <td>${waLink}</td>
       <td>${emailLink}</td>
       <td style="color:var(--td-muted);font-size:11px;">${a.created_at ? a.created_at.slice(0,10) : ''}</td>
+      <td style="text-align:center;">${outreachSent ? '<span title="Outreach email sent" style="color:#6BB060;font-size:14px;">✓</span>' : '<span style="color:rgba(42,34,24,0.2);font-size:12px;">—</span>'}</td>
       <td onclick="event.stopPropagation()">
         <select onchange="updateAppStatus(${a.id}, this.value)"
           style="background:${s.bg};border:0.5px solid ${s.border};color:${s.color};font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 7px;border-radius:2px;outline:none;cursor:pointer;">
-          ${['new','reviewed','shortlisted','accepted','rejected'].map(v =>
+          ${['new','reviewed','shortlisted','accepted','rejected','blacklisted'].map(v =>
             `<option value="${v}" ${a.status===v?'selected':''} style="background:#1a1508;color:#EDD4B2;">${v}</option>`
           ).join('')}
         </select>
@@ -5749,7 +6041,7 @@ function renderApplications() {
 
   wrap.innerHTML = `<div class="table-scroll"><table style="min-width:800px;">
     <thead><tr>
-      <th>#</th><th>Name</th><th>Type</th><th>Area / Category</th><th>Session / Stall</th><th>Instagram</th><th>WhatsApp</th><th>Email</th><th>Date</th><th>Status</th>
+      <th style="width:4px;padding:0;"></th><th>#</th><th>Name</th><th>Type</th><th>Area / Category</th><th>Session / Stall</th><th>Instagram</th><th>WhatsApp</th><th>Email</th><th>Date</th><th>Sent</th><th>Status</th>
     </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
@@ -6030,12 +6322,14 @@ function _rebuildAddonsList(ref, addons) {
 }
 
 const ADDON_CATALOG = [
-  { name: 'Arrive Early · 26 Nov',        price: 0, extraDayPrice: true },
-  { name: 'Meals · 27–29 Nov',            price: window.__FOOD_PRICE||3600, hasSub: true },
-  { name: 'Ayurvedic Massage',            price: 1500 },
-  { name: 'Scooter Rental · 4 Days',      price: 2600 },
+  { name: 'Arrive Early · 26 Nov',        price: 0, extraDayPrice: true, stayOnly: true },
+  { name: 'Meals · 27–29 Nov',            price: window.__FOOD_PRICE||3600, hasSub: true, stayOnly: true },
+  { name: 'Ayurvedic Massage',            price: 1500, stayOnly: true },
+  { name: 'Scooter Rental · 4 Days',      price: 2600, stayOnly: true },
   // Tribal Lunch is a sub-option of Meals — free, day must be chosen
-  { name: 'Tribal Lunch · Included',      price: 0, mealsOnly: true, days: ['27 Nov','28 Nov','29 Nov'] },
+  { name: 'Tribal Lunch · Included',      price: 0, mealsOnly: true, stayOnly: true, days: ['27 Nov','28 Nov','29 Nov'] },
+  // Festival-pass-only meals (price set dynamically by pass type)
+  { name: 'Meals',                         price: 0, festivalOnly: true },
 ];
 
 function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
@@ -6061,9 +6355,16 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
   const _extraDayAmt = (window.VENUE_PRICES && _dcVenue && _dcRoomType) ? (window.VENUE_PRICES[_dcVenue]?.[_dcRoomType]?.extraDay || 0) : 0;
   const mealsCatalog = ADDON_CATALOG.find(a => a.hasSub);
   const mealsAlreadyBooked = existingGuestAddons.split('|').some(p => p.includes('Meals') || p.includes('6 Meals'));
+  const isFestivalOnlyDrawer = _dcVenue === 'Festival Access';
+  // For festival passes, derive meals price from pass type
+  const _festivalMealsPrice = _dcRoomType === 'Full Festival Pass' ? 4500 : _dcRoomType === 'Weekend Pass' ? 3000 : 1500;
   // mealsOnly items: only show when meals is already booked OR being selected now
-  const available = ADDON_CATALOG.filter(a => !a.mealsOnly && (!existingNames.has(a.name) || a.name === currentName))
-    .map(a => a.extraDayPrice ? {...a, price: _extraDayAmt} : a);
+  const available = ADDON_CATALOG.filter(a => {
+    if (a.mealsOnly) return false;
+    if (existingNames.has(a.name) && a.name !== currentName) return false;
+    if (isFestivalOnlyDrawer) return !!a.festivalOnly;
+    return !!a.stayOnly;
+  }).map(a => a.extraDayPrice ? {...a, price: _extraDayAmt} : a.festivalOnly ? {...a, price: _festivalMealsPrice} : a);
 
   const form = document.createElement('div');
   form.className = 'addon-edit-form';

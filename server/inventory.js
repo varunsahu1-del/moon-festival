@@ -8,64 +8,44 @@
 
 const INVENTORY = [
   // Bhakti Kutir
-  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 30, rooms: 15, room_size: 2, gender_rule: 'same_gender', label: '15 rooms × 2' },
+  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 34, rooms: 17, room_size: 2, gender_rule: 'same_gender', label: '17 rooms × 2' },
   { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 12, rooms: 4,  room_size: 3, gender_rule: 'same_gender', label: '4 rooms × 3' },
-  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 4,  rooms: 4,  room_size: 1, gender_rule: 'any',         label: '4 rooms' },
-  { venue: 'Bhakti Kutir', room_type: '4 Bed Dorm',     unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'female_only', label: '4 beds' },
+  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2,  room_size: 1, gender_rule: 'any',         label: '2 rooms' },
+  { venue: 'Bhakti Kutir', room_type: '4 Bed Mixed Dorm', unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'any', label: '4 beds' },
   { venue: 'Bhakti Kutir', room_type: '6 Bed Dorm',     unit: 'beds',  capacity: 6,  rooms: 1,  room_size: 6, gender_rule: 'any',         label: '6 beds' },
-  // Marron · Sea View (combined pool of 11 rooms: 6 FF + 5 GF)
-  { venue: 'Marron · Sea View', room_type: 'Double Sharing', unit: 'beds',  capacity: 16, rooms: 8,  room_size: 2, gender_rule: 'same_gender', label: '8 rooms × 2 beds' },
-  { venue: 'Marron · Sea View', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1,  room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
-  { venue: 'Marron · Sea View', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2,  room_size: 1, gender_rule: 'any',         label: '2 rooms' },
-  // Marron · Garden (combined pool of 11 rooms)
-  { venue: 'Marron · Garden', room_type: 'Double Sharing', unit: 'beds',  capacity: 16, rooms: 8,  room_size: 2, gender_rule: 'same_gender', label: '8 rooms × 2 beds' },
-  { venue: 'Marron · Garden', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1,  room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
-  { venue: 'Marron · Garden', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2,  room_size: 1, gender_rule: 'any',         label: '2 rooms' },
   // Destiny (combined pool of 5 rooms)
   { venue: 'Destiny', room_type: 'Double Sharing', unit: 'beds',  capacity: 6,  rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
   { venue: 'Destiny', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
   { venue: 'Destiny', room_type: 'Private Room',   unit: 'rooms', capacity: 1,  rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
-  // Ourem Palace (combined pool of 14 rooms: 4 Brown private + 10 White)
-  { venue: 'Ourem Palace', room_type: 'Double Sharing', unit: 'beds',  capacity: 18, rooms: 9,  room_size: 2, gender_rule: 'same_gender', label: '9 rooms × 2 beds' },
-  { venue: 'Ourem Palace', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1,  room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
+  // Ourem Palace (9 rooms: 4 private + 5 double)
+  { venue: 'Ourem Palace', room_type: 'Double Sharing', unit: 'beds',  capacity: 10, rooms: 5,  room_size: 2, gender_rule: 'same_gender', label: '5 rooms × 2 beds' },
   { venue: 'Ourem Palace', room_type: 'Private Room',   unit: 'rooms', capacity: 4,  rooms: 4,  room_size: 1, gender_rule: 'any',         label: '4 rooms' },
   // Teraria (combined pool of 5 rooms)
   { venue: 'Teraria', room_type: 'Double Sharing', unit: 'beds',  capacity: 4,  rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'Teraria', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
   { venue: 'Teraria', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2, room_size: 1, gender_rule: 'any',         label: '2 rooms' },
-  { venue: 'Festival Access', room_type: 'Festival Pass',      unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
   { venue: 'Festival Access', room_type: 'Full Festival Pass', unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
-  { venue: 'Festival Access', room_type: 'Day Pass · 27 Nov',  unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
-  { venue: 'Festival Access', room_type: 'Day Pass · 28 Nov',  unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
-  { venue: 'Festival Access', room_type: 'Day Pass · 29 Nov',  unit: 'beds', capacity: 100, room_size: 1, gender_rule: 'any', label: '100 passes' },
+  { venue: 'Festival Access', room_type: 'Weekend Pass',       unit: 'beds', capacity: 200, room_size: 1, gender_rule: 'any', label: '200 passes' },
+  { venue: 'Festival Access', room_type: 'Single Day Pass',    unit: 'beds', capacity: 300, room_size: 1, gender_rule: 'any', label: '300 passes' },
 ];
 
 // Predefined room labels for each venue/type
 // Used to render a fixed grid — every slot always visible (occupied or Available)
 const ROOM_LABELS = {
-  'Marron · Sea View': [
-    'MR-SV-01','MR-SV-02','MR-SV-03','MR-SV-04','MR-SV-05',
-    'MR-SV-06','MR-SV-07','MR-SV-08','MR-SV-09','MR-SV-10','MR-SV-11',
-  ],
-  'Marron · Garden': [
-    'MR-GC-01','MR-GC-02','MR-GC-03','MR-GC-04','MR-GC-05',
-    'MR-GC-06','MR-GC-07','MR-GC-08','MR-GC-09','MR-GC-10','MR-GC-11',
-  ],
   'Destiny': [
     'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5',
   ],
   'Teraria': [
     'T-1', 'T-2', 'T-3', 'T-4', 'T-5',
   ],
-  'Ourem Palace': [
-    'OP-01', 'OP-02', 'OP-03', 'OP-04', 'OP-05',
-    'OP-06', 'OP-07', 'OP-08', 'OP-09', 'OP-10',
-    'OP-11', 'OP-12', 'OP-13', 'OP-14',
-  ],
+  'Ourem Palace': {
+    'Double Sharing': ['OW-D01','OW-D02','OW-D03','OW-D04','OW-D05'],
+    'Private Room':   ['OW-P01','OW-P02','OW-P03','OW-P04'],
+  },
   'Bhakti Kutir': {
-    'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14','BK-D15'],
+    'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14','BK-D15','BK-D16','BK-D17'],
     'Triple Sharing': ['BK-T01','BK-T02','BK-T03','BK-T04'],
-    'Private Room':    ['BK-S01','BK-S02','BK-S03','BK-S04'],
+    'Private Room':    ['BK-S01','BK-S02'],
     '4 Bed Dorm':     ['DORM-F4'],
     '6 Bed Dorm':     ['DORM-M6'],
   },
@@ -80,7 +60,7 @@ const PRICING = {
     'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 36000, phase4: 39000, extraDay: 2500 },
     'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 30500, phase4: 34000, extraDay: 1500 },
     'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 48500, phase4: 51000, extraDay: 3000 },
-    '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 28500, phase4: 30000, extraDay: 800  },
+    '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 30000, extraDay: 800  },
     '6 Bed Dorm':     { earlyBird: 24000, phase2: 24000, phase3: 27000, phase4: 28500, extraDay: 700  },
   },
   'Marron · Sea View': {
@@ -109,11 +89,9 @@ const PRICING = {
     'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 47000, phase4: 49600, extraDay: 4500 },
   },
   'Festival Access': {
-    'Festival Pass':      { flat: 16500, extraDay: 0 },
     'Full Festival Pass': { flat: 21000, extraDay: 0 },
-    'Day Pass · 27 Nov':  { earlyBird: 5500, phase2: 6500, phase3: 7500, phase4: 8500, extraDay: 0 },
-    'Day Pass · 28 Nov':  { earlyBird: 5500, phase2: 6500, phase3: 7500, phase4: 8500, extraDay: 0 },
-    'Day Pass · 29 Nov':  { earlyBird: 5500, phase2: 6500, phase3: 7500, phase4: 8500, extraDay: 0 },
+    'Weekend Pass':       { flat: 14500, extraDay: 0 },
+    'Single Day Pass':    { flat: 7500,  extraDay: 0 },
   },
 };
 
@@ -143,7 +121,7 @@ const COMBINED_CAPACITY = {
   'Marron · Garden':   11,
   'Destiny':           5,
   'Teraria':           5,
-  'Ourem Palace':      14,
+  'Ourem Palace':      9,
 };
 
 
