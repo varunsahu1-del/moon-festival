@@ -342,13 +342,13 @@ function getInventoryStats(db) {
       } else {
         // Double sharing stats (beds-based within combined pool)
         const roomsAvailForDS = Math.max(0, totalRooms - privRooms);
-        const { maleBeds, femaleBeds, totalRooms: dsRoomsCount } = dsRoomsUsed(db, item.venue, item.room_type, item.room_size);
+        const { maleBeds, femaleBeds, partialMaleBeds, partialFemaleBeds, fullRoomBookings, totalRooms: dsRoomsCount } = dsRoomsUsed(db, item.venue, item.room_type, item.room_size);
         const bedsUsed = maleBeds + femaleBeds;
         const bedsAvail = Math.max(0, roomsAvailForDS * item.room_size - bedsUsed);
         const pct = Math.round((bedsUsed / (roomsAvailForDS * item.room_size || 1)) * 100);
         const paid    = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as n FROM bookings WHERE venue=? AND room_type=? AND status='paid' AND (deleted_at IS NULL OR deleted_at='')`).get(item.venue, item.room_type).n;
         const pending = db.prepare(`SELECT COALESCE(SUM(guest_count),0) as n FROM bookings WHERE venue=? AND room_type=? AND status IN ('pending','upi_pending') AND (deleted_at IS NULL OR deleted_at='')`).get(item.venue, item.room_type).n;
-        stats.push({ venue: item.venue, room_type: item.room_type, label: item.label, gender_rule: item.gender_rule, room_size: item.room_size, unit: 'beds', capacity: roomsAvailForDS * item.room_size, occupied: paid, pending, available: bedsAvail, maleBeds, femaleBeds, percent: Math.min(100, pct), sold_out: bedsAvail === 0 });
+        stats.push({ venue: item.venue, room_type: item.room_type, label: item.label, gender_rule: item.gender_rule, room_size: item.room_size, unit: 'beds', capacity: roomsAvailForDS * item.room_size, occupied: paid, pending, available: bedsAvail, maleBeds, femaleBeds, partialMaleBeds: partialMaleBeds || 0, partialFemaleBeds: partialFemaleBeds || 0, fullRooms: fullRoomBookings || 0, percent: Math.min(100, pct), sold_out: bedsAvail === 0 });
       }
       continue;
     }
