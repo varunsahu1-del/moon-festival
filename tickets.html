@@ -3008,9 +3008,9 @@ document.addEventListener('keydown', e => {
             && s.male_remaining > 0 && s.female_remaining > 0
             && !isDorm;
           if (bothGenderLow) {
-            const mLabel = s.male_remaining === 1 ? '1 Male bed' : s.male_remaining + ' Male beds';
-            const fLabel = s.female_remaining === 1 ? '1 Female bed' : s.female_remaining + ' Female beds';
-            addBadge('inv-badge--low', mLabel + ' · ' + fLabel);
+            const mLabel = s.male_remaining === 1 ? '1 Male' : s.male_remaining + ' Male';
+            const fLabel = s.female_remaining === 1 ? '1 Female' : s.female_remaining + ' Female';
+            addBadge('inv-badge--low', 'Last ' + mLabel + ' · ' + fLabel);
           } else {
             const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
             const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
