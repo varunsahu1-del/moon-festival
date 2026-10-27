@@ -665,11 +665,16 @@ router.get('/availability', (req, res) => {
     let male_remaining = null, female_remaining = null;
     if (s.gender_rule === 'same_gender' && s.room_size && s.capacity) {
       const totalRooms      = s.capacity / s.room_size;
-      const maleRoomsUsed   = Math.ceil((s.maleBeds || 0) / s.room_size);
-      const femaleRoomsUsed = Math.ceil((s.femaleBeds || 0) / s.room_size);
-      const emptyRooms      = Math.max(0, totalRooms - maleRoomsUsed - femaleRoomsUsed);
-      const maleSpare       = (s.maleBeds || 0) % s.room_size === 0 ? 0 : s.room_size - (s.maleBeds || 0) % s.room_size;
-      const femaleSpare     = (s.femaleBeds || 0) % s.room_size === 0 ? 0 : s.room_size - (s.femaleBeds || 0) % s.room_size;
+      // Use partial-only beds for gender-room counting; full-room bookings occupy 1 room
+      // each regardless of gender mix (e.g. a couple booking the whole room).
+      const partialMaleBeds   = s.partialMaleBeds || 0;
+      const partialFemaleBeds = s.partialFemaleBeds || 0;
+      const fullRooms         = s.fullRooms || 0;
+      const maleRoomsUsed   = Math.ceil(partialMaleBeds / s.room_size);
+      const femaleRoomsUsed = Math.ceil(partialFemaleBeds / s.room_size);
+      const emptyRooms      = Math.max(0, totalRooms - maleRoomsUsed - femaleRoomsUsed - fullRooms);
+      const maleSpare       = partialMaleBeds % s.room_size === 0 ? 0 : s.room_size - partialMaleBeds % s.room_size;
+      const femaleSpare     = partialFemaleBeds % s.room_size === 0 ? 0 : s.room_size - partialFemaleBeds % s.room_size;
       const maleBedsLeft    = maleSpare + emptyRooms * s.room_size;
       const femaleBedsLeft  = femaleSpare + emptyRooms * s.room_size;
       // Only count SPARE beds in partial rooms — empty rooms are fungible (one gender
