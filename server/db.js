@@ -67,6 +67,8 @@ if (!existingBookingCols.includes('discount')) db.exec("ALTER TABLE bookings ADD
 if (!existingBookingCols.includes('discount_reason')) db.exec("ALTER TABLE bookings ADD COLUMN discount_reason TEXT");
 if (!existingBookingCols.includes('phase')) db.exec("ALTER TABLE bookings ADD COLUMN phase TEXT");
 if (!existingBookingCols.includes('source')) db.exec("ALTER TABLE bookings ADD COLUMN source TEXT DEFAULT 'public'");
+if (!existingBookingCols.includes('razorpay_fee_pct')) db.exec("ALTER TABLE bookings ADD COLUMN razorpay_fee_pct REAL DEFAULT 0.0242");
+if (!existingBookingCols.includes('promo_code')) db.exec("ALTER TABLE bookings ADD COLUMN promo_code TEXT");
 
 // Backfill phase for any existing bookings that don't have it set yet.
 // All bookings created before the phase-tracking fix are Early Bird (Aug 2026 window).
@@ -152,6 +154,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS promo_codes (
 try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified INTEGER DEFAULT 0`); } catch(_) {}
 try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified_at DATETIME`); } catch(_) {}
 try { db.exec(`ALTER TABLE bookings ADD COLUMN promo_code TEXT`); } catch(_) {}
+try { db.exec(`ALTER TABLE promo_codes ADD COLUMN discount_type TEXT NOT NULL DEFAULT 'flat'`); } catch(_) {}
 
 function nextRef() {
   const row = db.prepare("SELECT MAX(CAST(SUBSTR(booking_ref,4) AS INTEGER)) as m FROM bookings WHERE booking_ref LIKE 'MF-%'").get();
