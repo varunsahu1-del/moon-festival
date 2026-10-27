@@ -2314,6 +2314,17 @@ async function loadInventoryDetail() {
           if (invItem.available > 0) html += `<div class="beds-guest-card" style="justify-content:center;align-items:center;display:flex;border-style:dashed;opacity:0.4;"><div class="room-empty-label">+${invItem.available} available</div></div>`;
         }
 
+        // Show unassigned guests (no room_number) as a warning block below the grid
+        if (unassignedGuests.length) {
+          html += `<div style="margin:8px 0 0;padding:8px 10px;background:rgba(180,96,0,0.12);border:1px solid rgba(180,96,0,0.3);border-radius:6px;">
+            <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(180,96,0,0.8);margin-bottom:6px;">Unassigned · ${rt}</div>
+            ${unassignedGuests.map(g => {
+              const icon = g.gender==='Male'?'<span style="color:#6ab0ff;font-size:9px;font-weight:700;">M</span>':g.gender==='Female'?'<span style="color:#dc82b4;font-size:9px;font-weight:700;">F</span>':'<span style="opacity:0.4;">○</span>';
+              return `<div style="display:flex;align-items:center;gap:6px;font-size:11px;padding:2px 0;" data-guest-id="${g.guestId}" data-guest-room="" data-venue="${venue}">${icon} <span>${g.name}</span> <span style="opacity:0.45;font-size:10px;">${g.bookingRef}</span></div>`;
+            }).join('')}
+          </div>`;
+        }
+
         html += `</div></div>`;
       });
 
