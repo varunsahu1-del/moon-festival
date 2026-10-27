@@ -694,9 +694,8 @@ router.get('/availability', (req, res) => {
     if (isDormType) {
       low = remaining <= Math.ceil((s.capacity || 1) * 0.2);
     } else {
-      const totalRooms = Math.ceil((s.capacity || 1) / roomSize);
       const roomsRemaining = Math.floor(remaining / roomSize);
-      low = roomsRemaining <= Math.ceil(totalRooms * 0.75);
+      low = roomsRemaining <= 2;
     }
     return {
       venue: s.venue,
