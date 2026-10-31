@@ -53,11 +53,10 @@
       font-style: normal;
     }
     .schedule-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
-    .day-tab { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1rem, 1.8vw, 1.3rem) !important; font-weight: 700 !important; letter-spacing: 0.1em !important; color: rgba(237,212,178,0.55) !important; border-bottom: none !important; padding: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 0.3rem !important; line-height: 1 !important; }
+    .day-tab { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1rem, 1.8vw, 1.3rem) !important; font-weight: 700 !important; letter-spacing: 0.28em !important; color: rgba(237,212,178,0.55) !important; border-bottom: none !important; padding: 0 !important; }
     .day-tab.active { color: #EDD4B2 !important; }
-    .tab-date { font-size: clamp(0.5rem, 1.2vw, 0.6rem) !important; font-weight: 300 !important; letter-spacing: 0.2em !important; text-transform: uppercase; color: rgba(237,212,178,0.75) !important; }
-    .day-tab-row { gap: 0; align-items: center; }
-    .day-tab-sep { width: 1px; height: 1.8rem; background: rgba(237,212,178,0.12); display: block; flex-shrink: 0; margin: 0 clamp(1rem, 2.5vw, 2rem); }
+    .day-tab-row { gap: 0; }
+    .day-tab-sep { font-family: 'Josefin Sans', sans-serif; font-size: clamp(1rem, 1.8vw, 1.3rem); color: rgba(176,96,48,0.5); margin: 0 1rem; user-select:none; }
 
     /* tribal hourglass animation */
     @keyframes sandDrop {
@@ -95,18 +94,18 @@
   <div class="container">
 
     <div class="day-tab-row" style="padding-top:clamp(2rem,4vw,3rem);">
-      <button class="day-tab" data-panel="panel-pre">Pre-Festival<span class="tab-date">26 Nov · Thu</span></button>
-      <span class="day-tab-sep"></span>
-      <button class="day-tab active" data-panel="panel-day1">Day 1<span class="tab-date">27 Nov · Fri</span></button>
-      <span class="day-tab-sep"></span>
-      <button class="day-tab" data-panel="panel-day2">Day 2<span class="tab-date">28 Nov · Sat</span></button>
-      <span class="day-tab-sep"></span>
-      <button class="day-tab" data-panel="panel-day3">Day 3<span class="tab-date">29 Nov · Sun</span></button>
+      <button class="day-tab active" data-panel="panel-day1">Day 1</button>
+      <span class="day-tab-sep">|</span>
+      <button class="day-tab" data-panel="panel-day2">Day 2</button>
+      <span class="day-tab-sep">|</span>
+      <button class="day-tab" data-panel="panel-day3">Day 3</button>
+      <span class="day-tab-sep">|</span>
+      <button class="day-tab" data-panel="panel-pre">Pre-Festival</button>
     </div>
 
     <!-- PRE-FESTIVAL PANEL -->
     <div class="schedule-panel" id="panel-pre">
-      <h2 class="schedule-day-heading">Pre-Festival &nbsp;|&nbsp; 26 Nov &nbsp;|&nbsp; Thu</h2>
+      <h2 class="schedule-day-heading">Pre-Festival &nbsp;·&nbsp; 26 November &nbsp;·&nbsp; Thursday</h2>
       <div class="schedule-block">
         <p><span class="schedule-time">2:00 PM onwards</span><span class="schedule-pipe">|</span><span class="schedule-event">Check-In</span></p>
       </div>
@@ -120,7 +119,7 @@
 
     <!-- DAY 1 PANEL -->
     <div class="schedule-panel active" id="panel-day1">
-      <h2 class="schedule-day-heading">Day 1 &nbsp;|&nbsp; 27 Nov &nbsp;|&nbsp; Fri</h2>
+      <h2 class="schedule-day-heading">Day 1 &nbsp;·&nbsp; 27 November &nbsp;·&nbsp; Friday</h2>
 
       <div class="schedule-block">
         <p><span class="schedule-time">7:15 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Orientation</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun | Space</span></p>
@@ -206,7 +205,7 @@
 
     <!-- DAY 2 PANEL -->
     <div class="schedule-panel" id="panel-day2">
-      <h2 class="schedule-day-heading">Day 2 &nbsp;|&nbsp; 28 Nov &nbsp;|&nbsp; Sat</h2>
+      <h2 class="schedule-day-heading">Day 2 &nbsp;·&nbsp; 28 November &nbsp;·&nbsp; Saturday</h2>
 
       <div class="schedule-block">
         <p><span class="schedule-time">7:15 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Morning Meditation</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun | Stardust</span></p>
@@ -283,7 +282,7 @@
 
     <!-- DAY 3 PANEL -->
     <div class="schedule-panel" id="panel-day3">
-      <h2 class="schedule-day-heading">Day 3 &nbsp;|&nbsp; 29 Nov &nbsp;|&nbsp; Sun</h2>
+      <h2 class="schedule-day-heading">Day 3 &nbsp;·&nbsp; 29 November &nbsp;·&nbsp; Sunday</h2>
 
       <div class="schedule-block">
         <p><span class="schedule-time">7:00 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Tantric Death Meditation — Viraja Homam</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Pradesh Raj | Stardust</span></p>
