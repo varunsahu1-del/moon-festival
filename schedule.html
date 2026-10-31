@@ -53,11 +53,11 @@
       font-style: normal;
     }
     .schedule-hero-title { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1.8rem, 4vw, 3rem) !important; font-weight: 700 !important; letter-spacing: 0.22em !important; color: #EDD4B2 !important; margin-bottom: 0.4rem !important; }
-    .day-tab { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1rem, 1.8vw, 1.3rem) !important; font-weight: 700 !important; letter-spacing: 0.28em !important; color: rgba(237,212,178,0.55) !important; border-bottom: none !important; padding: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; }
+    .day-tab { font-family: 'Josefin Sans', sans-serif !important; font-size: clamp(1rem, 1.8vw, 1.3rem) !important; font-weight: 700 !important; letter-spacing: 0.1em !important; color: rgba(237,212,178,0.55) !important; border-bottom: none !important; padding: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 0.3rem !important; line-height: 1 !important; }
     .day-tab.active { color: #EDD4B2 !important; }
-    .tab-date { font-size: clamp(0.6rem, 1vw, 0.72rem) !important; font-weight: 400 !important; letter-spacing: 0.12em !important; opacity: 0.7; }
+    .tab-date { font-size: clamp(0.5rem, 1.2vw, 0.6rem) !important; font-weight: 300 !important; letter-spacing: 0.2em !important; text-transform: uppercase; color: rgba(237,212,178,0.75) !important; }
     .day-tab-row { gap: 0; align-items: center; }
-    .day-tab-sep { font-family: 'Josefin Sans', sans-serif; font-size: clamp(1rem, 1.8vw, 1.3rem); color: rgba(176,96,48,0.5); margin: 0 1rem; user-select:none; }
+    .day-tab-sep { width: 1px; height: 1.8rem; background: rgba(237,212,178,0.12); display: block; flex-shrink: 0; margin: 0 clamp(1rem, 2.5vw, 2rem); }
 
     /* tribal hourglass animation */
     @keyframes sandDrop {
@@ -96,11 +96,11 @@
 
     <div class="day-tab-row" style="padding-top:clamp(2rem,4vw,3rem);">
       <button class="day-tab" data-panel="panel-pre">Pre-Festival<span class="tab-date">26 Nov · Thu</span></button>
-      <span class="day-tab-sep">|</span>
+      <span class="day-tab-sep"></span>
       <button class="day-tab active" data-panel="panel-day1">Day 1<span class="tab-date">27 Nov · Fri</span></button>
-      <span class="day-tab-sep">|</span>
+      <span class="day-tab-sep"></span>
       <button class="day-tab" data-panel="panel-day2">Day 2<span class="tab-date">28 Nov · Sat</span></button>
-      <span class="day-tab-sep">|</span>
+      <span class="day-tab-sep"></span>
       <button class="day-tab" data-panel="panel-day3">Day 3<span class="tab-date">29 Nov · Sun</span></button>
     </div>
 
