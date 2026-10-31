@@ -204,8 +204,7 @@
       text-transform: uppercase;
       color: rgba(237,212,178,0.65);
       margin: 0 0 0.25rem;
-      /* hide name — re-enable when 2026 facilitators are ready */
-      display: none;
+        display: block;
     }
 
     .fac-thumb-role {
@@ -380,7 +379,7 @@
 const FAC = [
   {
     category: 'yoga', name: 'Varun', role: 'Yoga & Meditation',
-    img: 'Facilitator Photos/varun 2.jpg', pos: '50% 30%', city: 'Mumbai',
+    img: 'Facilitator Photos/varun 4.jpg', pos: '50% 30%', city: 'Mumbai',
     desc: 'These yoga sessions with Varun will be a meditative experience of asanas with synchronisation of movement and breath. We will practice powerful pranayama together to energise and calm the body and mind, while awakening the senses and improving focus and concentration. In the past 10 years, Varun has been teaching yoga across India, China, France, Spain, Singapore, Bali & Vietnam. In 2019 Varun started the concept of Yoga Adventures, taking students deep into the jungles of India for meditation adventures.'
   },
   {
@@ -761,7 +760,7 @@ function buildGrid() {
           <div class="fac-thumb-info">
             <p class="fac-thumb-name">${f.name.toUpperCase()}</p>
             <p class="fac-thumb-role">${f.role}</p>
-            <p class="fac-thumb-more">TBA &nbsp;→</p>
+            <p class="fac-thumb-more">${f.city ? f.city.toUpperCase() : ''}</p>
           </div>
         </div>`;
     }).join('');
