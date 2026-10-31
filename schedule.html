@@ -76,13 +76,6 @@
     .hourglass-pile   { animation: sandPile 2.4s ease-out infinite; transform-origin: center bottom; }
 
     .schedule-day-heading { display: none; }
-    /* hide facilitator name and shala — re-enable when 2026 schedule is ready */
-    .workshop-row .w-venue,
-    .workshop-row .w-venue + *,
-    .schedule-detail { display: none; }
-    .workshop-row { color: transparent; text-align: left; }
-    .workshop-row .w-name { color: #EDD4B2; }
-    .workshop-row .w-name::after { content: " | TBA"; color: rgba(237,212,178,0.45); font-weight: 300; }
     .workshop-pills { align-items: flex-start; }
     .workshop-row { text-align: left !important; }
   </style>
@@ -93,7 +86,7 @@
 <!-- Schedule Hero -->
 <div class="schedule-hero-content" style="padding-top: calc(var(--s-24) + 90px); padding-bottom: var(--s-16); background: #7A3A18;">
   <h1 class="schedule-hero-title">Schedule</h1>
-  <p class="schedule-hero-sub">Last Year's Schedule &nbsp;·&nbsp; 2025</p>
+  <p class="schedule-hero-sub">Moon Festival 2026 &nbsp;·&nbsp; 27–29 Nov &nbsp;·&nbsp; Palolem, Goa</p>
 </div>
 
 <!-- DAY TABS + SCHEDULE -->
@@ -121,71 +114,83 @@
       <h2 class="schedule-day-heading">Day 1 &nbsp;|&nbsp; 27 Nov &nbsp;|&nbsp; Fri</h2>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">7:15 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Orientation</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+        <p><span class="schedule-time">7:15 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Orientation</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun | Main Stage</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">8:15 – 9:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">7:45 – 8:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Soul Kirtan</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Gouranga | All Together</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">9:00 – 10:00 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Mudgar Abhyas</span> | Shifali | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Conscious Connected Breathwork</span> | Ankur | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Aerial Yoga</span> | Sonia | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Hatha Yoga</span> | Varun Sahu | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Heart Breathwork</span> | Karishma | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki-Dogu | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Asana &amp; Pranayama</span> | Varun | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Aerial Yoga</span> | Sonia | <span class="w-venue">Down Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">10:00 – 11:15 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">10:15 – 11:15 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Sensual Bollywood Dance</span> | Dhanisa | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Belly Dancing</span> | Aakriti | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Sky</span></div>
-          <div class="workshop-row"><span class="w-name">Ananda Kirtan</span> | Ananda Flow | <span class="w-venue">Space</span></div>
+          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Belly Dance</span> | Aakriti | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Voice Activation</span> | Lauren-Leonie | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Sensual Bollywood</span> | Dhanisa | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Installation Making</span> | Shital | <span class="w-venue">Down Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">11:30 AM – 12:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+        <p><span class="schedule-time">11:30 AM – 1:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">12:30 – 2:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Talks – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">1:00 – 2:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Unity Circle</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris | All Together</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">3:00 – 4:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Use of Senses &amp; Illness</span> | Ayurvedic Dr Kanchan | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Towards a Healthier You</span> | Malhar | <span class="w-venue">Space</span></div>
+          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Bharatnatyam Fusion</span> | Disha | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Kirtan</span> | Ananda Flow | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Tantric Death Meditation — Viraja Homam</span> | Pradesh Raj | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Afro Dance</span> | Sadashiv | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Tye &amp; Dye Art</span> | Shreya | <span class="w-venue">Down Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">2:15 – 3:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Trippy Yoga Nidra &amp; Acupuncture</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun, Ankit &amp; Prateek | Asteroid</span></p>
-      </div>
-
-      <div class="schedule-block">
-        <p><span class="schedule-time">4:00 – 5:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">4:15 – 5:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Kathak</span> | Mruga | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Tote Bag Painting</span> | Shreya | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Forest Sound Journey</span> | Gunehr | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Ayurveda Talk</span> | Dr Kanchan | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Contact Improvisation</span> | Kaprila | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Throat Singing</span> | Martin | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Somatic Movement</span> | Sonia | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Down Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">5:30 – 7:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Cacao &amp; Ecstatic Dance</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Martin Dubois | Space</span></p>
+        <p><span class="schedule-time">5:15 – 7:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Free Time — Walk to Palolim</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">7:30 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+        <p><span class="schedule-time">7:00 – 8:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">8:30 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">The Elevate Show</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris Fitchew | Space</span></p>
+        <p><span class="schedule-time">8:15 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Luna Viajera — Latin Fusion Band</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Main Stage</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">10:00 – 10:45 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Deep Aum Chant — Sound Trip</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun, Ankit &amp; Marco | Tree Shala</span></p>
       </div>
 
     </div>
@@ -195,86 +200,74 @@
       <h2 class="schedule-day-heading">Day 2 &nbsp;|&nbsp; 28 Nov &nbsp;|&nbsp; Sat</h2>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">6:45 – 7:20 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Meditation with Flute</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun Sahu &amp; Antriksh | Stardust</span></p>
+        <p><span class="schedule-time">7:15 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Morning Meditation</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun | Round Shala</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">7:30 – 8:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">8:00 – 9:00 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Mudgar Abhyas</span> | Shifali | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Conscious Connected Breathwork</span> | Ankur | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Aerial Yoga</span> | Sonia | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Pranayama — Yogic Breathwork</span> | Varun | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Mobility via Kalari</span> | Tre | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Expressions &amp; Hand Gestures</span> | Disha | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Yoga</span> | Pradesh Raj | <span class="w-venue">Down Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Round Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">9:15 – 10:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">9:15 – 10:15 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Soul Kirtan</span> | Vicky | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Forest Sound Journey</span> | Gunehr | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Indo Contemporary</span> | Dhanisa | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Belly Dancing</span> | Aakriti | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Cyanotype Art</span> | Shreya | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Trippy Om Chanting &amp; Acupuncture</span> | Varun, Antriksh, Prateek | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Indo Contemporary</span> | Dhanisa | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Somatic Movement</span> | Sonia | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Belly Dance</span> | Aakriti | <span class="w-venue">Tree Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">10:45 AM – 12:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+        <p><span class="schedule-time">10:15 – 11:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">12:15 – 1:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Joy Alchemy</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris Fitchew | Space</span></p>
-      </div>
-
-      <div class="schedule-block">
-        <p><span class="schedule-time">1:30 – 3:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Discourse: Meditation &amp; the Mind</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun | Sky</span></p>
-      </div>
-
-      <div class="schedule-block">
-        <p><span class="schedule-time">3:00 – 3:45 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">12:15 – 1:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Ayurveda for Women's Health</span> | Dr Kanchan | <span class="w-venue">Space</span></div>
-          <div class="workshop-row"><span class="w-name">Towards a Healthier You</span> | Malhar | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Drum Circle</span> | Aditya | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Sky</span></div>
-          <div class="workshop-row"><span class="w-name">Pan &amp; Paint</span> | Mukki | <span class="w-venue">Maya</span></div>
+          <div class="workshop-row"><span class="w-name">Kirtan</span> | Nad Mandala | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Trippy Yoga Nidra</span> | Varun, Ankit &amp; Marco | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Cyanotype Tote Bag</span> | Shreya | <span class="w-venue">Round Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">4:00 – 5:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">1:30 – 2:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Contact Improvisation</span> | Kaprila | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Kathak</span> | Mruga | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Forest Mask</span> | Dryad | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Afro Dance</span> | Sadashiv | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Shamanic Rose Healing</span> | Karishma | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Ayurveda Talk</span> | Dr Kanchan | <span class="w-venue">Round Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">5:15 – 7:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Beach Trip</span><span class="schedule-dash"> |</span><span class="schedule-detail"> By bus</span></p>
+        <p><span class="schedule-time">2:45 – 4:15 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Ecstatic Dance &amp; Cacao</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Martin | All Together</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">7:30 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+        <p><span class="schedule-time">4:30 – 7:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Beach Trip — Sunset</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Tai Chi · Flow Arts · Strength Training</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">8:00 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Chris Fitchew</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+        <p><span class="schedule-time">7:00 – 8:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">8:30 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Notesic</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+        <p><span class="schedule-time">8:00 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">The Elevate Show</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris | Main Stage</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">10:30 PM onwards</span><span class="schedule-pipe">|</span><span class="schedule-event">Dark Side of the Moon 🌑</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Fuzulu &amp; Essio B2B | La La Land</span></p>
+        <p><span class="schedule-time">10:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Purane Gaane — Ankit on Guitar</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Main Stage</span></p>
       </div>
 
     </div>
@@ -284,77 +277,72 @@
       <h2 class="schedule-day-heading">Day 3 &nbsp;|&nbsp; 29 Nov &nbsp;|&nbsp; Sun</h2>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">6:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Meditation with Flute &amp; Acupuncture</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Varun, Ankit &amp; Prateek | Stardust</span></p>
+        <p><span class="schedule-time">7:00 – 7:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Tantric Death Meditation — Viraja Homam</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Pradesh Raj | Round Shala</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">7:30 – 8:45 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">8:00 – 9:00 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Mudgar Abhyas</span> | Shifali | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Tai Chi</span> | Hinoki | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Animal Flow</span> | Vipindas | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Asana &amp; Pranayama</span> | Varun | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Soul Kirtan</span> | Gouranga | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Kalaripayattu</span> | Tre | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Aerial Yoga</span> | Sonia | <span class="w-venue">Down Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">9:15 – 10:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">9:15 – 10:15 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Mongolian Throat Singing</span> | Martin Dubois | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Ananda Kirtan</span> | Ananda Flow | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Conscious Connected Breathwork</span> | Ankur | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Sensual Bollywood Dance</span> | Dhanisa | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Hatha Yoga</span> | Varun | <span class="w-venue">Sky</span></div>
+          <div class="workshop-row"><span class="w-name">Throat Singing</span> | Martin | <span class="w-venue">Main Stage</span></div>
+          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Sensual Bollywood</span> | Dhanisa | <span class="w-venue">Circus Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Belly Dance</span> | Aakriti | <span class="w-venue">Round Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Tai Chi &amp; Qi Gong</span> | Hinoki-Dogu | <span class="w-venue">Tree Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Mat Pilates</span> | Pooja | <span class="w-venue">Down Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">10:45 AM – 12:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir</span></p>
+        <p><span class="schedule-time">10:15 – 11:30 AM</span><span class="schedule-pipe">|</span><span class="schedule-event">Brunch</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">12:30 – 2:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Divine Unity Circle</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Chris Fitchew | Space</span></p>
+        <p><span class="schedule-time">12:00 – 1:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Moon Choir</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Kaprila | All Together</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">2:30 – 3:45 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
+        <p><span class="schedule-time">1:45 – 3:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
         <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Bhangra</span> | Folking Desi | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Kathak</span> | Mruga | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Clownery</span> | Alice | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Contact Improvisation</span> | Kaprila | <span class="w-venue">Nebula</span></div>
-          <div class="workshop-row"><span class="w-name">Sufi Singing</span> | Anushaw | <span class="w-venue">Sky</span></div>
-          <div class="workshop-row"><span class="w-name">Pan &amp; Paint</span> | Mukki | <span class="w-venue">Maya</span></div>
+          <div class="workshop-row"><span class="w-name">Moon Olympics — Strengthening the Soul</span> | Chris | <span class="w-venue">All Together</span></div>
+          <div class="workshop-row"><span class="w-name">Contemporary</span> | Alice | <span class="w-venue">Massage Shala</span></div>
+          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Round Shala</span></div>
         </div>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">4:00 – 5:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Workshops – <span style="color:rgba(237,212,178,0.55);font-weight:300;">Choose Any 1</span></span></p>
-        <div class="workshop-pills">
-          <div class="workshop-row"><span class="w-name">Bachata</span> | Maya | <span class="w-venue">Asteroid</span></div>
-          <div class="workshop-row"><span class="w-name">Somatic Movement</span> | Sonia | <span class="w-venue">Comet</span></div>
-          <div class="workshop-row"><span class="w-name">Art Movement</span> | Shreya | <span class="w-venue">Stardust</span></div>
-          <div class="workshop-row"><span class="w-name">Belly Dancing</span> | Aakriti | <span class="w-venue">Meteor</span></div>
-          <div class="workshop-row"><span class="w-name">Forest Sound Journey</span> | Gunehr | <span class="w-venue">Sky</span></div>
-          <div class="workshop-row"><span class="w-name">Drum Circle</span> | Aditya | <span class="w-venue">Crater</span></div>
-        </div>
+        <p><span class="schedule-time">3:15 – 4:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Drum Circle</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Aditya | All Together</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">5:00 – 7:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Cacao &amp; Ecstatic Dance</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Annida | Space</span></p>
+        <p><span class="schedule-time">5:00 – 6:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Ecstatic Dance &amp; Cacao</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Annida | Main Stage</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">7:00 – 8:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Bhakti Kutir - Space</span></p>
+        <p><span class="schedule-time">7:00 – 8:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Dinner</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">8:00 – 8:30 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Chris Fitchew</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+        <p><span class="schedule-time">8:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Moon Musician Jam</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Main Stage</span></p>
       </div>
 
       <div class="schedule-block">
-        <p><span class="schedule-time">8:30 – 10:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">YOURCHIN ✨</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Space</span></p>
+        <p><span class="schedule-time">9:00 PM</span><span class="schedule-pipe">|</span><span class="schedule-event">Bageecha — Hindi Film Retro</span><span class="schedule-dash"> |</span><span class="schedule-detail"> Main Stage</span></p>
+      </div>
+
+      <div class="schedule-block">
+        <p><span class="schedule-time">11:00 PM onwards</span><span class="schedule-pipe">|</span><span class="schedule-event">Beach Hangout 🌙</span></p>
       </div>
 
     </div>
