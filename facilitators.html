@@ -137,26 +137,6 @@
       margin: var(--s-10) auto 0;
     }
 
-    /* ── WORKSHOP TEXT LIST ────────────────────────────── */
-    .fac-workshop-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      max-width: 480px;
-    }
-    .fac-workshop-list li {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.82rem, 1.5vw, 1rem);
-      font-weight: 300;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(237,212,178,0.82);
-      padding: 0.55rem 0;
-      border-bottom: 0.5px solid rgba(237,212,178,0.08);
-      text-align: center;
-    }
-    .fac-workshop-list li:last-child { border-bottom: none; }
 
     /* ── FACILITATOR TILE GRID ─────────────────────────── */
     .fac-thumb-grid {
@@ -762,7 +742,6 @@ const CAT_ICONS = {
 
 const CATEGORIES = [
   { key: 'yoga',   label: 'Yoga &amp; Fitness' },
-  { key: 'breath', label: 'Breath, Meditation &amp; Healing' },
   { key: 'dance',  label: 'Dance &amp; Movement' },
   { key: 'music',  label: 'Music, Singing &amp; Kirtan' },
   { key: 'art',    label: 'Art' },
@@ -770,35 +749,51 @@ const CATEGORIES = [
   { key: 'talks',  label: 'Talks' }
 ];
 
-const WORKSHOPS = {
-  yoga:   ['Yoga', 'Mat Pilates', 'Aerial Yoga', 'Kalaripayattu', 'Mobility via Kalari', 'Animal Flow', 'Tai Chi & Qi Gong'],
-  breath: ['Pranayama — Yogic Breathwork', 'Heart Breathwork', 'Somatic Movement', 'Tantric Death Meditation — Viraja Homam', 'Shamanic Rose Healing', 'Trippy Yoga Nidra', 'Deep Aum Chant — Sound Trip'],
-  dance:  ['Sensual Bollywood', 'Indo Contemporary', 'Bhangra', 'Belly Dance', 'Bachata', 'Contact Improvisation', 'Afro Dance', 'Expressions & Hand Gestures', 'Bharatnatyam Fusion', 'Clownery', 'Contemporary'],
-  music:  ['Soul Kirtan', 'Kirtan', 'Sufi Singing', 'Throat Singing', 'Voice Activation', 'Drum Circle', 'Moon Choir'],
-  art:    ['Forest Mask', 'Cyanotype Tote Bag', 'Tye & Dye Art', 'Installation Making'],
-  bands:  ['Luna Viajera — Latin Fusion Band', 'Ecstatic Dance & Cacao', 'The Elevate Show', 'Unity Circle', 'Moon Olympics', 'Bageecha — Hindi Film Retro Band', 'Moon Musician Jam'],
-  talks:  ['Ayurveda Talk', 'Yoga Sutras']
-};
+function phSVG() {
+  return `<svg width="40" height="40"><use href="#ph"/></svg>`;
+}
 
 function buildGrid() {
   const container = document.getElementById('facSections');
   CATEGORIES.forEach((cat, ci) => {
-    const workshops = WORKSHOPS[cat.key] || [];
-    if (!workshops.length) return;
-    const items = workshops.map(w => `<li>${w}</li>`).join('');
-    const icon = CAT_ICONS[cat.key] || '';
+    const members = FAC.filter(f => f.category === cat.key);
+    if (!members.length) return;
+    const cards = members.map((f, i) => {
+      const imgHTML = f.img
+        ? `<img src="${f.img}" alt="${f.name}" style="object-position:${f.pos};" loading="lazy" />`
+        : phSVG();
+      return `
+        <div class="fac-thumb-card reveal" data-idx="${FAC.indexOf(f)}" tabindex="0" role="button" aria-label="Learn more about ${f.name}">
+          <div class="fac-thumb-img">${imgHTML}</div>
+          <div class="fac-thumb-overlay"></div>
+          <div class="fac-thumb-info">
+            <p class="fac-thumb-name">${f.name.toUpperCase()}</p>
+            <p class="fac-thumb-role">${f.role}</p>
+            <p class="fac-thumb-more">TBA &nbsp;→</p>
+          </div>
+        </div>`;
+    }).join('');
+
     const divider = ci < CATEGORIES.length - 1 ? '<div class="fac-divider"></div>' : '';
     const ptop = ci === 0 ? '' : 'padding-top: var(--s-6);';
     const pbot = ci === CATEGORIES.length - 1 ? 'padding-bottom: var(--s-16);' : '';
     container.insertAdjacentHTML('beforeend', `
       <section class="fac-section" style="${ptop}${pbot}">
         <div class="container">
-          <p class="fac-category-label reveal">${icon}${cat.label}</p>
+          <p class="fac-category-label reveal">${cat.label}</p>
+          <p class="fac-category-count">${members.length} Facilitator${members.length !== 1 ? 's' : ''}</p>
           <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0.8rem auto 1.4rem;"></div>
-          <ul class="fac-workshop-list reveal">${items}</ul>
+
+          <div class="fac-thumb-grid">${cards}</div>
           ${divider}
         </div>
       </section>`);
+  });
+
+  // modal disabled — re-enable when 2026 facilitators are ready
+  document.querySelectorAll('.fac-thumb-card').forEach(card => {
+    // card.addEventListener('click', () => openModal(parseInt(card.dataset.idx)));
+    // card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(parseInt(card.dataset.idx)); }});
   });
 }
 
