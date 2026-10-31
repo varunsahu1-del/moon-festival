@@ -137,6 +137,27 @@
       margin: var(--s-10) auto 0;
     }
 
+    /* ── WORKSHOP TEXT LIST ────────────────────────────── */
+    .fac-workshop-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 480px;
+    }
+    .fac-workshop-list li {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(0.82rem, 1.5vw, 1rem);
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(237,212,178,0.82);
+      padding: 0.55rem 0;
+      border-bottom: 0.5px solid rgba(237,212,178,0.08);
+      text-align: center;
+    }
+    .fac-workshop-list li:last-child { border-bottom: none; }
+
     /* ── FACILITATOR TILE GRID ─────────────────────────── */
     .fac-thumb-grid {
       display: flex;
@@ -686,6 +707,33 @@ const CAT_ICONS = {
     <line x1="25.5" y1="20" x2="25.5" y2="43" stroke="#EDD4B2" stroke-width="0.4" opacity="0.35"/>
   </svg>`,
 
+  // Lotus breath — spiraling breath waves
+  breath: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- head -->
+    <circle cx="24" cy="8" r="4.2" stroke="#EDD4B2" stroke-width="1.3" fill="none"/>
+    <!-- breath wave out left -->
+    <path d="M20 8 Q14 8 10 12 Q7 16 10 20" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.6"/>
+    <path d="M20 8 Q12 5 8 9 Q5 13 8 17" stroke="#EDD4B2" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.3"/>
+    <!-- breath wave out right -->
+    <path d="M28 8 Q34 8 38 12 Q41 16 38 20" stroke="#EDD4B2" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.6"/>
+    <path d="M28 8 Q36 5 40 9 Q43 13 40 17" stroke="#EDD4B2" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.3"/>
+    <!-- torso / chest -->
+    <path d="M21 12 Q24 11.5 27 12 L26 22 Q24 23 22 22 Z" stroke="#EDD4B2" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+    <!-- arms resting -->
+    <path d="M22 14 Q18 17 16 22" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M26 14 Q30 17 32 22" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <!-- seated legs -->
+    <path d="M22 22 Q18 26 12 27 Q14 29 20 28" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M26 22 Q30 26 36 27 Q34 29 28 28" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M20 28 Q24 29.5 28 28" stroke="#EDD4B2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <!-- rising energy / lotus petals below -->
+    <path d="M24 32 Q20 36 22 40 Q24 43 24 43" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.8"/>
+    <path d="M24 32 Q28 36 26 40 Q24 43 24 43" stroke="#B06030" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.8"/>
+    <path d="M24 32 Q16 37 17 42" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
+    <path d="M24 32 Q32 37 31 42" stroke="#B06030" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
+    <circle cx="24" cy="43" r="1.2" fill="#B06030" opacity="0.7"/>
+  </svg>`,
+
   // Microphone with sound waves — bold & clean
   talks: `<svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <!-- mic capsule -->
@@ -713,60 +761,44 @@ const CAT_ICONS = {
 };
 
 const CATEGORIES = [
-  { key: 'yoga',   label: 'Yoga, Movement &amp; Fitness' },
-  { key: 'dance',  label: 'Dance &amp; Play' },
+  { key: 'yoga',   label: 'Yoga &amp; Fitness' },
+  { key: 'breath', label: 'Breath, Meditation &amp; Healing' },
+  { key: 'dance',  label: 'Dance &amp; Movement' },
   { key: 'music',  label: 'Music, Singing &amp; Kirtan' },
   { key: 'art',    label: 'Art' },
   { key: 'bands',  label: 'Bands, Ceremonies &amp; Acts' },
   { key: 'talks',  label: 'Talks' }
 ];
 
-function phSVG() {
-  return `<svg width="40" height="40"><use href="#ph"/></svg>`;
-}
+const WORKSHOPS = {
+  yoga:   ['Yoga', 'Mat Pilates', 'Aerial Yoga', 'Kalaripayattu', 'Mobility via Kalari', 'Animal Flow', 'Tai Chi & Qi Gong'],
+  breath: ['Pranayama — Yogic Breathwork', 'Heart Breathwork', 'Somatic Movement', 'Tantric Death Meditation — Viraja Homam', 'Shamanic Rose Healing', 'Trippy Yoga Nidra', 'Deep Aum Chant — Sound Trip'],
+  dance:  ['Sensual Bollywood', 'Indo Contemporary', 'Bhangra', 'Belly Dance', 'Bachata', 'Contact Improvisation', 'Afro Dance', 'Expressions & Hand Gestures', 'Bharatnatyam Fusion', 'Clownery', 'Contemporary'],
+  music:  ['Soul Kirtan', 'Kirtan', 'Sufi Singing', 'Throat Singing', 'Voice Activation', 'Drum Circle', 'Moon Choir'],
+  art:    ['Forest Mask', 'Cyanotype Tote Bag', 'Tye & Dye Art', 'Installation Making'],
+  bands:  ['Luna Viajera — Latin Fusion Band', 'Ecstatic Dance & Cacao', 'The Elevate Show', 'Unity Circle', 'Moon Olympics', 'Bageecha — Hindi Film Retro Band', 'Moon Musician Jam'],
+  talks:  ['Ayurveda Talk', 'Yoga Sutras']
+};
 
 function buildGrid() {
   const container = document.getElementById('facSections');
   CATEGORIES.forEach((cat, ci) => {
-    const members = FAC.filter(f => f.category === cat.key);
-    if (!members.length) return;
-    const cards = members.map((f, i) => {
-      const imgHTML = f.img
-        ? `<img src="${f.img}" alt="${f.name}" style="object-position:${f.pos};" loading="lazy" />`
-        : phSVG();
-      return `
-        <div class="fac-thumb-card reveal" data-idx="${FAC.indexOf(f)}" tabindex="0" role="button" aria-label="Learn more about ${f.name}">
-          <div class="fac-thumb-img">${imgHTML}</div>
-          <div class="fac-thumb-overlay"></div>
-          <div class="fac-thumb-info">
-            <p class="fac-thumb-name">${f.name.toUpperCase()}</p>
-            <p class="fac-thumb-role">${f.role}</p>
-            <p class="fac-thumb-more">TBA &nbsp;→</p>
-          </div>
-        </div>`;
-    }).join('');
-
+    const workshops = WORKSHOPS[cat.key] || [];
+    if (!workshops.length) return;
+    const items = workshops.map(w => `<li>${w}</li>`).join('');
+    const icon = CAT_ICONS[cat.key] || '';
     const divider = ci < CATEGORIES.length - 1 ? '<div class="fac-divider"></div>' : '';
     const ptop = ci === 0 ? '' : 'padding-top: var(--s-6);';
     const pbot = ci === CATEGORIES.length - 1 ? 'padding-bottom: var(--s-16);' : '';
     container.insertAdjacentHTML('beforeend', `
       <section class="fac-section" style="${ptop}${pbot}">
         <div class="container">
-          <p class="fac-category-label reveal">${cat.label}</p>
-          <p class="fac-category-count">${members.length} Facilitator${members.length !== 1 ? 's' : ''}</p>
+          <p class="fac-category-label reveal">${icon}${cat.label}</p>
           <div style="width:6rem;height:0.5px;background:rgba(237,212,178,0.35);margin:0.8rem auto 1.4rem;"></div>
-
-          <div class="fac-thumb-grid">${cards}</div>
+          <ul class="fac-workshop-list reveal">${items}</ul>
           ${divider}
         </div>
       </section>`);
-  });
-
-  // attach click/keyboard/hover handlers
-  // modal disabled — re-enable when 2026 facilitators are ready
-  document.querySelectorAll('.fac-thumb-card').forEach(card => {
-    // card.addEventListener('click', () => openModal(parseInt(card.dataset.idx)));
-    // card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(parseInt(card.dataset.idx)); }});
   });
 }
 
