@@ -3854,14 +3854,32 @@ function fmtPrice(n) {
   var HALFMOON_PASS_PRICES = { 'Full Festival Pass': 9000, 'Weekend Pass': 6000, 'Single Day Pass': 3000 };
   var _halfmoonActive = false;
 
+  var HALFMOON_ORIGINAL = { fp3: 21000, wknd: 14500, sdp: 7500 };
+
   function applyHalfmoon() {
     _halfmoonActive = true;
     _fpCardBasePrices = Object.assign({}, HALFMOON_PRICES);
-    // Update displayed prices on cards
+
+    // Show discount banner above festival pass section
+    var section = document.getElementById('booking-section');
+    if (section && !document.getElementById('halfmoon-banner')) {
+      var banner = document.createElement('div');
+      banner.id = 'halfmoon-banner';
+      banner.style.cssText = 'background:#7A3A18;color:#EDD4B2;font-family:\'Open Sans\',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-align:center;padding:0.65rem 1rem;margin-bottom:1.5rem;border-radius:4px;';
+      banner.innerHTML = '🎟 Special rate for the South Goa travel community &nbsp;·&nbsp; Promo <strong>HALFMOON</strong> applied';
+      section.insertBefore(banner, section.firstChild);
+    }
+
+    // Update displayed prices: strikethrough original + new price
+    var origMap = { fp3: '₹21,000', wknd: '₹14,500', sdp: '₹7,500' };
     ['fp3','wknd','sdp'].forEach(function(k) {
       var el = document.getElementById(k + '-price');
-      if (el) el.textContent = '₹' + (HALFMOON_PRICES[k] * (_fpCardQtys[k] || 1)).toLocaleString('en-IN');
+      if (el) {
+        var newPrice = '₹' + (HALFMOON_PRICES[k] * (_fpCardQtys[k] || 1)).toLocaleString('en-IN');
+        el.innerHTML = '<span style="text-decoration:line-through;opacity:0.4;font-size:0.82em;margin-right:6px;">' + origMap[k] + '</span>' + newPrice;
+      }
     });
+
     // Re-wire Book buttons
     var fullBtn = document.querySelector('[onclick*="Full Festival Pass"]');
     if (fullBtn) fullBtn.setAttribute('onclick', 'openFpFromCard(\'Full Festival Pass\',9000,null)');
