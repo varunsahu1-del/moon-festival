@@ -1297,6 +1297,11 @@ async function applyPromo() {
   const btn   = document.getElementById('promoApplyBtn');
   const code  = (input?.value || '').trim().toUpperCase();
   if (!code) return;
+  if (code === 'HALFMOON') {
+    msg.style.display = 'block'; msg.style.color = '#c0392b';
+    msg.textContent = 'HALFMOON is only valid for Festival Only passes, not stay bookings.';
+    return;
+  }
   btn.disabled = true; btn.textContent = '…';
   try {
     const res  = await fetch('/api/bookings/promo/' + encodeURIComponent(code));
