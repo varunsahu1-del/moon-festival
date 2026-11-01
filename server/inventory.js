@@ -71,10 +71,10 @@ const ROOM_LABELS = {
 // food add-on is flat ₹3000/day (brunch + dinner), handled client-side
 const PRICING = {
   'Bhakti Kutir': {
-    'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 36000, phase4: 39000, extraDay: 2500 },
-    'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 30500, phase4: 34000, extraDay: 1500 },
+    'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 36000, phase4: 37900, extraDay: 2500 },
+    'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 30500, phase4: 32100, extraDay: 1500 },
     'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 48500, phase4: 51000, extraDay: 3000 },
-    '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 30000, extraDay: 800  },
+    '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 26900, extraDay: 800  },
     '6 Bed Dorm':     { earlyBird: 24000, phase2: 24000, phase3: 27000, phase4: 28500, extraDay: 700  },
   },
   'Marron · Sea View': {
@@ -88,27 +88,27 @@ const PRICING = {
     'Private Room':   { earlyBird: 54900, phase2: 56400, phase3: 56400, phase4: 59400, extraDay: 6500 },
   },
   'Destiny': {
-    'Double Sharing': { earlyBird: 55000, phase2: 56500, phase3: 56500, phase4: 59500, extraDay: 7000  },
-    'Triple Sharing': { earlyBird: 47500, phase2: 49000, phase3: 49000, phase4: 52000, extraDay: 4500  },
-    'Private Room':   { earlyBird: 81900, phase2: 83400, phase3: 83400, phase4: 86400, extraDay: 12000 },
+    'Double Sharing': { earlyBird: 55000, phase2: 56500, phase3: 56500, phase4: 59400, extraDay: 7000  },
+    'Triple Sharing': { earlyBird: 47500, phase2: 49000, phase3: 49000, phase4: 50000, extraDay: 4500  },
+    'Private Room':   { earlyBird: 81900, phase2: 83400, phase3: 83400, phase4: 87700, extraDay: 12000 },
   },
   'Ourem Palace': {
-    'Double Sharing': { earlyBird: 44500, phase2: 40000, phase3: 40500, phase4: 49000, extraDay: 3500 },
+    'Double Sharing': { earlyBird: 44500, phase2: 40000, phase3: 40500, phase4: 42600, extraDay: 3500 },
     'Triple Sharing': { earlyBird: 36000, phase2: 37500, phase3: 39000, phase4: 40500, extraDay: 2100 },
     'Private Room':   { earlyBird: 58900, phase2: 55000, phase3: 56500, phase4: 63400, extraDay: 6000 },
   },
   'Teraria': {
-    'Double Sharing': { earlyBird: 32000, phase2: 33500, phase3: 34000, phase4: 36500, extraDay: 3000 },
+    'Double Sharing': { earlyBird: 32000, phase2: 33500, phase3: 34000, phase4: 35800, extraDay: 3000 },
     'Triple Sharing': { earlyBird: 29500, phase2: 31000, phase3: 32500, phase4: 34000, extraDay: 1500 },
-    'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 47000, phase4: 49600, extraDay: 4500 },
+    'Private Room':   { earlyBird: 45100, phase2: 46600, phase3: 47000, phase4: 49400, extraDay: 4500 },
   },
   'La La Land Chalets': {
-    'Double Sharing': { earlyBird: 39750, phase2: 39750, phase3: 39750, phase4: 39750, extraDay: 3000 },
-    'Private Room':   { earlyBird: 49900, phase2: 49900, phase3: 49900, phase4: 49900, extraDay: 5000 },
+    'Double Sharing': { earlyBird: 39750, phase2: 39750, phase3: 39750, phase4: 41900, extraDay: 3000 },
+    'Private Room':   { earlyBird: 49900, phase2: 49900, phase3: 49900, phase4: 52400, extraDay: 5000 },
   },
   'La La Land Cottages': {
-    'Double Sharing': { earlyBird: 42000, phase2: 42000, phase3: 42000, phase4: 42000, extraDay: 3250 },
-    'Private Room':   { earlyBird: 54400, phase2: 54400, phase3: 54400, phase4: 54400, extraDay: 6500 },
+    'Double Sharing': { earlyBird: 42000, phase2: 42000, phase3: 42000, phase4: 44100, extraDay: 3250 },
+    'Private Room':   { earlyBird: 54400, phase2: 54400, phase3: 54400, phase4: 56700, extraDay: 6500 },
   },
   'Festival Access': {
     'Full Festival Pass': { flat: 21000, extraDay: 0 },
