@@ -1337,6 +1337,25 @@
       <div id="pc-msg" style="font-family:'DM Sans',sans-serif;font-size:12px;margin-bottom:12px;display:none;"></div>
       <div id="pc-list"></div>
     </div>
+    <!-- HALFMOON promo reference card -->
+    <div style="margin-top:28px;background:#FFF8F0;border:1px solid rgba(176,96,48,0.25);border-radius:14px;padding:24px 28px;max-width:560px;">
+      <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(176,96,48,0.8);margin-bottom:12px;">🎟 HALFMOON — South Goa Community Promo</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(42,34,24,0.75);line-height:1.7;">
+        <b>What it does:</b> Auto-applies discounted Festival Only Pass prices for South Goa travelers who scan the printed poster QR code. No code entry needed — the URL triggers it.<br><br>
+        <b>Discounted prices:</b> Full Festival ₹9,000 · Weekend ₹6,000 · Single Day ₹3,000<br>
+        <b>Regular prices:</b> ₹21,000 · ₹14,500 · ₹7,500<br><br>
+        <b>Ticket links:</b><br>
+        <span style="font-size:12px;">🔗 Discounted (poster QR): </span>
+        <a href="https://moonfestival.in/tickets.html#booking-section" target="_blank" style="font-size:12px;color:#B06030;word-break:break-all;">moonfestival.in/tickets.html#booking-section</a><br>
+        <span style="font-size:12px;">🔗 Normal tickets: </span>
+        <a href="https://moonfestival.in/tickets.html#tickets" target="_blank" style="font-size:12px;color:#B06030;word-break:break-all;">moonfestival.in/tickets.html#tickets</a><br>
+        <span style="font-size:12px;">🔗 Short redirect: </span>
+        <a href="https://moonfestival.in/halfmoon" target="_blank" style="font-size:12px;color:#B06030;">moonfestival.in/halfmoon</a><br><br>
+        <div style="background:rgba(176,96,48,0.08);border-left:3px solid rgba(176,96,48,0.4);padding:8px 12px;border-radius:0 4px 4px 0;font-size:12px;color:rgba(42,34,24,0.6);">
+          ⚠️ Do NOT change what <code>#booking-section</code> does — this is printed on physical posters and cannot be updated. All other site links use <code>#tickets</code>.
+        </div>
+      </div>
+    </div>
   </div><!-- /tabPagePromos -->
 
 <!-- Settings tab -->
@@ -3961,6 +3980,9 @@ async function saveReferralSource(ref) {
   });
   btn.textContent = 'Saved ✓'; btn.style.color = 'rgba(60,160,80,0.9)';
   setTimeout(() => { btn.textContent = 'Save'; btn.disabled = false; btn.style.color = ''; }, 2000);
+  // Update local data so table reflects the change immediately
+  allBookings.forEach(b => { if (b.booking_ref === ref) b.referral_source = value; });
+  renderTable();
   _loadBookingLog(ref);
 }
 
