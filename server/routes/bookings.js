@@ -155,7 +155,8 @@ router.post('/create', async (req, res) => {
       if (validatedPromo && validatedPromo.discount_type === 'pct') {
         promoDiscount = Math.round(standardPrice * (validatedPromo.discount / 100)) * guests.length;
       }
-      if (baseAmount < minExpected - promoDiscount) {
+      const isHalfmoon = validatedPromoCode && validatedPromoCode.toUpperCase() === 'HALFMOON';
+      if (!isHalfmoon && baseAmount < minExpected - promoDiscount) {
         return res.status(400).json({ error: `Invalid price submitted. Minimum for ${venue} ${roomType} is ₹${(minExpected - promoDiscount).toLocaleString('en-IN')} for ${guests.length} guest(s).` });
       }
     }
