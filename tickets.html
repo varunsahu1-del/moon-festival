@@ -4062,6 +4062,17 @@ function fmtPrice(n) {
     if (!inp || !msg) return;
     var code = inp.value.trim().toUpperCase();
     if (!code) return;
+    // HALFMOON: apply special pricing and close modal to show updated card prices
+    if (code === 'HALFMOON') {
+      if (!_halfmoonActive) applyHalfmoon();
+      msg.innerHTML = '✓ Special rate applied — ₹9,000 / ₹6,000 / ₹3,000'; msg.style.color = '#7aab8a'; msg.style.fontWeight = '600'; msg.style.display = 'block';
+      inp.disabled = true;
+      var applyBtn2 = document.querySelector('#fpModalOverlay button[onclick="fpApplyCoupon()"]');
+      if (applyBtn2) { applyBtn2.disabled = true; applyBtn2.style.opacity = '0.4'; }
+      // Close modal so user sees updated card prices, then they re-select
+      setTimeout(function() { var ol = document.getElementById('fpModalOverlay'); if (ol) ol.style.display = 'none'; }, 1200);
+      return;
+    }
     msg.textContent = 'Checking…'; msg.style.color = 'rgba(237,212,178,0.4)'; msg.style.display = 'block';
     try {
       var res = await fetch('/api/bookings/promo/' + encodeURIComponent(code));
