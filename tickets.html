@@ -3850,6 +3850,37 @@ function fmtPrice(n) {
   var MEAL_DAY_PRICE = 1500; // ₹750 × 2 meals per day
 
   var _fpCardBasePrices = { fp3: 21000, wknd: 14500, sdp: 7500 };
+  var HALFMOON_PRICES   = { fp3:  9000, wknd:  6000, sdp: 3000 };
+  var HALFMOON_PASS_PRICES = { 'Full Festival Pass': 9000, 'Weekend Pass': 6000, 'Single Day Pass': 3000 };
+  var _halfmoonActive = false;
+
+  function applyHalfmoon() {
+    _halfmoonActive = true;
+    _fpCardBasePrices = Object.assign({}, HALFMOON_PRICES);
+    // Update displayed prices on cards
+    ['fp3','wknd','sdp'].forEach(function(k) {
+      var el = document.getElementById(k + '-price');
+      if (el) el.textContent = '₹' + (HALFMOON_PRICES[k] * (_fpCardQtys[k] || 1)).toLocaleString('en-IN');
+    });
+    // Re-wire Book buttons
+    var fullBtn = document.querySelector('[onclick*="Full Festival Pass"]');
+    if (fullBtn) fullBtn.setAttribute('onclick', 'openFpFromCard(\'Full Festival Pass\',9000,null)');
+    var wkndBtn = document.querySelector('[onclick*="Weekend Pass"]');
+    if (wkndBtn) wkndBtn.setAttribute('onclick', 'openFpFromCard(\'Weekend Pass\',6000,[\'28 Nov (Sat)\',\'29 Nov (Sun)\'])');
+  }
+
+  // Auto-apply HALFMOON if in URL
+  (function() {
+    var p = new URLSearchParams(window.location.search).get('promo') || '';
+    if (p.toUpperCase() === 'HALFMOON') {
+      // Wait for DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyHalfmoon);
+      } else {
+        applyHalfmoon();
+      }
+    }
+  })();
 
   window.fpCardQty = function(card, d) {
     _fpCardQtys[card] = Math.max(1, Math.min(10, _fpCardQtys[card] + d));
@@ -3921,13 +3952,16 @@ function fmtPrice(n) {
   window.openDayPassModal = function() {
     if (!_sdpSelectedDay) return;
     var day = DAY_LABELS[_sdpSelectedDay];
-    openFpFromCard('Single Day Pass', 7500, [day]);
+    var price = _halfmoonActive ? 3000 : 7500;
+    openFpFromCard('Single Day Pass', price, [day]);
   };
 
   window.openFpFromCard = function(passName, price, days) {
+    if (_halfmoonActive && HALFMOON_PASS_PRICES[passName]) price = HALFMOON_PASS_PRICES[passName];
     var cardKey = passName === 'Full Festival Pass' ? 'fp3' : passName === 'Weekend Pass' ? 'wknd' : 'sdp';
     var qty = _fpCardQtys[cardKey] || 1;
     openFpModal(passName, price, days || [], qty, 0);
+    if (_halfmoonActive) { _fpCouponCode = 'HALFMOON'; }
   };
 
   // Unused now but keep for compat
