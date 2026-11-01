@@ -1574,6 +1574,8 @@
         <select id="ab-referral-source" class="ab-input" onchange="abToggleReferralCustom()">
           <option value="">— select —</option>
           <option value="Instagram Ad">Instagram Ad</option>
+          <option value="Instagram Ad - DM campaign">Instagram Ad - DM campaign</option>
+          <option value="Instagram Ad - WhatsApp campaign">Instagram Ad - WhatsApp campaign</option>
           <option value="Instagram Post (organic)">Instagram Post (organic)</option>
           <option value="Through a friend">Through a friend</option>
           <option value="Through family">Through family</option>
@@ -3369,8 +3371,8 @@ function renderDrawer(booking, guests, breakdown) {
 
       <!-- Referral source -->
       ${(()=>{
-        const KNOWN = ['Instagram Ad','Instagram Post (organic)','Through a friend','Through family','Been following us','Previous attendee','Previous Moon attendee','Facilitator recommendation','Google Search','ChatGPT / AI','WhatsApp'];
-        const LABELS = {'Instagram Ad':'Instagram Ad','Instagram Post (organic)':'Instagram Post (organic)','Through a friend':'Through a friend','Through family':'Through family','Been following us':'Been following us for a while','Previous attendee':'Previous retreat attendee','Previous Moon attendee':'Previous Moon attendee','Facilitator recommendation':'Facilitator recommendation','Google Search':'Google Search','ChatGPT / AI':'ChatGPT / AI','WhatsApp':'WhatsApp forward / group'};
+        const KNOWN = ['Instagram Ad','Instagram Ad - DM campaign','Instagram Ad - WhatsApp campaign','Instagram Post (organic)','Through a friend','Through family','Been following us','Previous attendee','Previous Moon attendee','Facilitator recommendation','Google Search','ChatGPT / AI','WhatsApp'];
+        const LABELS = {'Instagram Ad':'Instagram Ad','Instagram Ad - DM campaign':'Instagram Ad - DM campaign','Instagram Ad - WhatsApp campaign':'Instagram Ad - WhatsApp campaign','Instagram Post (organic)':'Instagram Post (organic)','Through a friend':'Through a friend','Through family':'Through family','Been following us':'Been following us for a while','Previous attendee':'Previous retreat attendee','Previous Moon attendee':'Previous Moon attendee','Facilitator recommendation':'Facilitator recommendation','Google Search':'Google Search','ChatGPT / AI':'ChatGPT / AI','WhatsApp':'WhatsApp forward / group'};
         const isOther = booking.referral_source && !KNOWN.includes(booking.referral_source);
         const curVal = booking.referral_source || '';
         const curLabel = curVal ? (LABELS[curVal] || curVal) : '— not recorded —';
