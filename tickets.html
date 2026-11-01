@@ -4066,9 +4066,9 @@ function fmtPrice(n) {
     if (code === 'HALFMOON') {
       _halfmoonActive = true;
       _fpCouponCode = 'HALFMOON';
-      // Set price to HALFMOON rate for whatever pass is currently open
+      // Show discount as a line, keep original price intact
       var hmPrice = HALFMOON_PASS_PRICES[_fpPass] || _fpPrice;
-      _fpPrice = hmPrice;
+      _fpCouponDiscount = _fpPrice - hmPrice;
       inp.disabled = true;
       var applyBtn2 = document.querySelector('#fpModalOverlay button[onclick="fpApplyCoupon()"]');
       if (applyBtn2) { applyBtn2.disabled = true; applyBtn2.style.opacity = '0.4'; }
