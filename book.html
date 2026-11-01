@@ -923,7 +923,7 @@ if (!venue || !roomType || !priceStr) {
     'Double Sharing': '1 bed in a 2-bed room',
     'Private Room': 'Entire room for yourself',
     'Private Room': 'Entire room for yourself',
-    '4 Bed Dorm': '1 bed in a 4-bed dorm · females only',
+    '4 Bed Mixed Dorm': '1 bed in a 4-bed mixed dorm',
     '6 Bed Dorm': '1 bed in a 6-bed dorm · mixed',
   };
   const noteEl = document.getElementById('bsRoomNote');
@@ -1516,60 +1516,8 @@ function toggleBookingSummary() {
 <div class="pay-overlay" id="payOverlay">
   <div class="pay-modal">
     <button onclick="document.getElementById('payOverlay').classList.remove('open')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:rgba(237,212,178,0.35);font-size:1.4rem;line-height:1;padding:0.25rem 0.4rem;" aria-label="Close">×</button>
-    <div class="pay-modal-title">Choose How to Pay</div>
+    <div class="pay-modal-title">Complete Payment</div>
     <div class="pay-modal-ref" id="payModalRef"></div>
-
-    <div id="upiCapNotice"></div>
-
-    <div class="pay-method-card" id="payCardUpi" onclick="launchUpiPay(event)">
-      <div class="pay-method-top">
-        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h2"/><path d="M11 15h4"/></svg>UPI Transfer</span>
-      </div>
-      <p id="payUpiSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(143,175,126,0.75);"></p>
-      <p id="payUpiLimitWarn" style="display:none;margin:0.5rem 0 0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.55);line-height:1.5;">Your total exceeds ₹1 lakh — most UPI apps will block this transaction. Use <strong style="color:#EDD4B2;">Bank Transfer</strong> or <strong style="color:#EDD4B2;">Razorpay</strong> instead.</p>
-    </div>
-
-    <div class="pay-method-card" id="payCardBank" onclick="reserveBankSpot(event)">
-      <div class="pay-method-top">
-        <span class="pay-method-name" style="display:flex;align-items:center;gap:0.55rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#B06030;flex-shrink:0;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 10v11M12 10v11M16 10v11"/></svg>
-          Bank Transfer
-        </span>
-      </div>
-      <p id="payBankSaveSub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;"></p>
-      <div id="bankConfirmed" style="display:none;padding:1.4rem 0 0.4rem;">
-        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.1rem;">
-          <div style="width:2px;height:2rem;background:#B06030;flex-shrink:0;"></div>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7aba7a;margin:0;">Your spot is reserved for 24 hours</p>
-        </div>
-        <div style="background:rgba(176,96,48,0.06);border:0.5px solid rgba(176,96,48,0.22);border-radius:6px;padding:0.05rem 0;margin-bottom:1.1rem;overflow:hidden;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Bank</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;">HDFC Bank</span></div>
-          <div style="height:0.5px;background:rgba(176,96,48,0.12);"></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Account</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;letter-spacing:0.04em;">50200053890710</span></div>
-          <div style="height:0.5px;background:rgba(176,96,48,0.12);"></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">IFSC</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;">HDFC0000016</span></div>
-          <div style="height:0.5px;background:rgba(176,96,48,0.12);"></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Name</span><span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:400;color:#EDD4B2;">Bharatvarun Sahu</span></div>
-          <div style="height:0.5px;background:rgba(176,96,48,0.25);"></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;background:rgba(176,96,48,0.08);"><span style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);">Your Ref</span><span id="bankBookingRef" style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#B06030;letter-spacing:0.04em;"></span></div>
-        </div>
-        <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.5);margin:0 0 0.9rem;line-height:1.65;">Transfer the amount and send us the <strong style="color:rgba(237,212,178,0.85);">UTR / transaction ID</strong> — or upload a payment screenshot below.</p>
-
-        <!-- Screenshot upload -->
-        <div id="bankScreenshotWrap" style="margin-bottom:1rem;">
-          <label style="display:block;border:0.5px dashed rgba(176,96,48,0.4);border-radius:6px;padding:0.8rem 1rem;cursor:pointer;text-align:center;background:rgba(176,96,48,0.04);transition:background 0.2s;" onmouseover="this.style.background='rgba(176,96,48,0.09)'" onmouseout="this.style.background='rgba(176,96,48,0.04)'">
-            <input type="file" id="bankScreenshotInput" accept="image/*" style="display:none;" onchange="handleBankScreenshot(this)">
-            <span id="bankScreenshotLabel" style="font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.45);">↑ Upload payment screenshot</span>
-          </label>
-          <p id="bankScreenshotStatus" style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:rgba(143,175,126,0.8);margin:0.4rem 0 0;display:none;"></p>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:0.6rem;">
-          <a id="bankWaVarun" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;">Message Varun →</a>
-          <a id="bankWaKaran" href="#" target="_blank" class="pay-wa-link" style="font-size:0.72rem;background:#8FAF7E;">Message Karan →</a>
-        </div>
-      </div>
-    </div>
 
     <div class="pay-method-card" id="payCardRazorpay" onclick="launchRazorpay()">
       <div class="pay-method-top">
@@ -1578,7 +1526,7 @@ function toggleBookingSummary() {
           RAZORPAY
         </span>
       </div>
-      <p id="payRazorpaySub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:#EDD4B2;">Card / Net Banking / UPI &nbsp;·&nbsp; <span style="color:rgba(176,96,48,0.7);font-weight:600;">+2.36% fee</span><br><span id="payRazorpayTotal" style="color:#EDD4B2;">Total ₹—</span></p>
+      <p id="payRazorpaySub" style="margin:0;font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:#EDD4B2;">Card / Net Banking / UPI<br><span id="payRazorpayTotal" style="color:#EDD4B2;">Total ₹—</span></p>
     </div>
 
 
@@ -1624,52 +1572,17 @@ async function openPayModal(bookingData, { venue, roomType, baseAmount, gst, tot
   const saving = Math.round(totalWithGst * 0.02);
   const _setEl = (id, prop, val) => { const el = document.getElementById(id); if (el) el[prop] = val; };
   document.getElementById('payModalRef').innerHTML = 'Booking ' + bookingData.booking_ref + '  ·  <strong>₹' + totalWithGst.toLocaleString('en-IN') + '</strong> incl. GST';
-  _setEl('payUpiSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
-  _setEl('payBankSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
-  _setEl('payCashSaveSub', 'innerHTML', '<span style="color:#EDD4B2;">No fees · </span><span style="color:rgba(143,175,126,0.85);font-weight:600;">save ₹' + saving.toLocaleString('en-IN') + '</span><span style="color:#EDD4B2;"> vs Razorpay</span>');
-  _setEl('payUpiAmountLabel', 'textContent', totalWithGst.toLocaleString('en-IN'));
-
-  // Razorpay subheader with total
-  const razorpayTotal = Math.round(totalWithGst * 1.0236);
-  _setEl('payRazorpayTotal', 'textContent', 'Total ₹' + razorpayTotal.toLocaleString('en-IN'));
-
-  // Hide UPI for amounts above ₹1,00,000; show cap notice only when above limit
-  const upiCard = document.getElementById('payCardUpi');
-  const upiCapNotice = document.getElementById('upiCapNotice');
-  if (upiCard) upiCard.style.display = totalWithGst > 100000 ? 'none' : '';
-  if (upiCapNotice) {
-    if (totalWithGst > 100000) {
-      upiCapNotice.style.cssText = 'margin:0.6rem 0 1rem;padding:0.65rem 0.9rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;font-family:Open Sans,sans-serif;font-size:0.75rem;color:rgba(237,212,178,0.55);line-height:1.5;';
-      upiCapNotice.textContent = 'UPI is capped at ₹1,00,000 per transaction. For larger amounts, use Bank Transfer or Razorpay. Need help? Contact details below.';
-    } else {
-      upiCapNotice.style.cssText = '';
-      upiCapNotice.textContent = '';
-    }
-  }
-
-  // Reset cash/bank flow state
-  const _cc = document.getElementById('cashConfirmed');
-  if (_cc) _cc.style.display = 'none';
-  const _bc = document.getElementById('bankConfirmed');
-  if (_bc) _bc.style.display = 'none';
+  _setEl('payRazorpayTotal', 'textContent', 'Total ₹' + totalWithGst.toLocaleString('en-IN'));
 
   selectPayMethod(null);
   document.getElementById('payOverlay').classList.add('open');
 }
 
 function selectPayMethod(method) {
-  ['upi','razorpay','bank','cash'].forEach(m => {
+  ['razorpay'].forEach(m => {
     document.getElementById('payCard' + m.charAt(0).toUpperCase() + m.slice(1))
       ?.classList.toggle('selected', m === method);
   });
-}
-
-function launchUpiPay(e) {
-  e.preventDefault();
-  if (!_payState) return;
-  const { bookingData, totalWithGst } = _payState;
-  document.getElementById('payOverlay').classList.remove('open');
-  window.location.href = `upi-pay.html?ref=${bookingData.booking_ref}&amount=${totalWithGst}`;
 }
 
 async function reserveCashSpot(e) {
@@ -1803,7 +1716,7 @@ async function launchRazorpay() {
         });
       } catch (_) {}
       _clearPendingBooking();
-      const _rpTotal = _payState ? Math.round(_payState.totalWithGst * 1.0236) : 0;
+      const _rpTotal = _payState ? Math.round(_payState.totalWithGst * 1.0242) : 0;
       if (window.fbq && _rpTotal > 0) fbq('track', 'Purchase', { value: _rpTotal, currency: 'INR', content_name: 'Moon Festival 2026 Booking', content_ids: [bookingData.booking_ref] });
       window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay&amount=' + _rpTotal + '&pixel_fired=1';
     },

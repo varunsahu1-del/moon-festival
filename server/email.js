@@ -197,7 +197,7 @@ async function sendConfirmation({ booking, guests }) {
     + '<tr><td style="padding:44px 52px 0;">'
     + '<p style="margin:0 0 24px;font-family:' + OPEN + ';font-size:14px;font-weight:300;letter-spacing:0.08em;color:' + C.sub + ';">Dear <strong style="font-weight:600;color:' + C.text + ';">' + firstName + '</strong>,</p>'
     + '<p style="margin:0 0 16px;font-family:' + OPEN + ';font-size:15px;font-weight:300;line-height:1.5;color:' + C.sub + ';">We are so thrilled to have you with us at <strong style="font-weight:600;color:' + C.text + ';">Moon Festival 2026</strong>. You are now part of a <strong style="font-weight:600;color:' + C.text + ';">beautiful community</strong> coming together in <strong style="font-weight:600;color:' + C.text + ';">love, music, healing, art, fitness, movement, stillness and magic</strong> — this is going to be something truly extraordinary.</p>'
-    + '<p style="margin:0 0 28px;font-family:' + OPEN + ';font-size:15px;font-weight:300;line-height:1.5;color:' + C.sub + ';">Your invoice is <strong style="font-weight:600;color:' + C.text + ';">attached to this email</strong>.</p>'
+    + ''
     + '<a href="' + SITE_URL + '/my-booking.html?ref=' + booking.booking_ref + '" style="display:inline-block;font-family:' + OPEN + ';font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#ffffff;background:' + C.terra + ';text-decoration:none;padding:14px 28px;border-radius:2px;">View Your Booking</a>'
     + '</td></tr>'
 
@@ -290,21 +290,6 @@ async function sendConfirmation({ booking, guests }) {
     subject: subject,
     html: html,
   };
-
-  let invoiceBuffer = null;
-  if (booking.gst_number) {
-    try {
-      invoiceBuffer = await generateInvoice({ booking, guests });
-    } catch (e) { console.error('[invoice]', e.message); }
-  }
-
-  if (invoiceBuffer) {
-    mailOptions.attachments = [{
-      filename: 'Moon-Invoice-' + booking.booking_ref + '.pdf',
-      content: invoiceBuffer,
-      contentType: 'application/pdf',
-    }];
-  }
 
   await sendEmail(mailOptions);
   console.log('[email] Sent to ' + primary.email + ' — ' + subject);
@@ -536,9 +521,7 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
   
   const primary = guests[0] || {};
   const firstName = primary.full_name.split(' ')[0];
-  const razorpayTotal = Math.round(amountWithGst * 1.0236);
-  const gatewayFee = razorpayTotal - amountWithGst;
-  const totalFmt = '₹' + razorpayTotal.toLocaleString('en-IN');
+  const totalFmt = '₹' + amountWithGst.toLocaleString('en-IN');
 
   const html = '<!DOCTYPE html><html><head>'
     + '<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>'
@@ -568,7 +551,6 @@ async function sendPaymentPendingEmail({ booking, guests, paymentLink, amountWit
     + `<table width="100%" cellpadding="0" cellspacing="0">`
     + `<tr><td style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">Accommodation + Add-ons</td><td align="right" style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">₹${Math.round(amountWithGst / 1.05).toLocaleString('en-IN')}</td></tr>`
     + `<tr><td style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">GST (5%)</td><td align="right" style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:4px;">₹${(amountWithGst - Math.round(amountWithGst / 1.05)).toLocaleString('en-IN')}</td></tr>`
-    + `<tr><td style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:8px;">Razorpay gateway fee (2.36%)</td><td align="right" style="font-family:${OPEN};font-size:12px;color:${C.sub};padding-bottom:8px;">₹${gatewayFee.toLocaleString('en-IN')}</td></tr>`
     + `<tr><td style="font-family:${OPEN};font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:${C.muted};border-top:1px solid ${C.border};padding-top:8px;">Total Due</td><td align="right" style="border-top:1px solid ${C.border};padding-top:8px;"><span style="font-family:${OPEN};font-size:18px;font-weight:700;color:${C.gold};">${totalFmt}</span></td></tr>`
     + `</table>`
     + '</td></tr></table></td></tr>'
@@ -661,8 +643,7 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
   // Support old callers that don't pass pre-computed fee breakdown
   const _gst      = gstAmount  != null ? gstAmount  : Math.round(addonTotal * 0.05);
   const _afterGst = addonTotal + _gst;
-  const _rzpFee   = razorpayFee != null ? razorpayFee : Math.round(_afterGst * 0.0236);
-  const _total    = amountWithGst != null ? amountWithGst : (_afterGst + _rzpFee);
+  const _total    = amountWithGst != null ? amountWithGst : _afterGst;
   const totalFmt  = '₹' + _total.toLocaleString('en-IN');
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
 
@@ -713,11 +694,6 @@ async function sendAddonPaymentEmail({ booking, guests, addonLines, addonTotal, 
     + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">+ 5% GST</p>`
     + `</td><td style="padding:4px 18px;text-align:right;" align="right">`
     + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">${fmt(_gst)}</p>`
-    + '</td></tr>'
-    + `<tr><td style="padding:4px 18px 12px;">`
-    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">+ 2.36% payment processing fee</p>`
-    + `</td><td style="padding:4px 18px 12px;text-align:right;" align="right">`
-    + `<p style="margin:0;font-family:${OPEN};font-size:12px;color:${C.sub};">${fmt(_rzpFee)}</p>`
     + '</td></tr>'
     + `<tr><td style="padding:12px 18px;border-top:1px solid ${C.border};">`
     + `<p style="margin:0;font-family:${OPEN};font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:${C.muted};">Total Due</p>`
@@ -1328,4 +1304,29 @@ async function sendAddonQuoteEmail({ booking, guests, addedItems }) {
   console.log('[email] Addon quote sent to', toEmail, 'for', booking.booking_ref);
 }
 
-module.exports = { sendConfirmation, sendFailedPaymentAlert, sendModificationEmail, sendAddonPaymentEmail, sendPaymentPendingEmail, sendSplitPaymentEmail, sendUpiAlert, sendUpiPendingGuest, sendApplicationReceived, sendApplicationAccepted, sendCustomPaymentAlert, sendDailyBackup, sendNewBookingAlert, sendQuote, sendAddonQuoteEmail };
+async function sendInvoiceEmail({ booking, guests }) {
+  const primary = guests[0] || {};
+  let invoiceBuffer;
+  try {
+    invoiceBuffer = await generateInvoice({ booking, guests });
+  } catch (e) {
+    throw new Error('Invoice generation failed: ' + e.message);
+  }
+  await sendEmail({
+    from: FROM,
+    to: primary.email,
+    subject: 'Your Invoice — Moon Festival 2026 (' + booking.booking_ref + ')',
+    html: '<p style="font-family:Arial,sans-serif;font-size:15px;">Hi ' + (primary.full_name || 'there') + ',</p>'
+      + '<p style="font-family:Arial,sans-serif;font-size:15px;">Please find your invoice for Moon Festival 2026 attached.</p>'
+      + '<p style="font-family:Arial,sans-serif;font-size:15px;">Booking ref: <strong>' + booking.booking_ref + '</strong></p>'
+      + '<p style="font-family:Arial,sans-serif;font-size:13px;color:#888;">Moon Festival Team</p>',
+    attachments: [{
+      filename: 'Moon-Invoice-' + booking.booking_ref + '.pdf',
+      content: invoiceBuffer,
+      contentType: 'application/pdf',
+    }],
+  });
+  console.log('[invoice email] Sent to ' + primary.email + ' for ' + booking.booking_ref);
+}
+
+module.exports = { sendConfirmation, sendFailedPaymentAlert, sendModificationEmail, sendAddonPaymentEmail, sendPaymentPendingEmail, sendSplitPaymentEmail, sendUpiAlert, sendUpiPendingGuest, sendApplicationReceived, sendApplicationAccepted, sendCustomPaymentAlert, sendDailyBackup, sendNewBookingAlert, sendQuote, sendAddonQuoteEmail, sendInvoiceEmail };

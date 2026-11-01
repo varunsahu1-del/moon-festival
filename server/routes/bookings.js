@@ -161,8 +161,7 @@ router.post('/create', async (req, res) => {
     }
 
     const amountWithGst = Math.round(baseAmount * 1.05);
-    const amountWithSurcharge = Math.round(amountWithGst * 1.0242);
-    const amountPaise = amountWithSurcharge * 100;
+    const amountPaise = amountWithGst * 100;
 
     let razorpay_order_id = null;
     const rzp = getRazorpay();
@@ -224,7 +223,7 @@ router.post('/create', async (req, res) => {
         return res.status(409).json({ error: finalCheck.reason, sold_out: true });
       }
       const storedPrice = '₹' + baseAmount.toLocaleString('en-IN');
-      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null, daysSelected || null, 0.0242);
+      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null, daysSelected || null, 0);
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
         const label = guests.length > 1 ? ` for guest ${i + 1}` : '';
@@ -599,7 +598,7 @@ router.post('/razorpay-order', async (req, res) => {
   if (!rzp) return res.status(503).json({ error: 'Razorpay not configured' });
   const baseInr = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g, '')) || 0);
   const withGst = Math.round(baseInr * 1.05);
-  const amountPaise = Math.round(withGst * 1.0242) * 100;
+  const amountPaise = Math.round(withGst) * 100;
   try {
     const order = await rzp.orders.create({
       amount: amountPaise,
