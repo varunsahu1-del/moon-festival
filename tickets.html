@@ -4204,11 +4204,9 @@ function fmtPrice(n) {
       var data=await res.json();
       if(!res.ok){fpShowError(data.error||'Something went wrong.');btn.disabled=false;btn.textContent='Continue to payment';return;}
       _fpBooking=data;
-      // Open pay overlay
+      // Skip pay overlay — go directly to Razorpay
       document.getElementById('fpModalOverlay').classList.remove('open');
-      document.getElementById('fpPayRef').textContent='Booking ref: '+data.booking_ref+' · '+fmt(_fpTotal);
-      document.getElementById('fpPayRpTotal').textContent='Total '+fmt(_fpTotal);
-      document.getElementById('fpPayOverlay').classList.add('open');
+      fpLaunchRazorpay();
     } catch(e){fpShowError('Network error. Please try again.');btn.disabled=false;btn.textContent='Continue to payment';}
     btn.disabled=false; btn.textContent='Continue to payment';
   };
