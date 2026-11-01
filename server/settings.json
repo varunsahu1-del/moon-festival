@@ -1,5 +1,5 @@
 {
-  "phase": "phase2",
+  "phase": "phase3",
   "phaseDates": {
     "earlyBird": { "start": "2026-01-01", "end": "2026-08-31" },
     "phase2":    { "start": "2026-09-01", "end": "2026-09-30" },
