@@ -3860,6 +3860,10 @@ function fmtPrice(n) {
     _halfmoonActive = true;
     _fpCardBasePrices = Object.assign({}, HALFMOON_PRICES);
 
+    // Switch to Festival Only Pass tab
+    var festivalTab = document.querySelector('.ticket-tab[data-tab="festival"]');
+    if (festivalTab) festivalTab.click();
+
     // Show discount banner above festival pass section
     var section = document.getElementById('booking-section');
     if (section && !document.getElementById('halfmoon-banner')) {
