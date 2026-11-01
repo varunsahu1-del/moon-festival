@@ -14,12 +14,13 @@ function writeSettings(data) {
 
 function resolvePhase() {
   const s = readSettings();
-  if (!s.phaseDates) return s.phase || 'earlyBird';
+  if (s.phase) return s.phase;
+  if (!s.phaseDates) return 'earlyBird';
   const today = new Date().toISOString().slice(0, 10);
   for (const [name, range] of Object.entries(s.phaseDates)) {
     if (today >= range.start && today <= range.end) return name;
   }
-  return s.phase || 'earlyBird';
+  return 'earlyBird';
 }
 
 module.exports = { readSettings, writeSettings, resolvePhase };
