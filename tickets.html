@@ -1505,7 +1505,7 @@
 
 
 <!-- ── CHOOSE YOUR TICKET ─────────────────────────────────────── -->
-<section id="booking-section" style="background:#191406;padding:clamp(2rem,5vw,3rem) clamp(1.4rem,5vw,3rem) 0;scroll-margin-top:90px;">
+<section id="booking-section" style="background:#191406;padding:clamp(2rem,5vw,3rem) clamp(1.4rem,5vw,3rem) 0;scroll-margin-top:90px;"><span id="tickets" style="position:absolute;margin-top:-90px;display:block;"></span>
   <div style="text-align:center;margin-bottom:clamp(1.2rem,3vw,2rem);">
     <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.8rem;opacity:0.8;">
       <!-- ticket body -->
@@ -3869,11 +3869,11 @@ function fmtPrice(n) {
     if (wkndBtn) wkndBtn.setAttribute('onclick', 'openFpFromCard(\'Weekend Pass\',6000,[\'28 Nov (Sat)\',\'29 Nov (Sun)\'])');
   }
 
-  // Auto-apply HALFMOON if in URL
+  // Auto-apply HALFMOON if promo=HALFMOON in URL OR #booking-section hash (poster QR code)
   (function() {
     var p = new URLSearchParams(window.location.search).get('promo') || '';
-    if (p.toUpperCase() === 'HALFMOON') {
-      // Wait for DOM ready
+    var h = window.location.hash;
+    if (p.toUpperCase() === 'HALFMOON' || h === '#booking-section') {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', applyHalfmoon);
       } else {
