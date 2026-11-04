@@ -51,6 +51,9 @@ app.get('/api/public/tribal-lunch', (() => {
 })());
 app.use('/img', require('./routes/images'));
 
+// Halfmoon poster QR redirect → festival pass page with promo auto-applied
+app.get('/halfmoon', (req, res) => res.redirect(301, '/tickets.html?promo=HALFMOON#booking-section'));
+
 // Custom payment page + API
 app.get('/pay', (req, res) => res.sendFile('pay.html', { root: path.join(__dirname, '..') }));
 app.use('/api/custom-payment', require('./routes/custompay'));
@@ -81,6 +84,9 @@ app.use((req, res, next) => {
   res.type('html').send(html);
 });
 
+// Allow cross-origin image loads for Facilitator Photos (used in Canva/IG tools)
+app.use('/Facilitator%20Photos', (req, res, next) => { res.set('Access-Control-Allow-Origin', '*'); next(); });
+app.use('/Facilitator Photos', (req, res, next) => { res.set('Access-Control-Allow-Origin', '*'); next(); });
 app.use(express.static(path.join(__dirname, '..')));
 
 const { startDailyReport, sendDailyReport } = require('./whatsapp');
