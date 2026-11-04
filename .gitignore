@@ -29,3 +29,9 @@ partnerships-src/
 Making of moon/
 Moon Facilitators Pics/
 festival.db
+data/moonfestival.db
+data/moonfestival.db-shm
+data/moonfestival.db-wal
+server/moonfestival.db
+festival.db
+data/moondb.sqlite
