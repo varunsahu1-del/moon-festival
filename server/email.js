@@ -1033,32 +1033,79 @@ async function sendDailyBackup(dbPath) {
 
 async function sendNewBookingAlert({ booking, guests, amountWithGst }) {
   if (!process.env.RESEND_API_KEY) return;
-  
-  const primary = guests[0] || {};
+
   const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
-  const guestLines = guests.map((g, i) =>
-    `<tr><td style="padding:5px 0;border-bottom:1px solid #e8dfd5;font-size:12px;color:#a89080;width:38%;">Guest ${i + 1}</td>`
-    + `<td style="padding:5px 0;border-bottom:1px solid #e8dfd5;font-size:13px;color:#6b4f38;">${g.full_name} · ${g.gender || '—'} · ${g.city || '—'}</td></tr>`
-  ).join('');
+
+  function row(label, value) {
+    if (!value && value !== 0) return '';
+    return '<tr>'
+      + '<td style="padding:6px 0;border-bottom:1px solid #e8dfd5;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#a89080;width:38%;vertical-align:top;">' + label + '</td>'
+      + '<td style="padding:6px 0;border-bottom:1px solid #e8dfd5;font-size:13px;color:#6b4f38;vertical-align:top;">' + value + '</td>'
+      + '</tr>';
+  }
+
+  function section(title) {
+    return '<tr><td colspan="2" style="padding:14px 0 4px;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B06030;">' + title + '</td></tr>';
+  }
+
+  // Parse addons: "price:name|price:name" format
+  const addonLines = (booking.addons || '').split('|').filter(Boolean).map(a => {
+    const idx = a.indexOf(':');
+    if (idx < 0) return a;
+    const price = a.slice(0, idx);
+    const name = a.slice(idx + 1);
+    return name + (Number(price) > 0 ? ' (' + fmt(price) + ')' : ' (included)');
+  });
+
+  // Booking rows
+  let bookingRows = '';
+  bookingRows += section('Booking Details');
+  bookingRows += row('Ref', booking.booking_ref);
+  bookingRows += row('Status', booking.status ? booking.status.toUpperCase() : '—');
+  bookingRows += row('Phase', booking.phase || '—');
+  bookingRows += row('Venue', booking.venue);
+  bookingRows += row('Room / Pass', booking.room_type);
+  bookingRows += row('Arrival Date', booking.arrival_date || '—');
+  if (booking.days_selected) bookingRows += row('Days Selected', booking.days_selected);
+  bookingRows += row('Base Price', booking.total_price);
+  bookingRows += row('Total (incl. GST)', '<strong style="color:#C47D52;">' + fmt(amountWithGst) + '</strong>');
+  if (booking.discount && Number(booking.discount) > 0) bookingRows += row('Discount', '−' + fmt(booking.discount) + (booking.discount_reason ? ' · ' + booking.discount_reason : ''));
+  if (booking.promo_code) bookingRows += row('Promo Code', booking.promo_code);
+  if (addonLines.length) bookingRows += row('Add-ons', addonLines.join('<br>'));
+  if (booking.gst_number || booking.gst_name) bookingRows += row('GST', [booking.gst_name, booking.gst_number].filter(Boolean).join(' · '));
+  if (booking.organizer_note) bookingRows += row('Note', booking.organizer_note);
+
+  // Guest rows
+  let guestRows = '';
+  guests.forEach((g, i) => {
+    guestRows += section('Guest ' + (i + 1) + (guests.length > 1 ? ' of ' + guests.length : ''));
+    guestRows += row('Name', g.full_name || '—');
+    guestRows += row('Email', g.email || '—');
+    guestRows += row('WhatsApp', g.whatsapp || '—');
+    guestRows += row('Gender', g.gender || '—');
+    guestRows += row('Age', g.age || '—');
+    guestRows += row('City', g.city || '—');
+    if (g.state) guestRows += row('State', g.state);
+    if (g.pin) guestRows += row('PIN', g.pin);
+    if (g.address) guestRows += row('Address', g.address);
+  });
 
   const html = '<!DOCTYPE html><html><body style="margin:0;padding:20px;background:#f0e8dc;font-family:Arial,sans-serif;">'
-    + '<div style="max-width:520px;background:#fff;border:1px solid #e8dfd5;border-top:3px solid #B06030;padding:28px 32px;">'
+    + '<div style="max-width:560px;background:#fff;border:1px solid #e8dfd5;border-top:3px solid #B06030;padding:28px 32px;">'
     + '<p style="margin:0 0 4px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#a89080;">New Booking — Awaiting Payment</p>'
     + '<p style="margin:0 0 24px;font-size:22px;font-weight:700;color:#6b4f38;">' + booking.booking_ref + '</p>'
-    + '<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">'
-    + '<tr><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#a89080;width:38%;">Venue</td><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:14px;color:#6b4f38;">' + booking.venue + '</td></tr>'
-    + '<tr><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#a89080;">Room</td><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:14px;color:#6b4f38;">' + booking.room_type + '</td></tr>'
-    + '<tr><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#a89080;">Amount</td><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:14px;font-weight:700;color:#C47D52;">' + fmt(amountWithGst) + ' incl. GST</td></tr>'
-    + '<tr><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#a89080;">Contact</td><td style="padding:7px 0;border-bottom:1px solid #e8dfd5;font-size:14px;color:#6b4f38;">' + (primary.whatsapp || '—') + ' · ' + (primary.email || '—') + '</td></tr>'
-    + guestLines
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">'
+    + bookingRows
+    + guestRows
     + '</table>'
     + '<a href="https://moonfestival.in/admin" style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#fff;background:#B06030;text-decoration:none;padding:12px 24px;">View in Admin →</a>'
     + '</div></body></html>';
 
+  const primary = guests[0] || {};
   await sendEmail({
     from: FROM,
     to: 'moonyogaadventures@gmail.com',
-    subject: '🌙 New booking: ' + booking.booking_ref + ' · ' + booking.venue + ' · ' + fmt(amountWithGst),
+    subject: '🌙 New booking: ' + booking.booking_ref + ' · ' + booking.venue + ' · ' + fmt(amountWithGst) + ' · ' + (primary.full_name || ''),
     html,
   });
 }
