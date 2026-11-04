@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=1080">
 <title>Moon Festival — Talks</title>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; font-family:'Josefin Sans',sans-serif; }
@@ -27,7 +28,8 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
 </style>
 </head>
 <body>
-<div class="slide">
+<button id="dl" onclick="savePng()" style="position:fixed;top:16px;right:16px;z-index:999;background:#A85828;border:none;color:#EDD4B2;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;padding:10px 20px;border-radius:6px;cursor:pointer;">&#11015; Save PNG</button>
+<div class="slide" id="slide">
   <div class="header">
     <div class="cat">Talks</div>
     
@@ -60,5 +62,24 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
     <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2 C8 2 3 7 3 14 C3 21 8 26 14 26 C18 26 22 24 24 20 C22 21 19 21.5 16 20 C10 17 8 10 11 5 C12 3.5 13 2.5 14 2Z" fill="#EDD4B2" opacity="0.35"/></svg>
   </div>
 </div>
+<script>
+async function savePng() {
+  const btn = document.getElementById('dl');
+  btn.textContent = 'Rendering…';
+  btn.disabled = true;
+  const canvas = await html2canvas(document.getElementById('slide'), {
+    width: 1080, height: 1350, scale: 1,
+    useCORS: true, backgroundColor: '#0e0a06', logging: false
+  });
+  canvas.toBlob(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '08-talks.png';
+    a.click();
+    btn.textContent = '✓ Saved';
+    setTimeout(() => { btn.textContent = '⬇ Save PNG'; btn.disabled = false; }, 2000);
+  }, 'image/png');
+}
+</script>
 </body>
 </html>
