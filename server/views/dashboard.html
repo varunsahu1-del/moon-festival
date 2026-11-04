@@ -3275,7 +3275,6 @@ function renderDrawer(booking, guests, breakdown) {
               ${extraAddonTotal > 0 ? `<div style="${rowStyle}"><span style="${lblStyle}">Admin add-ons${bdCollected ? ' ✓' : ' (unpaid)'}</span><span style="${valStyle}${!bdCollected?';color:#c0752a;':''}">₹${extraAddonTotal.toLocaleString('en-IN')}</span></div>` : ''}
               ${booking.no_gst ? `<div style="${rowStyle}"><span style="${lblStyle}">GST</span><span style="font-size:11px;color:#2d7a4f;font-weight:600;">Waived</span></div>` : `<div style="${rowStyle}"><span style="${lblStyle}">GST (5%)</span><span style="${valStyle}">₹${gst.toLocaleString('en-IN')}</span></div>`}
               <div style="border-top:0.5px solid rgba(42,34,24,0.1);margin-top:5px;padding-top:5px;${rowStyle}"><span style="font-size:11px;font-weight:600;color:rgba(42,34,24,0.6);">${booking.no_gst ? 'Total' : 'Total incl. GST'}</span><span style="font-size:12px;font-weight:700;color:#B06030;">₹${grandTotal.toLocaleString('en-IN')}</span></div>
-              ${booking.payment_method === 'razorpay' && grandTotal > 0 ? (() => { const rzpPct = booking.razorpay_fee_pct || 0.0242; const rzpLabel = (rzpPct * 100).toFixed(2) + '%'; return `<div style="${rowStyle}"><span style="${lblStyle}">Razorpay charged (${rzpLabel})</span><span style="${valStyle}">₹${Math.round(grandTotal * (1 + rzpPct)).toLocaleString('en-IN')}</span></div>`; })() : ''}
             </div>`;
           })()}
         </div>

@@ -20,11 +20,13 @@ const AREA_TO_CITY = {
   whitefield:"Bengaluru","electronic city":"Bengaluru",koramangala:"Bengaluru",indiranagar:"Bengaluru",
   "hsr layout":"Bengaluru","jp nagar":"Bengaluru",jayanagar:"Bengaluru",yelahanka:"Bengaluru"
 };
+const CITY_ALIASES = { bangalore:'Bengaluru', bengaluru:'Bengaluru', 'bengalore':'Bengaluru', 'bengalore':'Bengaluru' };
 function normalizeCity(raw){
   if(!raw)return null;
   const t=raw.trim();if(!t)return null;
   const k=t.toLowerCase();
   if(AREA_TO_CITY[k])return AREA_TO_CITY[k];
+  if(CITY_ALIASES[k])return CITY_ALIASES[k];
   return t.replace(/\b\w/g,c=>c.toUpperCase());
 }
 const { appendBookingRow, updateBookingRow, syncAllBookings } = require('../sheets');
@@ -43,16 +45,16 @@ router.get('/', requireAdmin, (req, res) => {
 
 // API: summary stats
 router.get('/api/stats', requireAdmin, (req, res) => {
-  const totalBookings    = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status='paid' AND deleted_at IS NULL").get().c;
+  const totalBookings    = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL").get().c;
   const pendingCount     = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL").get().c;
-  const totalGuests      = db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status='paid' AND venue != 'Festival Access' AND deleted_at IS NULL").get().s;
-  const festivalOnlyCount= db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status='paid' AND venue = 'Festival Access' AND deleted_at IS NULL").get().s;
+  const totalGuests      = db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue != 'Festival Access' AND deleted_at IS NULL").get().s;
+  const festivalOnlyCount= db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue = 'Festival Access' AND deleted_at IS NULL").get().s;
 
   // Sum total_price — strip non-numeric chars and sum in JS (stored as formatted string)
-  const priceRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid' AND deleted_at IS NULL").all();
+  const priceRows = db.prepare("SELECT total_price, no_gst FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL").all();
   const totalRevenue = priceRows.reduce((sum, r) => {
     const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
-    return sum + Math.round(base * 1.05);
+    return sum + (r.no_gst ? base : Math.round(base * 1.05));
   }, 0);
 
   const pendingRows = db.prepare("SELECT total_price, extra_addons, addons_collected FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL").all();
@@ -67,7 +69,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
 
   const venueBreakdown = db.prepare(`
     SELECT venue, room_type, COUNT(*) as bookings, SUM(guest_count) as guests
-    FROM bookings WHERE status='paid' AND deleted_at IS NULL
+    FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL
     GROUP BY venue, room_type ORDER BY venue, room_type
   `).all();
 
@@ -92,7 +94,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   }, 0);
 
   // GST from standard payment methods only (UPI, bank transfer, Razorpay — excludes custom/manual entries)
-  const standardPayRows = db.prepare("SELECT total_price FROM bookings WHERE status='paid' AND deleted_at IS NULL AND payment_method IN ('upi','bank_transfer','razorpay')").all();
+  const standardPayRows = db.prepare("SELECT total_price FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND payment_method IN ('upi','bank_transfer','razorpay')").all();
   const gstFromStandardPayments = standardPayRows.reduce((sum, r) => {
     const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     return sum + Math.round(base * GST_RATE);
@@ -102,7 +104,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
 
   const phaseRows = db.prepare(`
     SELECT phase, COUNT(*) as c FROM bookings
-    WHERE status='paid' AND deleted_at IS NULL AND phase IS NOT NULL
+    WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND phase IS NOT NULL
     GROUP BY phase
   `).all();
   const phaseStats = { earlyBird: 0, phase1: 0, phase2: 0, phase3: 0, phase4: 0 };
@@ -117,7 +119,7 @@ router.get('/api/bookings', requireAdmin, (req, res) => {
     SELECT b.id as booking_id, b.booking_ref, b.venue, b.room_type, b.total_price,
            b.guest_count, b.status, b.payment_method, b.created_at, b.paid_at, b.room_number, b.email_sent,
            b.addons, b.extra_addons, b.addons_collected, b.addons_collection_method, b.addons_collected_at, b.upi_screenshot, b.razorpay_payment_id, b.transfer_email_pending,
-           b.discount, b.discount_reason, b.phase, b.source, b.arrival_date, b.organizer_note, b.admin_verified,
+           b.discount, b.discount_reason, b.phase, b.source, b.arrival_date, b.organizer_note, b.admin_verified, b.referral_source, b.no_gst, b.razorpay_fee_pct,
            g.id as guest_id, g.guest_number, g.full_name, g.whatsapp, g.email, g.city, g.age, g.gender, g.notes,
            g.room_number as guest_room_number,
            COALESCE(g.room_number, b.room_number) as effective_room_number
@@ -241,7 +243,7 @@ router.post('/api/bookings/:ref/resend-paylink', requireAdmin, async (req, res) 
     const primary = guests[0] || {};
     const baseAmt = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,"")) || 0);
     const amountWithGst = Math.round(baseAmt * 1.05);
-    const amountPaise   = Math.round(amountWithGst * 1.0236) * 100;
+    const amountPaise   = amountWithGst * 100;
 
     let payment_link_url = booking.payment_link_url;
 
@@ -253,7 +255,7 @@ router.post('/api/bookings/:ref/resend-paylink', requireAdmin, async (req, res) 
         amount: amountPaise,
         currency: 'INR',
         accept_partial: false,
-        description: `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Total incl. 5% GST + 2.36% fee: ₹${Math.round(amountPaise / 100).toLocaleString('en-IN')}.`,
+        description: `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Total incl. 5% GST: ₹${Math.round(amountPaise / 100).toLocaleString('en-IN')}.`,
         customer: {
           name:    primary.full_name || '',
           email:   primary.email || '',
@@ -360,8 +362,8 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
 
     const gstAmount      = Math.round(addonTotal * 0.05);
     const afterGst       = addonTotal + gstAmount;
-    const razorpayFee    = Math.round(afterGst * 0.0236);
-    const amountWithGst  = afterGst + razorpayFee;
+    const razorpayFee    = 0;
+    const amountWithGst  = afterGst;
 
     let Razorpay;
     try { Razorpay = require('razorpay'); } catch (_) {}
@@ -377,7 +379,7 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
       amount: amountWithGst * 100,
       currency: 'INR',
       accept_partial: false,
-      description: `Moon Festival 2026 — Add-ons for ${booking.booking_ref}. Total incl. 5% GST + 2.36% fee: ₹${amountWithGst.toLocaleString('en-IN')}.`,
+      description: `Moon Festival 2026 — Add-ons for ${booking.booking_ref}. Total incl. 5% GST: ₹${amountWithGst.toLocaleString('en-IN')}.`,
       customer: {
         name:    primary.full_name || '',
         email:   primary.email || '',
@@ -392,10 +394,10 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
 
     db.prepare('INSERT INTO addon_log (booking_ref, note) VALUES (?, ?)').run(
       booking.booking_ref,
-      `Payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST + 2.36% Razorpay fee`
+      `Payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST`
     );
     db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
-      booking.booking_ref, 'addon', `Add-on payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST + 2.36% Razorpay fee`
+      booking.booking_ref, 'addon', `Add-on payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST`
     );
 
     try {
@@ -462,10 +464,10 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
   }
 
   const booking_ref = nextRef();
-  // total_price is pre-GST base (venue + addons); apply GST then Razorpay fee
+  // total_price is pre-GST base (venue + addons); prices already include Razorpay fee — only add 5% GST
   const baseAmt = Math.round(parseFloat(String(total_price).replace(/[^\d.]/g,"")) || 0);
   const amountWithGst = Math.round(baseAmt * 1.05);
-  const amountPaise = Math.round(amountWithGst * 1.0236) * 100;
+  const amountPaise = amountWithGst * 100;
   const guest = guests[0];
 
   const _phase1 = phase_override || resolvePhase();
@@ -528,17 +530,14 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
     console.error('[paylink] Razorpay error:', e.message);
   }
 
-  // Send Moon Festival email with full breakdown incl. Razorpay fee
+  // Send Moon Festival email with full breakdown
   if (payment_link_url) {
-    const gstAmount   = amountWithGst - Math.round(amountWithGst / 1.05);
-    const razorpayFee = Math.round(amountWithGst * 1.0236) - amountWithGst;
-    const totalCharged = amountWithGst + razorpayFee;
     try {
       const { sendPaymentPendingEmail } = require('../email');
       const bookingRow = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(booking_ref);
       const guestRows  = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(bookingId);
       await sendPaymentPendingEmail({ booking: bookingRow, guests: guestRows, paymentLink: payment_link_url, amountWithGst });
-      db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'email', ?)").run(booking_ref, `Payment link email sent — ₹${totalCharged.toLocaleString('en-IN')} incl. GST + 2.36% fee`);
+      db.prepare("INSERT INTO booking_log (booking_ref, type, note) VALUES (?, 'email', ?)").run(booking_ref, `Payment link email sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST`);
     } catch (emailErr) {
       console.error('[paylink email]', emailErr.message);
     }
@@ -550,7 +549,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
 
 // API: admin-created booking (paid immediately, no Razorpay)
 router.post('/api/bookings', requireAdmin, (req, res) => {
-  const { venue, room_type, total_price, room_number, hotel_number, status, send_email, guests, payment_method, arrival_date, addons, gst_number, gst_name, organizerNote, admin_override, discount, discount_reason, phase_override } = req.body;
+  const { venue, room_type, total_price, room_number, hotel_number, status, send_email, guests, payment_method, arrival_date, addons, gst_number, gst_name, organizerNote, admin_override, discount, discount_reason, phase_override, referral_source } = req.body;
   if (!venue || !room_type || !total_price || !Array.isArray(guests) || !guests.length) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
@@ -570,8 +569,8 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
 
   const _phase2 = phase_override || resolvePhase();
   const insertBooking = db.prepare(`
-    INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, room_number, paid_at, payment_method, arrival_date, addons, gst_number, gst_name, organizer_note, discount, discount_reason, phase, source)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin')
+    INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, room_number, paid_at, payment_method, arrival_date, addons, gst_number, gst_name, organizer_note, discount, discount_reason, phase, source, referral_source)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', ?)
   `);
   const insertGuest = db.prepare(`
     INSERT INTO guests (booking_id, guest_number, full_name, whatsapp, email, city, age, gender)
@@ -580,7 +579,7 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
 
   db.exec('BEGIN');
   try {
-    const { lastInsertRowid } = insertBooking.run(booking_ref, venue, room_type, total_price, guests.length, bookingStatus, room_number || null, paid_at, payment_method || null, arrival_date || null, addons || null, gst_number || null, gst_name || null, organizerNote || null, discount || null, discount_reason || null, _phase2);
+    const { lastInsertRowid } = insertBooking.run(booking_ref, venue, room_type, total_price, guests.length, bookingStatus, room_number || null, paid_at, payment_method || null, arrival_date || null, addons || null, gst_number || null, gst_name || null, organizerNote || null, discount || null, discount_reason || null, _phase2, referral_source || null);
     guests.forEach((g, i) => {
       const nc2 = normalizeCity(g.city);
       insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, nc2, Number(g.age), g.gender || null);
@@ -633,7 +632,7 @@ router.post('/api/bookings/auto-assign-rooms', requireAdmin, (req, res) => {
 
 // API: update booking fields
 router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
-  const { total_price, status, room_number, addons } = req.body;
+  const { total_price, status, room_number, addons, referral_source } = req.body;
 
   if (room_number) {
     const thisBooking = db.prepare('SELECT id, venue, room_type, guest_count FROM bookings WHERE booking_ref=?').get(req.params.ref);
@@ -677,11 +676,15 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
     }
   }
 
-  const old = db.prepare('SELECT total_price, status, room_number, addons FROM bookings WHERE booking_ref=?').get(req.params.ref);
-  const nowPaid = status === 'paid' && old?.status !== 'paid';
+  const old = db.prepare('SELECT total_price, status, room_number, addons, referral_source FROM bookings WHERE booking_ref=?').get(req.params.ref);
+  const finalStatus     = status       !== undefined ? status       : old?.status;
+  const finalPrice      = total_price  !== undefined ? total_price  : old?.total_price;
+  const finalRoom       = room_number  !== undefined ? room_number  : old?.room_number;
+  const nowPaid = finalStatus === 'paid' && old?.status !== 'paid';
   const addonsToSave = addons !== undefined ? (addons || null) : (old?.addons || null);
-  db.prepare(`UPDATE bookings SET total_price=?, status=?, room_number=?, addons=?${nowPaid ? ", paid_at=CURRENT_TIMESTAMP" : ""} WHERE booking_ref=?`)
-    .run(total_price, status, room_number || null, addonsToSave, req.params.ref);
+  const finalReferral = referral_source !== undefined ? (referral_source || null) : (old?.referral_source || null);
+  db.prepare(`UPDATE bookings SET total_price=?, status=?, room_number=?, addons=?, referral_source=?${nowPaid ? ", paid_at=CURRENT_TIMESTAMP" : ""} WHERE booking_ref=?`)
+    .run(finalPrice, finalStatus, finalRoom || null, addonsToSave, finalReferral, req.params.ref);
 
   // Fire Meta CAPI Purchase event when admin marks a booking as paid
   if (nowPaid) {
@@ -1048,8 +1051,7 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
     const rzp = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
     const amountWithGst  = Math.round(diff_amount * 1.05);
     const gst            = amountWithGst - diff_amount;
-    const razorpayFee    = Math.round(amountWithGst * 1.0236) - amountWithGst;
-    const amountCharged  = amountWithGst + razorpayFee;
+    const amountCharged  = amountWithGst;
 
     const guests = db.prepare('SELECT * FROM guests WHERE booking_id=? ORDER BY guest_number').all(booking.id);
     const primary = guests[0] || {};
@@ -1057,8 +1059,8 @@ router.post('/api/bookings/:ref/transfer-paylink', requireAdmin, async (req, res
     const oldAmtFmt = old_price ? `₹${Math.round(parseFloat(String(old_price).replace(/[^\d.]/g,''))||0).toLocaleString('en-IN')}` : '';
     const newAmtFmt = `₹${Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,''))||0).toLocaleString('en-IN')}`;
     const description = old_venue && old_room_type
-      ? `MF2026 Upgrade: ${old_venue} ${old_room_type} (${oldAmtFmt}) → ${booking.venue} ${booking.room_type} (${newAmtFmt}). Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. GST ₹${gst.toLocaleString('en-IN')} + 2.36% fee.`
-      : `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. 5% GST + 2.36% fee.`;
+      ? `MF2026 Upgrade: ${old_venue} ${old_room_type} (${oldAmtFmt}) → ${booking.venue} ${booking.room_type} (${newAmtFmt}). Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. GST ₹${gst.toLocaleString('en-IN')}.`
+      : `Moon Festival 2026 — ${booking.venue} · ${booking.room_type}. Balance due: ₹${amountCharged.toLocaleString('en-IN')} incl. 5% GST.`;
 
     const plink = await rzp.paymentLink.create({
       amount: amountCharged * 100,
@@ -1862,20 +1864,30 @@ router.get('/promo-codes', requireAdmin, (req, res) => {
 
 // POST /admin/api/promo-codes
 router.post('/promo-codes', requireAdmin, (req, res) => {
-  const { code, discount, max_uses } = req.body;
+  const { code, discount, discount_type, max_uses } = req.body;
   if (!code || !discount) return res.status(400).json({ error: 'Code and discount are required' });
   const clean = String(code).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20);
   if (!clean) return res.status(400).json({ error: 'Invalid code format' });
   const existing = db.prepare('SELECT id FROM promo_codes WHERE code=? COLLATE NOCASE').get(clean);
   if (existing) return res.status(409).json({ error: 'Code already exists' });
-  db.prepare('INSERT INTO promo_codes (code, discount, max_uses) VALUES (?, ?, ?)').run(clean, parseInt(discount), max_uses ?? null);
+  const dtype = discount_type === 'pct' ? 'pct' : 'flat';
+  db.prepare('INSERT INTO promo_codes (code, discount, discount_type, max_uses) VALUES (?, ?, ?, ?)').run(clean, parseFloat(discount), dtype, max_uses ?? null);
   res.json({ ok: true, code: clean });
 });
 
 // PATCH /admin/api/promo-codes/:id
 router.patch('/promo-codes/:id', requireAdmin, (req, res) => {
-  const { active } = req.body;
-  db.prepare('UPDATE promo_codes SET active=? WHERE id=?').run(active ? 1 : 0, req.params.id);
+  const { active, discount, discount_type, max_uses } = req.body;
+  if (typeof active !== 'undefined') {
+    db.prepare('UPDATE promo_codes SET active=? WHERE id=?').run(active ? 1 : 0, req.params.id);
+  }
+  if (typeof discount !== 'undefined') {
+    const dtype = discount_type === 'pct' ? 'pct' : 'flat';
+    db.prepare('UPDATE promo_codes SET discount=?, discount_type=? WHERE id=?').run(parseFloat(discount), dtype, req.params.id);
+  }
+  if (typeof max_uses !== 'undefined') {
+    db.prepare('UPDATE promo_codes SET max_uses=? WHERE id=?').run(max_uses === null ? null : parseInt(max_uses), req.params.id);
+  }
   res.json({ ok: true });
 });
 

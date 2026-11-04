@@ -195,7 +195,7 @@ router.post('/create', async (req, res) => {
           amount: amountPaise,
           currency: 'INR',
           accept_partial: false,
-          description: `Moon Festival 2026 — ${venue} · ${roomType}. Base ₹${baseAmount.toLocaleString('en-IN')} + GST ₹${gst.toLocaleString('en-IN')} + Gateway fee ₹${(amountWithSurcharge - amountWithGst).toLocaleString('en-IN')} = ₹${amountWithSurcharge.toLocaleString('en-IN')}.`,
+          description: `Moon Festival 2026 — ${venue} · ${roomType}. Base ₹${baseAmount.toLocaleString('en-IN')} + GST ₹${gst.toLocaleString('en-IN')} = ₹${amountWithGst.toLocaleString('en-IN')}.`,
           customer: {
             name:    guests[0]?.full_name || '',
             email:   guests[0]?.email || '',
