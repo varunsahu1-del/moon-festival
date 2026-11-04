@@ -1061,6 +1061,7 @@ async function sendNewBookingAlert({ booking, guests, amountWithGst }) {
   let bookingRows = '';
   bookingRows += section('Booking Details');
   bookingRows += row('Ref', booking.booking_ref);
+  bookingRows += row('Date', booking.created_at ? new Date(booking.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' IST' : '—');
   bookingRows += row('Status', booking.status ? booking.status.toUpperCase() : '—');
   bookingRows += row('Phase', booking.phase || '—');
   bookingRows += row('Venue', booking.venue);
