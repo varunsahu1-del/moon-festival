@@ -18,9 +18,9 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
 .photo { position:absolute; inset:0; background-size:cover; background-repeat:no-repeat; }
 .overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(10,7,2,0.88) 0%, rgba(10,7,2,0.35) 50%, transparent 100%); }
 .info { position:absolute; bottom:0; left:0; right:0; padding:1.1rem 1.1rem 1rem; }
-/* Match website exactly: name=light/dimmed, role=bold/bright, city=terracotta */
-.c-name { font-size:12px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,212,178,0.65); margin-bottom:0.5rem; display:block; }
-.c-role { font-size:20px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#EDD4B2; margin-bottom:0.55rem; line-height:1.2; }
+/* Order: role (bold) → name (dimmed) → city (terracotta) */
+.c-role { font-size:20px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#EDD4B2; margin-bottom:0.5rem; line-height:1.2; }
+.c-name { font-size:12px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,212,178,0.65); margin-bottom:0.55rem; display:block; }
 .c-city { font-size:12px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#B06030; }
 </style>
 </head>
@@ -37,8 +37,8 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
       <div class="photo" style="background-image:url('../Facilitator Photos/shreya 3.jpg');background-position:50% 25%;"></div>
       <div class="overlay"></div>
       <div class="info">
-        <div class="c-name">Shreya</div>
         <div class="c-role">Tye &amp; Dye Art</div>
+        <div class="c-name">Shreya</div>
         <div class="c-city">Bangalore</div>
       </div>
     </div>
@@ -46,8 +46,8 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
       <div class="photo" style="background-image:url('../Facilitator Photos/Shital Japanese Fabric Art Installation.jpg');background-position:50% 25%;"></div>
       <div class="overlay"></div>
       <div class="info">
-        <div class="c-name">Shital</div>
         <div class="c-role">Japanese Fabric Art</div>
+        <div class="c-name">Shital</div>
         <div class="c-city">Goa</div>
       </div>
     </div>
@@ -55,8 +55,8 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
       <div class="photo" style="background-image:url('../Facilitator Photos/shreya.jpg');background-position:50% 25%;"></div>
       <div class="overlay"></div>
       <div class="info">
-        <div class="c-name">Shreya</div>
         <div class="c-role">Cyanotype Tote Bag</div>
+        <div class="c-name">Shreya</div>
         <div class="c-city">Bangalore</div>
       </div>
     </div>
@@ -64,8 +64,8 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
       <div class="photo" style="background-image:url('../Facilitator Photos/Parisa Dryad Mask Making.jpg');background-position:50% 25%;"></div>
       <div class="overlay"></div>
       <div class="info">
-        <div class="c-name">Parisa</div>
         <div class="c-role">Make Your Forest Mask</div>
+        <div class="c-name">Parisa</div>
         <div class="c-city">Goa</div>
       </div>
     </div>
