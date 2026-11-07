@@ -394,12 +394,10 @@ router.post('/paylink-webhook', express.raw({ type: 'application/json' }), async
       const pl = payload.payload?.payment_link?.entity;
       const ref = pl?.notes?.booking_ref;
       if (ref) {
-        const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(ref);
-        if (booking && booking.status === 'pending') {
-          db.prepare("UPDATE bookings SET status='expired' WHERE id=?").run(booking.id);
-          db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(ref, 'edit', `Payment link ${payload.event} — booking auto-marked expired`);
-          console.log(`[paylink-webhook] ${payload.event} for`, ref);
-        }
+        // Log the event but do NOT change booking status — an expired link doesn't mean the person cancelled.
+        // The booking stays 'pending' so it remains visible in admin and the guest can be sent a new link.
+        db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(ref, 'edit', `Payment link ${payload.event} — link expired, booking stays pending`);
+        console.log(`[paylink-webhook] ${payload.event} for`, ref, '— booking status unchanged');
       }
       return res.json({ ok: true });
     }
