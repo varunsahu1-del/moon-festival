@@ -1810,7 +1810,7 @@ async function loadStats() {
     const seenRef = new Set();
     const passBookingsUniq = passAll.filter(r => { if(seenRef.has(r.booking_ref))return false; seenRef.add(r.booking_ref); return true; });
     const paidRows   = passAll.filter(r => r.status === 'paid' || r.status === 'cancelled');
-    const pendRows   = passBookingsUniq.filter(r => r.status === 'pending' || r.status === 'upi_pending');
+    const pendRows   = passBookingsUniq.filter(r => r.status === 'pending' || r.status === 'upi_pending' || r.status === 'expired');
     const totalPasses = passAll.length;
     const paidPasses  = paidRows.length;
 
@@ -2802,7 +2802,7 @@ function refreshDashboardActionPanel() {
   const actionItems = allBookings.filter(r => {
     if (seen.has(r.booking_ref)) return false;
     seen.add(r.booking_ref);
-    return r.status === 'pending' || r.status === 'upi_pending';
+    return r.status === 'pending' || r.status === 'upi_pending' || r.status === 'expired';
   }).slice(0, 10);
   const panel = document.getElementById('dashActionPanel');
   const list  = document.getElementById('dashActionList');
