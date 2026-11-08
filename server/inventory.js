@@ -30,16 +30,22 @@ const INVENTORY = [
   // La La Land Cottages (2 double + 3 private)
   { venue: 'La La Land Cottages', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'La La Land Cottages', room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
-  // La Rocha (3 categories, each with 2 double + 1 private)
-  { venue: 'La Rocha · Sea View',       room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
-  { venue: 'La Rocha · Sea View',       room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
-  { venue: 'La Rocha · Upper Sea View', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
-  { venue: 'La Rocha · Upper Sea View', room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
-  { venue: 'La Rocha · Deluxe',         room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
-  { venue: 'La Rocha · Deluxe',         room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
-  { venue: 'Festival Access', room_type: 'Full Festival Pass', unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
-  { venue: 'Festival Access', room_type: 'Weekend Pass',       unit: 'beds', capacity: 200, room_size: 1, gender_rule: 'any', label: '200 passes' },
-  { venue: 'Festival Access', room_type: 'Single Day Pass',    unit: 'beds', capacity: 300, room_size: 1, gender_rule: 'any', label: '300 passes' },
+  // La Rocha (3 categories, 3 rooms each)
+  { venue: 'La Rocha · Sea View',       room_type: 'Double Sharing', unit: 'beds',  capacity: 6, rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
+  { venue: 'La Rocha · Sea View',       room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
+  { venue: 'La Rocha · Upper Sea View', room_type: 'Double Sharing', unit: 'beds',  capacity: 6, rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
+  { venue: 'La Rocha · Upper Sea View', room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
+  { venue: 'La Rocha · Deluxe',         room_type: 'Double Sharing', unit: 'beds',  capacity: 6, rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
+  { venue: 'La Rocha · Deluxe',         room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
+  { venue: 'Festival Access', room_type: 'Full Festival Pass',          unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
+  { venue: 'Festival Access', room_type: 'Weekend Pass',                unit: 'beds', capacity: 200, room_size: 1, gender_rule: 'any', label: '200 passes' },
+  { venue: 'Festival Access', room_type: 'Single Day Pass',             unit: 'beds', capacity: 300, room_size: 1, gender_rule: 'any', label: '300 passes' },
+  { venue: 'Festival Access', room_type: 'Luna Viajera – Live Band',    unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: "Martin's Ecstatic Dance",     unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: "Chris's Elevate Show",        unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Drum Circle',                 unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Bagicha – Live Band',         unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: "Anaida's Ecstatic Ceremony",  unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
 ];
 
 // Predefined room labels for each venue/type
@@ -71,16 +77,16 @@ const ROOM_LABELS = {
     '6 Bed Dorm':     ['DORM-M6'],
   },
   'La Rocha · Sea View': {
-    'Double Sharing': ['LRS-D01','LRS-D02'],
-    'Private Room':   ['LRS-P01'],
+    'Double Sharing': ['LRS-D01','LRS-D02','LRS-D03'],
+    'Private Room':   ['LRS-P01','LRS-P02','LRS-P03'],
   },
   'La Rocha · Upper Sea View': {
-    'Double Sharing': ['LRU-D01','LRU-D02'],
-    'Private Room':   ['LRU-P01'],
+    'Double Sharing': ['LRU-D01','LRU-D02','LRU-D03'],
+    'Private Room':   ['LRU-P01','LRU-P02','LRU-P03'],
   },
   'La Rocha · Deluxe': {
-    'Double Sharing': ['LRD-D01','LRD-D02'],
-    'Private Room':   ['LRD-P01'],
+    'Double Sharing': ['LRD-D01','LRD-D02','LRD-D03'],
+    'Private Room':   ['LRD-P01','LRD-P02','LRD-P03'],
   },
 };
 
@@ -142,9 +148,15 @@ const PRICING = {
     'Private Room':   { earlyBird: 57500, phase2: 57500, phase3: 57500, phase4: 57500, extraDay: 6000 },
   },
   'Festival Access': {
-    'Full Festival Pass': { flat: 21000, extraDay: 0 },
-    'Weekend Pass':       { flat: 14500, extraDay: 0 },
-    'Single Day Pass':    { flat: 7500,  extraDay: 0 },
+    'Full Festival Pass':         { flat: 21000, extraDay: 0 },
+    'Weekend Pass':               { flat: 14500, extraDay: 0 },
+    'Single Day Pass':            { flat: 7500,  extraDay: 0 },
+    'Luna Viajera – Live Band':   { flat: 1000,  extraDay: 0 },
+    "Martin's Ecstatic Dance":    { flat: 1000,  extraDay: 0 },
+    "Chris's Elevate Show":       { flat: 1000,  extraDay: 0 },
+    'Drum Circle':                { flat: 1000,  extraDay: 0 },
+    'Bagicha – Live Band':        { flat: 1000,  extraDay: 0 },
+    "Anaida's Ecstatic Ceremony": { flat: 1000,  extraDay: 0 },
   },
 };
 

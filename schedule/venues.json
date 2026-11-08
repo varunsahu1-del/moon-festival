@@ -1,0 +1,100 @@
+{
+  "venues": [
+    {
+      "id": "space",
+      "name": "Space",
+      "nickname": "Main Stage",
+      "type": "main_stage",
+      "size": "large",
+      "sound": true,
+      "roof": true,
+      "notes": "Full sound system (mics, amps, speakers). All meals here. Sound checks for all bands. Hard blocks: Brunch, Dinner, sound checks.",
+      "conflicts": []
+    },
+    {
+      "id": "asteroid",
+      "name": "Asteroid",
+      "nickname": "Massage Shala",
+      "type": "shala",
+      "size": "large",
+      "sound": false,
+      "roof": false,
+      "open_air": true,
+      "notes": "Biggest shala. Best for large movement classes, drum circle, dance. Away from other shalas — sound isolation good.",
+      "conflicts": []
+    },
+    {
+      "id": "comet",
+      "name": "Comet",
+      "nickname": "Circus Shala",
+      "type": "shala",
+      "size": "medium",
+      "sound": false,
+      "roof": false,
+      "open_air": true,
+      "notes": "Mid-size. Away from other shalas — sound isolation good. Good for circus, flow arts, acrobatics.",
+      "conflicts": []
+    },
+    {
+      "id": "stardust",
+      "name": "Stardust",
+      "nickname": "Round Shala",
+      "type": "shala",
+      "size": "medium",
+      "sound": false,
+      "roof": false,
+      "open_air": true,
+      "notes": "Round shape, similar size to Comet. Good for intimate circles, yoga, meditation.",
+      "conflicts": []
+    },
+    {
+      "id": "meteor",
+      "name": "Meteor",
+      "nickname": "Tree Shala",
+      "type": "shala",
+      "size": "medium",
+      "sound": false,
+      "roof": true,
+      "open_air": false,
+      "notes": "Stacked above Nebula. Has roof. Close to Space — avoid loud music when Space is active. Cannot run simultaneously with Nebula if both have sound/music.",
+      "conflicts": ["nebula_sound", "space_loud"]
+    },
+    {
+      "id": "nebula",
+      "name": "Nebula",
+      "nickname": "Down Shala",
+      "type": "shala",
+      "size": "medium",
+      "sound": false,
+      "roof": true,
+      "wooden_floor": true,
+      "notes": "Below Meteor. Roof + wooden floor. Cannot run simultaneously with Meteor if both have sound/music. Close to Space.",
+      "conflicts": ["meteor_sound", "space_loud"]
+    },
+    {
+      "id": "sky",
+      "name": "Sky",
+      "nickname": "Hornbill Shala",
+      "type": "shala",
+      "size": "large",
+      "sound": false,
+      "roof": false,
+      "open_air": true,
+      "notes": "Biggest shala. In forest — no roof. Heavy mosquito problem: ONLY usable 9/10am–4pm. Do not schedule early morning or after 4pm.",
+      "time_restrictions": {
+        "earliest": "09:00",
+        "latest": "16:00"
+      },
+      "conflicts": ["mosquitoes_early", "mosquitoes_evening"]
+    },
+    {
+      "id": "crater",
+      "name": "Crater",
+      "nickname": "Tribal Lunch",
+      "type": "special",
+      "size": "small",
+      "notes": "Tribal Lunch only. No other sessions scheduled here.",
+      "reserved_for": "tribal_lunch"
+    }
+  ]
+}

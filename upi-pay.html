@@ -71,6 +71,7 @@
       text-transform: uppercase;
       color: #B06030;
       margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
     }
 
     .upi-heading {
@@ -277,7 +278,7 @@
       <div class="upi-step">
         <div class="upi-step-num">1</div>
         <div class="upi-step-body">
-          <div class="upi-step-label">Send this exact amount</div>
+          <div class="upi-step-label">Amount to pay</div>
           <div class="upi-amount-box">
             <span class="upi-amount-num" id="pageAmount">—</span>
             <span class="upi-amount-gst">incl. 5% GST</span>
@@ -289,21 +290,49 @@
       <div class="upi-step">
         <div class="upi-step-num">2</div>
         <div class="upi-step-body">
-          <div class="upi-step-label">Open your UPI app</div>
-          <div id="appButtons" style="display:flex;flex-wrap:nowrap;gap:0.4rem;width:100%;overflow:hidden;">
-            <a id="gpayBtn" href="#" style="display:inline-flex;align-items:center;justify-content:center;gap:0.25rem;padding:0.35rem 0.4rem;border:1px solid #4285F4;border-radius:4px;color:#4285F4;font-family:'Open Sans',sans-serif;font-size:clamp(0.55rem,3vw,0.72rem);text-decoration:none;background:rgba(237,212,178,0.04);flex:1 1 0;min-width:0;overflow:hidden;">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">GPay</span>
+          <div class="upi-step-label">Pay via UPI</div>
+
+          <!-- Primary: enter UPI ID → opens correct app -->
+          <div style="background:rgba(176,96,48,0.07);border:0.5px solid rgba(176,96,48,0.2);border-radius:8px;padding:0.9rem;">
+            <div style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:rgba(237,212,178,0.5);margin-bottom:0.6rem;">Enter your UPI ID</div>
+            <div style="display:flex;gap:0.5rem;">
+              <input id="payerVpaInput" type="text" inputmode="email" placeholder="yourname@oksbi" autocomplete="off" autocapitalize="none" oninput="updatePayVpaBtn()"
+                style="flex:1;background:rgba(0,0,0,0.25);border:0.5px solid rgba(176,96,48,0.35);border-radius:5px;padding:0.6rem 0.75rem;font-family:'Open Sans',sans-serif;font-size:0.85rem;color:#EDD4B2;outline:none;min-width:0;" />
+              <button id="payVpaBtn" onclick="openViaVpa()" disabled
+                style="padding:0.6rem 1rem;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.3);border-radius:5px;font-family:'Josefin Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.35);cursor:not-allowed;white-space:nowrap;transition:all 0.15s;flex-shrink:0;">Pay Now</button>
+            </div>
+            <p id="payVpaHint" style="font-family:'Open Sans',sans-serif;font-size:0.62rem;color:rgba(237,212,178,0.3);margin:0.4rem 0 0;min-height:0.9rem;"></p>
+          </div>
+
+          <!-- Divider -->
+          <div style="display:flex;align-items:center;gap:0.7rem;margin:0.8rem 0;">
+            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.08);"></div>
+            <span style="font-family:'Josefin Sans',sans-serif;font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.2);">or open directly</span>
+            <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.08);"></div>
+          </div>
+
+          <!-- App buttons + Android any-UPI -->
+          <div style="display:flex;gap:0.4rem;">
+            <button id="anyUpiBtn" onclick="openAnyUpi()" style="display:none;flex:1;padding:0.4rem 0.5rem;border:0.5px solid rgba(237,212,178,0.2);border-radius:4px;color:rgba(237,212,178,0.6);font-family:'Open Sans',sans-serif;font-size:0.65rem;background:rgba(237,212,178,0.04);cursor:pointer;white-space:nowrap;">Any App</button>
+            <button id="gpayBtn" onclick="openGPay()" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:0.25rem;padding:0.4rem 0.5rem;border:0.5px solid rgba(66,133,244,0.4);border-radius:4px;color:#4285F4;font-family:'Open Sans',sans-serif;font-size:0.65rem;background:rgba(237,212,178,0.04);cursor:pointer;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              GPay
+            </button>
+            <a id="phonepeBtn" href="#" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:0.25rem;padding:0.4rem 0.5rem;border:0.5px solid rgba(95,37,159,0.5);border-radius:4px;color:#a78bfa;font-family:'Open Sans',sans-serif;font-size:0.65rem;text-decoration:none;background:rgba(237,212,178,0.04);">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="#a78bfa" stroke-width="1.5"/><path d="M9 8h4c1.1 0 2 .9 2 2s-.9 2-2 2H9V8zm0 4h5l2 4H9v-4z" fill="#a78bfa"/></svg>
+              PhonePe
             </a>
-            <a id="phonepeBtn" href="#" style="display:inline-flex;align-items:center;justify-content:center;gap:0.25rem;padding:0.35rem 0.4rem;border:1px solid #5f259f;border-radius:4px;color:#a78bfa;font-family:'Open Sans',sans-serif;font-size:clamp(0.55rem,3vw,0.72rem);text-decoration:none;background:rgba(237,212,178,0.04);flex:1 1 0;min-width:0;overflow:hidden;">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="#a78bfa" stroke-width="1.5"/><path d="M9 8h4c1.1 0 2 .9 2 2s-.9 2-2 2H9V8zm0 4h5l2 4H9v-4z" fill="#a78bfa"/></svg>
-              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">PhonePe</span>
-            </a>
-            <a id="paytmBtn" href="#" style="display:inline-flex;align-items:center;justify-content:center;gap:0.25rem;padding:0.35rem 0.4rem;border:1px solid #002970;border-radius:4px;color:#60a5fa;font-family:'Open Sans',sans-serif;font-size:clamp(0.55rem,3vw,0.72rem);text-decoration:none;background:rgba(237,212,178,0.04);flex:1 1 0;min-width:0;overflow:hidden;">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#60a5fa" stroke-width="1.5"/><path d="M7 12h10M12 7v10" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Paytm</span>
+            <a id="paytmBtn" href="#" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:0.25rem;padding:0.4rem 0.5rem;border:0.5px solid rgba(0,41,112,0.6);border-radius:4px;color:#60a5fa;font-family:'Open Sans',sans-serif;font-size:0.65rem;text-decoration:none;background:rgba(237,212,178,0.04);">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#60a5fa" stroke-width="1.5"/><path d="M7 12h10M12 7v10" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Paytm
             </a>
           </div>
+
+          <!-- hidden elements still needed by JS -->
+          <span id="mobileVpa" style="display:none;"></span>
+          <div id="upiIdRow" style="display:none;"></div>
+
+          <!-- Desktop: UPI ID + QR -->
           <div id="desktopUpi" style="display:none;margin-top:0.6rem;">
             <p style="font-family:'Open Sans',sans-serif;font-size:0.72rem;color:rgba(237,212,178,0.45);margin:0 0 0.6rem;line-height:1.5;">Open any UPI app on your phone, search for this UPI ID, and send the exact amount.</p>
             <div style="display:flex;align-items:center;gap:0.6rem;background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.25);border-radius:6px;padding:0.65rem 0.9rem;">
@@ -311,7 +340,7 @@
               <button onclick="copyUpiId()" id="copyUpiBtn" style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.2);border:0.5px solid rgba(176,96,48,0.6);color:#D4804A;padding:0.35rem 0.7rem;border-radius:3px;cursor:pointer;white-space:nowrap;">Copy</button>
             </div>
             <div style="margin-top:1rem;text-align:center;">
-              <p style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.3);margin:0 0 0.6rem;">Or scan with your phone</p>
+              <p style="font-family:'Josefin Sans',sans-serif;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,212,178,0.3);margin:0 0 0.6rem;">Or scan with your phone — amount pre-filled</p>
               <canvas id="upiQrCanvas" width="160" height="160" style="border-radius:6px;display:block;margin:0 auto;"></canvas>
             </div>
           </div>
@@ -350,18 +379,40 @@
     : '—';
 
   function setUpiLinks(vpa) {
-    const note = encodeURIComponent('Moon Festival Ticket Fee' + (bookingRef ? ' - ' + bookingRef : ''));
-    const baseParams = `pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('Moon Festival')}&am=${amount || ''}&tn=${note}&cu=INR`;
-    document.getElementById('gpayBtn').href = `tez://upi/pay?${baseParams}`;
+    const note = encodeURIComponent((amount ? 'Rs ' + Number(amount).toLocaleString('en-IN') + ' - ' : '') + 'Moon Festival Ticket Fee' + (bookingRef ? ' - ' + bookingRef : ''));
+    // App-specific schemes (phonepe://, gpay://, tez://) must NOT include am= — those apps
+    // reject pre-filled amounts on consumer VPAs. The universal upi:// scheme handles it fine.
+    const baseParams    = `pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('Moon Festival')}&tn=${note}&cu=INR`;
+    const paramsWithAmt = amount ? `${baseParams}&am=${amount}` : baseParams;
+
+    // Store for openViaVpa()
+    window._upiBaseParams = baseParams;
+
+    // Wire app buttons (no amount in scheme-specific links)
+    const gpayBtn = document.getElementById('gpayBtn');
+    gpayBtn.dataset.upiParams = baseParams;
+    gpayBtn.dataset.vpa = vpa;
     document.getElementById('phonepeBtn').href = `phonepe://pay?${baseParams}`;
-    document.getElementById('paytmBtn').href = `paytmmp://pay?${baseParams}`;
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    document.getElementById('paytmBtn').href   = `paytmmp://pay?${baseParams}`;
+
+    // "Open UPI App & Pay" — universal upi:// with amount, Android only
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isMobile  = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isAndroid) {
+      const anyBtn = document.getElementById('anyUpiBtn');
+      anyBtn.dataset.upiUrl = `upi://pay?${paramsWithAmt}`;
+      anyBtn.style.display = 'flex';
+    }
+
+    // Store VPA for copyVpa fallback
+    document.getElementById('mobileVpa').textContent = vpa;
+
     if (!isMobile) {
       document.getElementById('appButtons').style.display = 'none';
       document.getElementById('desktopUpi').style.display = 'block';
       document.getElementById('desktopVpa').textContent = vpa;
-      // QR code via Google Charts API (standard UPI deep link)
-      const upiUrl = `upi://pay?${baseParams}`;
+      // QR includes amount — scanning opens the app with amount pre-filled
+      const upiUrl = `upi://pay?${paramsWithAmt}`;
       const canvas = document.getElementById('upiQrCanvas');
       const img = new Image();
       img.crossOrigin = 'anonymous';
@@ -373,6 +424,107 @@
       };
       img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=8&data=' + encodeURIComponent(upiUrl);
     }
+  }
+
+  // Map UPI handle suffixes to their app
+  const VPA_APP_MAP = {
+    // GPay handles
+    okaxis: 'gpay', okhdfcbank: 'gpay', oksbi: 'gpay', okicici: 'gpay',
+    // PhonePe handles
+    ybl: 'phonepe', axl: 'phonepe', ibl: 'phonepe', upi: 'phonepe',
+    // Paytm
+    paytm: 'paytm',
+  };
+
+  function detectApp(vpa) {
+    const handle = (vpa.split('@')[1] || '').toLowerCase().trim();
+    return VPA_APP_MAP[handle] || 'any';
+  }
+
+  function updatePayVpaBtn() {
+    const vpa = document.getElementById('payerVpaInput').value.trim();
+    const btn = document.getElementById('payVpaBtn');
+    const hint = document.getElementById('payVpaHint');
+    const valid = vpa.includes('@') && vpa.split('@')[1]?.length > 0;
+    btn.disabled = !valid;
+    if (valid) {
+      btn.style.background = '#B06030';
+      btn.style.color = '#EDD4B2';
+      btn.style.borderColor = '#B06030';
+      btn.style.cursor = 'pointer';
+      const app = detectApp(vpa);
+      const labels = { gpay: 'GPay', phonepe: 'PhonePe', paytm: 'Paytm', any: 'UPI app' };
+      hint.textContent = 'Will open ' + (labels[app] || 'your UPI app');
+    } else {
+      btn.style.background = 'rgba(176,96,48,0.15)';
+      btn.style.color = 'rgba(237,212,178,0.4)';
+      btn.style.borderColor = 'rgba(176,96,48,0.4)';
+      btn.style.cursor = 'not-allowed';
+      hint.textContent = '';
+    }
+  }
+
+  function openViaVpa() {
+    if (!window._upiBaseParams) return;
+    const paramsWithAmt = amount ? window._upiBaseParams + '&am=' + amount : window._upiBaseParams;
+    const app = detectApp(document.getElementById('payerVpaInput').value.trim());
+    const schemes = { gpay: ['gpay://upi/pay?','tez://upi/pay?'], phonepe: ['phonepe://pay?'], paytm: ['paytmmp://pay?'], any: ['upi://pay?'] };
+    const urls = (schemes[app] || schemes.any).map(s => s + paramsWithAmt);
+    window.location.href = urls[0];
+    if (urls[1]) {
+      let opened = false;
+      const onVis = () => { opened = true; };
+      document.addEventListener('visibilitychange', onVis, { once: true });
+      setTimeout(() => { document.removeEventListener('visibilitychange', onVis); if (!opened) window.location.href = urls[1]; }, 1500);
+    }
+  }
+
+  function openAnyUpi() {
+    const url = document.getElementById('anyUpiBtn').dataset.upiUrl;
+    if (url) window.location.href = url;
+  }
+
+  // GPay rebranded from Tez — try both schemes, fall back to copying UPI ID
+  function openGPay() {
+    const btn = document.getElementById('gpayBtn');
+    const upiParams = btn.dataset.upiParams;
+    if (!upiParams) return;
+    const gpayUrl = 'gpay://upi/pay?' + upiParams;
+    const tezUrl  = 'tez://upi/pay?' + upiParams;
+    const vpa = document.getElementById('desktopVpa').textContent
+              || document.getElementById('gpayBtn').dataset.vpa || '';
+    // Try gpay:// first; if the page regains focus within 1.5s the app didn't open → fall back
+    let appOpened = false;
+    const handleVisibility = () => { appOpened = true; };
+    document.addEventListener('visibilitychange', handleVisibility, { once: true });
+    window.location.href = gpayUrl;
+    setTimeout(() => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (!appOpened) {
+        // gpay:// didn't work — try tez://
+        window.location.href = tezUrl;
+        setTimeout(() => {
+          if (!appOpened) {
+            // Neither worked — copy UPI ID as last resort
+            if (vpa) navigator.clipboard.writeText(vpa).then(() => {
+              btn.textContent = 'UPI ID copied!';
+              btn.style.color = 'rgba(143,175,126,0.9)';
+              setTimeout(() => { btn.innerHTML = btn.innerHTML; }, 2500);
+            }).catch(() => alert('Open GPay manually and pay to: ' + vpa));
+          }
+        }, 1500);
+      }
+    }, 1500);
+  }
+
+  function copyVpa() {
+    const vpa = document.getElementById('mobileVpa').textContent;
+    navigator.clipboard.writeText(vpa).then(() => {
+      const btn = document.getElementById('copyVpaBtn');
+      btn.textContent = 'Copied!';
+      btn.style.color = 'rgba(143,175,126,0.9)';
+      setTimeout(() => { btn.textContent = 'Copy'; btn.style.color = '#D4804A'; }, 2000);
+    });
   }
 
   function copyUpiId() {

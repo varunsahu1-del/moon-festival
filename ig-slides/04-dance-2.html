@@ -13,8 +13,8 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
 .header { display:flex; flex-direction:column; align-items:center; padding:52px 60px 32px; flex-shrink:0; }
 .cat { font-size:42px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#EDD4B2; text-align:center; line-height:1.1; }
 .line { width:60px; height:2px; background:#A85828; margin-top:18px; opacity:0.8; }
-.cards { flex:1; padding:0 16px; display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:3px; overflow:hidden; }
-.card { position:relative; border-radius:8px; overflow:hidden; background:#1a1208; }
+.cards { flex:1; padding:0 16px; display:flex; flex-wrap:wrap; align-content:stretch; justify-content:center; gap:3px; overflow:hidden; }
+.card { position:relative; flex: 0 0 calc(33.333% - 2px); border-radius:8px; overflow:hidden; background:#1a1208; }
 .photo { position:absolute; inset:0; background-size:cover; background-repeat:no-repeat; }
 .overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(10,7,2,0.88) 0%, rgba(10,7,2,0.35) 50%, transparent 100%); }
 .info { position:absolute; bottom:0; left:0; right:0; padding:1.1rem 1.1rem 1rem; text-align:center; }
@@ -78,7 +78,6 @@ html, body { width:1080px; height:1350px; overflow:hidden; background:#0e0a06; f
         <div class="c-city">Goa</div>
       </div>
     </div>
-    <div class="card" style="background:transparent;visibility:hidden;"></div>
   </div>
 </div>
 <script>

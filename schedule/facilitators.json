@@ -1,0 +1,245 @@
+{
+  "facilitators": [
+    {
+      "id": "varun",
+      "name": "Varun",
+      "location": "Mumbai",
+      "sessions": ["Asana & Pranayama", "Yoga & Samkhya Sutra (Talk)", "Aum Chanting", "Trippy Yoga Nidra"],
+      "category": ["yoga", "talks", "healing"],
+      "note": "Co-host/organiser"
+    },
+    {
+      "id": "tre",
+      "name": "Tre",
+      "location": "Mumbai",
+      "sessions": ["Kalaripayattu", "Mobility via Kalari"],
+      "category": ["movement"]
+    },
+    {
+      "id": "vipindas",
+      "name": "Vipindas",
+      "location": "Bangalore",
+      "sessions": ["Animal Flow"],
+      "category": ["movement"]
+    },
+    {
+      "id": "hinoki-dogu",
+      "name": "Hinoki Dogu",
+      "location": null,
+      "sessions": ["Tai Chi & Qi Gong"],
+      "category": ["movement"],
+      "note": "TBC"
+    },
+    {
+      "id": "sonia",
+      "name": "Sonia",
+      "location": "Goa",
+      "sessions": ["Aerial Yoga", "Somatic Movement"],
+      "category": ["yoga", "movement"]
+    },
+    {
+      "id": "pooja",
+      "name": "Pooja",
+      "location": "Mumbai",
+      "sessions": ["Mat Pilates"],
+      "category": ["movement"]
+    },
+    {
+      "id": "kaprila",
+      "name": "Kaprila",
+      "location": "Goa",
+      "sessions": ["Contact Improv", "Moon Choir"],
+      "category": ["movement", "healing"]
+    },
+    {
+      "id": "folking-desi",
+      "name": "Folking Desi",
+      "location": "Delhi",
+      "sessions": ["Bhangra"],
+      "category": ["dance"]
+    },
+    {
+      "id": "aakriti",
+      "name": "Aakriti",
+      "location": "Goa",
+      "sessions": ["Belly Dance"],
+      "category": ["dance"]
+    },
+    {
+      "id": "dhanisa",
+      "name": "Dhanisa",
+      "location": "Goa",
+      "sessions": ["Sensual Bollywood", "Indo Contemporary"],
+      "category": ["dance"]
+    },
+    {
+      "id": "disha",
+      "name": "Disha",
+      "location": "Goa",
+      "sessions": ["Bharatnatyam Fusion", "Expressions & Hand Gestures", "Saree & Lungi Ceremony"],
+      "category": ["dance", "play"]
+    },
+    {
+      "id": "maya",
+      "name": "Maya",
+      "location": "Goa",
+      "sessions": ["Bachata"],
+      "category": ["dance"]
+    },
+    {
+      "id": "sadashiv",
+      "name": "Sadashiv",
+      "location": "Goa",
+      "sessions": ["Afro Dance"],
+      "category": ["dance"]
+    },
+    {
+      "id": "gouranga",
+      "name": "Gouranga's",
+      "location": "Himachal",
+      "sessions": ["Soul Kirtan"],
+      "category": ["healing", "music"]
+    },
+    {
+      "id": "bethan",
+      "name": "Bethan Lloyd",
+      "location": "Wales",
+      "sessions": ["Vocal Release & Expression", "Welsh Ceremonial Incantations"],
+      "status": "dropped_for_now",
+      "category": ["healing", "music"]
+    },
+    {
+      "id": "karishma",
+      "name": "Karishma Kapoor",
+      "location": "Goa",
+      "sessions": ["Heart-Centred Breathwork", "Shamanic Rose Healing"],
+      "category": ["healing"]
+    },
+    {
+      "id": "nad-mandala",
+      "name": "Nad Mandala",
+      "location": "International",
+      "sessions": ["Kirtan"],
+      "category": ["healing", "music"]
+    },
+    {
+      "id": "ankit",
+      "name": "Ankit",
+      "location": "Mumbai",
+      "sessions": ["Aum Chanting", "Trippy Yoga Nidra"],
+      "category": ["healing"],
+      "note": "Co-facilitates with Varun"
+    },
+    {
+      "id": "ananda-flow",
+      "name": "Ananda Flow",
+      "location": "UK",
+      "sessions": ["Kirtan"],
+      "category": ["healing", "music"]
+    },
+    {
+      "id": "lauren-leonie",
+      "name": "Lauren & Leonie",
+      "location": "International",
+      "sessions": ["Voice Activation"],
+      "category": ["healing"]
+    },
+    {
+      "id": "anushaw",
+      "name": "Anushaw",
+      "location": null,
+      "sessions": ["Sufi Singing"],
+      "category": ["healing", "music"]
+    },
+    {
+      "id": "pradesh-raj",
+      "name": "Pradesh Raj",
+      "location": null,
+      "sessions": ["Death Meditation"],
+      "category": ["healing"]
+    },
+    {
+      "id": "chris",
+      "name": "Chris Fitchew",
+      "location": "UK",
+      "sessions": ["The Elevate Show", "Joy Alchemy", "Unity Circle"],
+      "category": ["play", "music"],
+      "note": "Main host & headline artist"
+    },
+    {
+      "id": "alice",
+      "name": "Alice",
+      "location": "Italy",
+      "sessions": ["Flow Arts", "Clownery"],
+      "category": ["play"]
+    },
+    {
+      "id": "dr-kanchan",
+      "name": "Dr Kanchan",
+      "location": "Mumbai",
+      "sessions": ["Ayurveda (Talk)"],
+      "category": ["talks"]
+    },
+    {
+      "id": "shreya",
+      "name": "Shreya",
+      "location": "Goa",
+      "sessions": ["Tye & Dye Art", "Cyanotype Tote Bag Painting"],
+      "category": ["art"]
+    },
+    {
+      "id": "dryad",
+      "name": "Dryad",
+      "location": "Goa",
+      "sessions": ["Make Your Forest Mask"],
+      "category": ["art"]
+    },
+    {
+      "id": "shital",
+      "name": "Shital",
+      "location": "Goa",
+      "sessions": ["Installation Making"],
+      "category": ["art"]
+    },
+    {
+      "id": "luna-viajera",
+      "name": "Luna Viajera",
+      "location": "Latin America",
+      "sessions": ["Latin Fusion"],
+      "category": ["music"],
+      "note": "Evening performance — needs Space"
+    },
+    {
+      "id": "martin",
+      "name": "Martin",
+      "location": "France",
+      "sessions": ["Ecstatic Dance & Cacao"],
+      "category": ["music", "movement"],
+      "note": "Evening performance — needs Space"
+    },
+    {
+      "id": "bageecha",
+      "name": "Bageecha",
+      "location": "Goa",
+      "sessions": ["Hindi Film Retro Band"],
+      "category": ["music"],
+      "note": "Evening performance — needs Space"
+    },
+    {
+      "id": "annida",
+      "name": "Annida",
+      "location": "Goa",
+      "sessions": ["Ecstatic Dance & Cacao"],
+      "category": ["music", "movement"],
+      "note": "Evening performance — needs Space"
+    },
+    {
+      "id": "aditya",
+      "name": "Aditya",
+      "location": "Goa",
+      "sessions": ["Wild Afro Drum Circle"],
+      "category": ["music"],
+      "note": "Acoustic — does not need Space"
+    }
+  ]
+}

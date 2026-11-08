@@ -52,7 +52,7 @@ function computeBreakdown(booking) {
 
   // Admin add-ons (extra_addons) are collected separately at face value — no GST on them.
   const subtotal   = storedTotal;
-  const gst        = Math.round(subtotal * GST_RATE);
+  const gst        = booking.no_gst ? 0 : Math.round(subtotal * GST_RATE);
   const grandTotal = subtotal + gst + extraAddonTotal;
 
   return {

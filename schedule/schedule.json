@@ -1,0 +1,465 @@
+{
+  "_meta": {
+    "festival": "Moon Festival 2026",
+    "location": "Goa, India",
+    "dates": ["2026-11-26", "2026-11-27", "2026-11-28", "2026-11-29"],
+    "day_labels": {
+      "2026-11-26": "Thursday — Opening Night",
+      "2026-11-27": "Friday — Day 1",
+      "2026-11-28": "Saturday — Day 2",
+      "2026-11-29": "Sunday — Day 3"
+    },
+    "time_slots": [
+      "06:45", "07:30", "09:00", "10:30",
+      "11:30", "12:30",
+      "14:00", "15:30", "16:30",
+      "19:00",
+      "20:00", "21:30", "22:30"
+    ],
+    "hard_blocks": {
+      "brunch": "11:30–12:30 at Space (all days)",
+      "dinner": "19:00–20:00 at Space (all days)",
+      "sky_restriction": "Sky shala: 09:00–16:00 only"
+    }
+  },
+  "days": [
+    {
+      "date": "2026-11-26",
+      "label": "Thursday — Opening Night",
+      "slots": [
+        {
+          "time": "20:00–22:00",
+          "venue": "space",
+          "session": "Opening Ceremony & Open Mic",
+          "facilitator": "chris",
+          "type": "ceremony",
+          "needs_sound": true,
+          "locked": true
+        }
+      ]
+    },
+    {
+      "date": "2026-11-27",
+      "label": "Friday — Day 1",
+      "slots": [
+        {
+          "time": "07:15–07:45",
+          "venue": "space",
+          "session": "Orientation",
+          "facilitator": "varun",
+          "type": "orientation",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "07:45–08:45",
+          "venue": "space",
+          "session": "Soul Kirtan",
+          "facilitator": "gouranga",
+          "type": "gathering",
+          "needs_sound": false,
+          "locked": true,
+          "note": "All-festival opening gathering"
+        },
+        {
+          "time": "09:00–10:00",
+          "type": "workshop_slot",
+          "label": "Slot 1",
+          "sessions": [
+            { "session": "Mobility via Kalari", "facilitator": "tre", "venue": "comet" },
+            { "session": "Heart-Centred Breathwork", "facilitator": "karishma", "venue": "asteroid" },
+            { "session": "Aerial Yoga", "facilitator": "sonia", "venue": "nebula" },
+            { "session": "Mat Pilates", "facilitator": "pooja", "venue": "meteor" },
+            { "session": "Asana & Pranayama", "facilitator": "varun", "venue": "stardust" },
+            { "session": "Tai Chi & Qi Gong", "facilitator": "hinoki-dogu", "venue": "sky" }
+          ]
+        },
+        {
+          "time": "10:15–11:15",
+          "type": "workshop_slot",
+          "label": "Slot 2",
+          "sessions": [
+            { "session": "Voice Activation", "facilitator": "lauren-leonie", "venue": "comet" },
+            { "session": "Bhangra", "facilitator": "folking-desi", "venue": "asteroid" },
+            { "session": "Sensual Bollywood", "facilitator": "dhanisa", "venue": "meteor" },
+            { "session": "Belly Dance", "facilitator": "aakriti", "venue": "nebula" },
+            { "session": "Kalaripayattu", "facilitator": "tre", "venue": "stardust" },
+            { "session": "Clownery", "facilitator": "alice", "venue": "space" }
+          ]
+        },
+        {
+          "time": "11:30–13:00",
+          "venue": "space",
+          "session": "Brunch",
+          "type": "meal",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "13:00–14:30",
+          "venue": "space",
+          "session": "Playful Session (name TBC)",
+          "facilitator": "chris",
+          "type": "gathering",
+          "needs_sound": true,
+          "locked": true,
+          "note": "All-festival gathering · Joy Alchemy-style · name TBC from Chris"
+        },
+        {
+          "time": "15:00–16:00",
+          "type": "workshop_slot",
+          "label": "Slot 3",
+          "sessions": [
+            { "session": "Sufi Singing", "facilitator": "anushaw", "venue": "space" },
+            { "session": "Installation Making", "facilitator": "shital", "venue": "nebula" },
+            { "session": "Death Meditation", "facilitator": "pradesh-raj", "venue": "stardust" },
+            { "session": "Bharatnatyam Fusion", "facilitator": "disha", "venue": "asteroid" },
+            { "session": "Kirtan", "facilitator": "ananda-flow", "venue": "comet" },
+            { "session": "Tye & Dye Art", "facilitator": "shreya", "venue": "meteor" }
+          ]
+        },
+        {
+          "time": "16:15–17:15",
+          "type": "workshop_slot",
+          "label": "Slot 4",
+          "sessions": [
+            { "session": "Bachata", "facilitator": "maya", "venue": "asteroid" },
+            { "session": "Contact Improv", "facilitator": "kaprila", "venue": "comet" },
+            { "session": "Mongolian Throat Singing", "facilitator": "martin", "venue": "stardust" },
+            { "session": "Somatic Movement", "facilitator": "sonia", "venue": "meteor" },
+            { "session": "Animal Flow", "facilitator": "vipindas", "venue": "space" }
+          ]
+        },
+        {
+          "time": "17:15–19:00",
+          "session": "Free Time",
+          "type": "free",
+          "note": "TBD: may add small Drum Circle (Aditya) here if not placed elsewhere"
+        },
+        {
+          "time": "19:00–20:00",
+          "venue": "space",
+          "session": "Dinner",
+          "type": "meal",
+          "needs_sound": false,
+          "locked": true,
+          "note": "Luna Viajera sound check during dinner"
+        },
+        {
+          "time": "20:30–22:30",
+          "venue": "space",
+          "session": "Latin Fusion",
+          "facilitator": "luna-viajera",
+          "type": "evening_show",
+          "needs_sound": true,
+          "locked": true,
+          "note": "TBD: may add Trippy Om Chanting after this"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-28",
+      "label": "Saturday — Day 2",
+      "slots": [
+        {
+          "time": "07:15–08:00",
+          "venue": "stardust",
+          "session": "Morning Meditation",
+          "facilitator": "varun",
+          "type": "meditation",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "08:00–09:00",
+          "type": "workshop_slot",
+          "label": "Slot 1",
+          "sessions": [
+            { "session": "Kalaripayattu", "facilitator": "tre", "venue": "asteroid" },
+            { "session": "Nad Mandala Kirtan", "facilitator": "nad-mandala", "venue": "comet" },
+            { "session": "Aerial Yoga", "facilitator": "sonia", "venue": "nebula" },
+            { "session": "Mat Pilates", "facilitator": "pooja", "venue": "meteor" },
+            { "session": "Animal Flow", "facilitator": "vipindas", "venue": "stardust" }
+          ]
+        },
+        {
+          "time": "09:00–10:00",
+          "type": "parallel_slot",
+          "label": "Saree & Lungi + parallel options",
+          "sessions": [
+            { "session": "Saree & Lungi Ceremony", "facilitator": "disha", "venue": "space", "locked": true },
+            { "session": "Make Your Forest Mask", "facilitator": "dryad", "venue": "nebula" },
+            { "session": "Cyanotype Tote Bag Painting", "facilitator": "shreya", "venue": "meteor" },
+            { "session": "Shamanic Rose Healing", "facilitator": "karishma", "venue": "comet" }
+          ]
+        },
+        {
+          "time": "10:00–11:15",
+          "venue": "space",
+          "session": "Ecstatic Dance & Cacao",
+          "facilitator": "martin",
+          "type": "gathering",
+          "needs_sound": true,
+          "locked": true
+        },
+        {
+          "time": "11:15–12:30",
+          "venue": "space",
+          "session": "Brunch",
+          "type": "meal",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "13:00–14:00",
+          "type": "workshop_slot",
+          "label": "Post-brunch parallel",
+          "sessions": [
+            { "session": "Trippy Yoga Nidra", "facilitator": "varun+ankit", "venue": "space" },
+            { "session": "Ayurveda (Talk)", "facilitator": "dr-kanchan", "venue": "stardust" },
+            { "session": "Bachata", "facilitator": "maya", "venue": "asteroid" }
+          ]
+        },
+        {
+          "time": "14:15–15:15",
+          "type": "workshop_slot",
+          "label": "Slot 3",
+          "sessions": [
+            { "session": "Sufi Singing", "facilitator": "anushaw", "venue": "space" },
+            { "session": "Somatic Movement", "facilitator": "sonia", "venue": "meteor" },
+            { "session": "Bhangra", "facilitator": "folking-desi", "venue": "asteroid" },
+            { "session": "Sensual Bollywood", "facilitator": "dhanisa", "venue": "comet" },
+            { "session": "Belly Dance", "facilitator": "aakriti", "venue": "stardust" }
+          ]
+        },
+        {
+          "time": "15:30–17:00",
+          "session": "Free Time / Get Ready",
+          "type": "free"
+        },
+        {
+          "time": "17:00–19:00",
+          "venue": "beach",
+          "session": "Beach Trip (sunset)",
+          "type": "social",
+          "needs_sound": false,
+          "locked": true,
+          "note": "Tai Chi (Hinoki) + Flow Arts (Alice) optional at beach"
+        },
+        {
+          "time": "19:00–20:00",
+          "venue": "space",
+          "session": "Dinner",
+          "type": "meal",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "20:00–22:00",
+          "venue": "space",
+          "session": "The Elevate Show",
+          "facilitator": "chris",
+          "type": "evening_show",
+          "needs_sound": true,
+          "locked": true,
+          "note": "Music closes 10pm"
+        },
+        {
+          "time": "22:00–22:45",
+          "venue": "meteor",
+          "session": "Aum Chanting",
+          "facilitator": "varun+ankit",
+          "type": "healing",
+          "needs_sound": false,
+          "locked": true,
+          "note": "Late night wind-down after Elevate Show"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-29",
+      "label": "Sunday — Day 3",
+      "slots": [
+        {
+          "time": "07:00–07:45",
+          "venue": "stardust",
+          "session": "Tantric Meditation",
+          "facilitator": "pradesh-raj",
+          "type": "meditation",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "08:00–09:00",
+          "type": "workshop_slot",
+          "label": "Slot 1",
+          "sessions": [
+            { "session": "Asana & Pranayama", "facilitator": "varun", "venue": "stardust" },
+            { "session": "Kalaripayattu", "facilitator": "tre", "venue": "asteroid" },
+            { "session": "Animal Flow", "facilitator": "vipindas", "venue": "space" },
+            { "session": "Sufi Singing", "facilitator": "anushaw", "venue": "meteor" },
+            { "session": "Kirtan", "facilitator": "ananda-flow", "venue": "comet" },
+            { "session": "Mat Pilates", "facilitator": "pooja", "venue": "nebula" }
+          ]
+        },
+        {
+          "time": "09:15–10:15",
+          "venue": "space",
+          "session": "Moon Choir",
+          "facilitator": "kaprila",
+          "type": "gathering",
+          "needs_sound": false,
+          "locked": true,
+          "note": "Big all-festival gathering before brunch"
+        },
+        {
+          "time": "10:15–11:30",
+          "venue": "space",
+          "session": "Brunch",
+          "type": "meal",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "12:00–13:30",
+          "venue": "space",
+          "session": "Unity Circle",
+          "facilitator": "chris",
+          "type": "gathering",
+          "needs_sound": true,
+          "locked": true
+        },
+        {
+          "time": "13:45–15:00",
+          "type": "workshop_slot",
+          "label": "Slot 3",
+          "sessions": [
+            { "session": "Bhangra", "facilitator": "folking-desi", "venue": "asteroid" },
+            { "session": "Indo Contemporary", "facilitator": "dhanisa", "venue": "comet" },
+            { "session": "Soul Kirtan", "facilitator": "gouranga", "venue": "stardust" },
+            { "session": "Tai Chi & Qi Gong", "facilitator": "hinoki-dogu", "venue": "meteor" },
+            { "session": "Yoga & Samkhya Sutra (Talk)", "facilitator": "varun", "venue": "space" },
+            { "session": "Belly Dance", "facilitator": "aakriti", "venue": "sky" }
+          ]
+        },
+        {
+          "time": "15:15–16:30",
+          "venue": "asteroid",
+          "session": "Wild Afro Drum Circle",
+          "facilitator": "aditya",
+          "type": "drum_circle",
+          "needs_sound": false,
+          "locked": true,
+          "note": "75 min · flows into Annida's ecstatic"
+        },
+        {
+          "time": "17:00–19:00",
+          "venue": "space",
+          "session": "Ecstatic Dance & Cacao",
+          "facilitator": "annida",
+          "type": "evening_show",
+          "needs_sound": true,
+          "locked": true
+        },
+        {
+          "time": "19:00–20:15",
+          "venue": "space",
+          "session": "Dinner",
+          "type": "meal",
+          "needs_sound": false,
+          "locked": true
+        },
+        {
+          "time": "21:15",
+          "venue": "space",
+          "session": "Moon Musician Jam",
+          "type": "evening_show",
+          "needs_sound": true,
+          "locked": true,
+          "note": "All festival musicians · same sound setup as Bageecha"
+        },
+        {
+          "time": "22:00–23:00",
+          "venue": "space",
+          "session": "Hindi Film Retro Band",
+          "facilitator": "bageecha",
+          "type": "evening_show",
+          "needs_sound": true,
+          "locked": true,
+          "note": "Music closes 11 pm (Sunday curfew)"
+        },
+        {
+          "time": "23:00+",
+          "venue": "beach",
+          "session": "Beach Hangout",
+          "type": "social",
+          "needs_sound": false,
+          "locked": true,
+          "note": "Replaces after party — whole festival under the stars"
+        }
+      ]
+    }
+  ],
+  "_sessions_to_place": {
+    "note": "All sessions below need to be assigned a day, time and venue",
+    "yoga_movement": [
+      { "session": "Asana & Pranayama", "facilitator": "varun", "intensity": "low", "days_needed": 3, "preferred_time": "early_morning", "venue_notes": "Any shala, no sound needed" },
+      { "session": "Kalaripayattu", "facilitator": "tre", "intensity": "high", "days_needed": 3, "preferred_time": "morning", "venue_notes": "Needs space for movement — Asteroid or Sky" },
+      { "session": "Mobility via Kalari", "facilitator": "tre", "intensity": "medium", "days_needed": 1, "preferred_time": "morning", "venue_notes": "Needs space for movement" },
+      { "session": "Animal Flow", "facilitator": "vipindas", "intensity": "high", "days_needed": 2, "preferred_time": "morning", "venue_notes": "Needs floor space — Asteroid or Sky" },
+      { "session": "Tai Chi & Qi Gong", "facilitator": "hinoki-dogu", "intensity": "low", "days_needed": 2, "preferred_time": "early_morning", "venue_notes": "TBC facilitator" },
+      { "session": "Aerial Yoga", "facilitator": "sonia", "intensity": "medium", "days_needed": 2, "preferred_time": "morning", "venue_notes": "Needs rigging — Comet (circus shala)" },
+      { "session": "Mat Pilates", "facilitator": "pooja", "intensity": "medium", "days_needed": 2, "preferred_time": "morning", "venue_notes": "Any flat floor shala" },
+      { "session": "Contact Improv", "facilitator": "kaprila", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Needs floor space — Asteroid" },
+      { "session": "Somatic Movement", "facilitator": "sonia", "intensity": "low-medium", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Quiet shala" }
+    ],
+    "dance": [
+      { "session": "Bhangra", "facilitator": "folking-desi", "intensity": "high", "days_needed": 2, "preferred_time": "morning_or_afternoon", "venue_notes": "High energy — Asteroid or Sky" },
+      { "session": "Belly Dance", "facilitator": "aakriti", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Any shala" },
+      { "session": "Sensual Bollywood", "facilitator": "dhanisa", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Any shala" },
+      { "session": "Indo Contemporary", "facilitator": "dhanisa", "intensity": "medium", "days_needed": 1, "preferred_time": "afternoon", "venue_notes": "Any shala" },
+      { "session": "Bharatnatyam Fusion", "facilitator": "disha", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Any shala" },
+      { "session": "Expressions & Hand Gestures", "facilitator": "disha", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "venue_notes": "Intimate — Stardust" },
+      { "session": "Bachata", "facilitator": "maya", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Any shala" },
+      { "session": "Afro Dance", "facilitator": "sadashiv", "intensity": "high", "days_needed": 2, "preferred_time": "afternoon", "venue_notes": "Needs space — Asteroid or Sky" }
+    ],
+    "healing_breath_music": [
+      { "session": "Soul Kirtan", "facilitator": "gouranga", "intensity": "low", "days_needed": 1, "preferred_time": "early_morning_or_evening", "needs_sound": false, "venue_notes": "Can be acoustic" },
+      { "session": "Kirtan", "facilitator": "nad-mandala", "intensity": "low", "days_needed": 1, "preferred_time": "early_morning", "needs_sound": false, "venue_notes": "Can be acoustic" },
+      { "session": "Kirtan", "facilitator": "ananda-flow", "intensity": "low", "days_needed": 1, "preferred_time": "early_morning", "needs_sound": false, "venue_notes": "Can be acoustic" },
+      { "session": "Aum Chanting", "facilitator": "varun+ankit", "intensity": "low", "days_needed": 1, "preferred_time": "early_morning", "needs_sound": false, "venue_notes": "Any shala" },
+      { "session": "Trippy Yoga Nidra", "facilitator": "varun+ankit", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Quiet shala — Stardust or Nebula" },
+      { "session": "Moon Choir", "facilitator": "kaprila", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Any shala, intimate" },
+      { "session": "Vocal Release & Expression", "facilitator": "bethan", "intensity": "medium", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Away from quiet sessions — Asteroid or Comet" },
+      { "session": "Voice Activation", "facilitator": "lauren-leonie", "intensity": "medium", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Any shala" },
+      { "session": "Heart-Centred Breathwork", "facilitator": "karishma", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Quiet, intimate — Stardust or Nebula" },
+      { "session": "Shamanic Rose Healing", "facilitator": "karishma", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Quiet, intimate — Stardust or Nebula" },
+      { "session": "Sufi Singing", "facilitator": "anushaw", "intensity": "low", "days_needed": 2, "preferred_time": "morning_or_afternoon", "needs_sound": false, "venue_notes": "Acoustic, intimate" },
+      { "session": "Death Meditation", "facilitator": "pradesh-raj", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Very quiet — Stardust or Nebula" }
+    ],
+    "play_art": [
+      { "session": "Joy Alchemy", "facilitator": "chris", "intensity": "high", "days_needed": 2, "preferred_time": "afternoon", "needs_sound": true, "venue_notes": "Chris's workshop — Space or large shala with sound" },
+      { "session": "Unity Circle", "facilitator": "chris", "intensity": "medium", "days_needed": 1, "preferred_time": "saturday_lunch", "needs_sound": true, "venue_notes": "Space — Saturday lunch, confirmed with Chris" },
+      { "session": "Flow Arts", "facilitator": "alice", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Needs open space — Comet (circus shala)" },
+      { "session": "Clownery", "facilitator": "alice", "intensity": "medium", "days_needed": 2, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Comet" },
+      { "session": "Saree & Lungi Ceremony", "facilitator": "disha", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon", "needs_sound": false, "venue_notes": "Space or outdoor area" },
+      { "session": "Tye & Dye Art", "facilitator": "shreya", "intensity": "low", "days_needed": 2, "preferred_time": "anytime", "needs_sound": false, "venue_notes": "Needs water access" },
+      { "session": "Cyanotype Tote Bag Painting", "facilitator": "shreya", "intensity": "low", "days_needed": 1, "preferred_time": "anytime", "needs_sound": false, "venue_notes": "Needs sunlight" },
+      { "session": "Make Your Forest Mask", "facilitator": "dryad", "intensity": "low", "days_needed": 1, "preferred_time": "anytime", "needs_sound": false, "venue_notes": "Any space" },
+      { "session": "Installation Making", "facilitator": "shital", "intensity": "low", "days_needed": 2, "preferred_time": "anytime", "needs_sound": false, "venue_notes": "Ongoing/drop-in" }
+    ],
+    "talks": [
+      { "session": "Ayurveda (Talk)", "facilitator": "dr-kanchan", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon_post_brunch", "needs_sound": false, "venue_notes": "Intimate — Stardust or Asteroid" },
+      { "session": "Yoga & Samkhya Sutra (Talk)", "facilitator": "varun", "intensity": "low", "days_needed": 1, "preferred_time": "afternoon_post_brunch", "needs_sound": false, "venue_notes": "Intimate" }
+    ],
+    "evening_shows": [
+      { "session": "The Elevate Show", "facilitator": "chris", "needs_sound": true, "venue": "space", "preferred_days": ["sat"], "note": "Saturday night — confirmed with Chris" },
+      { "session": "Welsh Ceremonial Incantations", "facilitator": "bethan", "needs_sound": true, "venue": "space", "preferred_days": ["fri", "sat", "sun"] },
+      { "session": "Ecstatic Dance & Cacao", "facilitator": "martin", "needs_sound": true, "venue": "space", "preferred_days": ["fri"] },
+      { "session": "Hindi Film Retro Band", "facilitator": "bageecha", "needs_sound": true, "venue": "space", "preferred_days": ["sat"] },
+      { "session": "Ecstatic Dance & Cacao", "facilitator": "annida", "needs_sound": true, "venue": "space", "preferred_days": ["sun"] },
+      { "session": "Latin Fusion", "facilitator": "luna-viajera", "needs_sound": true, "venue": "space", "preferred_days": ["sat", "sun"] },
+      { "session": "Wild Afro Drum Circle", "facilitator": "aditya", "needs_sound": false, "venue": "asteroid", "preferred_days": ["fri", "sat", "sun"], "note": "Acoustic — can run in Asteroid" }
+    ]
+  }
+}
