@@ -1081,6 +1081,7 @@ async function sendNewBookingAlert({ booking, guests, amountWithGst }) {
   if (booking.promo_code) bookingRows += row('Promo Code', booking.promo_code);
   if (addonLines.length) bookingRows += row('Add-ons', addonLines.join('<br>'));
   if (booking.gst_number || booking.gst_name) bookingRows += row('GST', [booking.gst_name, booking.gst_number].filter(Boolean).join(' · '));
+  if (booking.referral_source) bookingRows += row('Heard about us', booking.referral_source);
   if (booking.organizer_note) bookingRows += row('Note', booking.organizer_note);
 
   // Guest rows

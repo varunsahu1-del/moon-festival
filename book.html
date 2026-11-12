@@ -700,6 +700,29 @@
           </div>
         </div>
 
+        <!-- How did you hear about us -->
+        <div style="margin-top:2rem;">
+          <label class="booking-label" for="bf-referral-source">How did you hear about us?</label>
+          <select class="booking-input" id="bf-referral-source" onchange="document.getElementById('bf-referral-custom').style.display=this.value==='Other'?'block':'none'" style="background:#191406;color:rgba(237,212,178,0.75);cursor:pointer;">
+            <option value="">— Select —</option>
+            <option value="Instagram Ad">Instagram Ad</option>
+            <option value="Instagram Ad - DM campaign">Instagram Ad — DM campaign</option>
+            <option value="Instagram Ad - WhatsApp campaign">Instagram Ad — WhatsApp campaign</option>
+            <option value="Instagram Post (organic)">Instagram Post (organic)</option>
+            <option value="Through a friend">Through a friend</option>
+            <option value="Through family">Through family</option>
+            <option value="Been following us">Been following us for a while</option>
+            <option value="Previous attendee">Previous retreat attendee</option>
+            <option value="Previous Moon attendee">Previous Moon attendee</option>
+            <option value="Facilitator recommendation">Facilitator recommendation</option>
+            <option value="Google Search">Google Search</option>
+            <option value="ChatGPT / AI">ChatGPT / AI</option>
+            <option value="WhatsApp">WhatsApp forward / group</option>
+            <option value="Other">Other…</option>
+          </select>
+          <input class="booking-input" id="bf-referral-custom" type="text" placeholder="Describe how you heard…" style="display:none;margin-top:8px;" />
+        </div>
+
         <!-- Billing details toggle -->
         <div style="margin-top:2rem;">
           <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;">
@@ -1476,6 +1499,7 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
         gstNumber: document.getElementById('bf-gst-number').value || null,
         gstName:   document.getElementById('bf-gst-name').value || null,
         promoCode: window._promoCode || null,
+        referralSource: (function(){ var s=document.getElementById('bf-referral-source'); if(!s) return null; if(s.value==='Other'){ var c=document.getElementById('bf-referral-custom'); return (c&&c.value.trim())||'Other'; } return s.value||null; })(),
       })
     });
     bookingData = await res.json();
