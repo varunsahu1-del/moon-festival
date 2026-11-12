@@ -9,6 +9,13 @@ const db = new DatabaseSync(path.join(dataDir, 'moonfestival.db'));
 
 db.exec(`PRAGMA journal_mode = WAL`);
 db.exec(`PRAGMA foreign_keys = ON`);
+// Durability hardening (prevents the WAL-loss-on-restart bug):
+// - synchronous=NORMAL is safe under WAL and fsyncs at each checkpoint
+// - autocheckpoint every 100 pages (~400KB) so the main .db never lags far behind
+// - busy_timeout so a concurrent checkpoint/writer waits instead of erroring
+try { db.exec(`PRAGMA synchronous = NORMAL`); } catch (_) {}
+try { db.exec(`PRAGMA wal_autocheckpoint = 100`); } catch (_) {}
+try { db.exec(`PRAGMA busy_timeout = 5000`); } catch (_) {}
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS bookings (
@@ -165,4 +172,21 @@ function nextRef() {
   return 'MF-' + String((row.m || 0) + 1).padStart(4, '0');
 }
 
-module.exports = { db, nextRef };
+// Fold the WAL sidecar into the main .db file. TRUNCATE resets the WAL after.
+function checkpoint() {
+  try { db.exec('PRAGMA wal_checkpoint(TRUNCATE)'); } catch (_) {}
+}
+
+// Checkpoint + close cleanly. Called from the process shutdown handlers so a
+// deploy/restart can never leave recent writes stranded in the WAL again.
+function closeDb() {
+  try { checkpoint(); } catch (_) {}
+  try { db.close(); } catch (_) {}
+}
+
+// Safety net independent of clean shutdown: fold the WAL into the main DB every
+// 30s, so even an un-graceful kill (OOM, power loss) loses at most ~30s of writes.
+// unref() so this timer never keeps the process alive on its own.
+try { setInterval(checkpoint, 30000).unref(); } catch (_) {}
+
+module.exports = { db, nextRef, checkpoint, closeDb };

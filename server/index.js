@@ -111,9 +111,26 @@ function scheduleDailyBackup() {
 }
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`\n🌙 Moon Festival server running at http://localhost:${PORT}`);
   console.log(`   Admin dashboard: http://localhost:${PORT}/admin\n`);
   startDailyReport();
   scheduleDailyBackup();
 });
+
+// Graceful shutdown: on a deploy/restart (pm2 sends SIGINT/SIGTERM) checkpoint
+// the SQLite WAL and close the DB so recent bookings are never lost. This is the
+// fix for the WAL-loss-on-restart data-loss bug.
+const { closeDb } = require('./db');
+let shuttingDown = false;
+function shutdown(signal) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`[shutdown] ${signal} received — checkpointing DB and closing`);
+  try { closeDb(); } catch (e) { console.error('[shutdown] closeDb failed:', e.message); }
+  try { server.close(() => process.exit(0)); } catch (_) { process.exit(0); }
+  // Hard fallback if connections keep the socket open
+  setTimeout(() => process.exit(0), 3000).unref();
+}
+process.on('SIGINT',  () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
