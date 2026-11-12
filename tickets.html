@@ -608,6 +608,30 @@
     @media (max-width: 480px) {
       .festival-grid { grid-template-columns: 1fr !important; }
     }
+    .fp-pass-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 767px) {
+      .fp-pass-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.75rem;
+        padding-left: clamp(1.2rem,4vw,2.5rem);
+        padding-right: clamp(1.2rem,4vw,2.5rem);
+        padding-bottom: 0.5rem;
+        margin-left: calc(-1 * clamp(1.2rem,4vw,2.5rem));
+        margin-right: calc(-1 * clamp(1.2rem,4vw,2.5rem));
+        width: calc(100% + 2 * clamp(1.2rem,4vw,2.5rem));
+        scrollbar-width: none;
+      }
+      .fp-pass-grid::-webkit-scrollbar { display: none; }
+      .fp-pass-grid .venue-card {
+        flex: 0 0 78vw;
+        max-width: 320px;
+        scroll-snap-align: start;
+      }
+    }
 
     /* ── VENUE CARD ──────────────────────────────────── */
     .venue-card {
@@ -2362,7 +2386,7 @@
 
     <!-- booking section (shown when festival_pass_open = true) -->
     <div style="padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,4vw,2.5rem);">
-      <div class="venue-grid" style="max-width:960px;margin-bottom:0;">
+      <div class="venue-grid fp-pass-grid" style="max-width:960px;margin-bottom:0;">
 
         <!-- ── Full Festival Pass ── -->
         <div class="venue-card" style="position:relative;">
@@ -2372,14 +2396,11 @@
             <div class="venue-meta" style="margin-bottom:0.3rem;">
               <h3 class="venue-name" style="margin-top:0.5rem;">Full Festival Pass</h3>
             </div>
-            <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.45);margin:0.2rem 0 0.7rem;line-height:1.5;">Every workshop, ceremony &amp; performance. 27–29 Nov.</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0.2rem 0 1rem;line-height:1.5;">27–29 Nov · All access.</p>
             <ul class="room-list">
               <li class="room-row">
                 <div class="room-top">
-                  <div class="room-info">
-                    <p class="room-type" style="color:#B06030;">3 Days Festival Pass</p>
-                    <p class="room-note">Fri · Sat · Sun</p>
-                  </div>
+                  <div class="room-info"></div>
                   <div class="price-wrap"><span class="room-price" id="fp3-price" style="font-family:'Open Sans',sans-serif;">₹21,000</span></div>
                 </div>
                 <div class="room-bottom">
@@ -2405,14 +2426,11 @@
             <div class="venue-meta">
               <h3 class="venue-name">Weekend Pass</h3>
             </div>
-            <p style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.55);margin:0.1rem 0 1.4rem;line-height:1.5;">Full access · 28–29 Nov.</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0.1rem 0 1rem;line-height:1.5;">28–29 Nov · Full access.</p>
             <ul class="room-list">
               <li class="room-row">
                 <div class="room-top">
-                  <div class="room-info">
-                    <p class="room-type">Weekend Pass</p>
-                    <p class="room-note">Sat &amp; Sun</p>
-                  </div>
+                  <div class="room-info"></div>
                   <div class="price-wrap"><span class="room-price" id="wknd-price" style="font-family:'Open Sans',sans-serif;">₹14,500</span></div>
                 </div>
                 <div class="room-bottom">
@@ -2438,7 +2456,7 @@
             <div class="venue-meta">
               <h3 class="venue-name">Single Day Pass</h3>
             </div>
-            <p style="font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:300;color:rgba(237,212,178,0.55);margin:0.1rem 0 0.8rem;line-height:1.5;">Full access · choose Fri 27, Sat 28 or Sun 29 Nov.</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(237,212,178,0.4);margin:0.1rem 0 0.8rem;line-height:1.5;">Choose your day.</p>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem;margin-bottom:0.9rem;" id="dayToggleRow">
               <button id="dayBtn-fri" onclick="toggleDay('fri')" style="padding:0.65rem 0.3rem;border:0.5px solid rgba(176,96,48,0.25);background:transparent;color:rgba(237,212,178,0.45);font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.15s;text-align:center;">
                 <span style="display:block;font-size:0.88rem;font-weight:700;line-height:1.2;">FRI</span><span style="font-size:0.6rem;font-weight:300;">27 Nov</span>
@@ -2453,10 +2471,7 @@
             <ul class="room-list">
               <li class="room-row">
                 <div class="room-top">
-                  <div class="room-info">
-                    <p class="room-type">Single Day Pass</p>
-                    <p class="room-note">Pick a day above</p>
-                  </div>
+                  <div class="room-info"></div>
                   <div class="price-wrap"><span class="room-price" id="sdp-price" style="font-family:'Open Sans',sans-serif;">₹7,500</span></div>
                 </div>
                 <div class="room-bottom">
@@ -2479,113 +2494,86 @@
     </div>
 
     <!-- ── Individual Event Tickets ── -->
-    <div style="padding:0 clamp(1.2rem,4vw,2.5rem) clamp(1.5rem,4vw,2.5rem);">
-      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;margin-top:0.5rem;">
-        <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.2);"></div>
-        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;white-space:nowrap;margin:0;">Individual Event Tickets</p>
-        <div style="flex:1;height:0.5px;background:rgba(237,212,178,0.2);"></div>
+    <div id="event-tickets" style="padding:0 clamp(1.2rem,4vw,2.5rem) clamp(1.5rem,4vw,2.5rem);">
+      <div style="text-align:center;padding:2.5rem 0 1.8rem;">
+        <!-- ticket icon -->
+        <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1.1rem;opacity:0.7;">
+          <rect x="1" y="1" width="42" height="26" rx="4" stroke="#C8783A" stroke-width="1.2"/>
+          <circle cx="10" cy="14" r="3.5" stroke="#C8783A" stroke-width="1.2"/>
+          <line x1="17" y1="9" x2="36" y2="9" stroke="#C8783A" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="17" y1="14" x2="36" y2="14" stroke="#C8783A" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="17" y1="19" x2="29" y2="19" stroke="#C8783A" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:clamp(1rem,2.5vw,1.35rem);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;">Individual Event Tickets</p>
+        <p style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,120,58,0.7);margin:0 0 1.2rem;">Single event access</p>
+        <div style="width:40px;height:0.5px;background:rgba(237,212,178,0.25);margin:0 auto 1.4rem;"></div>
+        <p style="font-family:'Open Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.18rem);font-weight:300;line-height:1.85;color:rgba(237,212,178,0.88);margin:0 auto;max-width:620px;text-wrap:balance;"><strong style="font-weight:600;">Three of our events are available as standalone tickets online.</strong> If you'd like to attend any other individual workshop or session, those tickets are available at the venue on the day.</p>
       </div>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.45);margin:0 0 1.5rem;text-align:center;line-height:1.5;">Attend a single performance or ceremony. ₹1,000 per ticket + 5% GST.</p>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
 
-        <!-- Luna Viajera – Friday -->
-        <div class="venue-card" style="overflow:hidden;padding:0;cursor:pointer;" onclick="openFpModal('Luna Viajera – Live Band',1000,['27 Nov (Fri)'],1,0)">
-          <div style="height:190px;background-image:url('Facilitator Photos/Luna Viajera.jpg');background-size:cover;background-position:50% 25%;position:relative;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,8,6,0.88) 100%);"></div>
-            <span style="position:absolute;top:0.6rem;left:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.9);color:#EDD4B2;padding:4px 8px;">FRI · 27 NOV</span>
-            <div style="position:absolute;bottom:0.75rem;left:0.8rem;right:0.8rem;">
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.3;">Luna Viajera</p>
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0;">Latin Fusion Band</p>
-            </div>
+        <!-- Luna Viajera – Friday [hidden] -->
+        <div style="display:none;" onclick="openFpModal('Luna Viajera – Latin Fusion Band',1000,['27 Nov (Fri)'],1,0)"></div>
+
+        <!-- Martin – Ecstatic Ceremony – Saturday -->
+        <div onclick="openFpModal('Martin – Ecstatic Ceremony',1000,['28 Nov (Sat)'],1,0)" style="border-radius:10px;overflow:hidden;cursor:pointer;position:relative;height:300px;background-image:url('Facilitator%20Photos/MArtin%20Dubois%20Ecstatic%20Ceremony.webp');background-size:cover;background-position:50% 25%;transition:transform 0.2s ease;" onmouseenter="this.style.transform='scale(1.02)'" onmouseleave="this.style.transform='scale(1)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(10,8,6,0.5) 45%,rgba(10,8,6,0.95) 100%);"></div>
+          <div style="position:absolute;top:0.75rem;left:0.75rem;">
+            <span style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.92);color:#EDD4B2;padding:4px 10px;border-radius:2px;">SAT · 28 NOV</span>
           </div>
-          <div style="padding:0.85rem 1rem;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;color:#B06030;">₹1,000</span>
-            <button class="btn-book" style="margin:0;" onclick="event.stopPropagation();openFpModal('Luna Viajera – Live Band',1000,['27 Nov (Fri)'],1,0)">Book</button>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.1rem 1rem 0.9rem;">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8783A;margin:0 0 0.3rem;">Martin</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:1.15rem;font-weight:700;color:#EDD4B2;margin:0 0 0.9rem;line-height:1.2;letter-spacing:0.01em;">Ecstatic Ceremony</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(237,212,178,0.12);padding-top:0.7rem;">
+              <span style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:600;color:#C8783A;">₹1,000 <span style="font-size:0.65rem;font-weight:400;color:rgba(237,212,178,0.45);">+ GST</span></span>
+              <button onclick="event.stopPropagation();openFpModal('Martin – Ecstatic Ceremony',1000,['28 Nov (Sat)'],1,0)" style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:#B06030;color:#EDD4B2;border:none;border-radius:3px;padding:7px 16px;cursor:pointer;">Book</button>
+            </div>
           </div>
         </div>
 
-        <!-- Martin's Ecstatic Dance – Saturday -->
-        <div class="venue-card" style="overflow:hidden;padding:0;cursor:pointer;" onclick="openFpModal('Martin\'s Ecstatic Dance',1000,['28 Nov (Sat)'],1,0)">
-          <div style="height:190px;background-image:url('Facilitator Photos/Martin Ecstatic Ceremony.jpg');background-size:cover;background-position:50% 25%;position:relative;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,8,6,0.88) 100%);"></div>
-            <span style="position:absolute;top:0.6rem;left:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.9);color:#EDD4B2;padding:4px 8px;">SAT · 28 NOV</span>
-            <div style="position:absolute;bottom:0.75rem;left:0.8rem;right:0.8rem;">
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.3;">Martin's Ecstatic Dance</p>
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0;">Martin Dubois</p>
-            </div>
+        <!-- Chris Fitchew – The Elevate Show [hidden] -->
+        <div style="display:none;" onclick="openFpModal('Chris Fitchew – The Elevate Show',1000,['28 Nov (Sat)'],1,0)"></div>
+
+        <!-- Bageecha – Hindi Film Retro Band – Sunday -->
+        <div onclick="openFpModal('Bageecha – Hindi Film Retro Band',1000,['29 Nov (Sun)'],1,0)" style="border-radius:10px;overflow:hidden;cursor:pointer;position:relative;height:300px;background-image:url('Facilitator%20Photos/bageecha.webp');background-size:cover;background-position:50% 30%;transition:transform 0.2s ease;" onmouseenter="this.style.transform='scale(1.02)'" onmouseleave="this.style.transform='scale(1)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(10,8,6,0.5) 45%,rgba(10,8,6,0.95) 100%);"></div>
+          <div style="position:absolute;top:0.75rem;left:0.75rem;">
+            <span style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.92);color:#EDD4B2;padding:4px 10px;border-radius:2px;">SUN · 29 NOV</span>
           </div>
-          <div style="padding:0.85rem 1rem;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;color:#B06030;">₹1,000</span>
-            <button class="btn-book" style="margin:0;" onclick="event.stopPropagation();openFpModal('Martin\'s Ecstatic Dance',1000,['28 Nov (Sat)'],1,0)">Book</button>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.1rem 1rem 0.9rem;">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8783A;margin:0 0 0.3rem;">Bageecha</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:1.15rem;font-weight:700;color:#EDD4B2;margin:0 0 0.9rem;line-height:1.2;letter-spacing:0.01em;">Hindi Film Retro Band</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(237,212,178,0.12);padding-top:0.7rem;">
+              <span style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:600;color:#C8783A;">₹1,000 <span style="font-size:0.65rem;font-weight:400;color:rgba(237,212,178,0.45);">+ GST</span></span>
+              <button onclick="event.stopPropagation();openFpModal('Bageecha – Hindi Film Retro Band',1000,['29 Nov (Sun)'],1,0)" style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:#B06030;color:#EDD4B2;border:none;border-radius:3px;padding:7px 16px;cursor:pointer;">Book</button>
+            </div>
           </div>
         </div>
 
-        <!-- Chris's Elevate Show – Saturday -->
-        <div class="venue-card" style="overflow:hidden;padding:0;cursor:pointer;" onclick="openFpModal('Chris\'s Elevate Show',1000,['28 Nov (Sat)'],1,0)">
-          <div style="height:190px;background-image:url('Facilitator Photos/Chris Fitchew Elevate Show.jpg');background-size:cover;background-position:50% 25%;position:relative;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,8,6,0.88) 100%);"></div>
-            <span style="position:absolute;top:0.6rem;left:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.9);color:#EDD4B2;padding:4px 8px;">SAT · 28 NOV</span>
-            <div style="position:absolute;bottom:0.75rem;left:0.8rem;right:0.8rem;">
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.3;">The Elevate Show</p>
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0;">Chris Fitchew</p>
-            </div>
+        <!-- Annida – Ecstatic Ceremony – Sunday -->
+        <div onclick="openFpModal('Annida – Ecstatic Ceremony',1000,['29 Nov (Sun)'],1,0)" style="border-radius:10px;overflow:hidden;cursor:pointer;position:relative;height:300px;background-image:url('Facilitator%20Photos/Annida%2070.webp');background-size:cover;background-position:50% 20%;transition:transform 0.2s ease;" onmouseenter="this.style.transform='scale(1.02)'" onmouseleave="this.style.transform='scale(1)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(10,8,6,0.5) 45%,rgba(10,8,6,0.95) 100%);"></div>
+          <div style="position:absolute;top:0.75rem;left:0.75rem;">
+            <span style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.92);color:#EDD4B2;padding:4px 10px;border-radius:2px;">SUN · 29 NOV</span>
           </div>
-          <div style="padding:0.85rem 1rem;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;color:#B06030;">₹1,000</span>
-            <button class="btn-book" style="margin:0;" onclick="event.stopPropagation();openFpModal('Chris\'s Elevate Show',1000,['28 Nov (Sat)'],1,0)">Book</button>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.1rem 1rem 0.9rem;">
+            <p style="font-family:'Open Sans',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8783A;margin:0 0 0.3rem;">Annida</p>
+            <p style="font-family:'Open Sans',sans-serif;font-size:1.15rem;font-weight:700;color:#EDD4B2;margin:0 0 0.9rem;line-height:1.2;letter-spacing:0.01em;">Ecstatic Ceremony</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(237,212,178,0.12);padding-top:0.7rem;">
+              <span style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:600;color:#C8783A;">₹1,000 <span style="font-size:0.65rem;font-weight:400;color:rgba(237,212,178,0.45);">+ GST</span></span>
+              <button onclick="event.stopPropagation();openFpModal('Annida – Ecstatic Ceremony',1000,['29 Nov (Sun)'],1,0)" style="font-family:'Open Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:#B06030;color:#EDD4B2;border:none;border-radius:3px;padding:7px 16px;cursor:pointer;">Book</button>
+            </div>
           </div>
         </div>
 
-        <!-- Drum Circle – Sunday -->
-        <div class="venue-card" style="overflow:hidden;padding:0;cursor:pointer;" onclick="openFpModal('Drum Circle',1000,['29 Nov (Sun)'],1,0)">
-          <div style="height:190px;background-image:url('Facilitator Photos/aditya.jpg');background-size:cover;background-position:50% 40%;position:relative;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,8,6,0.88) 100%);"></div>
-            <span style="position:absolute;top:0.6rem;left:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.9);color:#EDD4B2;padding:4px 8px;">SUN · 29 NOV</span>
-            <div style="position:absolute;bottom:0.75rem;left:0.8rem;right:0.8rem;">
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.3;">Drum Circle</p>
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0;">Aditya Prabhu</p>
-            </div>
-          </div>
-          <div style="padding:0.85rem 1rem;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;color:#B06030;">₹1,000</span>
-            <button class="btn-book" style="margin:0;" onclick="event.stopPropagation();openFpModal('Drum Circle',1000,['29 Nov (Sun)'],1,0)">Book</button>
-          </div>
-        </div>
+        <!-- Kaprila – Moon Choir [hidden] -->
+        <div style="display:none;" onclick="openFpModal('Kaprila – Moon Choir',1000,['29 Nov (Sun)'],1,0)"></div>
 
-        <!-- Bagicha Band – Sunday -->
-        <div class="venue-card" style="overflow:hidden;padding:0;cursor:pointer;" onclick="openFpModal('Bagicha – Live Band',1000,['29 Nov (Sun)'],1,0)">
-          <div style="height:190px;background:linear-gradient(135deg,rgba(80,50,20,0.9) 0%,rgba(30,20,10,1) 100%);position:relative;display:flex;align-items:center;justify-content:center;">
-            <span style="position:absolute;top:0.6rem;left:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.9);color:#EDD4B2;padding:4px 8px;">SUN · 29 NOV</span>
-            <div style="text-align:center;padding:0 1rem;">
-              <p style="font-family:'Josefin Sans',sans-serif;font-size:1.8rem;font-weight:300;color:rgba(237,212,178,0.25);letter-spacing:0.1em;margin:0;">♪</p>
-            </div>
-            <div style="position:absolute;bottom:0.75rem;left:0.8rem;right:0.8rem;">
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.3;">Bagicha</p>
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0;">Live Band</p>
-            </div>
-          </div>
-          <div style="padding:0.85rem 1rem;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;color:#B06030;">₹1,000</span>
-            <button class="btn-book" style="margin:0;" onclick="event.stopPropagation();openFpModal('Bagicha – Live Band',1000,['29 Nov (Sun)'],1,0)">Book</button>
-          </div>
-        </div>
+        <!-- Aditya – Afro Drum Circle [hidden] -->
+        <div style="display:none;" onclick="openFpModal('Aditya – Afro Drum Circle',1000,['29 Nov (Sun)'],1,0)"></div>
 
-        <!-- Anaida's Ecstatic – Sunday -->
-        <div class="venue-card" style="overflow:hidden;padding:0;cursor:pointer;" onclick="openFpModal('Anaida\'s Ecstatic Ceremony',1000,['29 Nov (Sun)'],1,0)">
-          <div style="height:190px;background-image:url('Facilitator Photos/Annida 70.jpg');background-size:cover;background-position:50% 25%;position:relative;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,8,6,0.88) 100%);"></div>
-            <span style="position:absolute;top:0.6rem;left:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.9);color:#EDD4B2;padding:4px 8px;">SUN · 29 NOV</span>
-            <div style="position:absolute;bottom:0.75rem;left:0.8rem;right:0.8rem;">
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#EDD4B2;margin:0 0 0.15rem;line-height:1.3;">Anaida's Ecstatic</p>
-              <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.6);margin:0;">Anaida Kathuria</p>
-            </div>
-          </div>
-          <div style="padding:0.85rem 1rem;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;color:#B06030;">₹1,000</span>
-            <button class="btn-book" style="margin:0;" onclick="event.stopPropagation();openFpModal('Anaida\'s Ecstatic Ceremony',1000,['29 Nov (Sun)'],1,0)">Book</button>
-          </div>
-        </div>
+        <!-- Chris Fitchew – Moon Olympics [hidden] -->
+        <div style="display:none;" onclick="openFpModal('Chris Fitchew – Moon Olympics',1000,['28 Nov (Sat)'],1,0)"></div>
 
       </div><!-- /event-tickets-grid -->
     </div><!-- /event-tickets section -->
@@ -3393,7 +3381,7 @@ document.addEventListener('keydown', e => {
           const isDorm = roomType.toLowerCase().includes('dorm');
           const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
           const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-          addBadge('inv-badge--low', 'Last ' + displayCount + unit);
+          addBadge('inv-badge--low', displayCount === 1 ? 'Only one left' : 'Last ' + displayCount + unit);
         }
         return;
       }
@@ -3427,7 +3415,7 @@ document.addEventListener('keydown', e => {
             const genderPrefix = onlyMen ? 'Men · ' : onlyWomen ? 'Women · ' : '';
             const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
             const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-            addBadge('inv-badge--low', genderPrefix + 'Last ' + displayCount + unit);
+            addBadge('inv-badge--low', displayCount === 1 ? (genderPrefix ? genderPrefix + 'only one left' : 'Only one left') : genderPrefix + 'Last ' + displayCount + unit);
           }
         }
       }
@@ -4096,6 +4084,35 @@ function fmtPrice(n) {
 
     <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.3);margin:1.4rem 0 1.8rem;line-height:1.6;">5% GST is included in the total above. For a GST invoice, add billing details above.</p>
 
+    <!-- Referral source -->
+    <div class="fp-modal-field" style="margin-bottom:0.9rem;">
+      <label class="fp-modal-label">How did they hear about us?</label>
+      <select class="fp-modal-input" id="fpReferralSource" onchange="fpToggleReferralCustom()" style="background:#191406;color:rgba(237,212,178,0.75);border:0.5px solid rgba(176,96,48,0.3);padding:0.6rem 0.5rem;font-family:'Open Sans',sans-serif;font-size:0.78rem;width:100%;cursor:pointer;">
+        <option value="">— Select —</option>
+        <option value="Instagram Ad">Instagram Ad</option>
+        <option value="Instagram Ad - DM campaign">Instagram Ad — DM campaign</option>
+        <option value="Instagram Ad - WhatsApp campaign">Instagram Ad — WhatsApp campaign</option>
+        <option value="Instagram Post (organic)">Instagram Post (organic)</option>
+        <option value="Through a friend">Through a friend</option>
+        <option value="Through family">Through family</option>
+        <option value="Been following us">Been following us for a while</option>
+        <option value="Previous attendee">Previous retreat attendee</option>
+        <option value="Previous Moon attendee">Previous Moon attendee</option>
+        <option value="Facilitator recommendation">Facilitator recommendation</option>
+        <option value="Google Search">Google Search</option>
+        <option value="ChatGPT / AI">ChatGPT / AI</option>
+        <option value="WhatsApp">WhatsApp forward / group</option>
+        <option value="Other">Other…</option>
+      </select>
+      <input class="fp-modal-input" id="fpReferralCustom" type="text" placeholder="Describe how they heard…" style="display:none;margin-top:6px;" />
+    </div>
+
+    <!-- Payment note -->
+    <div class="fp-modal-field" style="margin-bottom:1.8rem;">
+      <label class="fp-modal-label">Payment note <span style="opacity:0.4;font-weight:300;">(optional)</span></label>
+      <input class="fp-modal-input" id="fpPaymentNote" type="text" placeholder="e.g. Cash, UPI to Varun, bank transfer…" />
+    </div>
+
     <button class="fp-modal-proceed" id="fpProceedBtn" onclick="fpProceed()">Continue to payment</button>
     <p class="fp-modal-error" id="fpError"></p>
   </div>
@@ -4437,7 +4454,7 @@ function fmtPrice(n) {
     _fpMealDaysMax = passName === 'Full Festival Pass' ? 3 : passName === 'Weekend Pass' ? 2 : 1;
     _fpDays = days || [];
     var mealsRow = document.getElementById('fpMealsAddonRow');
-    if (mealsRow) mealsRow.style.display = 'block';
+    if (mealsRow) mealsRow.style.display = (mealsPerPerson === 0) ? 'none' : 'block';
     updateMealsCardVisual();
     var mDesc = document.getElementById('fpMealsDesc');
     if (mDesc) {
@@ -4448,6 +4465,9 @@ function fmtPrice(n) {
     // Reset coupon UI
     var ci = document.getElementById('fpCouponInput'); if (ci) { ci.value = ''; ci.disabled = false; }
     var cm = document.getElementById('fpCouponMsg'); if (cm) { cm.style.display = 'none'; }
+    var rs = document.getElementById('fpReferralSource'); if (rs) rs.value = '';
+    var rc = document.getElementById('fpReferralCustom'); if (rc) { rc.value = ''; rc.style.display = 'none'; }
+    var pn = document.getElementById('fpPaymentNote'); if (pn) pn.value = '';
     var cab = document.querySelector('#fpModalOverlay button[onclick="fpApplyCoupon()"]');
     if (cab) { cab.disabled = false; cab.style.opacity = '1'; }
     document.getElementById('fpModalTitle').textContent=passName;
@@ -4547,6 +4567,12 @@ function fmtPrice(n) {
     return g;
   }
 
+  window.fpToggleReferralCustom = function() {
+    var sel=document.getElementById('fpReferralSource');
+    var custom=document.getElementById('fpReferralCustom');
+    if(custom) custom.style.display=(sel&&sel.value==='Other')?'block':'none';
+  };
+
   window.fpProceed = async function() {
     var btn=document.getElementById('fpProceedBtn');
     var g=fpCollect();
@@ -4560,6 +4586,12 @@ function fmtPrice(n) {
       if(_fpDays&&_fpDays.length) payload.daysSelected=_fpDays.join(', ');
       if(_fpCouponCode) payload.promoCode=_fpCouponCode;
       if(_fpMealDays){var mAmt=_fpMealDays*MEAL_DAY_PRICE;payload.addons=mAmt+':Meals ('+_fpMealDays+' day'+(_fpMealDays>1?'s':'')+')';}
+      var refSel=document.getElementById('fpReferralSource');
+      var refCustom=document.getElementById('fpReferralCustom');
+      var refVal=refSel&&refSel.value==='Other'?(refCustom&&refCustom.value.trim()||'Other'):((refSel&&refSel.value)||'');
+      if(refVal) payload.referralSource=refVal;
+      var payNote=(document.getElementById('fpPaymentNote')||{}).value||'';
+      if(payNote.trim()) payload.organizerNote=payNote.trim();
       var res=await fetch('/api/bookings/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       var data=await res.json();
       if(!res.ok){fpShowError(data.error||'Something went wrong.');btn.disabled=false;btn.textContent='Continue to payment';return;}

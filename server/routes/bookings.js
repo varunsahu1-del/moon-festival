@@ -71,7 +71,7 @@ router.get('/promo/:code', (req, res) => {
 // Body: { venue, roomType, totalPrice, guests: [{full_name, whatsapp, email, city, age}] }
 router.post('/create', async (req, res) => {
   try {
-    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode, daysSelected } = req.body;
+    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode, daysSelected, referralSource } = req.body;
 
     // Derive arrival date from addons — extra day add-on means 26 Nov, otherwise 27 Nov
     const addonNames = addons ? addons.split('|').map(a => a.split(':').slice(1).join(':').trim().toLowerCase()) : [];
@@ -177,8 +177,8 @@ router.post('/create', async (req, res) => {
     }
 
     const insertBooking = db.prepare(`
-      INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, razorpay_order_id, gst_number, gst_name, addons, arrival_date, organizer_note, phase, discount, discount_reason, promo_code, days_selected, razorpay_fee_pct)
-      VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, razorpay_order_id, gst_number, gst_name, addons, arrival_date, organizer_note, phase, discount, discount_reason, promo_code, days_selected, razorpay_fee_pct, referral_source)
+      VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const insertGuest = db.prepare(`
@@ -224,7 +224,7 @@ router.post('/create', async (req, res) => {
         return res.status(409).json({ error: finalCheck.reason, sold_out: true });
       }
       const storedPrice = '₹' + baseAmount.toLocaleString('en-IN');
-      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null, daysSelected || null, 0);
+      const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null, daysSelected || null, 0, referralSource || null);
       bookingId = lastInsertRowid;
       guests.forEach((g, i) => {
         const label = guests.length > 1 ? ` for guest ${i + 1}` : '';

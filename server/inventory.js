@@ -8,9 +8,9 @@
 
 const INVENTORY = [
   // Bhakti Kutir
-  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 34, rooms: 17, room_size: 2, gender_rule: 'same_gender', label: '17 rooms × 2' },
+  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 32, rooms: 16, room_size: 2, gender_rule: 'same_gender', label: '16 rooms × 2' },
   { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 12, rooms: 4,  room_size: 3, gender_rule: 'same_gender', label: '4 rooms × 3' },
-  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2,  room_size: 1, gender_rule: 'any',         label: '2 rooms' },
+  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 3,  rooms: 3,  room_size: 1, gender_rule: 'any',         label: '3 rooms' },
   { venue: 'Bhakti Kutir', room_type: '4 Bed Mixed Dorm', unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'any', label: '4 beds' },
   { venue: 'Bhakti Kutir', room_type: '6 Bed Dorm',     unit: 'beds',  capacity: 6,  rooms: 1,  room_size: 6, gender_rule: 'any',         label: '6 beds' },
   // Destiny (combined pool of 5 rooms)
@@ -40,12 +40,14 @@ const INVENTORY = [
   { venue: 'Festival Access', room_type: 'Full Festival Pass',          unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
   { venue: 'Festival Access', room_type: 'Weekend Pass',                unit: 'beds', capacity: 200, room_size: 1, gender_rule: 'any', label: '200 passes' },
   { venue: 'Festival Access', room_type: 'Single Day Pass',             unit: 'beds', capacity: 300, room_size: 1, gender_rule: 'any', label: '300 passes' },
-  { venue: 'Festival Access', room_type: 'Luna Viajera – Live Band',    unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
-  { venue: 'Festival Access', room_type: "Martin's Ecstatic Dance",     unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
-  { venue: 'Festival Access', room_type: "Chris's Elevate Show",        unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
-  { venue: 'Festival Access', room_type: 'Drum Circle',                 unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
-  { venue: 'Festival Access', room_type: 'Bagicha – Live Band',         unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
-  { venue: 'Festival Access', room_type: "Anaida's Ecstatic Ceremony",  unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Luna Viajera – Latin Fusion Band',    unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Martin – Ecstatic Ceremony',          unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Chris Fitchew – The Elevate Show',    unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Bageecha – Hindi Film Retro Band',    unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Annida – Ecstatic Ceremony',          unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Kaprila – Moon Choir',                unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Aditya – Afro Drum Circle',           unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Chris Fitchew – Moon Olympics',       unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
 ];
 
 // Predefined room labels for each venue/type
@@ -151,12 +153,14 @@ const PRICING = {
     'Full Festival Pass':         { flat: 21000, extraDay: 0 },
     'Weekend Pass':               { flat: 14500, extraDay: 0 },
     'Single Day Pass':            { flat: 7500,  extraDay: 0 },
-    'Luna Viajera – Live Band':   { flat: 1000,  extraDay: 0 },
-    "Martin's Ecstatic Dance":    { flat: 1000,  extraDay: 0 },
-    "Chris's Elevate Show":       { flat: 1000,  extraDay: 0 },
-    'Drum Circle':                { flat: 1000,  extraDay: 0 },
-    'Bagicha – Live Band':        { flat: 1000,  extraDay: 0 },
-    "Anaida's Ecstatic Ceremony": { flat: 1000,  extraDay: 0 },
+    'Luna Viajera – Latin Fusion Band':  { flat: 1000, extraDay: 0 },
+    'Martin – Ecstatic Ceremony':        { flat: 1000, extraDay: 0 },
+    'Chris Fitchew – The Elevate Show':  { flat: 1000, extraDay: 0 },
+    'Bageecha – Hindi Film Retro Band':  { flat: 1000, extraDay: 0 },
+    'Annida – Ecstatic Ceremony':        { flat: 1000, extraDay: 0 },
+    'Kaprila – Moon Choir':              { flat: 1000, extraDay: 0 },
+    'Aditya – Afro Drum Circle':         { flat: 1000, extraDay: 0 },
+    'Chris Fitchew – Moon Olympics':     { flat: 1000, extraDay: 0 },
   },
 };
 

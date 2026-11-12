@@ -59,7 +59,14 @@ async function sendEmail(opts) {
       content: a.content || (a.path ? require('fs').readFileSync(a.path) : undefined),
     })).filter(a => a.content);
   }
-  return resend.emails.send(payload);
+  // Resend returns { data, error } and does NOT throw on API errors — so check it
+  // and throw, otherwise callers log "sent" even when delivery was rejected.
+  const { data, error } = await resend.emails.send(payload);
+  if (error) {
+    const msg = (error && (error.message || error.name)) || 'Resend send failed';
+    throw new Error(msg);
+  }
+  return data;
 }
 
 // ── Update when domain is live ───────────────────────────────────────────────
@@ -1081,8 +1088,19 @@ async function sendNewBookingAlert({ booking, guests, amountWithGst }) {
   guests.forEach((g, i) => {
     guestRows += section('Guest ' + (i + 1) + (guests.length > 1 ? ' of ' + guests.length : ''));
     guestRows += row('Name', g.full_name || '—');
-    guestRows += row('Email', g.email || '—');
-    guestRows += row('WhatsApp', g.whatsapp || '—');
+    guestRows += row('Email', g.email ? '<a href="mailto:' + g.email + '" style="color:#C47D52;text-decoration:none;">' + g.email + '</a>' : '—');
+    // Build a tap-to-chat wa.me link. International numbers (entered with a +)
+    // keep their own country code; a bare 10-digit / leading-0 number is treated as Indian.
+    const waRaw = (g.whatsapp || '').trim();
+    const waDigits = waRaw.replace(/\D/g, '');
+    let waNum = waDigits;
+    if (!waRaw.startsWith('+')) {
+      if (waDigits.length === 10) waNum = '91' + waDigits;
+      else if (waDigits.startsWith('0')) waNum = '91' + waDigits.replace(/^0+/, '');
+    }
+    guestRows += row('WhatsApp', waDigits
+      ? '<a href="https://wa.me/' + waNum + '" style="color:#25d366;text-decoration:none;font-weight:600;">' + (g.whatsapp || '') + '</a>'
+      : '—');
     guestRows += row('Gender', g.gender || '—');
     guestRows += row('Age', g.age || '—');
     guestRows += row('City', g.city || '—');

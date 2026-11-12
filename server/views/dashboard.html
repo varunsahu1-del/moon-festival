@@ -1919,15 +1919,23 @@ async function loadStats() {
             <th>#</th><th>Name</th><th>Status</th><th>Ref</th><th>Pass</th><th>Phone</th><th>Email</th>
             <th>City</th><th>Age</th><th>Gender</th><th>Date</th>
             <th>Base</th><th>GST</th><th>Total</th>
-            <th>Verified</th><th>Notes</th><th></th>
+            <th>Verified</th><th>Payment</th><th>How They Heard</th><th>Notes</th><th></th>
           </tr></thead>
           <tbody>
-            ${passRows.map((r,i) => {
+            ${(()=>{
+              const refCounts={};
+              passRows.forEach(r=>{ refCounts[r.booking_ref]=(refCounts[r.booking_ref]||0)+1; });
+              const pairedRefs=[...new Set(passRows.filter(r=>refCounts[r.booking_ref]>1).map(r=>r.booking_ref))];
+              const groupColors=['rgba(176,210,176,0.22)','rgba(176,196,230,0.22)','rgba(230,196,176,0.22)','rgba(210,176,210,0.22)'];
+              const refColor={};
+              pairedRefs.forEach((ref,idx)=>{ refColor[ref]=groupColors[idx%groupColors.length]; });
+              return passRows.map((r,i) => {
               const gc=Math.max(1,parseInt(r.guest_count)||1);
               const b=Math.round((parseFloat(String(r.total_price||0).replace(/[^\d.]/g,""))||0)/gc);
               const g=b?Math.round(b*(window.__GST_RATE||0.05)):0;
               const isCancelledPass = r.status === 'cancelled';
-              return `<tr onclick="openDrawer('${r.booking_ref}')">
+              const rowBg = refColor[r.booking_ref] ? `background:${refColor[r.booking_ref]};` : '';
+              return `<tr onclick="openDrawer('${r.booking_ref}')" style="${rowBg}">
               <td onclick="event.stopPropagation()"><input type="checkbox" class="pass-row-chk" data-ref="${r.booking_ref}" onchange="updatePassBulkBar()" style="accent-color:#B06030;cursor:pointer;" /></td>
               <td style="color:var(--td-mid);font-size:11px;">${r._num}</td>
               <td style="font-weight:600;color:var(--td-strong);">${r.full_name||'—'} ${isCancelledPass?'<span style="display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:0.1em;background:rgba(192,57,43,0.12);color:#b02a2a;border:0.5px solid rgba(192,57,43,0.4);border-radius:3px;padding:1px 5px;vertical-align:middle;">CANCELLED</span>':''}</td>
@@ -1944,12 +1952,14 @@ async function loadStats() {
               <td style="color:var(--td-gst);">${g?'₹'+g.toLocaleString('en-IN'):'—'}</td>
               <td style="font-weight:600;color:var(--td-strong);">${(b+g)?'₹'+(b+g).toLocaleString('en-IN'):'—'}</td>
               <td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>
+              <td onclick="event.stopPropagation()"><span class="pm-cell" data-ref="${r.booking_ref}" data-pm="${r.payment_method||''}" onclick="event.stopPropagation();openPmEditor(this)" style="font-size:11px;cursor:pointer;color:${r.payment_method?'var(--td-strong)':'rgba(42,34,24,0.25)'};border-bottom:0.5px dashed rgba(176,96,48,0.3);white-space:nowrap;">${r.payment_method?fmtPm(r.payment_method):'— set'}</span></td>
+              <td onclick="event.stopPropagation()" style="min-width:140px;"><div style="display:flex;align-items:center;gap:6px;">${r.referral_source?`<span style="font-size:11px;color:rgba(42,34,24,0.75);background:rgba(176,96,48,0.08);border:0.5px solid rgba(176,96,48,0.2);padding:2px 7px;border-radius:2px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.04em;">${r.referral_source}</span>`:`<span style="color:var(--td-muted);font-size:11px;">—</span>`}<button onclick="event.stopPropagation();openDrawer('${r.booking_ref}')" style="font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:transparent;border:0.5px solid rgba(176,96,48,0.3);color:rgba(176,96,48,0.7);border-radius:2px;padding:2px 6px;cursor:pointer;" title="Edit referral in drawer">✎</button></div></td>
               <td onclick="event.stopPropagation()" style="min-width:160px;"><div style="display:flex;flex-direction:column;gap:4px;"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add note…" onclick="event.stopPropagation()">${r.notes||''}</textarea><button class="note-save-btn" data-guest-id="${r.guest_id}" onclick="event.stopPropagation();saveAdminNote(this)" style="display:none;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;padding:3px 10px;cursor:pointer;align-self:flex-end;">Save</button></div></td>
               <td onclick="event.stopPropagation()" style="white-space:nowrap;display:flex;gap:5px;padding:8px 6px;">
                 ${r.status!=='paid'?`<button onclick="event.stopPropagation();adminResendPaylink('${r.booking_ref}',this)" style="font-size:9px;background:rgba(176,96,48,0.12);border:0.5px solid rgba(176,96,48,0.35);color:#B06030;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">↗ Pay Link</button>`:''}
                 <button onclick="event.stopPropagation();resendConfirmation('${r.booking_ref}',this)" style="font-size:9px;background:rgba(50,120,50,0.12);border:0.5px solid rgba(50,150,50,0.35);color:#2e7d32;border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">✉ Confirm</button>
               </td>
-            </tr>`;}).join('')}
+            </tr>`;}).join('');})()}
           </tbody>
         </table>
         </div></div>`;
@@ -5998,6 +6008,17 @@ async function loadApplications() {
   renderApplications();
 }
 
+function acceptEmailCell(a) {
+  const st = a.accept_email_status;
+  const resendBtn = `<button onclick="event.stopPropagation();resendAcceptance(${a.id}, this)" title="${st==='failed'||st==='skipped'?'Email did not go — resend':'Send the acceptance email again'}" style="font-size:9px;letter-spacing:0.05em;text-transform:uppercase;background:transparent;border:0.5px solid rgba(176,96,48,0.5);color:#C47D52;padding:2px 6px;border-radius:2px;cursor:pointer;margin-left:6px;">Resend</button>`;
+  let badge = '';
+  if (st === 'sent') badge = `<span title="Acceptance email delivered to Resend" style="color:#2ecc71;font-size:10px;">✓ emailed</span>`;
+  else if (st === 'failed') badge = `<span title="${(a.accept_email_error||'send failed').replace(/"/g,'&quot;')}" style="color:#e74c3c;font-size:10px;font-weight:700;">✗ email failed</span>`;
+  else if (st === 'skipped') badge = `<span title="No email address on file" style="color:#e0a030;font-size:10px;">⚠ no email</span>`;
+  else badge = `<span title="Sent before delivery tracking existed — status unknown. Resend to confirm." style="color:rgba(42,34,24,0.45);font-size:10px;">? unknown</span>`;
+  return `<div style="margin-top:5px;white-space:nowrap;">${badge}${resendBtn}</div>`;
+}
+
 function renderApplications() {
   const wrap = document.getElementById('appTableWrap');
   const scrollEl = wrap.querySelector('.table-scroll');
@@ -6069,6 +6090,7 @@ function renderApplications() {
             `<option value="${v}" ${a.status===v?'selected':''} style="background:#1a1508;color:#EDD4B2;">${v}</option>`
           ).join('')}
         </select>
+        ${a.status==='accepted' ? acceptEmailCell(a) : ''}
       </td>
     </tr>`;
   }).join('');
@@ -6085,9 +6107,44 @@ function renderApplications() {
 }
 
 async function updateAppStatus(id, status) {
-  await fetch('/admin/api/applications/' + id, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ status }) });
   const a = allApplications.find(x => x.id === id);
-  if (a) { a.status = status; renderApplications(); }
+  let data = {};
+  try {
+    const r = await fetch('/admin/api/applications/' + id, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ status }) });
+    data = await r.json().catch(() => ({}));
+  } catch (e) { alert('Could not update status — please try again.'); return; }
+  if (a) {
+    a.status = status;
+    if (status === 'accepted' && data.email) {
+      a.accept_email_status = data.email;
+      a.accept_email_error = data.error || null;
+      a.accept_email_at = new Date().toISOString();
+      if (data.email === 'failed') {
+        alert('⚠️ Status set to Accepted, but the acceptance email FAILED to send to ' + (a.email || 'this applicant') + '.\n\nReason: ' + (data.error || 'unknown') + '\n\nUse the "Resend" button on this row to try again.');
+      } else if (data.email === 'skipped') {
+        alert('Status set to Accepted. No acceptance email was sent — this application has no email address on file.');
+      }
+    }
+    renderApplications();
+  }
+}
+
+async function resendAcceptance(id, btn) {
+  const a = allApplications.find(x => x.id === id);
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  let data = {};
+  try {
+    const r = await fetch('/admin/api/applications/' + id + '/resend-acceptance', { method: 'POST' });
+    data = await r.json().catch(() => ({}));
+  } catch (e) { alert('Resend failed — please try again.'); if (btn){btn.disabled=false;btn.textContent='Resend';} return; }
+  if (a) {
+    a.accept_email_status = data.email || 'failed';
+    a.accept_email_error = data.error || null;
+    a.accept_email_at = new Date().toISOString();
+  }
+  if (data.email === 'sent') { alert('✓ Acceptance email sent to ' + (a && a.email ? a.email : 'applicant') + '.'); }
+  else { alert('✗ Still failed: ' + (data.error || 'unknown error')); }
+  renderApplications();
 }
 
 function openAppDrawer(id) {

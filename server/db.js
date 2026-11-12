@@ -155,6 +155,10 @@ try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified INTEGER DEFAULT 0`
 try { db.exec(`ALTER TABLE bookings ADD COLUMN admin_verified_at DATETIME`); } catch(_) {}
 try { db.exec(`ALTER TABLE bookings ADD COLUMN promo_code TEXT`); } catch(_) {}
 try { db.exec(`ALTER TABLE promo_codes ADD COLUMN discount_type TEXT NOT NULL DEFAULT 'flat'`); } catch(_) {}
+// Acceptance-email delivery tracking on applications (surface silent send failures)
+try { db.exec(`ALTER TABLE applications ADD COLUMN accept_email_status TEXT`); } catch(_) {}
+try { db.exec(`ALTER TABLE applications ADD COLUMN accept_email_error TEXT`); } catch(_) {}
+try { db.exec(`ALTER TABLE applications ADD COLUMN accept_email_at DATETIME`); } catch(_) {}
 
 function nextRef() {
   const row = db.prepare("SELECT MAX(CAST(SUBSTR(booking_ref,4) AS INTEGER)) as m FROM bookings WHERE booking_ref LIKE 'MF-%'").get();

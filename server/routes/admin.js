@@ -1452,17 +1452,48 @@ router.get('/api/applications', requireAdmin, (req, res) => {
   res.json(rows);
 });
 
+// Send the acceptance email and record the outcome on the application row.
+// Returns { email: 'sent' | 'failed' | 'skipped', error? } for the dashboard.
+async function sendAcceptanceAndRecord(app) {
+  if (!app || !app.email) {
+    db.prepare(`UPDATE applications SET accept_email_status='skipped', accept_email_error=?, accept_email_at=datetime('now') WHERE id=?`)
+      .run('No email address on file', app.id);
+    return { email: 'skipped', error: 'No email address on file' };
+  }
+  const { sendApplicationAccepted } = require('../email');
+  try {
+    await sendApplicationAccepted({ applicantName: app.applicant, applicantEmail: app.email, formLabel: app.form_label });
+    db.prepare(`UPDATE applications SET accept_email_status='sent', accept_email_error=NULL, accept_email_at=datetime('now') WHERE id=?`)
+      .run(app.id);
+    return { email: 'sent' };
+  } catch (e) {
+    console.error('[admin] acceptance email failed:', e.message, '| to:', app.email);
+    db.prepare(`UPDATE applications SET accept_email_status='failed', accept_email_error=?, accept_email_at=datetime('now') WHERE id=?`)
+      .run(e.message, app.id);
+    return { email: 'failed', error: e.message };
+  }
+}
+
 // API: update application status
 router.patch('/api/applications/:id', requireAdmin, async (req, res) => {
   const { status } = req.body;
   const app = db.prepare('SELECT * FROM applications WHERE id=?').get(req.params.id);
   db.prepare(`UPDATE applications SET status=? WHERE id=?`).run(status, req.params.id);
-  // Email 08 — send acceptance email when admin marks as accepted
-  if (status === 'accepted' && app && app.email) {
-    const { sendApplicationAccepted } = require('../email');
-    sendApplicationAccepted({ applicantName: app.applicant, applicantEmail: app.email, formLabel: app.form_label }).catch(e => console.error('[admin] acceptance email failed:', e.message));
+  // Email 08 — send acceptance email when admin marks as accepted, and wait for the result
+  if (status === 'accepted' && app) {
+    const fresh = db.prepare('SELECT * FROM applications WHERE id=?').get(req.params.id);
+    const result = await sendAcceptanceAndRecord(fresh);
+    return res.json({ ok: true, ...result });
   }
   res.json({ ok: true });
+});
+
+// API: resend the acceptance email for an already-accepted application
+router.post('/api/applications/:id/resend-acceptance', requireAdmin, async (req, res) => {
+  const app = db.prepare('SELECT * FROM applications WHERE id=?').get(req.params.id);
+  if (!app) return res.status(404).json({ ok: false, error: 'Application not found' });
+  const result = await sendAcceptanceAndRecord(app);
+  res.json({ ok: result.email === 'sent', ...result });
 });
 
 router.get('/api/rooms/hotel-numbers', requireAdmin, (req, res) => {

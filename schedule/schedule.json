@@ -84,7 +84,8 @@
             { "session": "Sensual Bollywood", "facilitator": "dhanisa", "venue": "meteor" },
             { "session": "Belly Dance", "facilitator": "aakriti", "venue": "nebula" },
             { "session": "Kalaripayattu", "facilitator": "tre", "venue": "stardust" },
-            { "session": "Clownery", "facilitator": "alice", "venue": "space" }
+            { "session": "Clownery", "facilitator": "alice", "venue": "space" },
+            { "session": "Forest Mask Making", "facilitator": "parisa", "venue": "sky" }
           ]
         },
         {
@@ -190,7 +191,7 @@
             { "session": "Saree & Lungi Ceremony", "facilitator": "disha", "venue": "space", "locked": true },
             { "session": "Make Your Forest Mask", "facilitator": "dryad", "venue": "nebula" },
             { "session": "Cyanotype Tote Bag Painting", "facilitator": "shreya", "venue": "meteor" },
-            { "session": "Shamanic Rose Healing", "facilitator": "karishma", "venue": "comet" }
+            { "session": "Shamanic Rose Healing", "facilitator": "karishma", "venue": "sky" }
           ]
         },
         {
@@ -219,6 +220,7 @@
             { "session": "Ayurveda (Talk)", "facilitator": "dr-kanchan", "venue": "stardust" },
             { "session": "Bachata", "facilitator": "maya", "venue": "asteroid" }
           ]
+
         },
         {
           "time": "14:15–15:15",
