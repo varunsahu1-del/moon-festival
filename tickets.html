@@ -2798,7 +2798,7 @@ function applyCoupon() {
       priceEl.innerHTML = '<span style="text-decoration:line-through;opacity:0.45;font-size:0.85em;margin-right:0.4rem;">₹' + original.toLocaleString('en-IN') + '</span>₹' + fixed.toLocaleString('en-IN');
     });
 
-    msg.innerHTML = '✓ Community price applied — ₹3,300/day · ₹9,000 full pass';
+    msg.innerHTML = '✓ Community price applied — ₹5,500/day · ₹14,500 full pass';
     msg.style.color = '#7aab8a';
     msg.style.fontWeight = '600';
     msg.style.display = 'block';
@@ -3968,6 +3968,8 @@ function fmtPrice(n) {
   .fp-modal-input { background:transparent; border:none; border-bottom:1px solid rgba(176,96,48,0.3); color:#EDD4B2; padding:0.55rem 0; font-family:'Open Sans',sans-serif; font-size:1rem; font-weight:300; width:100%; box-sizing:border-box; border-radius:0; }
   .fp-modal-input::placeholder { color:rgba(237,212,178,0.25); }
   .fp-modal-input:focus { outline:none; border-bottom-color:#B06030; }
+  .fp-ref-opt { font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,212,178,0.7);padding:0.65em 1.2em;cursor:pointer;transition:color 0.12s,background 0.12s; }
+  .fp-ref-opt:hover { background:rgba(176,96,48,0.12);color:#EDD4B2; }
   .fp-modal-wa-row { display:flex; gap:0; border-bottom:1px solid rgba(176,96,48,0.3); align-items:center; }
   .fp-modal-cc-wrap { position:relative; flex-shrink:0; }
   .fp-modal-cc-trigger { display:flex; align-items:center; gap:0.45rem; background:transparent; border:none; border-right:0.5px solid rgba(176,96,48,0.2); color:rgba(237,212,178,0.7); padding:0.55rem 0.7rem 0.55rem 0; font-family:'Open Sans',sans-serif; font-size:0.88rem; cursor:pointer; white-space:nowrap; }
@@ -4031,7 +4033,7 @@ function fmtPrice(n) {
         </div>
         <div style="flex:1;min-width:0;">
           <p style="font-family:'Open Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,212,178,0.85);margin:0 0 0.2rem;" id="fpMealsTitle">Meals</p>
-          <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.38);margin:0;" id="fpMealsDesc">Lunch &amp; dinner · all days</p>
+          <p style="font-family:'Open Sans',sans-serif;font-size:0.68rem;font-weight:300;color:rgba(237,212,178,0.38);margin:0;" id="fpMealsDesc">Brunch &amp; dinner · 27–29 Nov · ₹1,500/day</p>
         </div>
         <span style="font-family:'Open Sans',sans-serif;font-size:0.82rem;font-weight:300;color:rgba(237,212,178,0.65);flex-shrink:0;" id="fpMealsPrice"></span>
       </div>
@@ -4087,23 +4089,29 @@ function fmtPrice(n) {
     <!-- Referral source -->
     <div class="fp-modal-field" style="margin-bottom:0.9rem;">
       <label class="fp-modal-label">How did you hear about us?</label>
-      <select class="fp-modal-input" id="fpReferralSource" onchange="fpToggleReferralCustom()" style="background:#191406;color:rgba(237,212,178,0.75);border:0.5px solid rgba(176,96,48,0.3);padding:0.6rem 0.5rem;font-family:'Open Sans',sans-serif;font-size:0.78rem;width:100%;cursor:pointer;">
-        <option value="">— Select —</option>
-        <option value="Instagram Ad">Instagram Ad</option>
-        <option value="Instagram Ad - DM campaign">Instagram Ad — DM campaign</option>
-        <option value="Instagram Ad - WhatsApp campaign">Instagram Ad — WhatsApp campaign</option>
-        <option value="Instagram Post (organic)">Instagram Post (organic)</option>
-        <option value="Through a friend">Through a friend</option>
-        <option value="Through family">Through family</option>
-        <option value="Been following us">Been following us for a while</option>
-        <option value="Previous attendee">Previous retreat attendee</option>
-        <option value="Previous Moon attendee">Previous Moon attendee</option>
-        <option value="Facilitator recommendation">Facilitator recommendation</option>
-        <option value="Google Search">Google Search</option>
-        <option value="ChatGPT / AI">ChatGPT / AI</option>
-        <option value="WhatsApp">WhatsApp forward / group</option>
-        <option value="Other">Other…</option>
-      </select>
+      <input type="hidden" id="fpReferralSource" value="" />
+      <div id="fp-referral-dropdown" style="position:relative;user-select:none;">
+        <button type="button" id="fp-referral-btn" onclick="fpToggleReferralDD()" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:#191406;border:0.5px solid rgba(176,96,48,0.35);color:rgba(237,212,178,0.45);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;padding:0.95rem 1rem;cursor:pointer;text-align:left;border-radius:0;transition:border-color 0.15s;">
+          <span id="fp-referral-label">— Select —</span>
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" id="fp-referral-chevron" style="flex-shrink:0;transition:transform 0.2s;"><path d="M2 3.5L5 6.5L8 3.5" stroke="rgba(237,212,178,0.4)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="fp-referral-menu" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:400;padding-top:3px;">
+          <div style="background:#1e1a0e;border:0.5px solid rgba(237,212,178,0.12);padding:0.4rem 0;max-height:260px;overflow-y:auto;">
+            <div class="fp-ref-opt" data-value="Instagram Ad" onclick="fpSelectReferral(this)">Instagram Ad</div>
+            <div class="fp-ref-opt" data-value="Instagram Post (organic)" onclick="fpSelectReferral(this)">Instagram Post (organic)</div>
+            <div class="fp-ref-opt" data-value="Through a friend" onclick="fpSelectReferral(this)">Through a friend</div>
+            <div class="fp-ref-opt" data-value="Through family" onclick="fpSelectReferral(this)">Through family</div>
+            <div class="fp-ref-opt" data-value="Been following us" onclick="fpSelectReferral(this)">Been following us for a while</div>
+            <div class="fp-ref-opt" data-value="Previous attendee" onclick="fpSelectReferral(this)">Previous retreat attendee</div>
+            <div class="fp-ref-opt" data-value="Previous Moon attendee" onclick="fpSelectReferral(this)">Previous Moon attendee</div>
+            <div class="fp-ref-opt" data-value="Facilitator recommendation" onclick="fpSelectReferral(this)">Facilitator recommendation</div>
+            <div class="fp-ref-opt" data-value="Google Search" onclick="fpSelectReferral(this)">Google Search</div>
+            <div class="fp-ref-opt" data-value="ChatGPT / AI" onclick="fpSelectReferral(this)">ChatGPT / AI</div>
+            <div class="fp-ref-opt" data-value="WhatsApp" onclick="fpSelectReferral(this)">WhatsApp forward / group</div>
+            <div class="fp-ref-opt" data-value="Other" onclick="fpSelectReferral(this)">Other…</div>
+          </div>
+        </div>
+      </div>
       <input class="fp-modal-input" id="fpReferralCustom" type="text" placeholder="Describe how you heard…" style="display:none;margin-top:6px;" />
     </div>
 
@@ -4157,8 +4165,8 @@ function fmtPrice(n) {
   var MEAL_DAY_PRICE = 1500; // ₹750 × 2 meals per day
 
   var _fpCardBasePrices = { fp3: 21000, wknd: 14500, sdp: 7500 };
-  var HALFMOON_PRICES   = { fp3:  9000, wknd:  6000, sdp: 3000 };
-  var HALFMOON_PASS_PRICES = { 'Full Festival Pass': 9000, 'Weekend Pass': 6000, 'Single Day Pass': 3000 };
+  var HALFMOON_PRICES   = { fp3: 14500, wknd: 10000, sdp: 5500 };
+  var HALFMOON_PASS_PRICES = { 'Full Festival Pass': 14500, 'Weekend Pass': 10000, 'Single Day Pass': 5500 };
   var _halfmoonActive = false;
 
   var HALFMOON_ORIGINAL = { fp3: 21000, wknd: 14500, sdp: 7500 };
@@ -4281,7 +4289,7 @@ function fmtPrice(n) {
   window.openDayPassModal = function() {
     if (!_sdpSelectedDay) return;
     var day = DAY_LABELS[_sdpSelectedDay];
-    var price = _halfmoonActive ? 3000 : 7500;
+    var price = _halfmoonActive ? 5500 : 7500;
     openFpFromCard('Single Day Pass', price, [day]);
   };
 
@@ -4289,7 +4297,8 @@ function fmtPrice(n) {
     if (_halfmoonActive && HALFMOON_PASS_PRICES[passName]) price = HALFMOON_PASS_PRICES[passName];
     var cardKey = passName === 'Full Festival Pass' ? 'fp3' : passName === 'Weekend Pass' ? 'wknd' : 'sdp';
     var qty = _fpCardQtys[cardKey] || 1;
-    openFpModal(passName, price, days || [], qty, 0);
+    var mealsAvail = passName === 'Full Festival Pass' ? 1500 : 0;
+    openFpModal(passName, price, days || [], qty, mealsAvail);
     if (_halfmoonActive) { _fpCouponCode = 'HALFMOON'; }
   };
 
@@ -4441,17 +4450,57 @@ function fmtPrice(n) {
   }
 
   window.fpToggleMeals = function() {
-    _fpMealsOn = !_fpMealsOn;
-    _fpMealDays = _fpMealsOn ? _fpMealDaysMax : 0;
+    if (_fpMealsOn) {
+      // trying to deselect — show nudge instead
+      showFpMealsNudge();
+      return;
+    }
+    _fpMealsOn = true;
+    _fpMealDays = _fpMealDaysMax;
     updateMealsCardVisual();
     updateSummary();
   };
 
-  window.openFpModal = function(passName, price, days, qty, mealsPerPerson) {
-    _fpPass=passName; _fpPrice=price; _fpQty=qty||1; _fpBooking=null; _fpCouponDiscount=0; _fpCouponCode=null;
+  window.fpMealsNudgeConfirm = function() {
     _fpMealsOn = false;
     _fpMealDays = 0;
+    updateMealsCardVisual();
+    updateSummary();
+    var overlay = document.getElementById('fpMealsNudgeOverlay');
+    if (overlay) overlay.style.display = 'none';
+  };
+
+  window.fpMealsNudgeKeep = function() {
+    var overlay = document.getElementById('fpMealsNudgeOverlay');
+    if (overlay) overlay.style.display = 'none';
+  };
+
+  function showFpMealsNudge() {
+    var overlay = document.getElementById('fpMealsNudgeOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'fpMealsNudgeOverlay';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(10,7,2,0.88);display:flex;align-items:center;justify-content:center;padding:1.5rem;';
+      overlay.innerHTML = '<div style="background:#1a1007;border:0.5px solid rgba(237,212,178,0.12);max-width:380px;width:100%;font-family:\'Open Sans\',sans-serif;">' +
+        '<img src="Meals Page Images/Moon Festival-30.jpg" alt="Meals at Moon" style="width:100%;height:200px;object-fit:cover;display:block;" />' +
+        '<div style="padding:1.4rem 1.4rem 1.6rem;">' +
+        '<p style="font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#EDD4B2;margin:0 0 0.6rem;">Meals are part of the experience.</p>' +
+        '<p style="font-size:0.72rem;font-weight:300;color:rgba(237,212,178,0.65);line-height:1.7;margin:0 0 1.4rem;">Every mealtime, <strong style="color:rgba(237,212,178,0.85);font-weight:600;">everyone sits together — the most connected part of the festival.</strong> Meals are prebooked only, 70 spots. Once they\'re gone, they\'re gone.</p>' +
+        '<div style="display:flex;gap:0.75rem;">' +
+        '<button onclick="fpMealsNudgeKeep()" style="flex:1;font-family:\'Josefin Sans\',sans-serif;font-size:0.68rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;background:#B06030;color:#EDD4B2;border:none;padding:0.75rem 1rem;cursor:pointer;">Keep Meals</button>' +
+        '<button onclick="fpMealsNudgeConfirm()" style="flex:1;font-family:\'Josefin Sans\',sans-serif;font-size:0.68rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;background:transparent;color:rgba(237,212,178,0.45);border:0.5px solid rgba(237,212,178,0.15);padding:0.75rem 1rem;cursor:pointer;">Remove</button>' +
+        '</div></div></div>';
+      document.body.appendChild(overlay);
+    } else {
+      overlay.style.display = 'flex';
+    }
+  }
+
+  window.openFpModal = function(passName, price, days, qty, mealsPerPerson) {
+    _fpPass=passName; _fpPrice=price; _fpQty=qty||1; _fpBooking=null; _fpCouponDiscount=0; _fpCouponCode=null;
     _fpMealDaysMax = passName === 'Full Festival Pass' ? 3 : passName === 'Weekend Pass' ? 2 : 1;
+    _fpMealsOn = passName === 'Full Festival Pass';
+    _fpMealDays = _fpMealsOn ? _fpMealDaysMax : 0;
     _fpDays = days || [];
     var mealsRow = document.getElementById('fpMealsAddonRow');
     if (mealsRow) mealsRow.style.display = (mealsPerPerson === 0) ? 'none' : 'block';
@@ -4459,13 +4508,15 @@ function fmtPrice(n) {
     var mDesc = document.getElementById('fpMealsDesc');
     if (mDesc) {
       var dayWord = _fpMealDaysMax === 1 ? '1 day' : _fpMealDaysMax + ' days';
-      mDesc.textContent = 'Lunch & dinner · ' + dayWord;
+      mDesc.textContent = 'Brunch & dinner · ' + dayWord + ' · ₹1,500/day';
     }
     updateMealsDisplay();
     // Reset coupon UI
     var ci = document.getElementById('fpCouponInput'); if (ci) { ci.value = ''; ci.disabled = false; }
     var cm = document.getElementById('fpCouponMsg'); if (cm) { cm.style.display = 'none'; }
     var rs = document.getElementById('fpReferralSource'); if (rs) rs.value = '';
+    var rl = document.getElementById('fp-referral-label'); if (rl) { rl.textContent = '— Select —'; rl.style.color = 'rgba(237,212,178,0.45)'; }
+    var rm = document.getElementById('fp-referral-menu'); if (rm) rm.style.display = 'none';
     var rc = document.getElementById('fpReferralCustom'); if (rc) { rc.value = ''; rc.style.display = 'none'; }
     var pn = document.getElementById('fpPaymentNote'); if (pn) pn.value = '';
     var cab = document.querySelector('#fpModalOverlay button[onclick="fpApplyCoupon()"]');
@@ -4567,11 +4618,39 @@ function fmtPrice(n) {
     return g;
   }
 
-  window.fpToggleReferralCustom = function() {
-    var sel=document.getElementById('fpReferralSource');
-    var custom=document.getElementById('fpReferralCustom');
-    if(custom) custom.style.display=(sel&&sel.value==='Other')?'block':'none';
+  window.fpToggleReferralDD = function() {
+    var menu = document.getElementById('fp-referral-menu');
+    var chevron = document.getElementById('fp-referral-chevron');
+    var btn = document.getElementById('fp-referral-btn');
+    var open = menu.style.display === 'none';
+    menu.style.display = open ? 'block' : 'none';
+    chevron.style.transform = open ? 'rotate(180deg)' : '';
+    btn.style.borderColor = open ? '#B06030' : 'rgba(176,96,48,0.35)';
   };
+
+  window.fpSelectReferral = function(el) {
+    var val = el.getAttribute('data-value');
+    document.getElementById('fpReferralSource').value = val;
+    document.getElementById('fp-referral-label').textContent = el.textContent;
+    document.getElementById('fp-referral-label').style.color = 'rgba(237,212,178,0.88)';
+    document.getElementById('fp-referral-menu').style.display = 'none';
+    document.getElementById('fp-referral-chevron').style.transform = '';
+    document.getElementById('fp-referral-btn').style.borderColor = 'rgba(176,96,48,0.35)';
+    var custom = document.getElementById('fpReferralCustom');
+    if (custom) custom.style.display = val === 'Other' ? 'block' : 'none';
+  };
+
+  document.addEventListener('click', function(e) {
+    var dd = document.getElementById('fp-referral-dropdown');
+    if (dd && !dd.contains(e.target)) {
+      var menu = document.getElementById('fp-referral-menu');
+      if (menu) menu.style.display = 'none';
+      var ch = document.getElementById('fp-referral-chevron');
+      if (ch) ch.style.transform = '';
+      var btn = document.getElementById('fp-referral-btn');
+      if (btn) btn.style.borderColor = 'rgba(176,96,48,0.35)';
+    }
+  });
 
   window.fpProceed = async function() {
     var btn=document.getElementById('fpProceedBtn');

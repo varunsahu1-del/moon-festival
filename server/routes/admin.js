@@ -818,18 +818,6 @@ router.post('/api/settings/festival-pass', requireAdmin, (req, res) => {
   res.json({ ok: true, festival_pass_open: settings.festival_pass_open });
 });
 
-// API: get/set active pricing phase (admin only)
-router.get('/api/phase', requireAdmin, (req, res) => {
-  res.json(readSettings());
-});
-router.post('/api/phase', requireAdmin, (req, res) => {
-  const { phase } = req.body;
-  if (!['earlyBird', 'phase1', 'phase2', 'phase3', 'phase4'].includes(phase)) return res.status(400).json({ error: 'Invalid phase' });
-  const settings = readSettings();
-  settings.phase = phase;
-  writeSettings(settings);
-  res.json({ ok: true, phase });
-});
 
 // Public: active prices for tickets page (no auth required)
 router.get('/api/public/pricing', (req, res) => {

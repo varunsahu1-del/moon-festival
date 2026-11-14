@@ -296,6 +296,8 @@
     .booking-input:focus { border-color: #B06030; }
     .booking-input::placeholder { color: rgba(237,212,178,0.2); }
     .booking-input.input-error { border-color: #c0392b; }
+    .bf-ref-opt { font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,212,178,0.7);padding:0.65em 1.2em;cursor:pointer;transition:color 0.12s,background 0.12s; }
+    .bf-ref-opt:hover { background:rgba(176,96,48,0.12);color:#EDD4B2; }
     .field-error {
       display: block;
       font-family: 'Open Sans', sans-serif;
@@ -702,24 +704,30 @@
 
         <!-- How did you hear about us -->
         <div style="margin-top:2rem;">
-          <label class="booking-label" for="bf-referral-source">How did you hear about us?</label>
-          <select class="booking-input" id="bf-referral-source" onchange="document.getElementById('bf-referral-custom').style.display=this.value==='Other'?'block':'none'" style="background:#191406;color:rgba(237,212,178,0.75);cursor:pointer;">
-            <option value="">— Select —</option>
-            <option value="Instagram Ad">Instagram Ad</option>
-            <option value="Instagram Ad - DM campaign">Instagram Ad — DM campaign</option>
-            <option value="Instagram Ad - WhatsApp campaign">Instagram Ad — WhatsApp campaign</option>
-            <option value="Instagram Post (organic)">Instagram Post (organic)</option>
-            <option value="Through a friend">Through a friend</option>
-            <option value="Through family">Through family</option>
-            <option value="Been following us">Been following us for a while</option>
-            <option value="Previous attendee">Previous retreat attendee</option>
-            <option value="Previous Moon attendee">Previous Moon attendee</option>
-            <option value="Facilitator recommendation">Facilitator recommendation</option>
-            <option value="Google Search">Google Search</option>
-            <option value="ChatGPT / AI">ChatGPT / AI</option>
-            <option value="WhatsApp">WhatsApp forward / group</option>
-            <option value="Other">Other…</option>
-          </select>
+          <label class="booking-label">How did you hear about us?</label>
+          <input type="hidden" id="bf-referral-source" value="" />
+          <div id="bf-referral-dropdown" style="position:relative;user-select:none;">
+            <button type="button" id="bf-referral-btn" onclick="bfToggleReferral()" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:#191406;border:0.5px solid rgba(176,96,48,0.35);color:rgba(237,212,178,0.45);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 1rem;cursor:pointer;text-align:left;border-radius:0;transition:border-color 0.15s;">
+              <span id="bf-referral-label">— Select —</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" id="bf-referral-chevron" style="flex-shrink:0;transition:transform 0.2s;"><path d="M2 3.5L5 6.5L8 3.5" stroke="rgba(237,212,178,0.4)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div id="bf-referral-menu" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:300;padding-top:3px;">
+              <div style="background:#1e1a0e;border:0.5px solid rgba(237,212,178,0.12);padding:0.4rem 0;">
+                <div class="bf-ref-opt" data-value="Instagram Ad" onclick="bfSelectReferral(this)">Instagram Ad</div>
+                <div class="bf-ref-opt" data-value="Instagram Post (organic)" onclick="bfSelectReferral(this)">Instagram Post (organic)</div>
+                <div class="bf-ref-opt" data-value="Through a friend" onclick="bfSelectReferral(this)">Through a friend</div>
+                <div class="bf-ref-opt" data-value="Through family" onclick="bfSelectReferral(this)">Through family</div>
+                <div class="bf-ref-opt" data-value="Been following us" onclick="bfSelectReferral(this)">Been following us for a while</div>
+                <div class="bf-ref-opt" data-value="Previous attendee" onclick="bfSelectReferral(this)">Previous retreat attendee</div>
+                <div class="bf-ref-opt" data-value="Previous Moon attendee" onclick="bfSelectReferral(this)">Previous Moon attendee</div>
+                <div class="bf-ref-opt" data-value="Facilitator recommendation" onclick="bfSelectReferral(this)">Facilitator recommendation</div>
+                <div class="bf-ref-opt" data-value="Google Search" onclick="bfSelectReferral(this)">Google Search</div>
+                <div class="bf-ref-opt" data-value="ChatGPT / AI" onclick="bfSelectReferral(this)">ChatGPT / AI</div>
+                <div class="bf-ref-opt" data-value="WhatsApp" onclick="bfSelectReferral(this)">WhatsApp forward / group</div>
+                <div class="bf-ref-opt" data-value="Other" onclick="bfSelectReferral(this)">Other…</div>
+              </div>
+            </div>
+          </div>
           <input class="booking-input" id="bf-referral-custom" type="text" placeholder="Describe how you heard…" style="display:none;margin-top:8px;" />
         </div>
 
@@ -1035,6 +1043,34 @@ const cityStateMap = {
   'Vadodara':'Gujarat','Varanasi':'Uttar Pradesh','Vijayawada':'Andhra Pradesh',
   'Visakhapatnam':'Andhra Pradesh','Warangal':'Telangana',
 };
+
+function bfToggleReferral() {
+  var menu = document.getElementById('bf-referral-menu');
+  var chevron = document.getElementById('bf-referral-chevron');
+  var btn = document.getElementById('bf-referral-btn');
+  var open = menu.style.display === 'none';
+  menu.style.display = open ? 'block' : 'none';
+  chevron.style.transform = open ? 'rotate(180deg)' : '';
+  btn.style.borderColor = open ? '#B06030' : 'rgba(176,96,48,0.35)';
+}
+function bfSelectReferral(el) {
+  var val = el.getAttribute('data-value');
+  document.getElementById('bf-referral-source').value = val;
+  document.getElementById('bf-referral-label').textContent = el.textContent;
+  document.getElementById('bf-referral-label').style.color = 'rgba(237,212,178,0.88)';
+  document.getElementById('bf-referral-menu').style.display = 'none';
+  document.getElementById('bf-referral-chevron').style.transform = '';
+  document.getElementById('bf-referral-btn').style.borderColor = 'rgba(176,96,48,0.35)';
+  document.getElementById('bf-referral-custom').style.display = val === 'Other' ? 'block' : 'none';
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('bf-referral-dropdown');
+  if (dd && !dd.contains(e.target)) {
+    document.getElementById('bf-referral-menu').style.display = 'none';
+    document.getElementById('bf-referral-chevron').style.transform = '';
+    document.getElementById('bf-referral-btn').style.borderColor = 'rgba(176,96,48,0.35)';
+  }
+});
 
 function autoFillState(cityName) {
   const state = cityStateMap[cityName];

@@ -597,7 +597,6 @@
         justify-content: center;
         gap: 4px;
       }
-      #phaseSwitcher button { padding: 4px 10px; font-size: 8px; }
       .signout-btn { font-size: 9px; letter-spacing: 0.1em; padding: 10px 0; }
 
       /* Main layout */
@@ -703,11 +702,6 @@
     .top-bar-right a:hover { color: #2A2218; }
     .btn-export { background: transparent; border-color: rgba(176,96,48,0.35); color: rgba(176,96,48,0.9); font-family: 'DM Sans', sans-serif; font-weight: 500; border-radius: 6px; }
     .btn-export:hover { background: rgba(176,96,48,0.08); }
-    #phaseSwitcher button { font-family: 'DM Sans', sans-serif; color: rgba(42,34,24,0.42); border-radius: 20px !important; border-bottom: none !important; }
-    #phaseSwitcher button:hover { color: rgba(42,34,24,0.75); background: rgba(42,34,24,0.05) !important; }
-    #phaseBtn-earlyBird.active-phase { background: rgba(223,184,120,0.35) !important; color: #7A5810 !important; font-weight: 500; }
-    #phaseBtn-phase2.active-phase   { background: rgba(232,168,180,0.35) !important; color: #8A3848 !important; font-weight: 500; }
-    #phaseBtn-final.active-phase    { background: rgba(140,184,168,0.35) !important; color: #2A6050 !important; font-weight: 500; }
     .signout-btn { color: #6A9E8A !important; font-family: 'DM Sans', sans-serif !important; }
 
     .stats-grid { grid-template-columns: repeat(6, 1fr); gap: 10px; }
@@ -1070,14 +1064,6 @@
   <!-- Dashboard tab — stats + charts + accommodation room inventory -->
   <div class="tab-page active" id="tabPageDashboard">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;border-bottom:1px solid rgba(42,34,24,0.08);padding-bottom:12px;flex-wrap:wrap;">
-    <div style="display:flex;align-items:center;gap:0;">
-    <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;color:rgba(42,34,24,0.35);margin-right:12px;letter-spacing:0.08em;text-transform:uppercase;">Phase</span>
-    <div id="phaseSwitcher" style="display:flex;gap:0;">
-      <button onclick="setPhase('earlyBird')" id="phaseBtn-earlyBird" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.01em;padding:8px 13px;border:none;border-bottom:2px solid transparent;background:none;color:rgba(42,34,24,0.45);cursor:pointer;transition:all 0.15s;margin-bottom:-1px;">Early Bird</button>
-      <button onclick="setPhase('phase2')"    id="phaseBtn-phase2"    style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.01em;padding:8px 13px;border:none;border-bottom:2px solid transparent;background:none;color:rgba(42,34,24,0.45);cursor:pointer;transition:all 0.15s;margin-bottom:-1px;">Phase 2</button>
-      <button onclick="setPhase('final')"     id="phaseBtn-final"     style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.01em;padding:8px 13px;border:none;border-bottom:2px solid transparent;background:none;color:rgba(42,34,24,0.45);cursor:pointer;transition:all 0.15s;margin-bottom:-1px;">Phase 3</button>
-    </div>
-    </div>
     <button onclick="openAddBooking()" class="add-booking-btn" style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;background:rgba(176,96,48,0.15);color:#B06030;border:0.5px solid rgba(176,96,48,0.5);padding:8px 18px;cursor:pointer;border-radius:2px;">+ Add Booking</button>
   </div>
   <!-- Sales group -->
@@ -1476,17 +1462,6 @@
         <label class="ab-label">Room Type</label>
         <select id="ab-room-type" class="ab-input" onchange="populateRoomSelector();updatePriceFromVenue()"></select>
       </div>
-    </div>
-
-    <!-- Pricing phase override -->
-    <div style="margin-bottom:12px;">
-      <label class="ab-label">Pricing Phase</label>
-      <select id="ab-phase-override" class="ab-input" onchange="updatePriceFromVenue()" style="max-width:200px;">
-        <option value="earlyBird">Early Bird</option>
-        <option value="phase2" selected>Phase 2 (current)</option>
-        <option value="phase3">Phase 3</option>
-        <option value="phase4">Phase 4</option>
-      </select>
     </div>
 
     <!-- Price pill + Guests side by side -->
@@ -4879,8 +4854,6 @@ function openAddBooking() {
   _sbtn.disabled = false;
   document.getElementById('ab-guests-wrap').innerHTML = '';
   document.getElementById('ab-error').style.display = 'none';
-  const phSel = document.getElementById('ab-phase-override');
-  if (phSel) phSel.value = window._currentPhase || 'phase2';
   const refSel = document.getElementById('ab-referral-source'); if (refSel) refSel.value = '';
   const refCustom = document.getElementById('ab-referral-custom'); if (refCustom) { refCustom.value = ''; refCustom.style.display = 'none'; }
   window._abAddons = [];
@@ -5157,9 +5130,8 @@ function populateRoomSelector() {
 function updatePriceFromVenue() {
   const venue    = document.getElementById('ab-venue').value;
   const roomType = document.getElementById('ab-room-type').value;
-  const phaseOverride = document.getElementById('ab-phase-override')?.value || window._currentPhase;
   const tiers = window.VENUE_PRICES?.[venue]?.[roomType];
-  const perPerson = tiers ? (typeof tiers === 'number' ? tiers : (tiers[phaseOverride] ?? tiers.phase2 ?? 0)) : 0;
+  const perPerson = tiers ? (typeof tiers === 'number' ? tiers : (tiers.phase4 ?? tiers.phase2 ?? 0)) : 0;
   const guestCount = Math.max(1, abGuestCount);
   document.getElementById('ab-price').value = perPerson ? perPerson * guestCount : '';
   const pill = document.getElementById('ab-price-pill');
@@ -5351,7 +5323,7 @@ async function submitAddBooking() {
         gst_number: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gstin')?.value.trim().toUpperCase() || null) : null,
         gst_name: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gst-name')?.value.trim() || null) : null,
         addons: window._abAddons?.length ? window._abAddons.map(a => a.price + ':' + a.name).join('|') : null,
-        admin_override: true, phase_override: document.getElementById("ab-phase-override")?.value || null,
+        admin_override: true,
         referral_source,
         guests,
       };
@@ -5412,7 +5384,7 @@ async function submitAddBooking() {
           gst_number: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gstin')?.value.trim().toUpperCase() || null) : null,
           gst_name: document.getElementById('ab-gst-toggle')?.checked ? (document.getElementById('ab-gst-name')?.value.trim() || null) : null,
           addons: window._abAddons?.length ? window._abAddons.map(a => a.price + ':' + a.name).join('|') : null,
-          admin_override: true, phase_override: document.getElementById("ab-phase-override")?.value || null,
+          admin_override: true,
           discount: totalDiscount || null,
           discount_reason: discount_reason || null,
           referral_source,
@@ -5934,45 +5906,13 @@ async function loadCustomPay() {
 }
 
 // ── PHASE SWITCHER ────────────────────────────────────────────────────────────
-async function initPhase() {
-  try {
-    const r = await fetch('/admin/api/phase');
-    const { phase } = await r.json();
-    highlightPhaseBtn(phase);
-  } catch {}
-}
-const PHASE_PASTELS = {
-  earlyBird: { bg: 'rgba(223,184,120,0.35)', color: '#7A5810' },
-  phase2:    { bg: 'rgba(232,168,180,0.35)', color: '#8A3848' },
-  final:     { bg: 'rgba(140,184,168,0.35)', color: '#2A6050' },
-};
-function highlightPhaseBtn(phase) {
-  ['earlyBird','phase2','final'].forEach(p => {
-    const btn = document.getElementById('phaseBtn-' + p);
-    if (!btn) return;
-    const pastel = PHASE_PASTELS[p];
-    btn.style.background = p === phase ? pastel.bg : 'none';
-    btn.style.color = p === phase ? pastel.color : 'rgba(42,34,24,0.42)';
-    btn.style.fontWeight = p === phase ? '500' : '400';
-    btn.style.borderColor = '';
-  });
-}
 
 
-async function setPhase(phase) {
-  try {
-    await fetch('/admin/api/phase', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ phase }) });
-    highlightPhaseBtn(phase);
-    const labels = { earlyBird: 'Early Bird', phase2: 'Phase 2', final: 'Phase 3' };
-    alert(`Pricing phase switched to: ${labels[phase]}\nTickets page now shows ${labels[phase]} prices.`);
-  } catch { alert('Failed to update phase'); }
-}
 
 loadStats();
 loadInventoryDetail();
 loadBookings();
 loadApplications();
-initPhase();
 setInterval(() => {
   // Skip full refresh if admin is actively typing a note
   const activeNote = document.activeElement;
