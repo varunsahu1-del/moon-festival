@@ -70,6 +70,32 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
 - Stack: Node 24 + Express, `node:sqlite` (no `.transaction()`; use BEGIN/COMMIT), pm2 process `moonfestival`.
 - Database: `data/moonfestival.db` on the server only (gitignored). Daily copy at 02:00 IST in `data/backups/`.
 
+## This folder is the home for all website work
+
+- Open every website chat from this folder (`Documents/Claude Code/moon-festival`) so these rules load.
+  A chat opened in the parent folder gets the video-editing rules instead.
+- File each website chat in the sidebar group "Moon Festival Website".
+
+## Photos
+
+- The old image folders (`Stay Page Images/`, `Venue Page Images/` etc.) are not in git, so new files
+  in them cannot reach the server through `scripts/deploy.sh`.
+- New photos: make optimised WebP copies (longest side 1600px, quality about 78) in the tracked folder
+  `stay-photos/<name>/`, and reference them as `/img/stay-photos/<name>/<file>.webp?w=800` for card
+  covers and `?w=1200` for the See Details carousel. Never commit camera originals.
+- The repository is public, so anything in `stay-photos/` is public too.
+
+## Demo on the Mac before publishing
+
+- Show the user a local demo before asking to deploy any visible change.
+- `node server/index.js` fails on the Mac because `server/sheets.js` needs `googleapis`, which is not
+  in `package.json` (the server has it installed by hand; do not add it unasked). Run the demo with a
+  stub `googleapis` module on `NODE_PATH` and `PORT=4010`, then open `http://localhost:4010/`.
+- The Mac database has no bookings, so sold-out states do not show in the demo. Test them with node
+  on a scratch copy of the database.
+- Do not submit a booking in the demo (it can send real emails). Afterwards stop the demo server and
+  delete `data/img-cache/`.
+
 ## Design is final
 
 Palette, fonts, hero styles and spacing are approved and locked. Do not adjust them unless the
