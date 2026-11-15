@@ -61,6 +61,10 @@ app.use('/api/custom-payment', require('./routes/custompay'));
 // Serve UPI screenshots (admin only — basic auth check done in admin route)
 app.use('/data/screenshots', require('./routes/auth').requireAdmin, express.static(path.join(__dirname, '../data/screenshots')));
 
+// Never serve the database, server code, docs or tooling as static files.
+// Must stay above the HTML-partials middleware and express.static below.
+app.use(require('./private-guard').privateGuard);
+
 // Inject nav + footer partials into HTML pages
 const fs = require('fs');
 const ROOT = path.join(__dirname, '..');
