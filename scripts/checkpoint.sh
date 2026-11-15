@@ -31,7 +31,7 @@ if [ $? -ne 0 ]; then
   echo "  ! could not reach the server: $(echo "$out" | tail -1)"; problems=1
 else
   srv=$(echo "$out" | sed -n 1p)
-  changed=$(echo "$out" | sed -n '2,/^----$/p' | grep -v '^----$' | grep -v 'server/settings.json')
+  changed=$(echo "$out" | awk 'NR>1 && /^----$/{exit} NR>1{print}')
   echo "  version: $srv"
   echo "  app: $(echo "$out" | grep -o '"status":"[a-z]*"' | head -1 | cut -d'"' -f4)"
   echo "  bookings in database: $(echo "$out" | tail -1)"
