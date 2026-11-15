@@ -677,12 +677,25 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
   }
 
   const old = db.prepare('SELECT total_price, status, room_number, addons, referral_source FROM bookings WHERE booking_ref=?').get(req.params.ref);
-  const finalStatus     = status       !== undefined ? status       : old?.status;
-  const finalPrice      = total_price  !== undefined ? total_price  : old?.total_price;
-  const finalRoom       = room_number  !== undefined ? room_number  : old?.room_number;
-  const nowPaid = finalStatus === 'paid' && old?.status !== 'paid';
-  const addonsToSave = addons !== undefined ? (addons || null) : (old?.addons || null);
-  const finalReferral = referral_source !== undefined ? (referral_source || null) : (old?.referral_source || null);
+  if (!old) return res.status(404).json({ error: 'Booking not found' });
+
+  // Only fields that were actually sent are changed; everything else keeps its stored value.
+  // An empty price or status is treated as "not sent" so a save can never blank them.
+  const _num = v => Math.round(parseFloat(String(v ?? '').replace(/[^\d.]/g, '')) || 0);
+  const wasPaid = old.status === 'paid';
+  const priceSent  = total_price !== undefined && total_price !== null && String(total_price).trim() !== '';
+  const priceChanged  = priceSent && _num(total_price) !== _num(old.total_price);
+  const addonsChanged = addons !== undefined && (addons || null) !== (old.addons || null);
+  // Paid bookings: amount and guest add-ons are locked.
+  if (wasPaid && (priceChanged || addonsChanged)) {
+    return res.status(409).json({ error: 'This booking is paid, so its amount and add-ons are locked and were not changed.' });
+  }
+  const finalStatus     = status ? status : old.status;
+  const finalPrice      = priceChanged ? total_price : old.total_price;
+  const finalRoom       = room_number  !== undefined ? room_number  : old.room_number;
+  const nowPaid = finalStatus === 'paid' && old.status !== 'paid';
+  const addonsToSave = addonsChanged ? (addons || null) : (old.addons || null);
+  const finalReferral = referral_source !== undefined ? (referral_source || null) : (old.referral_source || null);
   db.prepare(`UPDATE bookings SET total_price=?, status=?, room_number=?, addons=?, referral_source=?${nowPaid ? ", paid_at=CURRENT_TIMESTAMP" : ""} WHERE booking_ref=?`)
     .run(finalPrice, finalStatus, finalRoom || null, addonsToSave, finalReferral, req.params.ref);
 
@@ -704,12 +717,14 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
     } catch (e) { console.error('[capi] error preparing event:', e.message); }
   }
 
-  // Log meaningful changes
-  if (old) {
+  // Log what actually changed (stored value before → after)
+  {
     const changes = [];
-    if (old.status !== status) changes.push(`Status: ${old.status} → ${status}`);
-    if (old.total_price !== total_price) changes.push(`Amount: ${old.total_price} → ${total_price}`);
-    if ((old.room_number || '') !== (room_number || '')) changes.push(`Room: ${old.room_number || '(none)'} → ${room_number || '(none)'}`);
+    if (old.status !== finalStatus) changes.push(`Status: ${old.status} → ${finalStatus}`);
+    if (priceChanged) changes.push(`Amount: ${old.total_price} → ${finalPrice}`);
+    if (addonsChanged) changes.push(`Add-ons: ${old.addons || '(none)'} → ${addonsToSave || '(none)'}`);
+    if ((old.room_number || '') !== (finalRoom || '')) changes.push(`Room: ${old.room_number || '(none)'} → ${finalRoom || '(none)'}`);
+    if ((old.referral_source || '') !== (finalReferral || '')) changes.push(`Referral: ${old.referral_source || '(none)'} → ${finalReferral || '(none)'}`);
     if (changes.length) db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(req.params.ref, 'edit', changes.join(' · '));
   }
   res.json({ ok: true });

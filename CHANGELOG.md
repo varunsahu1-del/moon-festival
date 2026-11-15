@@ -4,6 +4,8 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-15 | Lock amount and guest add-ons on paid bookings; saves change only the fields sent; edit log records real changes | server/routes/admin.js, server/views/dashboard.html | commit "Lock amount and add-ons on paid bookings" | Yes |
+| 2026-11-15 | Rules file, change log, checkpoint and deploy scripts | CLAUDE.md, CHANGELOG.md, scripts/ | f64c812 | Yes |
 | 2026-11-15 | Block public download of the database, server code and project files | server/index.js, server/private-guard.js | ac21b4f | Yes |
 | 2026-11-15 | Price check for Bhakti Kutir 4 Bed Mixed Dorm (was skipped; page showed 25,500 instead of 26,900) | server/inventory.js | d85b902 | Yes |
 | 2026-11-15 | Bring server git back in line with GitHub after hand-copied files (no file changed) | none | 396264d | Yes |

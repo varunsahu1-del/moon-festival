@@ -3239,7 +3239,7 @@ function renderDrawer(booking, guests, breakdown) {
             return `<div style="${LBL}">${booking.status === 'paid' ? 'Amount paid' : 'Total due'} <span style="font-weight:400;opacity:0.6;">(incl. GST)</span></div>
           <div style="display:flex;align-items:center;gap:8px;">
             <span id="dr-price-display" style="font-size:22px;font-weight:700;color:#B06030;letter-spacing:-0.01em;">₹${grandTotal.toLocaleString('en-IN')}</span>
-            <button onclick="startEditField('price','${escQ(booking.total_price)}','${ref}')" style="background:none;border:none;font-size:13px;color:rgba(176,96,48,0.4);cursor:pointer;padding:2px;line-height:1;" title="Edit accommodation base price">✎</button>
+            ${booking.status === 'paid' ? `<span title="Paid bookings are locked" style="font-size:10px;color:rgba(42,34,24,0.35);">locked</span>` : `<button onclick="startEditField('price','${escQ(booking.total_price)}','${ref}')" style="background:none;border:none;font-size:13px;color:rgba(176,96,48,0.4);cursor:pointer;padding:2px;line-height:1;" title="Edit accommodation base price">✎</button>`}
           </div>
           <div id="dr-price-edit" style="display:none;margin-top:6px;">
             <div style="font-size:10px;color:var(--td-mid);margin-bottom:4px;">Post-discount total (incl. add-ons, excl. GST) — editing this recalculates everything</div>
@@ -3485,6 +3485,7 @@ function renderDrawer(booking, guests, breakdown) {
   }
 
   function tabAddons() {
+    const paidLock = booking.status === 'paid'; // paid bookings: guest add-ons are read-only
     const hasGuest = addonParts.length > 0;
     const hasExtra = extraAddonParts.length > 0;
 
@@ -3523,7 +3524,7 @@ function renderDrawer(booking, guests, breakdown) {
           const isOn = existingMap.hasOwnProperty(c.key);
           const price = isOn ? existingMap[c.key] : (c.price === null ? 0 : c.price);
           return `<label style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:4px;cursor:pointer;border:0.5px solid ${isOn?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)'};background:${isOn?'rgba(176,96,48,0.05)':'transparent'};transition:background 0.15s;" onmouseover="if(!this.querySelector('input').checked)this.style.background='rgba(42,34,24,0.03)'" onmouseout="if(!this.querySelector('input').checked)this.style.background='transparent'">
-            <input type="checkbox" data-addon-key="${c.key.replace(/"/g,'&quot;')}" data-addon-price="${price}" ${isOn?'checked':''} style="accent-color:#B06030;width:14px;height:14px;flex-shrink:0;" onchange="this.closest('label').style.background=this.checked?'rgba(176,96,48,0.05)':'transparent';this.closest('label').style.borderColor=this.checked?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)';" />
+            <input type="checkbox" data-addon-key="${c.key.replace(/"/g,'&quot;')}" data-addon-price="${price}" ${isOn?'checked':''} ${paidLock?'disabled':''} style="accent-color:#B06030;width:14px;height:14px;flex-shrink:0;" onchange="this.closest('label').style.background=this.checked?'rgba(176,96,48,0.05)':'transparent';this.closest('label').style.borderColor=this.checked?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)';" />
             <span style="flex:1;font-size:13px;color:var(--td-strong);">${c.key}</span>
             <span style="font-size:12px;color:rgba(42,34,24,0.4);flex-shrink:0;">${price>0?'₹'+price.toLocaleString('en-IN'):price===0&&isOn?'Included':'—'}</span>
           </label>`;
@@ -3533,7 +3534,7 @@ function renderDrawer(booking, guests, breakdown) {
         <span style="font-size:11px;color:rgba(42,34,24,0.4);">Included in booking total (per person × guests)</span>
         <span style="font-size:13px;font-weight:600;color:rgba(42,34,24,0.45);">₹${(guestAddonTotalPerPerson*addonGuestCount).toLocaleString('en-IN')}</span>
       </div>
-      <button onclick="saveGuestAddons(this,'${ref}',${booking.total_price},${addonGuestCount})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:#B06030;color:#fff;border:none;padding:9px 20px;border-radius:2px;cursor:pointer;margin-bottom:28px;">Save add-on changes</button>
+      ${paidLock ? `<div style="font-size:11px;color:rgba(42,34,24,0.45);margin-bottom:24px;">This booking is paid, so guest add-ons are locked.</div>` : `<button onclick="saveGuestAddons(this,'${ref}',${booking.total_price},${addonGuestCount})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:#B06030;color:#fff;border:none;padding:9px 20px;border-radius:2px;cursor:pointer;margin-bottom:28px;">Save add-on changes</button>`}
 
       <div style="height:0.5px;background:rgba(176,96,48,0.1);margin-bottom:24px;"></div>
 
@@ -3679,10 +3680,8 @@ async function saveInlineField(field, ref) {
     const sel = document.getElementById('dr-status-sel');
     const st = _statusStyle(status);
     sel.style.cssText = 'appearance:none;-webkit-appearance:none;border:0.5px solid;border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;font-family:inherit;outline:none;' + st;
-    const cur = bookingMap[ref];
-    const price = cur?.total_price || cur?.first?.total_price || '';
-    const room = cur?.room_number || cur?.first?.room_number || '';
-    const res = await adminFetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ total_price: price, status, room_number: room }) });
+    // Send only the status so a status change can never touch the amount or room
+    const res = await adminFetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ status }) });
     if (res && !res.ok) { alert('Failed to save status — please try again.'); return; }
     if (bookingMap[ref]) { bookingMap[ref].status = status; if (bookingMap[ref].first) bookingMap[ref].first.status = status; }
     loadStats(); loadBookings();
@@ -3698,7 +3697,7 @@ async function saveInlineFields(ref) {
   const room = roomInput?.value?.trim() || '';
   const status = document.getElementById('dr-status-sel')?.value || bookingMap[ref]?.status || 'pending';
   const res = await adminFetch('/admin/api/bookings/' + ref, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ total_price: price, status, room_number: room }) });
-  if (res && !res.ok) { btn.textContent = 'Save changes'; btn.disabled = false; alert('Failed to save — please try again.'); return; }
+  if (res && !res.ok) { btn.textContent = 'Save changes'; btn.disabled = false; let msg = 'Failed to save — please try again.'; try { const d = await res.json(); if (d && d.error) msg = d.error; } catch {} alert(msg); return; }
   await openDrawer(ref);
   loadStats(); loadBookings();
 }
