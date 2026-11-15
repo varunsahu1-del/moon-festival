@@ -6285,13 +6285,26 @@ function _drawerAddonRef(ref) {
   return b ? (b.extra_addons != null ? b.extra_addons : (b.first ? b.first.extra_addons || '' : '')) : '';
 }
 
+// Returns true only if the server confirmed the save. Callers must stop on false,
+// so the screen never shows an add-on as saved when it was not.
 async function _saveDrawerAddons(ref, newAddonsStr, note) {
-  const res = await fetch(`/admin/api/bookings/${ref}/addons`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ addons: newAddonsStr, note: note || null }),
-  });
-  if (!res.ok) { alert('Failed to save add-ons'); return false; }
+  let res;
+  try {
+    res = await fetch(`/admin/api/bookings/${ref}/addons`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ addons: newAddonsStr, note: note || null }),
+    });
+  } catch (e) {
+    alert('Could not reach the website, so the add-on was NOT saved. Check your connection and try again.');
+    return false;
+  }
+  if (res.status === 401 || (res.redirected && res.url.includes('/admin/login'))) {
+    alert('You have been signed out, so the add-on was NOT saved. Please log in again and repeat it.');
+    window.location.href = '/admin/login';
+    return false;
+  }
+  if (!res.ok) { alert('The add-on was NOT saved. Nothing was changed. Please try again.'); return false; }
   if (bookingMap[ref]) { bookingMap[ref].extra_addons = newAddonsStr; if (bookingMap[ref].first) bookingMap[ref].first.extra_addons = newAddonsStr; }
   const dc = document.getElementById('drawerContent');
   if (dc) dc.dataset.extraAddons = newAddonsStr || '';
@@ -6602,8 +6615,8 @@ async function addDrawerAddon(ref) {
     const parts = current ? current.split('|').filter(Boolean) : [];
     items.forEach(({ price, name }) => parts.push(price + ':' + name));
     const note = items.map(({ price, name }) => `Added: ${name} (₹${parseInt(price).toLocaleString('en-IN')})`).join('; ');
-    await _saveDrawerAddons(ref, parts.join('|'), note);
-    _rebuildAddonsList(ref, parts.join('|'));
+    if (!(await _saveDrawerAddons(ref, parts.join('|'), note))) return;
+    await _refreshAddonsTab(ref);
     _showResendNudge(ref, items.map(i => ({ name: i.name, price: parseInt(i.price) || 0 })));
     _loadAddonLog(ref);
   });
@@ -6619,8 +6632,8 @@ async function editDrawerAddon(btn, ref, idx) {
     const { price, name } = items[0];
     const note = `Changed: ${existingName} → ${name} (₹${parseInt(price).toLocaleString('en-IN')})`;
     parts[idx] = price + ':' + name;
-    await _saveDrawerAddons(ref, parts.join('|'), note);
-    _rebuildAddonsList(ref, parts.join('|'));
+    if (!(await _saveDrawerAddons(ref, parts.join('|'), note))) return;
+    await _refreshAddonsTab(ref);
     _showResendNudge(ref, [{ name, price: parseInt(price) || 0 }]);
     _loadAddonLog(ref);
   });
@@ -6630,8 +6643,15 @@ async function removeDrawerAddon(ref, idx) {
   const current = _drawerAddonRef(ref);
   const parts = current ? current.split('|').filter(Boolean) : [];
   parts.splice(idx, 1);
-  await _saveDrawerAddons(ref, parts.join('|'));
-  _rebuildAddonsList(ref, parts.join('|'));
+  if (!(await _saveDrawerAddons(ref, parts.join('|')))) return;
+  await _refreshAddonsTab(ref);
+}
+
+// Reload the booking from the server and return to the add-ons tab, so the list,
+// the bill and the amount to collect all show what is really saved.
+async function _refreshAddonsTab(ref) {
+  await openDrawer(ref);
+  switchDrawerTab(ref, 'addons');
 }
 
 // Inline hotel number editing in attendees table

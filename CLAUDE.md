@@ -35,6 +35,8 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
 6. **Deploy** with `scripts/deploy.sh` (commits must already be pushed). It backs up the database,
    pulls with `--ff-only`, restarts, and health-checks.
 7. **Verify live**: the changed page or endpoint, and that booking count is unchanged.
+   Every deploy restarts the app, which signs the admin out of the dashboard (sessions are in memory).
+   Tell the user to refresh the dashboard and log in again before using it.
 8. **Log it**: add one line to `CHANGELOG.md`.
 9. **End with a list** of every change made this session and what is / isn't live.
 

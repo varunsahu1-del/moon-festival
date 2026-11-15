@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-15 | Failed add-on saves (signed out, error, offline) no longer show as saved; after a successful save the booking reloads so the amount to collect shows at once | server/views/dashboard.html | commit "Dashboard: never show a failed add-on save as saved" | Yes |
 | 2026-11-15 | GST 5% on add-ons added by admin (from now on; extras collected before 15 Nov unchanged); "mark as collected" no longer alters the booking amount; list room-cost column no longer subtracts collected extras | server/breakdown.js, server/routes/admin.js, server/views/dashboard.html, server/email.js, server/invoice.js | commit "Charge GST on admin-added add-ons" | Yes |
 | 2026-11-15 | Checkpoint script false alarm fixed | scripts/checkpoint.sh | 414f1b1 | Yes |
 | 2026-11-15 | Nightly backup uses SQLite's backup command with an integrity check; daily backup email fixed and sends a consistent copy | scripts/backup.sh, server/email.js | commit "Untrack settings.json; safer backups" | Yes |
