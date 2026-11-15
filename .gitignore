@@ -35,3 +35,6 @@ data/moonfestival.db-wal
 server/moonfestival.db
 festival.db
 data/moondb.sqlite
+
+# Runtime settings (phase, pass toggle). Lives on each machine; see server/settings.example.json
+server/settings.json

@@ -4,6 +4,9 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-15 | Nightly backup uses SQLite's backup command with an integrity check; daily backup email fixed and sends a consistent copy | scripts/backup.sh, server/email.js | commit "Untrack settings.json; safer backups" | Yes |
+| 2026-11-15 | Settings file no longer tracked in git; missing settings fall back to Phase 4 instead of Early Bird | .gitignore, server/settings.js, server/settings.example.json | commit "Untrack settings.json; safer backups" | Yes |
+| 2026-11-15 | Save Martin Dubois facilitator photo to GitHub (already on server) | Facilitator Photos/ | 07b2de0 | Yes |
 | 2026-11-15 | Lock amount and guest add-ons on paid bookings; saves change only the fields sent; edit log records real changes | server/routes/admin.js, server/views/dashboard.html | commit "Lock amount and add-ons on paid bookings" | Yes |
 | 2026-11-15 | Rules file, change log, checkpoint and deploy scripts | CLAUDE.md, CHANGELOG.md, scripts/ | f64c812 | Yes |
 | 2026-11-15 | Block public download of the database, server code and project files | server/index.js, server/private-guard.js | ac21b4f | Yes |

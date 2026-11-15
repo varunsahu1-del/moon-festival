@@ -52,6 +52,7 @@ async function sendEmail(opts) {
     subject: opts.subject,
     html: opts.html,
   };
+  if (opts.text) payload.text = opts.text; // plain-text emails (e.g. the daily backup) have no html
   if (opts.bcc) payload.bcc = Array.isArray(opts.bcc) ? opts.bcc : opts.bcc.split(',').map(s => s.trim());
   if (opts.attachments) {
     payload.attachments = opts.attachments.map(a => ({
@@ -1027,13 +1028,21 @@ async function sendDailyBackup(dbPath) {
   if (!process.env.RESEND_API_KEY) { console.log('[backup] RESEND_API_KEY not set — skipping backup email'); return; }
   const fs = require('fs');
   const date = new Date().toISOString().slice(0, 10);
-  
+
+  // Take a consistent snapshot instead of reading the live file, which can miss
+  // recent bookings still sitting in the write-ahead log.
+  const snapshot = require('path').join(require('os').tmpdir(), 'moonfestival-backup-' + date + '-' + process.pid + '.db');
+  try { fs.unlinkSync(snapshot); } catch {}
+  require('./db').db.exec("VACUUM INTO '" + snapshot.replace(/'/g, "''") + "'");
+  const content = fs.readFileSync(snapshot);
+  try { fs.unlinkSync(snapshot); } catch {}
+
   await sendEmail({
     from: FROM,
     to: 'moonyogaadventures@gmail.com',
     subject: 'Moon Festival · Daily DB Backup · ' + date,
     text: 'Automated daily backup of moonfestival.db attached.',
-    attachments: [{ filename: 'moonfestival-backup-' + date + '.db', content: fs.readFileSync(dbPath) }],
+    attachments: [{ filename: 'moonfestival-backup-' + date + '.db', content }],
   });
   console.log('[backup] Daily backup emailed for', date);
 }

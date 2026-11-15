@@ -71,10 +71,18 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
 Palette, fonts, hero styles and spacing are approved and locked. Do not adjust them unless the
 request is specifically about design.
 
+## Settings and backups
+
+- `server/settings.json` is NOT in git. It lives on each machine and holds the phase, the festival
+  pass toggle and contact numbers. `server/settings.example.json` shows its shape. If it is missing
+  or unreadable the code falls back to Phase 4.
+- Nightly backup: `scripts/backup.sh` via cron at 02:00 IST (SQLite `.backup`, integrity-checked,
+  keeps 30 nightly + 10 pre-deploy copies). A consistent copy is also emailed daily to the admin inbox.
+
 ## Known open items (do not fix unasked)
 
-- Admin "save booking" route rewrites price and add-ons together; suspected cause of bills changing.
-  Until fixed, the price field on confirmed bookings must not be edited in the dashboard.
-- Daily backup email fails (Resend "Missing html or text"); on-server backups still run.
-- `server/settings.json` is tracked in git but changed at runtime on the server.
+- The GitHub repository is public and its history contains early payment screenshots. Making it
+  private needs a deploy key on the server first.
 - Stored amounts and phase names are in mixed formats. Leave them (hard rule 1).
+- Some admin-made bookings list add-ons once per guest, so the dashboard shows their room cost too
+  low. Display only; stored totals are correct. Leave them (hard rule 1).
