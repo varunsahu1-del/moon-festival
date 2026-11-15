@@ -102,6 +102,9 @@ const PRICING = {
     'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 30500, phase4: 32100, extraDay: 1500 },
     'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 48500, phase4: 51000, extraDay: 3000 },
     '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 26900, extraDay: 800  },
+    // Same dorm under its current name. Inventory and tickets.html use "4 Bed Mixed Dorm";
+    // without this entry the server skipped its price check for the room.
+    '4 Bed Mixed Dorm': { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 26900, extraDay: 800  },
     '6 Bed Dorm':     { earlyBird: 24000, phase2: 24000, phase3: 27000, phase4: 27000, extraDay: 700  },
   },
   'Marron · Sea View': {
