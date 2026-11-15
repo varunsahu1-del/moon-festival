@@ -74,7 +74,7 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
 
 - Open every website chat from this folder (`Documents/Claude Code/moon-festival`) so these rules load.
   A chat opened in the parent folder gets the video-editing rules instead.
-- File each website chat in the sidebar group "Moon Festival Website".
+- File each website chat in the sidebar group "moon-festival".
 
 ## Photos
 
