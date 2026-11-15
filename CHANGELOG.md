@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-15 | Room for 4 card cover photo changed to the verandah photo (same as first carousel photo) | tickets.html | commit "Room for 4: verandah photo as card cover" | Yes |
 | 2026-11-15 | New "Bhakti Kutir · Room for 4" card on the tickets page (4 beds, mixed, same price as the 4 Bed Dorm: 26,900 in Phase 4, extra day 800) with 9 optimised photos; Bhakti Kutir solo rooms reduced from 3 to 2 (third room converted into the Room for 4), so Solo shows sold out | tickets.html, book.html, server/inventory.js, stay-photos/ | commit "Add Bhakti Kutir Room for 4; solo rooms 3 -> 2" | Yes |
 | 2026-11-15 | Remove button (with confirmation) for admin-added add-ons that are not yet collected; removal is logged | server/views/dashboard.html | commit "Dashboard: Remove button for admin-added add-ons" | Yes |
 | 2026-11-15 | Failed add-on saves (signed out, error, offline) no longer show as saved; after a successful save the booking reloads so the amount to collect shows at once | server/views/dashboard.html | commit "Dashboard: never show a failed add-on save as saved" | Yes |
