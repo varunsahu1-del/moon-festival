@@ -52,7 +52,9 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
 - `total_price` in the database is the pre-GST base (room + add-ons − discount).
 - Shown to guest: `total_price × 1.05`. Charged via Razorpay: `round(total_price × 1.05 × 1.0236)`.
 - `sendPaymentPendingEmail` takes the GST-inclusive, pre-Razorpay amount and adds the fee itself.
-- `extra_addons` (admin-added) carry no GST and are not part of `total_price`.
+- `extra_addons` (admin-added) are never part of `total_price`. They carry 5% GST on top, except extras
+  collected before 2026-11-15 (see `EXTRAS_GST_FROM` in `server/breakdown.js`). Marking them collected
+  only sets the collected flag; it must not change `total_price`.
 
 ## Map
 

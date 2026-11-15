@@ -208,28 +208,25 @@ router.get('/api/bookings/:ref/booking-log', requireAdmin, (req, res) => {
 });
 
 router.patch('/api/bookings/:ref/addons-collected', requireAdmin, (req, res) => {
-  const { collected, amount, method } = req.body;
-  const addonAmt = Number(amount) || 0;
-  const booking = db.prepare('SELECT total_price, addons_collected FROM bookings WHERE booking_ref=?').get(req.params.ref);
+  const { collected, method } = req.body;
+  const booking = db.prepare('SELECT * FROM bookings WHERE booking_ref=?').get(req.params.ref);
   if (!booking) return res.status(404).json({ error: 'Not found' });
 
-  const baseNum = Math.round(parseFloat(String(booking.total_price).replace(/[^\d.]/g,"")) || 0);
-  const wasCollected = !!booking.addons_collected;
-  let newBase = baseNum;
-  if (collected && !wasCollected) newBase = baseNum + addonAmt;
-  if (!collected && wasCollected) newBase = Math.max(0, baseNum - addonAmt);
-  const newTotal = '₹' + newBase.toLocaleString('en-IN');
-
+  // Extras are tracked separately from total_price, so collecting them only records
+  // that they were paid. The booking's own amount is never changed here.
   const collectedAt = collected ? new Date().toISOString() : null;
-  db.prepare('UPDATE bookings SET addons_collected=?, addons_collection_method=?, addons_collected_at=?, total_price=? WHERE booking_ref=?')
-    .run(collected ? 1 : 0, collected ? (method || 'cash') : null, collectedAt, newTotal, req.params.ref);
+  db.prepare('UPDATE bookings SET addons_collected=?, addons_collection_method=?, addons_collected_at=? WHERE booking_ref=?')
+    .run(collected ? 1 : 0, collected ? (method || 'cash') : null, collectedAt, req.params.ref);
 
+  // Amounts for the log come from the booking itself, not from the browser.
+  const bd = computeBreakdown({ ...booking, addons_collected: collected ? 1 : 0, addons_collected_at: collectedAt });
+  const rupees = n => '₹' + Number(n || 0).toLocaleString('en-IN');
   const methodLabel = method || 'cash';
   const note = collected
-    ? `Add-on payment collected via ${methodLabel} — ₹${addonAmt.toLocaleString('en-IN')} added to total (now ${newTotal})`
-    : `Add-on payment collection undone — ₹${addonAmt.toLocaleString('en-IN')} removed from total (now ${newTotal})`;
+    ? `Add-on payment collected via ${methodLabel} — ${rupees(bd.extraAddonTotal)} + GST ${rupees(bd.extraGst)} = ${rupees(bd.extraAddonDue)}`
+    : `Add-on payment collection undone — ${rupees(bd.extraAddonTotal)} add-ons marked as not collected`;
   db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(req.params.ref, 'addon_payment', note);
-  res.json({ ok: true, new_total: newTotal });
+  res.json({ ok: true, new_total: booking.total_price, collected_amount: collected ? bd.extraAddonDue : 0 });
 });
 
 // API: resend payment link for pending bookings

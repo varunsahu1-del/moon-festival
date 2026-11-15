@@ -3000,7 +3000,7 @@ function renderTable() {
     const _tblGuestAddonPerPerson = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
     const _tblGuestAddonAmt = _tblGuestAddonPerPerson * _tblGuestCount;
     const _tblExtraAddonAmt = isFirstGuest?(r.extra_addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
-    const _tblAccomAmt = isFirstGuest?baseAmt-_tblGuestAddonAmt-(r.addons_collected?_tblExtraAddonAmt:0):0;
+    const _tblAccomAmt = isFirstGuest?baseAmt-_tblGuestAddonAmt:0;
     const gstAmt    = isFirstGuest&&baseAmt ? Math.round(baseAmt*(window.__GST_RATE||0.05)) : 0;
     const finalTotal = isFirstGuest&&baseAmt ? baseAmt+gstAmt : 0;
     const phaseBadgeHtml = r.phase ? `<span style="display:inline-block;font-size:8px;font-weight:600;letter-spacing:0.08em;border-radius:3px;padding:2px 6px;${r.phase==='earlyBird'?'background:rgba(223,184,120,0.3);color:#7A5810;border:0.5px solid rgba(223,184,120,0.6);':r.phase==='phase2'?'background:rgba(140,184,168,0.3);color:#2d6b5e;border:0.5px solid rgba(140,184,168,0.6);':'background:rgba(155,143,174,0.3);color:#5a4d70;border:0.5px solid rgba(155,143,174,0.6);'}">${r.phase==='earlyBird'?'Early Bird':r.phase==='phase2'?'Phase 2':r.phase==='phase3'?'Phase 3':r.phase==='phase4'?'Phase 4':r.phase||''}</span>` : '';
@@ -3550,12 +3550,15 @@ function renderDrawer(booking, guests, breakdown) {
         const collectedMethod = booking.addons_collection_method || '';
         const collectedAt = booking.addons_collected_at ? new Date(booking.addons_collected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
         const methodLabel = { cash:'Cash', upi:'UPI', bank_transfer:'Bank Transfer', razorpay:'Razorpay' }[collectedMethod] || collectedMethod;
+        const xGst = (breakdown && breakdown.extraGst) || 0; // GST on these add-ons (0 for ones collected before GST applied)
+        const xDue = extraAddonTotal + xGst;
         return `
         <div id="drawer-addon-collect-${ref}" style="margin-top:20px;border-radius:4px;overflow:hidden;border:0.5px solid ${collected ? 'rgba(40,140,60,0.25)' : 'rgba(176,96,48,0.2)'};">
           <div style="padding:14px 18px;background:${collected ? 'rgba(40,140,60,0.07)' : 'rgba(176,96,48,0.06)'};display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="${LBL}color:${collected ? 'rgba(40,140,60,0.7)' : 'rgba(42,34,24,0.38)'};">Extra add-on total</div>
-              <div style="font-size:20px;font-weight:700;color:${collected ? '#1e8a3a' : 'var(--td-strong)'};">₹${extraAddonTotal.toLocaleString('en-IN')}</div>
+              <div style="font-size:20px;font-weight:700;color:${collected ? '#1e8a3a' : 'var(--td-strong)'};">₹${xDue.toLocaleString('en-IN')}</div>
+              ${xGst > 0 ? `<div style="font-size:11px;color:rgba(42,34,24,0.5);margin-top:2px;">₹${extraAddonTotal.toLocaleString('en-IN')} + GST 5% ₹${xGst.toLocaleString('en-IN')} — ${collected ? 'collected' : 'collect'} ₹${xDue.toLocaleString('en-IN')}</div>` : ''}
             </div>
             ${collected ? `<div style="text-align:right;">
               <div style="font-size:12px;color:#1e8a3a;font-weight:600;">✓ Collected${methodLabel ? ' · ' + methodLabel : ''}</div>
@@ -4559,7 +4562,7 @@ function exportFilteredCSV() {
     const csvGuestCount = r.guest_count || 1;
     const guestAddonAmt = isFirstGuest?(r.addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0)*csvGuestCount:0;
     const extraAddonAmt = isFirstGuest?(r.extra_addons||'').split('|').filter(Boolean).reduce((s,p)=>{const ci=p.indexOf(':');return s+(ci>=0?parseInt(p.slice(0,ci),10)||0:0);},0):0;
-    const accomAmt = isFirstGuest?baseAmt-guestAddonAmt-(r.addons_collected?extraAddonAmt:0):0;
+    const accomAmt = isFirstGuest?baseAmt-guestAddonAmt:0;
     const gstAmt = isFirstGuest&&baseAmt?Math.round(baseAmt*(window.__GST_RATE||0.05)):0;
     const finalTotal = isFirstGuest&&baseAmt?baseAmt+gstAmt:0;
 

@@ -175,7 +175,7 @@ function generateInvoice({ booking, guests }) {
 
     const bd = computeBreakdown(booking);
     const { accomBase, addonLines: addonGroupList, extraAddonLines: extraAddonItems,
-            addonTotal, extraAddonTotal, discount, subtotal: taxableAmount, gst, grandTotal,
+            addonTotal, extraAddonTotal, discount, taxable: taxableAmount, gst, grandTotal,
             collected } = bd;
     // accomAmount shown in invoice = post-discount accommodation (for the rate line)
     // We show accomBase (pre-discount) in qty × rate, then a discount row below

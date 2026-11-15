@@ -1,5 +1,10 @@
 const { GST_RATE } = require('./inventory');
 
+// Add-ons added by the admin ("extras") carry GST on top, like everything else.
+// Extras that were already collected before this date were charged without GST
+// and are left exactly as they were.
+const EXTRAS_GST_FROM = '2026-11-15';
+
 /**
  * Single source of truth for price breakdown.
  *
@@ -50,9 +55,14 @@ function computeBreakdown(booking) {
   // So compute accomBase without extraAddonTotal, then add it back for grandTotal.
   const accomBase = storedTotal - addonTotal + discount;
 
-  // Admin add-ons (extra_addons) are collected separately at face value — no GST on them.
+  // Admin add-ons (extra_addons) are kept separate from total_price and collected separately.
+  // GST is charged on top of them, except for extras collected before EXTRAS_GST_FROM.
+  const legacyExtras = collected && !!booking.addons_collected_at && String(booking.addons_collected_at) < EXTRAS_GST_FROM;
   const subtotal   = storedTotal;
-  const gst        = booking.no_gst ? 0 : Math.round(subtotal * GST_RATE);
+  const baseGst    = booking.no_gst ? 0 : Math.round(subtotal * GST_RATE);
+  const extraGst   = (booking.no_gst || legacyExtras) ? 0 : Math.round(extraAddonTotal * GST_RATE);
+  const gst        = baseGst + extraGst;
+  const taxable    = subtotal + (legacyExtras ? 0 : extraAddonTotal);
   const grandTotal = subtotal + gst + extraAddonTotal;
 
   return {
@@ -63,7 +73,11 @@ function computeBreakdown(booking) {
     extraAddonTotal,
     discount,
     subtotal,        // = storedTotal
-    gst,
+    taxable,         // amount GST is charged on (subtotal + extras, unless extras are legacy)
+    gst,             // baseGst + extraGst
+    baseGst,         // GST on the booking itself
+    extraGst,        // GST on admin-added extras
+    extraAddonDue: extraAddonTotal + extraGst, // what to collect for the extras
     grandTotal,
     collected,
   };

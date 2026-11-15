@@ -1317,7 +1317,13 @@ async function sendAddonQuoteEmail({ booking, guests, addedItems }) {
     + '<td style="font-family:' + OPEN + ';font-size:13px;color:' + C.sub + ';padding:6px 0 2px;">' + a.name + '</td>'
     + '<td style="font-family:' + OPEN + ';font-size:13px;color:' + C.terra + ';font-weight:600;padding:6px 0 2px;text-align:right;" align="right">+' + fmt(a.price) + '</td>'
     + '</tr>'
-  ).join('');
+  ).join('')
+  + (bd.extraGst > 0
+    ? '<tr>'
+      + '<td style="font-family:' + OPEN + ';font-size:12px;color:' + C.muted + ';padding:6px 0 2px;">GST 5% on add-ons</td>'
+      + '<td style="font-family:' + OPEN + ';font-size:12px;color:' + C.muted + ';padding:6px 0 2px;text-align:right;" align="right">+' + fmt(Math.round(addedTotal * bd.extraGst / Math.max(1, bd.extraAddonTotal))) + '</td>'
+      + '</tr>'
+    : '');
 
   const addedLabel = addedItems.length === 1
     ? '<strong style="color:' + C.text + ';">' + addedItems[0].name + '</strong> has been added to your Moon Festival booking.'

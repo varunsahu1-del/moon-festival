@@ -4,6 +4,8 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-15 | GST 5% on add-ons added by admin (from now on; extras collected before 15 Nov unchanged); "mark as collected" no longer alters the booking amount; list room-cost column no longer subtracts collected extras | server/breakdown.js, server/routes/admin.js, server/views/dashboard.html, server/email.js, server/invoice.js | commit "Charge GST on admin-added add-ons" | Yes |
+| 2026-11-15 | Checkpoint script false alarm fixed | scripts/checkpoint.sh | 414f1b1 | Yes |
 | 2026-11-15 | Nightly backup uses SQLite's backup command with an integrity check; daily backup email fixed and sends a consistent copy | scripts/backup.sh, server/email.js | commit "Untrack settings.json; safer backups" | Yes |
 | 2026-11-15 | Settings file no longer tracked in git; missing settings fall back to Phase 4 instead of Early Bird | .gitignore, server/settings.js, server/settings.example.json | commit "Untrack settings.json; safer backups" | Yes |
 | 2026-11-15 | Save Martin Dubois facilitator photo to GitHub (already on server) | Facilitator Photos/ | 07b2de0 | Yes |
