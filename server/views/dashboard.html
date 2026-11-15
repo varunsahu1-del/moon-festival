@@ -3471,6 +3471,18 @@ function renderDrawer(booking, guests, breakdown) {
       ${total ? `<span style="font-size:12px;color:#B06030;font-weight:600;white-space:nowrap;">₹${total.toLocaleString('en-IN')}</span>` : ''}
     </div>`;
   }
+  // One row per admin-added add-on. It can be removed until it has been marked collected.
+  function _extraAddonItemRow(p, idx) {
+    const ci = p.indexOf(':');
+    const price = ci >= 0 ? (parseInt(p.slice(0, ci)) || 0) : 0;
+    const name  = ci >= 0 ? p.slice(ci + 1) : p;
+    if (!name) return '';
+    return `<div class="drawer-addon-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:0.5px solid rgba(176,96,48,0.08);">
+      <div style="font-size:12px;color:var(--td-strong);flex:1;">${name}${name.toLowerCase().includes('scooter') ? ' <span style="font-size:10px;color:rgba(42,34,24,0.38);">flat fee</span>' : ''}</div>
+      ${price ? `<span style="font-size:12px;color:#B06030;font-weight:600;white-space:nowrap;">₹${price.toLocaleString('en-IN')}</span>` : ''}
+      ${collected ? '' : `<button onclick="removeDrawerAddon('${ref}',${idx})" title="Remove this add-on from the booking" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:none;border:0.5px solid rgba(192,57,43,0.35);color:#c0392b;border-radius:3px;padding:4px 8px;cursor:pointer;white-space:nowrap;">Remove</button>`}
+    </div>`;
+  }
   function _groupAddonParts(parts) {
     const grouped = {};
     parts.forEach(p => {
@@ -3543,7 +3555,7 @@ function renderDrawer(booking, guests, breakdown) {
         <button data-add-addon="${ref}" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;background:rgba(176,96,48,0.1);border:0.5px solid rgba(176,96,48,0.3);color:#B06030;padding:6px 12px;border-radius:2px;cursor:pointer;">+ Add</button>
       </div>
       <div id="drawer-addons-list-${ref}" style="display:flex;flex-direction:column;">
-        ${hasExtra ? _groupAddonParts(extraAddonParts).map(g => _addonRow(g)).join('') : `<div style="font-size:13px;color:rgba(42,34,24,0.3);padding:12px 0;">No extra add-ons added yet.</div>`}
+        ${hasExtra ? extraAddonParts.map((p, idx) => _extraAddonItemRow(p, idx)).join('') : `<div style="font-size:13px;color:rgba(42,34,24,0.3);padding:12px 0;">No extra add-ons added yet.</div>`}
       </div>
 
       ${extraAddonTotal > 0 ? (() => {
@@ -6642,8 +6654,15 @@ async function editDrawerAddon(btn, ref, idx) {
 async function removeDrawerAddon(ref, idx) {
   const current = _drawerAddonRef(ref);
   const parts = current ? current.split('|').filter(Boolean) : [];
+  const p = parts[idx];
+  if (p === undefined) return;
+  const ci = p.indexOf(':');
+  const name = ci >= 0 ? p.slice(ci + 1) : p;
+  const price = ci >= 0 ? (parseInt(p.slice(0, ci)) || 0) : 0;
+  if (!confirm(`Remove "${name}" (₹${price.toLocaleString('en-IN')}) from this booking?`)) return;
   parts.splice(idx, 1);
-  if (!(await _saveDrawerAddons(ref, parts.join('|')))) return;
+  const note = `Removed: ${name} (₹${price.toLocaleString('en-IN')})`;
+  if (!(await _saveDrawerAddons(ref, parts.join('|'), note))) return;
   await _refreshAddonsTab(ref);
 }
 
