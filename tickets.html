@@ -1859,6 +1859,38 @@
       </div>
     </div>
 
+    <!-- ── BHAKTI KUTIR · ROOM FOR 4 ──────────────────── -->
+    <div class="venue-card" data-venue="Bhakti Kutir">
+      <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">Festival Venue</span><span class="venue-hero-badge venue-hero-badge--dark">Non-AC</span></div>
+      <img class="venue-hero-img" src="/img/stay-photos/bhakti-room-for-4/01-beds.webp?w=800" alt="Bhakti Kutir Room for 4" loading="lazy" />
+      <div style="position:absolute;bottom:12px;right:12px;z-index:10;background:#1a1008;padding:6px 12px 6px 10px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,0.7);">
+        <span style="color:#B06030;font-size:12px;line-height:1;">◈</span>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#EDD4B2;line-height:1;">4 Sharing</span>
+      </div>
+    </div>
+      <div class="venue-card-body">
+        <div class="venue-meta">
+          <h3 class="venue-name">Bhakti Kutir · Room for 4</h3>
+          <button class="see-details-btn" data-venue="bhaktiRoom4">See Details <span class="arrow">→</span></button>
+        </div>
+        <ul class="room-list">
+          <li class="room-row" data-max="4" data-base-price="26900" data-extra-day="800" data-room-type="Room for 4" data-price-phase1="26900" data-price-phase2="26900">
+            <div class="room-top">
+            <div class="room-info">
+              <p class="room-type">Room for 4</p>
+            <p class="room-note" data-note="{n} {bed} in a 4-bed room · mixed">1 bed in a 4-bed room · mixed</p>
+            </div>
+            <div class="price-wrap"><span class="price-eb-label">Phase 4</span><span class="room-price">₹26,900</span><span class="price-future">₹26,900</span></div>
+          </div>
+            <div class="room-bottom">
+            <div class="stepper-wrap"><div class="bed-stepper"><button class="stepper-btn stepper-dec">−</button><span class="stepper-count">1</span><button class="stepper-btn stepper-inc">+</button></div><span class="stepper-label">Guests</span></div>
+            <button class="btn-book">Book</button>
+          </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <!-- ── LA ROCHA · SEA VIEW ──────────────────────── -->
     <div class="venue-card" data-venue="La Rocha · Sea View">
       <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">2 Mins Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span></div>
@@ -3173,6 +3205,22 @@ const venueData = {
       '/img/Stay Page Images/Marron/Maroon Luxury garden cottage/WhatsApp Image 2026-08-05 at 15.59.36.jpeg?w=1200',
     ]
   },
+  bhaktiRoom4: {
+    name: 'Bhakti Kutir · Room for 4',
+    tags: ['Eco', 'Non-AC', 'Festival Venue', 'Hot Water', 'WiFi', 'Fans', 'Mosquito Nets', 'Spa & Wellness Center', 'Restaurant'],
+    desc: 'The 4 sharing room is the cheapest stay option at Moon Festival — and honestly, one of the most memorable. Right on the Bhakti Kutir grounds, you fall asleep in the same forest the festival happens in, and wake up already there.\n\nFour single beds with mosquito nets and personal storage, surrounded by trees and the sounds of the land. Non-AC, but the forest keeps it cool and alive. The shared room experience is about more than just a bed — people who choose a shared room almost always end up with the best stories. It\'s where the real bonding happens: late nights talking, mornings together, the kind of connections that are hard to find anywhere else.\n\nIf you\'re coming to Moon Festival for the people and the experience — this room is made for you.',
+    photos: [
+      '/img/stay-photos/bhakti-room-for-4/05-verandah.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/01-beds.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/02-room.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/03-bed-window.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/04-desk.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/06-hammock.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/07-garden-view.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/08-bathroom.webp?w=1200',
+      '/img/stay-photos/bhakti-room-for-4/09-bathroom-2.webp?w=1200',
+    ]
+  },
   dormitory: {
     name: 'Bhakti Dorm',
     tags: ['Eco', 'Non-AC', 'Festival Venue', 'Hot Water', 'WiFi', 'Fans', 'Mosquito Nets', 'Spa & Wellness Center', 'Restaurant'],
@@ -3395,7 +3443,7 @@ document.addEventListener('keydown', e => {
 
       // Bhakti Kutir non-dorm rooms: always show remaining count for urgency
       const roomTypeName = row.dataset.roomType || '';
-      const isDorm = roomTypeName.toLowerCase().includes('dorm');
+      const isDorm = roomTypeName.toLowerCase().includes('dorm') || roomTypeName === 'Room for 4';
       const isBhaktiRoom = venue === 'Bhakti Kutir' && !isDorm;
       if ((isBhaktiRoom || s.low) && s.remaining > 0) {
         const isBhaktiDouble = venue === 'Bhakti Kutir' && roomTypeName === 'Room for 2';

@@ -956,6 +956,7 @@ if (!venue || !roomType || !priceStr) {
     'Private Room': 'Entire room for yourself',
     '4 Bed Mixed Dorm': '1 bed in a 4-bed mixed dorm',
     '6 Bed Dorm': '1 bed in a 6-bed dorm · mixed',
+    'Room for 4': '1 bed in a 4-bed room · mixed',
   };
   const noteEl = document.getElementById('bsRoomNote');
   const roomNote = ROOM_NOTES[roomType];
@@ -1495,7 +1496,7 @@ document.getElementById('bookingForm').addEventListener('submit', async e => {
     alert('This dorm is for female guests only.');
     submitBtn.disabled = false; submitBtn.textContent = 'Proceed to Payment →'; return;
   }
-  const requiresSameGender = !isFullRoom && roomType !== '6 Bed Mixed Dorm' && roomType !== 'Private Room';
+  const requiresSameGender = !isFullRoom && roomType !== '6 Bed Mixed Dorm' && roomType !== 'Room for 4' && roomType !== 'Private Room';
   if (requiresSameGender && guests.length > 1) {
     const genders = guests.map(g => g.gender).filter(Boolean);
     if (genders.includes('Male') && genders.includes('Female')) {

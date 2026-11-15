@@ -10,9 +10,12 @@ const INVENTORY = [
   // Bhakti Kutir
   { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 32, rooms: 16, room_size: 2, gender_rule: 'same_gender', label: '16 rooms × 2' },
   { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 12, rooms: 4,  room_size: 3, gender_rule: 'same_gender', label: '4 rooms × 3' },
-  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 3,  rooms: 3,  room_size: 1, gender_rule: 'any',         label: '3 rooms' },
+  // Was 3 rooms; the third was converted into the 'Room for 4' below (2026-11-15).
+  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 2,  rooms: 2,  room_size: 1, gender_rule: 'any',         label: '2 rooms' },
   { venue: 'Bhakti Kutir', room_type: '4 Bed Mixed Dorm', unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'any', label: '4 beds' },
   { venue: 'Bhakti Kutir', room_type: '6 Bed Dorm',     unit: 'beds',  capacity: 6,  rooms: 1,  room_size: 6, gender_rule: 'any',         label: '6 beds' },
+  // 4 sharing room (one room, 4 single beds, mixed). Shown on its own card in tickets.html.
+  { venue: 'Bhakti Kutir', room_type: 'Room for 4',     unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'any',         label: '4 beds' },
   // Destiny (combined pool of 5 rooms)
   { venue: 'Destiny', room_type: 'Double Sharing', unit: 'beds',  capacity: 6,  rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
   { venue: 'Destiny', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
@@ -77,6 +80,7 @@ const ROOM_LABELS = {
     'Private Room':    ['BK-S01','BK-S02'],
     '4 Bed Dorm':     ['DORM-F4'],
     '6 Bed Dorm':     ['DORM-M6'],
+    'Room for 4':     ['BK-Q01'],
   },
   'La Rocha · Sea View': {
     'Double Sharing': ['LRS-D01','LRS-D02','LRS-D03'],
@@ -106,6 +110,8 @@ const PRICING = {
     // without this entry the server skipped its price check for the room.
     '4 Bed Mixed Dorm': { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 26900, extraDay: 800  },
     '6 Bed Dorm':     { earlyBird: 24000, phase2: 24000, phase3: 27000, phase4: 27000, extraDay: 700  },
+    // 4 sharing room: same prices as the 4 Bed Dorm.
+    'Room for 4':     { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 26900, extraDay: 800  },
   },
   'Marron · Sea View': {
     'Double Sharing': { earlyBird: 49900, phase2: 51400, phase3: 51400, phase4: 51400, extraDay: 4500 },
