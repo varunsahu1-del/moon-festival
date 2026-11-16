@@ -3043,7 +3043,7 @@ function renderTable() {
         case 'discount':   return `<td>${isFirstGuest&&r.discount?`<span style="color:#c0392b;font-weight:600;">−₹${Number(r.discount).toLocaleString('en-IN')}</span>${r.discount_reason?`<br><span style="font-size:10px;color:var(--td-muted);">${r.discount_reason}</span>`:''}`:''}</td>`;
         case 'gst':        return `<td style="color:var(--td-gst);font-size:11px;">${gstAmt?'₹'+gstAmt.toLocaleString('en-IN'):''}</td>`;
         case 'finalTotal': return `<td style="font-weight:600;color:var(--td-strong);">${finalTotal?'₹'+finalTotal.toLocaleString('en-IN'):''}</td>`;
-        case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*1.0242).toLocaleString('en-IN'):''}</td>`;
+        case 'razorpayAmt': return `<td style="font-size:11px;color:var(--td-muted);">${isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?'₹'+Math.round(finalTotal*(String(r.created_at||'')<'2026-11-01'?1.0236:1)).toLocaleString('en-IN'):''}</td>`;
         case 'verified': return isFirstGuest ? `<td onclick="event.stopPropagation()">${verifiedCellHtml(r.booking_ref, !!r.admin_verified)}</td>` : '<td></td>';
         case 'mail':       return `<td>${isFirstGuest?(r.email_sent?'<span style="color:#2ecc71;font-size:11px;">✓ Sent</span>':'<span style="color:var(--td-muted);font-size:11px;">—</span>'):''}</td>`;
         case 'adminNotes': return `<td class="td-wrap" onclick="event.stopPropagation()" style="min-width:180px;"><div style="display:flex;flex-direction:column;gap:4px;"><textarea class="guest-notes-input" data-guest-id="${r.guest_id}" rows="1" placeholder="Add admin note…" onclick="event.stopPropagation()">${r.notes||''}</textarea><button class="note-save-btn" data-guest-id="${r.guest_id}" onclick="event.stopPropagation();saveAdminNote(this)" style="display:none;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;background:rgba(176,96,48,0.15);border:0.5px solid rgba(176,96,48,0.4);color:#B06030;border-radius:2px;padding:3px 10px;cursor:pointer;align-self:flex-end;">Save</button></div></td>`;
@@ -4594,7 +4594,7 @@ function exportFilteredCSV() {
         case 'discount':   return esc(isFirstGuest && r.discount ? r.discount : '');
         case 'gst':        return esc(gstAmt||'');
         case 'finalTotal':   return esc(finalTotal||'');
-        case 'razorpayAmt':  return esc(isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?Math.round(finalTotal*1.0242):'');
+        case 'razorpayAmt':  return esc(isFirstGuest&&finalTotal&&r.payment_method==='razorpay'?Math.round(finalTotal*(String(r.created_at||'')<'2026-11-01'?1.0236:1)):'');
         case 'mail':         return esc(isFirstGuest ? (r.email_sent ? 'Yes' : 'No') : '');
         case 'adminNotes': return esc(r.notes||'');
         case 'guestNote':  return esc(isFirstGuest ? (r.organizer_note||'') : '');
