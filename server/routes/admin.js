@@ -741,6 +741,7 @@ router.patch('/api/bookings/:ref/room', requireAdmin, (req, res) => {
       const roomOccupiedByOtherType = db.prepare(`
         SELECT b.room_type FROM guests g JOIN bookings b ON b.id=g.booking_id
         WHERE b.venue=? AND b.room_type != ? AND b.status IN ('paid','pending','upi_pending')
+          AND b.deleted_at IS NULL
           AND COALESCE(g.room_number, b.room_number) = ?
         LIMIT 1
       `).get(booking.venue, booking.room_type, room_number);
@@ -754,6 +755,7 @@ router.patch('/api/bookings/:ref/room', requireAdmin, (req, res) => {
         const occupantGenders = db.prepare(`
           SELECT DISTINCT g.gender FROM guests g JOIN bookings b ON b.id=g.booking_id
           WHERE COALESCE(g.room_number, b.room_number)=? AND b.id != ? AND b.status IN ('paid','pending','upi_pending')
+            AND b.deleted_at IS NULL
         `).all(room_number, booking.id).map(r => r.gender).filter(Boolean);
 
         if (invItem.gender_rule === 'female_only' && bookingGenders.includes('Male')) {
@@ -921,6 +923,7 @@ router.patch('/api/guests/:id/room', requireAdmin, (req, res) => {
       const occupantGenders = db.prepare(`
         SELECT DISTINCT g.gender FROM guests g JOIN bookings b ON b.id=g.booking_id
         WHERE COALESCE(g.room_number, b.room_number)=? AND g.id != ? AND b.status IN ('paid','pending','upi_pending')
+          AND b.deleted_at IS NULL
       `).all(room_number, guestId).map(r => r.gender).filter(Boolean);
 
       if (invItem.gender_rule === 'female_only' && movingGender === 'Male') {
