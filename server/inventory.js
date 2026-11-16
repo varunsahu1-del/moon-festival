@@ -33,13 +33,13 @@ const INVENTORY = [
   // La La Land Cottages (2 double + 3 private)
   { venue: 'La La Land Cottages', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'La La Land Cottages', room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
-  // La Rocha (3 categories, 3 rooms each)
-  { venue: 'La Rocha · Sea View',       room_type: 'Double Sharing', unit: 'beds',  capacity: 6, rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
-  { venue: 'La Rocha · Sea View',       room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
-  { venue: 'La Rocha · Upper Sea View', room_type: 'Double Sharing', unit: 'beds',  capacity: 6, rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
-  { venue: 'La Rocha · Upper Sea View', room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
-  { venue: 'La Rocha · Deluxe',         room_type: 'Double Sharing', unit: 'beds',  capacity: 6, rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
-  { venue: 'La Rocha · Deluxe',         room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
+  // La Rocha (3 categories, 3 rooms each: 2 double sharing + 1 private)
+  { venue: 'La Rocha · Sea View',       room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
+  { venue: 'La Rocha · Sea View',       room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
+  { venue: 'La Rocha · Upper Sea View', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
+  { venue: 'La Rocha · Upper Sea View', room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
+  { venue: 'La Rocha · Deluxe',         room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
+  { venue: 'La Rocha · Deluxe',         room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
   { venue: 'Festival Access', room_type: 'Full Festival Pass',          unit: 'beds', capacity: 999, room_size: 1, gender_rule: 'any', label: 'unlimited' },
   { venue: 'Festival Access', room_type: 'Weekend Pass',                unit: 'beds', capacity: 200, room_size: 1, gender_rule: 'any', label: '200 passes' },
   { venue: 'Festival Access', room_type: 'Single Day Pass',             unit: 'beds', capacity: 300, room_size: 1, gender_rule: 'any', label: '300 passes' },
@@ -83,16 +83,16 @@ const ROOM_LABELS = {
     'Room for 4':     ['BK-Q01'],
   },
   'La Rocha · Sea View': {
-    'Double Sharing': ['LRS-D01','LRS-D02','LRS-D03'],
-    'Private Room':   ['LRS-P01','LRS-P02','LRS-P03'],
+    'Double Sharing': ['LRS-D01','LRS-D02'],
+    'Private Room':   ['LRS-P01'],
   },
   'La Rocha · Upper Sea View': {
-    'Double Sharing': ['LRU-D01','LRU-D02','LRU-D03'],
-    'Private Room':   ['LRU-P01','LRU-P02','LRU-P03'],
+    'Double Sharing': ['LRU-D01','LRU-D02'],
+    'Private Room':   ['LRU-P01'],
   },
   'La Rocha · Deluxe': {
-    'Double Sharing': ['LRD-D01','LRD-D02','LRD-D03'],
-    'Private Room':   ['LRD-P01','LRD-P02','LRD-P03'],
+    'Double Sharing': ['LRD-D01','LRD-D02'],
+    'Private Room':   ['LRD-P01'],
   },
 };
 
