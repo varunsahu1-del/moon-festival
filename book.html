@@ -1776,7 +1776,7 @@ async function launchRazorpay() {
         });
       } catch (_) {}
       _clearPendingBooking();
-      const _rpTotal = _payState ? Math.round(_payState.totalWithGst * 1.0242) : 0;
+      const _rpTotal = _payState ? Math.round(_payState.totalWithGst) : 0;
       if (window.fbq && _rpTotal > 0) fbq('track', 'Purchase', { value: _rpTotal, currency: 'INR', content_name: 'Moon Festival 2026 Booking', content_ids: [bookingData.booking_ref] });
       window.location.href = 'booking-confirmed.html?ref=' + bookingData.booking_ref + '&method=razorpay&amount=' + _rpTotal + '&pixel_fired=1';
     },

@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-16 | Booking page no longer adds the old 2.42% Razorpay surcharge to the amount it reports after a successful payment (Facebook Purchase value and the confirmation page address). Guests were always charged the right amount; only the reported figure was too high | book.html | commit "Booking page: report the paid amount without the old 2.42% surcharge" | Yes |
 | 2026-11-16 | Dashboard room moves no longer blocked by trashed bookings: the gender and room-type checks now ignore bookings in the Trash (BK-T04 was refused as "Male only" because of three trashed bookings) | server/routes/admin.js | commit "Room moves: ignore trashed bookings in gender and type checks" | Yes |
 | 2026-11-16 | La Rocha room count corrected from 18 to 9: each category (Sea View, Upper Sea View, Deluxe) is now 2 double sharing rooms + 1 private, with room labels cut to match (D01, D02, P01). Doubles and privates were listed as 3 + 3 per category | server/inventory.js | commit "La Rocha: 9 rooms, 2 doubles + 1 private per category" | Yes |
 | 2026-11-16 | La Rocha · Deluxe Double Sharing extra night (26 Nov) corrected from 6,000 to 3,000; the page's own 3,000 was being replaced by the server's figure | server/inventory.js | commit "La Rocha Deluxe double: extra night 3000" | Yes |
