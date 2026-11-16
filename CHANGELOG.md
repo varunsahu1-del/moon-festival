@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-16 | La Rocha · Deluxe Double Sharing extra night (26 Nov) corrected from 6,000 to 3,000; the page's own 3,000 was being replaced by the server's figure | server/inventory.js | commit "La Rocha Deluxe double: extra night 3000" | Yes |
 | 2026-11-16 | Bhakti Kutir Double Sharing raised from 16 rooms to 17 (32 to 34 beds), matching the room list and the budget sheet | server/inventory.js | commit "Bhakti doubles 16 -> 17" | Yes |
 | 2026-11-15 | Rules file: sidebar group renamed to "moon-festival" | CLAUDE.md | commit "Rules: sidebar group is moon-festival" | Yes |
 | 2026-11-15 | Rules file: this folder is the home for website chats; how to add new photos (stay-photos/); demo on the Mac before publishing | CLAUDE.md | commit "Rules: home folder, photos, local demo" | Yes |
