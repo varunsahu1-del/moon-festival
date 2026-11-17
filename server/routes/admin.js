@@ -641,7 +641,7 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
       const crossType = db.prepare(`
         SELECT b.room_type FROM guests g JOIN bookings b ON b.id=g.booking_id
         WHERE b.venue=? AND b.room_type != ? AND b.status IN ('paid','pending','upi_pending')
-          AND COALESCE(g.room_number, b.room_number) = ? LIMIT 1
+          AND COALESCE(g.room_number, b.room_number) = ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%' LIMIT 1
       `).get(thisBooking.venue, thisBooking.room_type, room_number);
       if (crossType) return res.status(400).json({ error: `Room ${room_number} is used by a ${crossType.room_type} booking — cannot assign a ${thisBooking.room_type} booking there.` });
 
@@ -650,7 +650,7 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
         const bookingGenders = db.prepare(`SELECT DISTINCT gender FROM guests WHERE booking_id=?`).all(thisBooking.id).map(r => r.gender).filter(Boolean);
         const occupantGenders = db.prepare(`
           SELECT DISTINCT g.gender FROM guests g JOIN bookings b ON b.id=g.booking_id
-          WHERE COALESCE(g.room_number, b.room_number)=? AND b.id != ? AND b.status IN ('paid','pending','upi_pending')
+          WHERE COALESCE(g.room_number, b.room_number)=? AND b.id != ? AND b.status IN ('paid','pending','upi_pending') AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
         `).all(room_number, thisBooking.id).map(r => r.gender).filter(Boolean);
         if (invItem.gender_rule === 'female_only' && bookingGenders.includes('Male')) {
           return res.status(400).json({ error: `Room ${room_number} is female-only — cannot assign a booking with male guests.` });
@@ -665,7 +665,7 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
       const roomSize = invItem?.room_size || 99;
       const occupants = db.prepare(`
         SELECT COUNT(*) as c FROM guests g JOIN bookings b ON b.id=g.booking_id
-        WHERE COALESCE(g.room_number, b.room_number) = ? AND b.id != ? AND b.status IN ('paid','pending','upi_pending') AND b.deleted_at IS NULL
+        WHERE COALESCE(g.room_number, b.room_number) = ? AND b.id != ? AND b.status IN ('paid','pending','upi_pending') AND b.deleted_at IS NULL AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
       `).get(room_number, thisBooking.id);
       if ((occupants?.c || 0) + thisBooking.guest_count > roomSize) {
         return res.status(409).json({ error: `Room ${room_number} is full — it has ${occupants?.c} of ${roomSize} beds occupied.` });
@@ -742,7 +742,7 @@ router.patch('/api/bookings/:ref/room', requireAdmin, (req, res) => {
         SELECT b.room_type FROM guests g JOIN bookings b ON b.id=g.booking_id
         WHERE b.venue=? AND b.room_type != ? AND b.status IN ('paid','pending','upi_pending')
           AND b.deleted_at IS NULL
-          AND COALESCE(g.room_number, b.room_number) = ?
+          AND COALESCE(g.room_number, b.room_number) = ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
         LIMIT 1
       `).get(booking.venue, booking.room_type, room_number);
       if (roomOccupiedByOtherType) {
@@ -754,7 +754,7 @@ router.patch('/api/bookings/:ref/room', requireAdmin, (req, res) => {
         const bookingGenders = db.prepare(`SELECT DISTINCT gender FROM guests WHERE booking_id=?`).all(booking.id).map(r => r.gender).filter(Boolean);
         const occupantGenders = db.prepare(`
           SELECT DISTINCT g.gender FROM guests g JOIN bookings b ON b.id=g.booking_id
-          WHERE COALESCE(g.room_number, b.room_number)=? AND b.id != ? AND b.status IN ('paid','pending','upi_pending')
+          WHERE COALESCE(g.room_number, b.room_number)=? AND b.id != ? AND b.status IN ('paid','pending','upi_pending') AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
             AND b.deleted_at IS NULL
         `).all(room_number, booking.id).map(r => r.gender).filter(Boolean);
 
@@ -773,7 +773,7 @@ router.patch('/api/bookings/:ref/room', requireAdmin, (req, res) => {
       const roomSize = invItem?.room_size || 99;
       const currentOccupants = db.prepare(`
         SELECT COUNT(*) as c FROM guests g JOIN bookings b ON b.id=g.booking_id
-        WHERE COALESCE(g.room_number, b.room_number) = ?
+        WHERE COALESCE(g.room_number, b.room_number) = ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
           AND b.id != ?
           AND b.status IN ('paid','pending','upi_pending')
           AND b.deleted_at IS NULL
@@ -880,7 +880,7 @@ router.get('/api/inventory/detail', requireAdmin, (req, res) => {
            GROUP_CONCAT(g.whatsapp,    '|||') as phones,
            GROUP_CONCAT(COALESCE(g.room_number,''), '|||') as guest_rooms
     FROM bookings b
-    LEFT JOIN guests g ON g.booking_id = b.id
+    LEFT JOIN guests g ON g.booking_id = b.id AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
     WHERE b.status IN ('paid','pending','upi_pending') AND b.deleted_at IS NULL
     GROUP BY b.id
     ORDER BY b.venue, b.room_type, b.created_at
@@ -906,7 +906,7 @@ router.patch('/api/guests/:id/room', requireAdmin, (req, res) => {
       SELECT b.room_type FROM guests g JOIN bookings b ON b.id=g.booking_id
       WHERE b.venue=? AND b.room_type != ? AND b.status IN ('paid','pending','upi_pending')
         AND b.deleted_at IS NULL
-        AND COALESCE(g.room_number, b.room_number) = ?
+        AND COALESCE(g.room_number, b.room_number) = ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
         AND g.id != ?
       LIMIT 1
     `).get(thisGuest.venue, thisGuest.room_type, room_number, guestId);
@@ -922,7 +922,7 @@ router.patch('/api/guests/:id/room', requireAdmin, (req, res) => {
       const movingGender = movingGuest?.gender;
       const occupantGenders = db.prepare(`
         SELECT DISTINCT g.gender FROM guests g JOIN bookings b ON b.id=g.booking_id
-        WHERE COALESCE(g.room_number, b.room_number)=? AND g.id != ? AND b.status IN ('paid','pending','upi_pending')
+        WHERE COALESCE(g.room_number, b.room_number)=? AND g.id != ? AND b.status IN ('paid','pending','upi_pending') AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
           AND b.deleted_at IS NULL
       `).all(room_number, guestId).map(r => r.gender).filter(Boolean);
 
@@ -943,7 +943,7 @@ router.patch('/api/guests/:id/room', requireAdmin, (req, res) => {
                COALESCE(g.room_number, b.room_number) as effective_room
         FROM guests g
         JOIN bookings b ON b.id = g.booking_id
-        WHERE COALESCE(g.room_number, b.room_number) = ?
+        WHERE COALESCE(g.room_number, b.room_number) = ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
           AND g.id != ?
           AND b.status IN ('paid','pending','upi_pending')
           AND b.deleted_at IS NULL

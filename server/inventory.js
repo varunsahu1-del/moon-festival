@@ -499,7 +499,7 @@ function autoAssignRoom(db, bookingId) {
     JOIN bookings b ON b.id = g.booking_id
     WHERE b.venue = ? AND b.status IN ('paid','pending','upi_pending')
       AND (b.deleted_at IS NULL OR b.deleted_at='')
-      AND COALESCE(g.room_number, b.room_number) IS NOT NULL AND b.id != ?
+      AND COALESCE(g.room_number, b.room_number) IS NOT NULL AND b.id != ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
   `).all(venue, bookingId);
 
   // Map: label → { count, genders, room_type }
