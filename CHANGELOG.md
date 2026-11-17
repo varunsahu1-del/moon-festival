@@ -12,9 +12,11 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-16 | Bhakti Kutir Double Sharing raised from 16 rooms to 17 (32 to 34 beds), matching the room list and the budget sheet | server/inventory.js | commit "Bhakti doubles 16 -> 17" | Yes |
 | 2026-11-17 | Dashboard: guest marked CANCELLED shows Cancelled and is left out of roommate lists (MF-0001 split) | server/views/dashboard.html | 38e772b | Yes |
 | 2026-11-17 | Room occupancy ignores guests marked CANCELLED (MF-0001 split: frees the second bed in OW-D01) | server/routes/admin.js, server/inventory.js | 935277f | Yes |
+| 2026-11-17 | Dashboard: '+N bed open' label was cream on pale card (invisible); now dark grey | server/views/dashboard.html | 7b60ac2 | Yes |
 | 2026-11-15 | Rules file: sidebar group renamed to "moon-festival" | CLAUDE.md | commit "Rules: sidebar group is moon-festival" | Yes |
 | 2026-11-17 | Dashboard: guest marked CANCELLED shows Cancelled and is left out of roommate lists (MF-0001 split) | server/views/dashboard.html | 38e772b | Yes |
 | 2026-11-17 | Room occupancy ignores guests marked CANCELLED (MF-0001 split: frees the second bed in OW-D01) | server/routes/admin.js, server/inventory.js | 935277f | Yes |
+| 2026-11-17 | Dashboard: '+N bed open' label was cream on pale card (invisible); now dark grey | server/views/dashboard.html | 7b60ac2 | Yes |
 | 2026-11-15 | Rules file: this folder is the home for website chats; how to add new photos (stay-photos/); demo on the Mac before publishing | CLAUDE.md | commit "Rules: home folder, photos, local demo" | Yes |
 | 2026-11-15 | Room for 4 card cover photo changed to the verandah photo (same as first carousel photo) | tickets.html | commit "Room for 4: verandah photo as card cover" | Yes |
 | 2026-11-15 | New "Bhakti Kutir · Room for 4" card on the tickets page (4 beds, mixed, same price as the 4 Bed Dorm: 26,900 in Phase 4, extra day 800) with 9 optimised photos; Bhakti Kutir solo rooms reduced from 3 to 2 (third room converted into the Room for 4), so Solo shows sold out | tickets.html, book.html, server/inventory.js, stay-photos/ | commit "Add Bhakti Kutir Room for 4; solo rooms 3 -> 2" | Yes |
@@ -28,6 +30,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-15 | Lock amount and guest add-ons on paid bookings; saves change only the fields sent; edit log records real changes | server/routes/admin.js, server/views/dashboard.html | commit "Lock amount and add-ons on paid bookings" | Yes |
 | 2026-11-17 | Dashboard: guest marked CANCELLED shows Cancelled and is left out of roommate lists (MF-0001 split) | server/views/dashboard.html | 38e772b | Yes |
 | 2026-11-17 | Room occupancy ignores guests marked CANCELLED (MF-0001 split: frees the second bed in OW-D01) | server/routes/admin.js, server/inventory.js | 935277f | Yes |
+| 2026-11-17 | Dashboard: '+N bed open' label was cream on pale card (invisible); now dark grey | server/views/dashboard.html | 7b60ac2 | Yes |
 | 2026-11-15 | Rules file, change log, checkpoint and deploy scripts | CLAUDE.md, CHANGELOG.md, scripts/ | f64c812 | Yes |
 | 2026-11-15 | Block public download of the database, server code and project files | server/index.js, server/private-guard.js | ac21b4f | Yes |
 | 2026-11-15 | Price check for Bhakti Kutir 4 Bed Mixed Dorm (was skipped; page showed 25,500 instead of 26,900) | server/inventory.js | d85b902 | Yes |
