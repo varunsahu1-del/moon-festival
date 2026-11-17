@@ -107,7 +107,8 @@ router.post('/create', async (req, res) => {
       `).get(venue, roomType, cutoff, primaryEmail);
       if (existing) {
         // Update addons + total_price in case the new submission has different selections
-        db.prepare('UPDATE bookings SET total_price=?, addons=?, arrival_date=? WHERE id=?')
+        // Only update a booking that is still awaiting payment. A paid booking keeps its stored amount.
+        db.prepare("UPDATE bookings SET total_price=?, addons=?, arrival_date=? WHERE id=? AND status IN ('pending','upi_pending')")
           .run(totalPrice, addons || null, arrival_date, existing.id);
         const existingGuests = db.prepare('SELECT * FROM guests WHERE booking_id = ? ORDER BY guest_number').all(existing.id);
         return res.json({ booking_ref: existing.booking_ref, guests: existingGuests, _deduplicated: true });
