@@ -641,6 +641,7 @@ router.put('/api/bookings/:ref', requireAdmin, (req, res) => {
       const crossType = db.prepare(`
         SELECT b.room_type FROM guests g JOIN bookings b ON b.id=g.booking_id
         WHERE b.venue=? AND b.room_type != ? AND b.status IN ('paid','pending','upi_pending')
+          AND (b.deleted_at IS NULL OR b.deleted_at='')
           AND COALESCE(g.room_number, b.room_number) = ? AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%' LIMIT 1
       `).get(thisBooking.venue, thisBooking.room_type, room_number);
       if (crossType) return res.status(400).json({ error: `Room ${room_number} is used by a ${crossType.room_type} booking — cannot assign a ${thisBooking.room_type} booking there.` });
