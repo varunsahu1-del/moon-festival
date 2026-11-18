@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-18 | Dashboard: combined venue headings (Destiny, Ourem, Teraria, Marron) count occupied rooms, not bookings (Destiny showed 5 of 5 with DT-D04 free) | server/views/dashboard.html | 5339ccc | Yes |
 | 2026-11-18 | Destiny: triple room removed; 4 double rooms (DT-D01 to DT-D04), DT-D04 bookable as private or double; Day 1-5 labels renamed to DT-D01, DT-P01, DT-D02, DT-D03, DT-D04 on the dashboard. Inventory tests updated to current rules (40 pass) | server/inventory.js, server/test-inventory.js | c3cb98f | Yes |
 | 2026-11-16 | Dashboard "Razorpay Amt" column (table and export) now shows what the guest actually paid: Final Total x 1.0236 for bookings made before 1 Nov 2026, Final Total with nothing added from 1 Nov. It was adding 2.42% to every Razorpay booking. Display only; no booking changed | server/views/dashboard.html | commit "Dashboard: Razorpay Amt shows the amount actually paid" | Yes |
 | 2026-11-16 | Booking page no longer adds the old 2.42% Razorpay surcharge to the amount it reports after a successful payment (Facebook Purchase value and the confirmation page address). Guests were always charged the right amount; only the reported figure was too high | book.html | commit "Booking page: report the paid amount without the old 2.42% surcharge" | Yes |
