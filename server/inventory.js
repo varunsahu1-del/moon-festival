@@ -17,8 +17,8 @@ const INVENTORY = [
   // 4 sharing room (one room, 4 single beds, mixed). Shown on its own card in tickets.html.
   { venue: 'Bhakti Kutir', room_type: 'Room for 4',     unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'any',         label: '4 beds' },
   // Destiny (combined pool of 5 rooms)
-  { venue: 'Destiny', room_type: 'Double Sharing', unit: 'beds',  capacity: 6,  rooms: 3, room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
-  { venue: 'Destiny', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
+  // 4 double rooms (DT-D01..D04). DT-D04 is the flexible last room: it can be booked private or double.
+  { venue: 'Destiny', room_type: 'Double Sharing', unit: 'beds',  capacity: 8,  rooms: 4, room_size: 2, gender_rule: 'same_gender', label: '4 rooms × 2 beds (DT-D04 also private)' },
   { venue: 'Destiny', room_type: 'Private Room',   unit: 'rooms', capacity: 1,  rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
   // Ourem Palace (9 rooms: 5 private + 4 double)
   { venue: 'Ourem Palace', room_type: 'Double Sharing', unit: 'beds',  capacity: 8,  rooms: 4,  room_size: 2, gender_rule: 'same_gender', label: '4 rooms × 2 beds' },
@@ -125,7 +125,6 @@ const PRICING = {
   },
   'Destiny': {
     'Double Sharing': { earlyBird: 55000, phase2: 56500, phase3: 56500, phase4: 59400, extraDay: 7000  },
-    'Triple Sharing': { earlyBird: 47500, phase2: 49000, phase3: 49000, phase4: 50000, extraDay: 4500  },
     'Private Room':   { earlyBird: 81900, phase2: 83400, phase3: 83400, phase4: 87700, extraDay: 12000 },
   },
   'Ourem Palace': {
