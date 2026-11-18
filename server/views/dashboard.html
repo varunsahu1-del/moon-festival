@@ -2070,7 +2070,8 @@ async function loadInventoryDetail() {
         });
       });
 
-      const occ = bookings.length;
+      // Count rooms with at least one guest, not bookings (a shared room holds several bookings)
+      const occ = roomLabels.filter(l => (guestsByRoom[l] || []).length > 0).length;
       const pct = Math.min(100, Math.round((occ / cap) * 100));
       const barColor = pct >= 90 ? '#c0392b' : pct >= 60 ? '#e67e22' : '#B06030';
 
