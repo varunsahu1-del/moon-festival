@@ -3523,6 +3523,14 @@ function renderDrawer(booking, guests, breakdown) {
       const ci = p.indexOf(':');
       if (ci >= 0) { const price = parseInt(p.slice(0,ci))||0; const name = p.slice(ci+1).trim(); existingMap[name] = price; }
     });
+    // Display only: an admin add-on saved as 'included' (price 0) whose name starts with a guest add-on name
+    // ticks that guest add-on box, so meals or tribal lunch covered by the booked price show as booked.
+    (booking.extra_addons || '').split('|').filter(Boolean).forEach(p => {
+      const ci = p.indexOf(':'); if (ci < 0) return;
+      if ((parseInt(p.slice(0, ci)) || 0) !== 0) return;
+      const nm = p.slice(ci + 1).trim();
+      GUEST_ADDON_CATALOG.forEach(c => { if (c.key && nm.startsWith(c.key) && !existingMap.hasOwnProperty(c.key)) existingMap[c.key] = 0; });
+    });
     // Merge: catalog entries + any existing not in catalog
     const mergedCatalog = [...GUEST_ADDON_CATALOG];
     Object.keys(existingMap).forEach(k => { if (!mergedCatalog.some(c=>c.key===k)) mergedCatalog.push({key:k, price:existingMap[k]}); });
