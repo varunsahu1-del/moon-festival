@@ -58,12 +58,14 @@ function computeBreakdown(booking) {
   // Admin add-ons (extra_addons) are kept separate from total_price and collected separately.
   // GST is charged on top of them, except for extras collected before EXTRAS_GST_FROM.
   const legacyExtras = collected && !!booking.addons_collected_at && String(booking.addons_collected_at) < EXTRAS_GST_FROM;
+  // Extras marked 'included' are already covered by the booked price: no GST, nothing to collect.
+  const includedExtras = collected && booking.addons_collection_method === 'included';
   const subtotal   = storedTotal;
   const baseGst    = booking.no_gst ? 0 : Math.round(subtotal * GST_RATE);
-  const extraGst   = (booking.no_gst || legacyExtras) ? 0 : Math.round(extraAddonTotal * GST_RATE);
+  const extraGst   = (booking.no_gst || legacyExtras || includedExtras) ? 0 : Math.round(extraAddonTotal * GST_RATE);
   const gst        = baseGst + extraGst;
   const taxable    = subtotal + (legacyExtras ? 0 : extraAddonTotal);
-  const grandTotal = subtotal + gst + extraAddonTotal;
+  const grandTotal = subtotal + gst + (includedExtras ? 0 : extraAddonTotal);
 
   return {
     accomBase,       // full accommodation pre-discount (÷ guest_count for per-person rate)
@@ -77,7 +79,7 @@ function computeBreakdown(booking) {
     gst,             // baseGst + extraGst
     baseGst,         // GST on the booking itself
     extraGst,        // GST on admin-added extras
-    extraAddonDue: extraAddonTotal + extraGst, // what to collect for the extras
+    extraAddonDue: includedExtras ? 0 : extraAddonTotal + extraGst, // what to collect for the extras
     grandTotal,
     collected,
   };

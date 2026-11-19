@@ -77,7 +77,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   const avgBedRate = totalGuests > 0 ? Math.round(totalRevenue / totalGuests) : 0;
 
   // Extra add-on revenue: admin-added add-ons that have been collected (extra_addons column)
-  const addonRows = db.prepare("SELECT extra_addons FROM bookings WHERE addons_collected=1 AND extra_addons IS NOT NULL AND extra_addons != '' AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
+  const addonRows = db.prepare("SELECT extra_addons FROM bookings WHERE addons_collected=1 AND extra_addons IS NOT NULL AND extra_addons != '' AND deleted_at IS NULL AND (addons_collection_method IS NULL OR addons_collection_method != 'included') AND booking_ref NOT IN ('MF-0147')").all();
   const addonRevenue = addonRows.reduce((sum, r) => {
     return sum + r.extra_addons.split('|').filter(Boolean).reduce((s, p) => {
       const price = parseInt(p.split(':')[0], 10);
@@ -222,7 +222,7 @@ router.patch('/api/bookings/:ref/addons-collected', requireAdmin, (req, res) => 
   // Amounts for the log come from the booking itself, not from the browser.
   const bd = computeBreakdown({ ...booking, addons_collected: collected ? 1 : 0, addons_collected_at: collectedAt });
   const rupees = n => '₹' + Number(n || 0).toLocaleString('en-IN');
-  const methodLabel = method || 'cash';
+  const methodLabel = method === 'included' ? 'included in booked price' : (method || 'cash');
   const note = collected
     ? `Add-on payment collected via ${methodLabel} — ${rupees(bd.extraAddonTotal)} + GST ${rupees(bd.extraGst)} = ${rupees(bd.extraAddonDue)}`
     : `Add-on payment collection undone — ${rupees(bd.extraAddonTotal)} add-ons marked as not collected`;

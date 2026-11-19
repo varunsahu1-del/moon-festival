@@ -3565,7 +3565,7 @@ function renderDrawer(booking, guests, breakdown) {
       ${extraAddonTotal > 0 ? (() => {
         const collectedMethod = booking.addons_collection_method || '';
         const collectedAt = booking.addons_collected_at ? new Date(booking.addons_collected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
-        const methodLabel = { cash:'Cash', upi:'UPI', bank_transfer:'Bank Transfer', razorpay:'Razorpay' }[collectedMethod] || collectedMethod;
+        const methodLabel = { cash:'Cash', upi:'UPI', bank_transfer:'Bank Transfer', razorpay:'Razorpay', included:'Included in booked price' }[collectedMethod] || collectedMethod;
         const xGst = (breakdown && breakdown.extraGst) || 0; // GST on these add-ons (0 for ones collected before GST applied)
         const xDue = extraAddonTotal + xGst;
         return `
@@ -3588,6 +3588,7 @@ function renderDrawer(booking, guests, breakdown) {
               <button onclick="markAddonsCollected('${ref}',${extraAddonTotal},true,'cash')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(40,140,60,0.1);border:0.5px solid rgba(40,140,60,0.28);color:#1e8a3a;padding:7px 12px;border-radius:2px;cursor:pointer;">✓ Cash</button>
               <button onclick="markAddonsCollected('${ref}',${extraAddonTotal},true,'upi')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(40,140,60,0.1);border:0.5px solid rgba(40,140,60,0.28);color:#1e8a3a;padding:7px 12px;border-radius:2px;cursor:pointer;">✓ UPI</button>
               <button onclick="markAddonsCollected('${ref}',${extraAddonTotal},true,'bank_transfer')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(40,140,60,0.1);border:0.5px solid rgba(40,140,60,0.28);color:#1e8a3a;padding:7px 12px;border-radius:2px;cursor:pointer;">✓ Bank</button>
+              <button onclick="markAddonsCollected('${ref}',0,true,'included')" title="Already covered by the booked price. No payment, no GST." style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(42,34,24,0.05);border:0.5px solid rgba(42,34,24,0.25);color:rgba(42,34,24,0.7);border-radius:3px;padding:6px 10px;cursor:pointer;">Included in booked price</button>
               <button onclick="promptCustomAddonCollection('${ref}',${extraAddonTotal})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(40,140,60,0.08);border:0.5px solid rgba(40,140,60,0.2);color:#1e8a3a;padding:7px 12px;border-radius:2px;cursor:pointer;">✓ Other…</button>
             </div>
           </div>` : ''}
