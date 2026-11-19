@@ -43,3 +43,6 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-14 | Lock pricing to Phase 4, remove admin phase switch; meals add-on, promo prices, referral dropdown | book.html, tickets.html, server/routes/admin.js, server/views/dashboard.html | 396264d | Yes |
 | 2026-11-17 | Public schedule synced with planning grid (session names, rooms, times, brunch, Opening Ceremony 8 PM) | schedule.html | d73386c | Pending |
 | 2026-11-17 | Public schedule: Sunday changes (STRONG CORE, Clownery, Samkhya to Sky, Tote Bag to Meteor, Sensual Bollywood to Massage Shala) | schedule.html | 19a96bf | Yes |
+
+## 2026-11-19
+- Dashboard: Bhakti Double room header now counts occupied rooms from the room cards (display only, no bookings changed). Commit 9bdce96.
