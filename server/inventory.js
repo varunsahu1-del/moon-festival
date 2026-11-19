@@ -8,10 +8,10 @@
 
 const INVENTORY = [
   // Bhakti Kutir
-  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 32, rooms: 16, room_size: 2, gender_rule: 'same_gender', label: '16 rooms × 2' },
+  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 28, rooms: 14, room_size: 2, gender_rule: 'same_gender', label: '14 rooms × 2' },
   { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 12, rooms: 4,  room_size: 3, gender_rule: 'same_gender', label: '4 rooms × 3' },
   // Was 3 rooms; the third was converted into the 'Room for 4' below (2026-11-15).
-  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 3,  rooms: 3,  room_size: 1, gender_rule: 'any',         label: '3 rooms' },
+  { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 4,  rooms: 4,  room_size: 1, gender_rule: 'any',         label: '4 rooms' },
   { venue: 'Bhakti Kutir', room_type: '4 Bed Mixed Dorm', unit: 'beds',  capacity: 4,  rooms: 1,  room_size: 4, gender_rule: 'any', label: '4 beds' },
   { venue: 'Bhakti Kutir', room_type: '6 Bed Dorm',     unit: 'beds',  capacity: 6,  rooms: 1,  room_size: 6, gender_rule: 'any',         label: '6 beds' },
   // 4 sharing room (one room, 4 single beds, mixed). Shown on its own card in tickets.html.
@@ -75,9 +75,9 @@ const ROOM_LABELS = {
     'Private Room':   ['LLE-P01','LLE-P02','LLE-P03'],
   },
   'Bhakti Kutir': {
-    'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14','BK-D15','BK-D16'],
+    'Double Sharing': ['BK-D01','BK-D02','BK-D03','BK-D04','BK-D05','BK-D06','BK-D07','BK-D08','BK-D09','BK-D10','BK-D11','BK-D12','BK-D13','BK-D14'],
     'Triple Sharing': ['BK-T01','BK-T02','BK-T03','BK-T04'],
-    'Private Room':    ['BK-S01','BK-S02','BK-S03'],
+    'Private Room':    ['BK-S01','BK-S02','BK-S03','BK-S04'],
     '4 Bed Dorm':     ['DORM-F4'],
     '6 Bed Dorm':     ['DORM-M6'],
     'Room for 4':     ['BK-Q01'],
