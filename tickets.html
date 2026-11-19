@@ -3448,7 +3448,11 @@ document.addEventListener('keydown', e => {
       if ((isBhaktiRoom || s.low) && s.remaining > 0) {
         const isBhaktiDouble = venue === 'Bhakti Kutir' && roomTypeName === 'Room for 2';
         if (isBhaktiDouble) {
-          addBadge('inv-badge--low', 'Fastest Selling');
+          if (s.remaining <= 2) {
+            addBadge('inv-badge--low', s.remaining === 1 ? 'Only one left' : 'Last room');
+          } else {
+            addBadge('inv-badge--low', 'Fastest Selling');
+          }
         } else {
           // Both genders low in a same-gender room: show each count separately
           const bothGenderLow = s.male_available && s.female_available
