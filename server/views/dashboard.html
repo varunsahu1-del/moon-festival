@@ -2203,8 +2203,9 @@ async function loadInventoryDetail() {
         unassignedGuests.sort((a, b) => (a.gender || '').localeCompare(b.gender || ''));
 
         const totalRooms    = rtLabels.length;
-        const occupiedRooms = rtLabels.filter(l => (guestsByRoom[l] || []).length > 0).length;
-        const availRooms    = totalRooms - occupiedRooms;
+        // Count every room that actually has a guest (incl. any room key not in the label list), capped at the room total
+        const occupiedRooms = Math.min(totalRooms, Object.keys(guestsByRoom).filter(l => (guestsByRoom[l] || []).length > 0).length);
+        const availRooms    = Math.max(0, totalRooms - occupiedRooms);
         const roomSubLabel  = isDorm
           ? `${invItem.occupied}/${invItem.capacity} beds · ${invItem.available} available${genderNote}`
           : `${occupiedRooms} of ${totalRooms} rooms · ${availRooms} available${genderNote}`;
