@@ -52,11 +52,9 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   const festivalOnlyCount= db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue = 'Festival Access' AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").get().s;
 
   // Sum total_price — strip non-numeric chars and sum in JS (stored as formatted string)
-  const priceRows = db.prepare("SELECT total_price, no_gst FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
-  const totalRevenue = priceRows.reduce((sum, r) => {
-    const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
-    return sum + (r.no_gst ? base : Math.round(base * 1.05));
-  }, 0);
+  // Includes admin add-ons (extra_addons) and GST exactly as the booking screen shows it (computeBreakdown grandTotal).
+  const priceRows = db.prepare("SELECT * FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
+  const totalRevenue = priceRows.reduce((sum, r) => sum + Math.round(computeBreakdown(r).grandTotal), 0);
 
   const pendingRows = db.prepare("SELECT total_price, extra_addons, addons_collected FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
   const pendingAmount = pendingRows.reduce((sum, r) => {
