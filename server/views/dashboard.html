@@ -2091,7 +2091,7 @@ async function loadInventoryDetail() {
             ? `<span style="font-size:9px;color:#dc82b4;font-weight:600;">F</span>`
             : `<span style="font-size:9px;color:rgba(237,212,178,0.3);">?</span>`;
           return `<div>
-            <div class="room-guest-row" data-guest-id="${g.guestId}" data-guest-room="${g.guestRoom}">${gIcon} <span class="room-guest">${g.name}</span></div>
+            <div class="room-guest-row" data-guest-id="${g.guestId}" data-guest-room="${g.guestRoom}">${gIcon} <span class="room-guest">${g.name}</span>${g.bookingRef==='MF-0147' ? ' <span style="font-size:9px;letter-spacing:0.08em;color:#B06030;font-weight:600;">TEAM</span>' : ''}</div>
             <div class="room-whatsapp" style="padding-left:14px;">${g.phone || ''}</div>
           </div>`;
         }).join('');
@@ -2251,7 +2251,7 @@ async function loadInventoryDetail() {
                   ? `<span style="font-size:9px;color:#dc82b4;font-weight:600;">F</span>`
                   : `<span style="font-size:9px;color:rgba(237,212,178,0.3);">?</span>`;
                 return `<div>
-                  <div class="room-guest-row" data-guest-id="${g.guestId}" data-guest-room="${g.guestRoom}">${gIcon} <span class="room-guest">${g.name}</span></div>
+                  <div class="room-guest-row" data-guest-id="${g.guestId}" data-guest-room="${g.guestRoom}">${gIcon} <span class="room-guest">${g.name}</span>${g.bookingRef==='MF-0147' ? ' <span style="font-size:9px;letter-spacing:0.08em;color:#B06030;font-weight:600;">TEAM</span>' : ''}</div>
                   <div class="room-whatsapp" style="padding-left:14px;">${g.phone||''}</div>
                 </div>`;
               }).join('');
@@ -2292,7 +2292,7 @@ async function loadInventoryDetail() {
                 const refs = [...new Set(filled.map(g => g.bookingRef))];
                 const guestsHtml = filled.map(g => {
                   const gIcon = g.gender === 'Male' ? `<span style="font-size:9px;color:#6ab0ff;font-weight:600;">M</span>` : g.gender === 'Female' ? `<span style="font-size:9px;color:#dc82b4;font-weight:600;">F</span>` : `<span style="font-size:9px;color:rgba(237,212,178,0.3);">?</span>`;
-                  return `<div><div class="room-guest-row" data-guest-id="${g.guestId}" data-guest-room="${g.guestRoom}">${gIcon} <span class="room-guest">${g.name}</span></div><div class="room-whatsapp" style="padding-left:14px;">${g.phone||''}</div></div>`;
+                  return `<div><div class="room-guest-row" data-guest-id="${g.guestId}" data-guest-room="${g.guestRoom}">${gIcon} <span class="room-guest">${g.name}</span>${g.bookingRef==='MF-0147' ? ' <span style="font-size:9px;letter-spacing:0.08em;color:#B06030;font-weight:600;">TEAM</span>' : ''}</div><div class="room-whatsapp" style="padding-left:14px;">${g.phone||''}</div></div>`;
                 }).join('');
                 const emptyBedsHtml = emptyBeds > 0 ? `<div style="margin-top:4px;font-size:9px;color:rgba(42,34,24,0.5);letter-spacing:0.06em;">+${emptyBeds} bed${emptyBeds>1?'s':''} open</div>` : '';
                 html += `<div class="room-card ${colorClass} ${hasPending ? 'room-pending' : ''}" data-ref="${refs[0]}" data-label="${label}" data-room-type="${rt}" data-venue="${venue}">
