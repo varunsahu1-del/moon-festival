@@ -6627,7 +6627,10 @@ function _showAddonPicker(ref, idx, currentName, onSaveMultiple) {
 }
 
 async function addDrawerAddon(ref) {
-  _showAddonPicker(ref, -1, '', async (items) => {
+  _showAddonPicker(ref, -1, '', async (items0) => {
+    // Ask once per add: charge it extra, or treat it as already included in the booked price.
+    const charge = confirm('OK = CHARGE EXTRA (adds 5% GST, collect payment).\nCancel = INCLUDED IN BOOKED PRICE (no charge, no GST, no payment link).');
+    const items = charge ? items0 : items0.map(({ price, name }) => ({ price: 0, name: `${name} (incl. ₹${parseInt(price).toLocaleString('en-IN')} in booked price)` }));
     const current = _drawerAddonRef(ref);
     const parts = current ? current.split('|').filter(Boolean) : [];
     items.forEach(({ price, name }) => parts.push(price + ':' + name));
