@@ -44,20 +44,21 @@ router.get('/', requireAdmin, (req, res) => {
 });
 
 // API: summary stats
+// Team booking MF-0147 (comp ticket): excluded from sales, bed counts and average bed price; still shown on room cards.
 router.get('/api/stats', requireAdmin, (req, res) => {
-  const totalBookings    = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL").get().c;
-  const pendingCount     = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL").get().c;
-  const totalGuests      = db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue != 'Festival Access' AND deleted_at IS NULL").get().s;
-  const festivalOnlyCount= db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue = 'Festival Access' AND deleted_at IS NULL").get().s;
+  const totalBookings    = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").get().c;
+  const pendingCount     = db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").get().c;
+  const totalGuests      = db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue != 'Festival Access' AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").get().s;
+  const festivalOnlyCount= db.prepare("SELECT COALESCE(SUM(guest_count),0) as s FROM bookings WHERE status IN ('paid','cancelled') AND venue = 'Festival Access' AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").get().s;
 
   // Sum total_price — strip non-numeric chars and sum in JS (stored as formatted string)
-  const priceRows = db.prepare("SELECT total_price, no_gst FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL").all();
+  const priceRows = db.prepare("SELECT total_price, no_gst FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
   const totalRevenue = priceRows.reduce((sum, r) => {
     const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     return sum + (r.no_gst ? base : Math.round(base * 1.05));
   }, 0);
 
-  const pendingRows = db.prepare("SELECT total_price, extra_addons, addons_collected FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL").all();
+  const pendingRows = db.prepare("SELECT total_price, extra_addons, addons_collected FROM bookings WHERE status IN ('pending','upi_pending') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
   const pendingAmount = pendingRows.reduce((sum, r) => {
     const accom = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     const gst = Math.round(accom * GST_RATE);
@@ -69,14 +70,14 @@ router.get('/api/stats', requireAdmin, (req, res) => {
 
   const venueBreakdown = db.prepare(`
     SELECT venue, room_type, COUNT(*) as bookings, SUM(guest_count) as guests
-    FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL
+    FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')
     GROUP BY venue, room_type ORDER BY venue, room_type
   `).all();
 
   const avgBedRate = totalGuests > 0 ? Math.round(totalRevenue / totalGuests) : 0;
 
   // Extra add-on revenue: admin-added add-ons that have been collected (extra_addons column)
-  const addonRows = db.prepare("SELECT extra_addons FROM bookings WHERE addons_collected=1 AND extra_addons IS NOT NULL AND extra_addons != '' AND deleted_at IS NULL").all();
+  const addonRows = db.prepare("SELECT extra_addons FROM bookings WHERE addons_collected=1 AND extra_addons IS NOT NULL AND extra_addons != '' AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
   const addonRevenue = addonRows.reduce((sum, r) => {
     return sum + r.extra_addons.split('|').filter(Boolean).reduce((s, p) => {
       const price = parseInt(p.split(':')[0], 10);
@@ -85,7 +86,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   }, 0);
 
   // Pending extra add-ons: admin-added but not yet collected
-  const pendingAddonRows = db.prepare("SELECT extra_addons FROM bookings WHERE (addons_collected IS NULL OR addons_collected=0) AND extra_addons IS NOT NULL AND extra_addons != '' AND status IN ('paid','upi_pending','pending') AND deleted_at IS NULL").all();
+  const pendingAddonRows = db.prepare("SELECT extra_addons FROM bookings WHERE (addons_collected IS NULL OR addons_collected=0) AND extra_addons IS NOT NULL AND extra_addons != '' AND status IN ('paid','upi_pending','pending') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147')").all();
   const pendingAddonAmount = pendingAddonRows.reduce((sum, r) => {
     return sum + r.extra_addons.split('|').filter(Boolean).reduce((s, p) => {
       const price = parseInt(p.split(':')[0], 10);
@@ -94,7 +95,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
   }, 0);
 
   // GST from standard payment methods only (UPI, bank transfer, Razorpay — excludes custom/manual entries)
-  const standardPayRows = db.prepare("SELECT total_price FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND payment_method IN ('upi','bank_transfer','razorpay')").all();
+  const standardPayRows = db.prepare("SELECT total_price FROM bookings WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147') AND payment_method IN ('upi','bank_transfer','razorpay')").all();
   const gstFromStandardPayments = standardPayRows.reduce((sum, r) => {
     const base = Math.round(parseFloat(String(r.total_price).replace(/[^\d.]/g,"")) || 0);
     return sum + Math.round(base * GST_RATE);
@@ -104,7 +105,7 @@ router.get('/api/stats', requireAdmin, (req, res) => {
 
   const phaseRows = db.prepare(`
     SELECT phase, COUNT(*) as c FROM bookings
-    WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND phase IS NOT NULL
+    WHERE status IN ('paid','cancelled') AND deleted_at IS NULL AND booking_ref NOT IN ('MF-0147') AND phase IS NOT NULL
     GROUP BY phase
   `).all();
   const phaseStats = { earlyBird: 0, phase1: 0, phase2: 0, phase3: 0, phase4: 0 };
