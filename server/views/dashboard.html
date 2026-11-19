@@ -2203,12 +2203,13 @@ async function loadInventoryDetail() {
         unassignedGuests.sort((a, b) => (a.gender || '').localeCompare(b.gender || ''));
 
         const totalRooms    = rtLabels.length;
-        // Count every room that actually has a guest (incl. any room key not in the label list), capped at the room total
-        const occupiedRooms = Math.min(totalRooms, Object.keys(guestsByRoom).filter(l => (guestsByRoom[l] || []).length > 0).length);
-        const availRooms    = Math.max(0, totalRooms - occupiedRooms);
+        const occupiedRooms = rtLabels.filter(l => (guestsByRoom[l] || []).length > 0).length;
+        const availRooms    = totalRooms - occupiedRooms;
+        // Guests with no room number are placed into empty rooms by the cards below; say how many there are
+        const unassignedNote = unassignedGuests.length ? ` · ${unassignedGuests.length} unassigned` : '';
         const roomSubLabel  = isDorm
           ? `${invItem.occupied}/${invItem.capacity} beds · ${invItem.available} available${genderNote}`
-          : `${occupiedRooms} of ${totalRooms} rooms · ${availRooms} available${genderNote}`;
+          : `${occupiedRooms} of ${totalRooms} rooms · ${availRooms} available${genderNote}${unassignedNote}`;
 
         const colStyle = isDorm ? 'flex:1;min-width:0;' : (idx > 0 ? 'margin-top:8px;' : '');
         html += `<div style="${colStyle}">
