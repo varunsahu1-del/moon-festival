@@ -547,7 +547,7 @@ router.post('/api/bookings/paylink', requireAdmin, async (req, res) => {
 
 // API: admin-created booking (paid immediately, no Razorpay)
 router.post('/api/bookings', requireAdmin, (req, res) => {
-  const { venue, room_type, total_price, room_number, hotel_number, status, send_email, guests, payment_method, arrival_date, addons, gst_number, gst_name, organizerNote, admin_override, discount, discount_reason, phase_override, referral_source } = req.body;
+  const { venue, room_type, total_price, room_number, hotel_number, status, send_email, guests, payment_method, arrival_date, addons, gst_number, gst_name, organizerNote, admin_override, discount, discount_reason, phase_override, referral_source, no_gst } = req.body;
   if (!venue || !room_type || !total_price || !Array.isArray(guests) || !guests.length) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
@@ -567,8 +567,8 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
 
   const _phase2 = phase_override || resolvePhase();
   const insertBooking = db.prepare(`
-    INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, room_number, paid_at, payment_method, arrival_date, addons, gst_number, gst_name, organizer_note, discount, discount_reason, phase, source, referral_source)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', ?)
+    INSERT INTO bookings (booking_ref, venue, room_type, total_price, guest_count, status, room_number, paid_at, payment_method, arrival_date, addons, gst_number, gst_name, organizer_note, discount, discount_reason, phase, source, referral_source, no_gst)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', ?, ?)
   `);
   const insertGuest = db.prepare(`
     INSERT INTO guests (booking_id, guest_number, full_name, whatsapp, email, city, age, gender)
@@ -577,7 +577,7 @@ router.post('/api/bookings', requireAdmin, (req, res) => {
 
   db.exec('BEGIN');
   try {
-    const { lastInsertRowid } = insertBooking.run(booking_ref, venue, room_type, total_price, guests.length, bookingStatus, room_number || null, paid_at, payment_method || null, arrival_date || null, addons || null, gst_number || null, gst_name || null, organizerNote || null, discount || null, discount_reason || null, _phase2, referral_source || null);
+    const { lastInsertRowid } = insertBooking.run(booking_ref, venue, room_type, total_price, guests.length, bookingStatus, room_number || null, paid_at, payment_method || null, arrival_date || null, addons || null, gst_number || null, gst_name || null, organizerNote || null, discount || null, discount_reason || null, _phase2, referral_source || null, no_gst ? 1 : 0);
     guests.forEach((g, i) => {
       const nc2 = normalizeCity(g.city);
       insertGuest.run(lastInsertRowid, i + 1, g.full_name, g.whatsapp, g.email, nc2, Number(g.age), g.gender || null);
