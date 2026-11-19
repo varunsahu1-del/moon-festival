@@ -4,6 +4,8 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-19 | Dashboard: Bhakti Double header shows assigned rooms and unassigned guest count (display only, no bookings changed) | server/views/dashboard.html | 0eb902d | Yes |
+| 2026-11-19 | Dashboard: first Bhakti Double header attempt, did not change the count (superseded by 0eb902d) | server/views/dashboard.html | 9bdce96 | Yes |
 | 2026-11-18 | Dashboard: combined venue headings (Destiny, Ourem, Teraria, Marron) count occupied rooms, not bookings (Destiny showed 5 of 5 with DT-D04 free) | server/views/dashboard.html | 5339ccc | Yes |
 | 2026-11-18 | Destiny: triple room removed; 4 double rooms (DT-D01 to DT-D04), DT-D04 bookable as private or double; Day 1-5 labels renamed to DT-D01, DT-P01, DT-D02, DT-D03, DT-D04 on the dashboard. Inventory tests updated to current rules (40 pass) | server/inventory.js, server/test-inventory.js | c3cb98f | Yes |
 | 2026-11-16 | Dashboard "Razorpay Amt" column (table and export) now shows what the guest actually paid: Final Total x 1.0236 for bookings made before 1 Nov 2026, Final Total with nothing added from 1 Nov. It was adding 2.42% to every Razorpay booking. Display only; no booking changed | server/views/dashboard.html | commit "Dashboard: Razorpay Amt shows the amount actually paid" | Yes |
@@ -43,6 +45,3 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-14 | Lock pricing to Phase 4, remove admin phase switch; meals add-on, promo prices, referral dropdown | book.html, tickets.html, server/routes/admin.js, server/views/dashboard.html | 396264d | Yes |
 | 2026-11-17 | Public schedule synced with planning grid (session names, rooms, times, brunch, Opening Ceremony 8 PM) | schedule.html | d73386c | Pending |
 | 2026-11-17 | Public schedule: Sunday changes (STRONG CORE, Clownery, Samkhya to Sky, Tote Bag to Meteor, Sensual Bollywood to Massage Shala) | schedule.html | 19a96bf | Yes |
-
-## 2026-11-19
-- Dashboard: Bhakti Double room header now counts occupied rooms from the room cards (display only, no bookings changed). Commit 9bdce96.
