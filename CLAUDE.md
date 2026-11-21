@@ -11,6 +11,9 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
    database, no edits through the admin dashboard, no migrations or clean-ups over existing rows,
    no recalculating stored amounts or add-ons. Reading (SELECT, backups) is fine. Fixes apply to
    bookings made from now on only.
+   **Exception (decided by Varun, 2026-11-21):** the admin may tick or untick guest add-ons on a paid
+   booking. This only sets the paid-items list (`addons_paid_items`) through `POST /api/bookings/:ref/paid-addon-ticks`.
+   It never changes `addons`, `extra_addons`, `total_price`, amounts or any other booking field.
 2. **Change only what was asked.** One change per request. No refactors, restyling, renames,
    "while I'm here" fixes or dependency updates. If you spot another problem, report it; don't fix it.
 3. **Nothing reaches the server except through `scripts/deploy.sh`.** No scp/rsync of files, no

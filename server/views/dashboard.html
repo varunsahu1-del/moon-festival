@@ -3501,7 +3501,9 @@ function renderDrawer(booking, guests, breakdown) {
   }
 
   function tabAddons() {
-    const paidLock = booking.status === 'paid'; // paid bookings: guest add-ons are read-only
+    const paidLock = booking.status === 'paid'; // paid bookings: guest add-ons are read-only except manual ticks of admin add-ons
+    // Names of admin add-ons on this booking (extra_addons). On paid bookings only these can be ticked.
+    const adminAddonNames = new Set((booking.extra_addons || '').split('|').filter(Boolean).map(p => { const ci = p.indexOf(':'); return ci >= 0 ? p.slice(ci + 1).trim() : p.trim(); }));
     const hasGuest = addonParts.length > 0;
     const hasExtra = extraAddonParts.length > 0;
 
@@ -3555,7 +3557,7 @@ function renderDrawer(booking, guests, breakdown) {
           const isOn = existingMap.hasOwnProperty(c.key);
           const price = isOn ? existingMap[c.key] : (c.price === null ? 0 : c.price);
           return `<label style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:4px;cursor:pointer;border:0.5px solid ${isOn?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)'};background:${isOn?'rgba(176,96,48,0.05)':'transparent'};transition:background 0.15s;" onmouseover="if(!this.querySelector('input').checked)this.style.background='rgba(42,34,24,0.03)'" onmouseout="if(!this.querySelector('input').checked)this.style.background='transparent'">
-            <input type="checkbox" data-addon-key="${c.key.replace(/"/g,'&quot;')}" data-addon-price="${price}" ${isOn?'checked':''} ${paidLock?'disabled':''} style="accent-color:#B06030;width:14px;height:14px;flex-shrink:0;" onchange="this.closest('label').style.background=this.checked?'rgba(176,96,48,0.05)':'transparent';this.closest('label').style.borderColor=this.checked?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)';" />
+            <input type="checkbox" data-addon-key="${c.key.replace(/"/g,'&quot;')}" data-addon-price="${price}" ${isOn?'checked':''} ${(paidLock && !adminAddonNames.has(c.key))?'disabled':''} style="accent-color:#B06030;width:14px;height:14px;flex-shrink:0;" onchange="this.closest('label').style.background=this.checked?'rgba(176,96,48,0.05)':'transparent';this.closest('label').style.borderColor=this.checked?'rgba(176,96,48,0.25)':'rgba(42,34,24,0.07)';" />
             <span style="flex:1;font-size:13px;color:var(--td-strong);">${c.key}</span>
             <span style="font-size:12px;color:rgba(42,34,24,0.4);flex-shrink:0;">${price>0?'₹'+price.toLocaleString('en-IN'):price===0&&isOn?'Included':'—'}</span>
           </label>`;
@@ -3565,7 +3567,7 @@ function renderDrawer(booking, guests, breakdown) {
         <span style="font-size:11px;color:rgba(42,34,24,0.4);">Included in booking total (per person × guests)</span>
         <span style="font-size:13px;font-weight:600;color:rgba(42,34,24,0.45);">₹${(guestAddonTotalPerPerson*addonGuestCount).toLocaleString('en-IN')}</span>
       </div>
-      ${paidLock ? `<div style="font-size:11px;color:rgba(42,34,24,0.45);margin-bottom:24px;">This booking is paid, so guest add-ons are locked.</div>` : `<button onclick="saveGuestAddons(this,'${ref}',${booking.total_price},${addonGuestCount})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:#B06030;color:#fff;border:none;padding:9px 20px;border-radius:2px;cursor:pointer;margin-bottom:28px;">Save add-on changes</button>`}
+      ${paidLock ? `<div style="font-size:11px;color:rgba(42,34,24,0.45);margin-bottom:12px;">Paid booking: you can tick add-ons the guest paid for directly (admin add-ons only). Totals are not changed.</div><button onclick="saveAddonTicks(this,'${ref}')" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:#B06030;color:#fff;border:none;padding:9px 20px;border-radius:2px;cursor:pointer;margin-bottom:28px;">Save ticks</button>` : `<button onclick="saveGuestAddons(this,'${ref}',${booking.total_price},${addonGuestCount})" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:#B06030;color:#fff;border:none;padding:9px 20px;border-radius:2px;cursor:pointer;margin-bottom:28px;">Save add-on changes</button>`}
 
       <div style="height:0.5px;background:rgba(176,96,48,0.1);margin-bottom:24px;"></div>
 
@@ -4002,6 +4004,26 @@ async function saveReferralSource(ref) {
   allBookings.forEach(b => { if (b.booking_ref === ref) b.referral_source = value; });
   renderTable();
   _loadBookingLog(ref);
+}
+
+// Paid bookings: save manual ticks. Sends only the ticked admin add-on names; server records them, nothing else.
+async function saveAddonTicks(btn, ref) {
+  const editor = document.getElementById(`guest-addon-editor-${ref}`);
+  if (!editor) return;
+  const names = [...editor.querySelectorAll('input[type=checkbox]:checked:not(:disabled)')].map(cb => cb.dataset.addonKey);
+  if (btn) { btn.textContent = 'Saving…'; btn.disabled = true; }
+  try {
+    const r = await fetch(`/admin/api/bookings/${ref}/paid-addon-ticks`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ names }),
+    });
+    if (!r.ok) { const d = await r.json().catch(() => ({})); alert(d.error || 'Save failed'); if (btn) { btn.textContent = 'Save ticks'; btn.disabled = false; } return; }
+    await openDrawer(ref);
+  } catch (e) {
+    alert('Save failed: ' + e.message);
+    if (btn) { btn.textContent = 'Save ticks'; btn.disabled = false; }
+  }
 }
 
 async function saveGuestAddons(btn, ref, currentTotalPrice, guestCount) {

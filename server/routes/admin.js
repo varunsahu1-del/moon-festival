@@ -196,6 +196,29 @@ router.patch('/api/bookings/:ref/addons', requireAdmin, (req, res) => {
   res.json({ ok: true });
 });
 
+// Manual tick of guest add-ons on a PAID booking (CLAUDE.md rule 1 exception).
+// Only sets addons_paid_items. Ticked names must match an admin add-on on this booking (extra_addons).
+// Never touches addons, extra_addons, total_price or any amount.
+router.post('/api/bookings/:ref/paid-addon-ticks', requireAdmin, (req, res) => {
+  const booking = db.prepare('SELECT id, booking_ref, status, extra_addons FROM bookings WHERE booking_ref=? AND deleted_at IS NULL').get(req.params.ref);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  if (booking.status !== 'paid') return res.status(400).json({ error: 'Manual ticks are only for paid bookings' });
+  const wanted = Array.isArray(req.body.names) ? req.body.names.map(n => String(n).trim()).filter(Boolean) : [];
+  const available = (booking.extra_addons || '').split('|').filter(Boolean);
+  const chosen = [];
+  for (const name of wanted) {
+    const hit = available.find(p => { const ci = p.indexOf(':'); return ci >= 0 && p.slice(ci + 1).trim() === name; });
+    if (!hit) return res.status(400).json({ error: `"${name}" is not an admin add-on on this booking` });
+    if (!chosen.includes(hit)) chosen.push(hit);
+  }
+  const value = chosen.join('|') || null;
+  db.prepare('UPDATE bookings SET addons_paid_items=? WHERE id=?').run(value, booking.id);
+  db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
+    booking.booking_ref, 'edit', `Guest add-on ticks set manually: ${chosen.map(p => p.slice(p.indexOf(':') + 1).trim()).join(', ') || 'none'}`
+  );
+  res.json({ ok: true, addons_paid_items: value });
+});
+
 router.get('/api/bookings/:ref/addon-log', requireAdmin, (req, res) => {
   const logs = db.prepare('SELECT note, created_at FROM addon_log WHERE booking_ref=? ORDER BY created_at ASC').all(req.params.ref);
   res.json(logs);
