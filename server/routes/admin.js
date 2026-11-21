@@ -219,6 +219,21 @@ router.post('/api/bookings/:ref/paid-addon-ticks', requireAdmin, (req, res) => {
   res.json({ ok: true, addons_paid_items: value });
 });
 
+// Waive or un-waive GST on one booking (CLAUDE.md rule 1, third exception).
+// Sets only the no_gst flag. Never changes total_price, addons, extra_addons or payments. Logged.
+router.post('/api/bookings/:ref/waive-gst', requireAdmin, (req, res) => {
+  const booking = db.prepare('SELECT id, booking_ref, no_gst FROM bookings WHERE booking_ref=? AND deleted_at IS NULL').get(req.params.ref);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  const waive = req.body.waive === true;
+  const newFlag = waive ? 1 : 0;
+  if ((booking.no_gst ? 1 : 0) === newFlag) return res.json({ ok: true, no_gst: newFlag, unchanged: true });
+  db.prepare('UPDATE bookings SET no_gst=? WHERE id=?').run(newFlag, booking.id);
+  db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
+    booking.booking_ref, 'edit', waive ? 'GST waived by admin (total unchanged)' : 'GST waiver removed by admin'
+  );
+  res.json({ ok: true, no_gst: newFlag });
+});
+
 router.get('/api/bookings/:ref/addon-log', requireAdmin, (req, res) => {
   const logs = db.prepare('SELECT note, created_at FROM addon_log WHERE booking_ref=? ORDER BY created_at ASC').all(req.params.ref);
   res.json(logs);

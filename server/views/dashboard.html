@@ -3268,6 +3268,10 @@ function renderDrawer(booking, guests, breakdown) {
           })()}
         </div>
         <div style="${FIELD}">
+          <button onclick="toggleGstWaiver('${ref}', ${booking.no_gst ? 'false' : 'true'}, this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#B06030;border:0.5px solid #B06030;padding:7px 14px;border-radius:2px;cursor:pointer;">${booking.no_gst ? 'Remove GST waiver' : 'Waive GST'}</button>
+          <div style="font-size:11px;color:rgba(42,34,24,0.45);margin-top:6px;">Changes only the GST flag. The total does not change.</div>
+        </div>
+        <div style="${FIELD}">
           <div style="${LBL}">Status</div>
           <select id="dr-status-sel" onchange="saveInlineField('status','${ref}')" style="appearance:none;-webkit-appearance:none;border:0.5px solid;border-radius:20px;padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:'Josefin Sans',sans-serif;outline:none;${statusSt}">
             <option value="pending" ${booking.status==='pending'?'selected':''}>Pending</option>
@@ -4004,6 +4008,25 @@ async function saveReferralSource(ref) {
   allBookings.forEach(b => { if (b.booking_ref === ref) b.referral_source = value; });
   renderTable();
   _loadBookingLog(ref);
+}
+
+// Waive or un-waive GST on a booking. Sets only the GST flag; the total is not changed.
+async function toggleGstWaiver(ref, waive, btn) {
+  const msg = waive ? 'Waive GST on this booking? The total stays the same.' : 'Remove the GST waiver on this booking?';
+  if (!confirm(msg)) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+  try {
+    const r = await fetch(`/admin/api/bookings/${ref}/waive-gst`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ waive }),
+    });
+    if (!r.ok) { const d = await r.json().catch(() => ({})); alert(d.error || 'Save failed'); if (btn) { btn.disabled = false; btn.textContent = waive ? 'Waive GST' : 'Remove GST waiver'; } return; }
+    await openDrawer(ref);
+  } catch (e) {
+    alert('Save failed: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = waive ? 'Waive GST' : 'Remove GST waiver'; }
+  }
 }
 
 // Paid bookings: save manual ticks. Sends only the ticked admin add-on names; server records them, nothing else.

@@ -14,6 +14,9 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
    **Exception (decided by Varun, 2026-11-21):** the admin may tick or untick guest add-ons on a paid
    booking. This only sets the paid-items list (`addons_paid_items`) through `POST /api/bookings/:ref/paid-addon-ticks`.
    It never changes `addons`, `extra_addons`, `total_price`, amounts or any other booking field.
+   **Third exception (decided by Varun, 2026-11-21):** the admin may waive or un-waive GST on any
+   booking via `POST /api/bookings/:ref/waive-gst`. This sets only the `no_gst` flag. It never changes
+   `total_price`, `addons`, `extra_addons`, payments or any other field, and it is logged.
 2. **Change only what was asked.** One change per request. No refactors, restyling, renames,
    "while I'm here" fixes or dependency updates. If you spot another problem, report it; don't fix it.
 3. **Nothing reaches the server except through `scripts/deploy.sh`.** No scp/rsync of files, no
