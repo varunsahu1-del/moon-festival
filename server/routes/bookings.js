@@ -435,7 +435,8 @@ router.post('/paylink-webhook', express.raw({ type: 'application/json' }), async
 
     // Add-on payment link paid → mark addons_collected
     if (linkType === 'addon') {
-      db.prepare(`UPDATE bookings SET addons_collected=1 WHERE id=?`).run(booking.id);
+      // Tick exactly the items this link charged for (snapshot taken when the link was created).
+      db.prepare(`UPDATE bookings SET addons_collected=1, addons_paid_items=? WHERE id=?`).run(booking.addon_link_items || null, booking.id);
       db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
         booking.booking_ref, 'edit', `Add-on payment received online (${payment_id || 'unknown ID'})`
       );

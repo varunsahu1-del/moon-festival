@@ -117,7 +117,7 @@ router.get('/api/bookings', requireAdmin, (req, res) => {
   const rows = db.prepare(`
     SELECT b.id as booking_id, b.booking_ref, b.venue, b.room_type, b.total_price,
            b.guest_count, b.status, b.payment_method, b.created_at, b.paid_at, b.room_number, b.email_sent,
-           b.addons, b.extra_addons, b.addons_collected, b.addons_collection_method, b.addons_collected_at, b.upi_screenshot, b.razorpay_payment_id, b.transfer_email_pending,
+           b.addons, b.extra_addons, b.addons_paid_items, b.addons_collected, b.addons_collection_method, b.addons_collected_at, b.upi_screenshot, b.razorpay_payment_id, b.transfer_email_pending,
            b.discount, b.discount_reason, b.phase, b.source, b.arrival_date, b.organizer_note, b.admin_verified, b.referral_source, b.no_gst, b.razorpay_fee_pct,
            g.id as guest_id, g.guest_number, g.full_name, g.whatsapp, g.email, g.city, g.age, g.gender, g.notes,
            g.room_number as guest_room_number,
@@ -388,6 +388,8 @@ router.post('/api/bookings/:ref/addon-paylink', requireAdmin, async (req, res) =
       callback_method: 'get',
     });
 
+    // Snapshot exactly which admin add-ons this link charges for. The webhook ticks these on payment.
+    db.prepare('UPDATE bookings SET addon_link_items=? WHERE id=?').run(booking.extra_addons, booking.id);
     db.prepare('INSERT INTO addon_log (booking_ref, note) VALUES (?, ?)').run(
       booking.booking_ref,
       `Payment link sent — ₹${amountWithGst.toLocaleString('en-IN')} incl. 5% GST`
