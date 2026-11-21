@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-21 | Add-ons paid through a payment link tick under Booked by guest once Razorpay confirms the payment (snapshot at link creation; links sent before this have no snapshot and will not tick); totals unchanged | server/db.js, server/routes/admin.js, server/routes/bookings.js, server/views/dashboard.html | 461c00d | Yes |
 | 2026-11-19 | Dashboard: registrations show Team instead of Paid for MF-0147; display only | server/views/dashboard.html | 1242112 | Yes |
 | 2026-11-19 | Dashboard: team booking MF-0147 excluded from total sales, average bed rate, beds booked and stay guests (team refs listed in code in server/routes/admin.js and server/inventory.js); still shown on room cards | server/routes/admin.js, server/inventory.js | e50e16d | Yes |
 | 2026-11-19 | Dashboard: TEAM tag on MF-0147 (Esha, comp chef) room card; display only, no booking changed | server/views/dashboard.html | 34eb8ab | Yes |
