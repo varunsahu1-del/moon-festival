@@ -25,6 +25,10 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
    needs a reason, is logged, and never changes amounts, room type, venue or payments.
    **Sixth exception (decided by Varun, 2026-11-21):** the admin may set the status of one cancelled booking back to
    paid or pending when the guest is coming, via the existing status control. Nothing else on the booking changes; it is logged.
+   **Seventh exception (decided by Varun, 2026-11-21):** the admin may record a payment a guest made directly to a
+   property (not to Moon) on a booking, via `POST /api/bookings/:ref/direct-payment`. It needs an amount, a property,
+   a date and a reason, is stored as a list on the booking and logged. It never changes `total_price`, `status`,
+   add-ons, room or any other field.
 2. **Change only what was asked.** One change per request. No refactors, restyling, renames,
    "while I'm here" fixes or dependency updates. If you spot another problem, report it; don't fix it.
 3. **Nothing reaches the server except through `scripts/deploy.sh`.** No scp/rsync of files, no

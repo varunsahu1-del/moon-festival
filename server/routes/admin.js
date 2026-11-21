@@ -117,7 +117,7 @@ router.get('/api/bookings', requireAdmin, (req, res) => {
   const rows = db.prepare(`
     SELECT b.id as booking_id, b.booking_ref, b.venue, b.room_type, b.total_price,
            b.guest_count, b.status, b.payment_method, b.created_at, b.paid_at, b.room_number, b.email_sent,
-           b.addons, b.extra_addons, b.addons_paid_items, b.addons_collected, b.addons_collection_method, b.addons_collected_at, b.upi_screenshot, b.razorpay_payment_id, b.transfer_email_pending,
+           b.addons, b.extra_addons, b.addons_paid_items, b.direct_payments, b.addons_collected, b.addons_collection_method, b.addons_collected_at, b.upi_screenshot, b.razorpay_payment_id, b.transfer_email_pending,
            b.discount, b.discount_reason, b.phase, b.source, b.arrival_date, b.organizer_note, b.admin_verified, b.referral_source, b.no_gst, b.razorpay_fee_pct,
            g.id as guest_id, g.guest_number, g.full_name, g.whatsapp, g.email, g.city, g.age, g.gender, g.notes,
            g.room_number as guest_room_number,
@@ -217,6 +217,29 @@ router.post('/api/bookings/:ref/paid-addon-ticks', requireAdmin, (req, res) => {
     booking.booking_ref, 'edit', `Guest add-on ticks set manually: ${chosen.map(p => p.slice(p.indexOf(':') + 1).trim()).join(', ') || 'none'}`
   );
   res.json({ ok: true, addons_paid_items: value });
+});
+
+// Record a payment a guest made directly to a property (CLAUDE.md rule 1, seventh exception).
+// Stored as a list on the booking; display only. Never changes total_price, status, add-ons or room.
+router.post('/api/bookings/:ref/direct-payment', requireAdmin, (req, res) => {
+  const booking = db.prepare('SELECT id, booking_ref FROM bookings WHERE booking_ref=? AND deleted_at IS NULL').get(req.params.ref);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  const amount = Number(req.body.amount);
+  const to = String(req.body.to || '').trim();
+  const date = String(req.body.date || '').trim();
+  const reason = String(req.body.reason || '').trim();
+  if (!(amount > 0)) return res.status(400).json({ error: 'Enter the amount paid' });
+  if (!to) return res.status(400).json({ error: 'Enter the property it was paid to' });
+  if (!date) return res.status(400).json({ error: 'Enter the date paid' });
+  if (!reason) return res.status(400).json({ error: 'A note is required' });
+  const row = db.prepare('SELECT direct_payments FROM bookings WHERE id=?').get(booking.id);
+  const list = row.direct_payments ? JSON.parse(row.direct_payments) : [];
+  list.push({ amount, to, date, note: reason });
+  db.prepare('UPDATE bookings SET direct_payments=? WHERE id=?').run(JSON.stringify(list), booking.id);
+  db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
+    booking.booking_ref, 'edit', `Direct payment recorded: ₹${amount.toLocaleString('en-IN')} to ${to} on ${date}. ${reason}`
+  );
+  res.json({ ok: true, direct_payments: list });
 });
 
 // Correct the room number of one PAID booking (CLAUDE.md rule 1, fifth exception).

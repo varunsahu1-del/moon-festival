@@ -3270,6 +3270,8 @@ function renderDrawer(booking, guests, breakdown) {
         <div style="${FIELD}">
           <button onclick="toggleGstWaiver('${ref}', ${booking.no_gst ? 'false' : 'true'}, this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#B06030;border:0.5px solid #B06030;padding:7px 14px;border-radius:2px;cursor:pointer;">${booking.no_gst ? 'Remove GST waiver' : 'Waive GST'}</button>
           <div style="font-size:11px;color:rgba(42,34,24,0.45);margin-top:6px;">Changes only the GST flag. The total does not change.</div>
+          <button onclick="recordDirectPayment('${ref}', this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#B06030;border:0.5px solid #B06030;padding:7px 14px;border-radius:2px;cursor:pointer;margin-top:10px;">Record direct payment</button>
+          ${(() => { let l = []; try { l = booking.direct_payments ? JSON.parse(booking.direct_payments) : []; } catch (e) {} return l.length ? `<div style="font-size:12px;color:rgba(42,34,24,0.7);margin-top:8px;">${l.map(p => `Paid direct to ${p.to}: ₹${Number(p.amount).toLocaleString('en-IN')} on ${p.date} (${p.note})`).join('<br>')}</div>` : ''; })()}
           ${booking.status === 'paid' ? `<button onclick="moveBookingRoom('${ref}', this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#B06030;border:0.5px solid #B06030;padding:7px 14px;border-radius:2px;cursor:pointer;margin-top:10px;">Move to another room</button>
           <div style="font-size:11px;color:rgba(42,34,24,0.45);margin-top:6px;">Moves the booking to another venue and room type and sets the total. Use only for an agreed change; a reason is required.</div>` : ''}
         </div>
@@ -4036,6 +4038,32 @@ async function moveBookingRoom(ref, btn) {
   } catch (e) {
     alert('Move failed: ' + e.message);
     if (btn) { btn.disabled = false; btn.textContent = 'Move to another room'; }
+  }
+}
+
+// Record a payment made directly to a property. Display only; totals and status are not changed.
+async function recordDirectPayment(ref, btn) {
+  const amount = prompt('Amount paid directly to the property (rupees):');
+  if (!amount || !(Number(amount) > 0)) return;
+  const to = prompt('Property it was paid to (e.g. Ourem, Bhakti Kutir, Destiny):');
+  if (!to || !to.trim()) return;
+  const date = prompt('Date paid (e.g. 21-Nov-2026):');
+  if (!date || !date.trim()) return;
+  const note = prompt('Note (required, e.g. who paid, split between guests):');
+  if (!note || !note.trim()) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+  try {
+    const r = await fetch(`/admin/api/bookings/${ref}/direct-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: Number(amount), to: to.trim(), date: date.trim(), reason: note.trim() }),
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { alert(d.error || 'Save failed'); if (btn) { btn.disabled = false; btn.textContent = 'Record direct payment'; } return; }
+    await openDrawer(ref);
+  } catch (e) {
+    alert('Save failed: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = 'Record direct payment'; }
   }
 }
 

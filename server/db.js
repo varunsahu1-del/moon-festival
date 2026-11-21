@@ -71,6 +71,8 @@ if (!existingBookingCols.includes('addons_collected_at')) db.exec("ALTER TABLE b
 // Admin add-ons sent on a payment link (snapshot at link creation) and those confirmed paid by the Razorpay webhook.
 // Paid items tick in "Booked by guest" on the dashboard. Kept separate from `addons` so total_price is never touched.
 if (!existingBookingCols.includes('no_gst')) db.exec("ALTER TABLE bookings ADD COLUMN no_gst INTEGER DEFAULT 0");
+// Payments a guest made directly to a property (not to Moon). JSON list, display only.
+if (!existingBookingCols.includes('direct_payments')) db.exec("ALTER TABLE bookings ADD COLUMN direct_payments TEXT");
 if (!existingBookingCols.includes('addon_link_items')) db.exec("ALTER TABLE bookings ADD COLUMN addon_link_items TEXT");
 if (!existingBookingCols.includes('addons_paid_items')) db.exec("ALTER TABLE bookings ADD COLUMN addons_paid_items TEXT");
 if (!existingBookingCols.includes('deleted_at')) db.exec("ALTER TABLE bookings ADD COLUMN deleted_at TEXT");
