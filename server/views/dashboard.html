@@ -3270,6 +3270,8 @@ function renderDrawer(booking, guests, breakdown) {
         <div style="${FIELD}">
           <button onclick="toggleGstWaiver('${ref}', ${booking.no_gst ? 'false' : 'true'}, this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#B06030;border:0.5px solid #B06030;padding:7px 14px;border-radius:2px;cursor:pointer;">${booking.no_gst ? 'Remove GST waiver' : 'Waive GST'}</button>
           <div style="font-size:11px;color:rgba(42,34,24,0.45);margin-top:6px;">Changes only the GST flag. The total does not change.</div>
+          ${booking.status === 'paid' ? `<button onclick="moveBookingRoom('${ref}', this)" style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#B06030;border:0.5px solid #B06030;padding:7px 14px;border-radius:2px;cursor:pointer;margin-top:10px;">Move to another room</button>
+          <div style="font-size:11px;color:rgba(42,34,24,0.45);margin-top:6px;">Moves the booking to another venue and room type and sets the total. Use only for an agreed change; a reason is required.</div>` : ''}
         </div>
         <div style="${FIELD}">
           <div style="${LBL}">Status</div>
@@ -4008,6 +4010,33 @@ async function saveReferralSource(ref) {
   allBookings.forEach(b => { if (b.booking_ref === ref) b.referral_source = value; });
   renderTable();
   _loadBookingLog(ref);
+}
+
+// Move a PAID booking to another venue / room type and set its pre-GST total. Asks for each value.
+async function moveBookingRoom(ref, btn) {
+  const venue = prompt('New venue (exactly as on the site, e.g. Destiny, Bhakti Kutir, Ourem, Teraria, La Rocha · Sea View):');
+  if (!venue || !venue.trim()) return;
+  const roomType = prompt(`Room type at ${venue.trim()} (e.g. Double Sharing, Triple Sharing, Private Room):`);
+  if (!roomType || !roomType.trim()) return;
+  const total = prompt('New total BEFORE GST (rupees, e.g. 72100):');
+  if (!total || !(Number(total) > 0)) return;
+  const reason = prompt('Reason (required, for the record, e.g. Upgrade, paid difference to property):');
+  if (!reason || !reason.trim()) return;
+  if (!confirm(`Move ${ref} to ${venue.trim()} · ${roomType.trim()} with total ₹${Number(total).toLocaleString('en-IN')} before GST?`)) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+  try {
+    const r = await fetch(`/admin/api/bookings/${ref}/change-room`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ venue: venue.trim(), room_type: roomType.trim(), total_price: Number(total), reason: reason.trim() }),
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { alert(d.error || 'Move failed'); if (btn) { btn.disabled = false; btn.textContent = 'Move to another room'; } return; }
+    await openDrawer(ref);
+  } catch (e) {
+    alert('Move failed: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = 'Move to another room'; }
+  }
 }
 
 // Waive or un-waive GST on a booking. Sets only the GST flag; the total is not changed.
