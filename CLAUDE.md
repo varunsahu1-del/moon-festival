@@ -20,6 +20,9 @@ The CLAUDE.md in the parent folder is about DaVinci video editing. Ignore it for
    **Fourth exception (decided by Varun, 2026-11-21):** the admin may move one paid booking to another room type
    or venue and set its pre-GST total, via `POST /api/bookings/:ref/change-room`. It needs a reason, checks the new
    room has space, clears the room number, is logged, and never changes payments, `extra_addons` or other fields.
+   **Fifth exception (decided by Varun, 2026-11-21):** the admin may correct the room number of one paid booking
+   via `POST /api/bookings/:ref/set-room`. The room must be a real room for that venue and room type, the change
+   needs a reason, is logged, and never changes amounts, room type, venue or payments.
 2. **Change only what was asked.** One change per request. No refactors, restyling, renames,
    "while I'm here" fixes or dependency updates. If you spot another problem, report it; don't fix it.
 3. **Nothing reaches the server except through `scripts/deploy.sh`.** No scp/rsync of files, no

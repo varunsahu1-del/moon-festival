@@ -219,6 +219,26 @@ router.post('/api/bookings/:ref/paid-addon-ticks', requireAdmin, (req, res) => {
   res.json({ ok: true, addons_paid_items: value });
 });
 
+// Correct the room number of one PAID booking (CLAUDE.md rule 1, fifth exception).
+// Room must exist for this venue and room type. Needs a reason. Logged. Never changes amounts, type, venue or payments.
+router.post('/api/bookings/:ref/set-room', requireAdmin, (req, res) => {
+  const booking = db.prepare('SELECT id, booking_ref, status, venue, room_type, room_number FROM bookings WHERE booking_ref=? AND deleted_at IS NULL').get(req.params.ref);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  if (booking.status !== 'paid') return res.status(400).json({ error: 'Only paid bookings can be corrected here' });
+  const room = String(req.body.room_number || '').trim();
+  const reason = String(req.body.reason || '').trim();
+  if (!room) return res.status(400).json({ error: 'Enter the room number' });
+  if (!reason) return res.status(400).json({ error: 'A reason is required' });
+  const valid = ((ROOM_LABELS[booking.venue] || {})[booking.room_type] || []);
+  if (!valid.includes(room)) return res.status(400).json({ error: `${room} is not a ${booking.room_type} room at ${booking.venue}` });
+  db.prepare('UPDATE bookings SET room_number=? WHERE id=?').run(room, booking.id);
+  db.prepare('UPDATE guests SET room_number=? WHERE booking_id=?').run(room, booking.id);
+  db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
+    booking.booking_ref, 'edit', `Room number corrected: ${booking.room_number || 'none'} → ${room}. Reason: ${reason}`
+  );
+  res.json({ ok: true, room_number: room });
+});
+
 // Move one PAID booking to another room type / venue and set its pre-GST total (CLAUDE.md rule 1, fourth exception).
 // Needs a reason, checks space in the new room, clears the room number, logs. Never touches payments or extra_addons.
 router.post('/api/bookings/:ref/change-room', requireAdmin, (req, res) => {
