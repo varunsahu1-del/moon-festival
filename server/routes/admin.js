@@ -219,6 +219,31 @@ router.post('/api/bookings/:ref/paid-addon-ticks', requireAdmin, (req, res) => {
   res.json({ ok: true, addons_paid_items: value });
 });
 
+// Move one PAID booking to another room type / venue and set its pre-GST total (CLAUDE.md rule 1, fourth exception).
+// Needs a reason, checks space in the new room, clears the room number, logs. Never touches payments or extra_addons.
+router.post('/api/bookings/:ref/change-room', requireAdmin, (req, res) => {
+  const booking = db.prepare('SELECT id, booking_ref, status, venue, room_type, guest_count, total_price FROM bookings WHERE booking_ref=? AND deleted_at IS NULL').get(req.params.ref);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  if (booking.status !== 'paid') return res.status(400).json({ error: 'Only paid bookings can be moved here' });
+  const venue = String(req.body.venue || '').trim();
+  const roomType = String(req.body.room_type || '').trim();
+  const reason = String(req.body.reason || '').trim();
+  const newTotal = Number(req.body.total_price);
+  if (!venue || !roomType) return res.status(400).json({ error: 'Choose the new venue and room type' });
+  if (!reason) return res.status(400).json({ error: 'A reason is required' });
+  if (!Number.isFinite(newTotal) || newTotal <= 0) return res.status(400).json({ error: 'Enter the new pre-GST total' });
+  const guests = db.prepare('SELECT gender FROM guests WHERE booking_id=? ORDER BY guest_number').all(booking.id);
+  const avail = checkAvailability(db, venue, roomType, guests.length || booking.guest_count, guests.map(g => ({ gender: g.gender })));
+  if (!avail.available) return res.status(400).json({ error: avail.reason || 'No space in that room type' });
+  const oldLabel = `${booking.venue} · ${booking.room_type}`;
+  db.prepare('UPDATE bookings SET venue=?, room_type=?, total_price=?, room_number=NULL WHERE id=?').run(venue, roomType, newTotal, booking.id);
+  db.prepare('UPDATE guests SET room_number=NULL WHERE booking_id=?').run(booking.id);
+  db.prepare('INSERT INTO booking_log (booking_ref, type, note) VALUES (?, ?, ?)').run(
+    booking.booking_ref, 'edit', `Moved from ${oldLabel} to ${venue} · ${roomType}. Pre-GST total ₹${Number(booking.total_price).toLocaleString('en-IN')} → ₹${newTotal.toLocaleString('en-IN')}. Reason: ${reason}`
+  );
+  res.json({ ok: true, venue, room_type: roomType, total_price: newTotal });
+});
+
 // Waive or un-waive GST on one booking (CLAUDE.md rule 1, third exception).
 // Sets only the no_gst flag. Never changes total_price, addons, extra_addons or payments. Logged.
 router.post('/api/bookings/:ref/waive-gst', requireAdmin, (req, res) => {
