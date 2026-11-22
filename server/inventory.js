@@ -51,6 +51,11 @@ const INVENTORY = [
   { venue: 'Festival Access', room_type: 'Kaprila – Moon Choir',                unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
   { venue: 'Festival Access', room_type: 'Aditya – Afro Drum Circle',           unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
   { venue: 'Festival Access', room_type: 'Chris Fitchew – Moon Olympics',       unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'tickets' },
+  { venue: 'Festival Access', room_type: 'Moon Fam 1 Day Pass',         unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
+  { venue: 'Festival Access', room_type: 'Moon Fam 2 Day Pass',         unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
+  { venue: 'Festival Access', room_type: 'Moon Fam 3 Day Pass',         unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
+  { venue: 'Festival Access', room_type: 'Moon Fam Workshops',          unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
+  { venue: 'Festival Access', room_type: 'Moon Fam Gigs',              unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
 ];
 
 // Predefined room labels for each venue/type

@@ -24,6 +24,7 @@ app.use(session({
 
 // API routes
 app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/moonfam', require('./moonfam').router);
 app.use('/api/applications', require('./routes/applications'));
 app.use('/admin', require('./routes/auth'));
 app.use('/admin', require('./routes/admin'));

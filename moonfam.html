@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Moon Fam — Moon Festival 2026</title>
+<link rel="icon" type="image/png" href="Favicons/Yellow Transparency.png">
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--ink:#1a1007;--panel:#191406;--cream:#EDD4B2;--gold:#B06030;--hero:#7A3A18;--line:rgba(237,212,178,.18);--muted:rgba(237,212,178,.6)}
+  body{background:var(--ink);color:var(--cream);font-family:'Open Sans',sans-serif;font-weight:300;line-height:1.7;min-height:100vh}
+  .mf-hero{background:var(--hero);text-align:center;margin-top:92px;padding:3rem 16px;position:relative;z-index:1}
+  @media(min-width:768px){.mf-hero{margin-top:112px}}
+  .mf-hero h1{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:.22em;color:var(--cream)}
+  .mf-hero .sub{font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(237,212,178,.7);margin-top:.4rem}
+  .mf-hero .date{font-style:italic;margin-top:1rem;color:var(--cream)}
+  .wrap{max-width:680px;margin:0 auto;padding:2rem 16px 7rem}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1.4rem 1.2rem;margin-bottom:1.2rem}
+  h2{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:.8rem}
+  p.note{color:var(--muted);font-size:.85rem}
+  label{display:block;font-size:.78rem;color:var(--muted);margin:.6rem 0 .25rem;letter-spacing:.04em}
+  input[type=text],input[type=email],input[type=tel],input[type=number],select{width:100%;background:#0f0a03;border:1px solid var(--line);color:var(--cream);padding:.7rem .8rem;border-radius:4px;font:inherit;font-size:16px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  @media(max-width:520px){.row{grid-template-columns:1fr}}
+  .btn{background:var(--gold);color:#fff;border:0;border-radius:4px;padding:.8rem 1.2rem;font-family:'Josefin Sans',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;font-size:.8rem}
+  .btn:disabled{opacity:.5;cursor:default}
+  .link{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem;text-decoration:underline;padding:0;margin-bottom:1rem}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1rem}
+  .tab{background:transparent;border:1px solid var(--line);color:var(--cream);padding:.7rem .3rem;border-radius:4px;cursor:pointer;font-family:'Josefin Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+  .tab.on{background:var(--hero);border-color:var(--gold)}
+  .pass{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:4px;padding:.8rem;margin-bottom:.5rem;cursor:pointer}
+  .pass.on{border-color:var(--gold);background:rgba(122,58,24,.25)}
+  .pass input{accent-color:var(--gold)}
+  .pass strong{font-family:'Josefin Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .6rem 0}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;font-size:.8rem;cursor:pointer;user-select:none}
+  .chip.on{background:var(--gold);border-color:var(--gold);color:#fff}
+  .chip.locked{opacity:.85;cursor:default}
+  .ws{display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--line);padding:.6rem 0;cursor:pointer}
+  .ws input{margin-top:.35rem;accent-color:var(--gold)}
+  .ws .t{color:var(--gold);font-size:.78rem;letter-spacing:.06em;font-weight:700}
+  .ws .n{color:var(--cream);font-size:.92rem}
+  .ws .f{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+  .ws-day{font-family:'Josefin Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:.8rem;margin:1rem 0 .3rem}
+  .sum{display:flex;justify-content:space-between;font-size:.9rem;padding:.25rem 0;gap:1rem}
+  .sum.total{border-top:1px solid var(--line);margin-top:.4rem;padding-top:.6rem;font-size:1.05rem}
+  .err{color:#f0a070;font-size:.85rem;margin-top:.6rem;min-height:1.2em}
+  .hidden{display:none !important}
+  .guest{border-top:1px solid var(--line);padding-top:.8rem;margin-top:.8rem}
+  .guest:first-of-type{border-top:0;margin-top:0;padding-top:0}
+  .sticky{position:fixed;left:0;right:0;bottom:0;background:#120c04;border-top:1px solid var(--line);padding:.7rem 16px;display:flex;justify-content:space-between;align-items:center;gap:1rem;z-index:50}
+  .sticky .s{font-size:.82rem;color:var(--muted)}
+  .sticky .s b{color:var(--cream)}
+  .sticky .btn{white-space:nowrap}
+  .nav-toggle{display:none !important}
+  .footer-top-grid > div:not(.footer-social-row):not(.footer-newsletter){display:none !important}
+</style>
+</head>
+<body>
+<!-- NAV -->
+
+<header class="mf-hero">
+  <h1>MOON FAM</h1>
+  <div class="sub">Facilitators · Artists · Mooncrew</div>
+  <div class="date">27 · 28 · 29 Nov '26 | South Goa</div>
+</header>
+
+<main class="wrap">
+
+  <!-- Step 1: choose tickets -->
+  <div id="step1">
+    <section class="card">
+      <h2>What are you booking?</h2>
+      <div class="tabs">
+        <button class="tab on" type="button" id="tabPass">Day passes</button>
+        <button class="tab" type="button" id="tabWs">Single workshops</button>
+        <button class="tab" type="button" id="tabGigs">Gigs</button>
+      </div>
+
+      <div id="passPanel">
+        <p class="note" style="margin-bottom:.8rem">A day pass covers the full day: all workshops and gigs that day.</p>
+        <div id="passCards"></div>
+      </div>
+
+      <div id="wsPanel" class="hidden">
+        <p class="note" style="margin-bottom:.4rem">Pick a day, then the workshops you want. Each is a separate ticket.</p>
+        <div class="chips" id="wsDays"></div>
+        <div id="wsList"></div>
+      </div>
+
+      <div id="gigPanel" class="hidden">
+        <p class="note" style="margin-bottom:.4rem">Pick the gigs you want. Each is a separate ticket.</p>
+        <div id="gigList"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Step 2: guest details -->
+  <div id="step2" class="hidden">
+    <button class="link" type="button" id="backBtn">← Back to tickets</button>
+    <section class="card">
+      <h2>Your selection</h2>
+      <div class="sum"><span id="sumItems"></span><span id="sumBase"></span></div>
+      <div class="sum"><span>GST (5%)</span><span id="sumGst"></span></div>
+      <div class="sum total"><span>Total to pay</span><span id="sumTotal"></span></div>
+    </section>
+
+    <section class="card">
+      <h2>Guest details</h2>
+      <label for="qty">How many people in this booking?</label>
+      <select id="qty"></select>
+      <p class="note" style="margin-top:.5rem">Every person in this booking gets the same selection. Book separately if choices differ.</p>
+      <div id="guests" style="margin-top:1rem"></div>
+      <div class="err" id="payErr"></div>
+    </section>
+  </div>
+</main>
+
+<div class="sticky hidden" id="stickyBar">
+  <div class="s" id="stickyTxt"></div>
+  <button class="btn" id="nextBtn" type="button">Continue to details</button>
+</div>
+
+
+<!-- FOOTER -->
+
+<script>
+(function(){
+  var DATA = null;            // { passes, days, workshops, gigs, workshop_price, gig_price, gst_rate }
+  var step = 1;
+  var mode = 'pass';          // 'pass' | 'workshops' | 'gigs'
+  var passDays = 0;           // 1 | 2 | 3
+  var days = [];              // chosen pass day keys
+  var wsDay = '27 Nov';       // workshop day being browsed
+  var wsIds = {};             // workshop id -> true
+  var gigIds = {};            // gig id -> true
+  var qty = 1;
+
+  function $(id){ return document.getElementById(id); }
+  function fmt(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function setText(id, t){ var el = $(id); if (el) el.textContent = t; }
+  function count(o){ return Object.keys(o).length; }
+
+  function priceFor(n){ var p = DATA && DATA.passes.filter(function(x){ return x.passDays === n; })[0]; return p ? p.price : 0; }
+
+  // Per-person base for the current selection (pre-GST)
+  function base(){
+    if (mode === 'pass') return passDays ? priceFor(passDays) : 0;
+    if (mode === 'workshops') return count(wsIds) * DATA.workshop_price;
+    return DATA.gigs.reduce(function(sum, g){ return gigIds[g.id] ? sum + g.price : sum; }, 0);
+  }
+  function selectionReady(){
+    if (mode === 'pass') return !!passDays && (passDays === 3 || days.length === passDays);
+    if (mode === 'workshops') return count(wsIds) > 0;
+    return count(gigIds) > 0;
+  }
+  function itemsText(){
+    if (mode === 'pass') {
+      var names = {1:'1 Day Pass',2:'2 Day Pass',3:'3 Day Pass'};
+      return (passDays ? names[passDays] + (days.length ? ' · ' + days.join(', ') : '') : 'No pass chosen') + ' × ' + qty;
+    }
+    if (mode === 'workshops') return count(wsIds) + ' workshop' + (count(wsIds) === 1 ? '' : 's') + ' × ' + qty;
+    return count(gigIds) + ' gig' + (count(gigIds) === 1 ? '' : 's') + ' × ' + qty;
+  }
+
+  function refreshSummary(){
+    var b = base() * qty, g = Math.round(b * (DATA ? DATA.gst_rate : 0.05));
+    setText('sumItems', itemsText());
+    setText('sumBase', fmt(b));
+    setText('sumGst', fmt(g));
+    setText('sumTotal', fmt(b + g));
+    var ready = selectionReady();
+    var nb = $('nextBtn'); if (nb) nb.disabled = !ready;
+    var st = $('stickyTxt');
+    if (st) st.innerHTML = step === 1
+      ? (ready ? '<b>' + fmt(b + g) + '</b> incl. GST' : 'Choose your tickets to continue')
+      : '<b>' + fmt(b + g) + '</b> incl. GST';
+  }
+
+  function renderPasses(){
+    var box = $('passCards'); if (!box || !DATA) return;
+    var labels = {1:'1 Day',2:'2 Days',3:'3 Days'};
+    var html = '';
+    [1,2,3].forEach(function(n){
+      var on = passDays === n;
+      html += '<label class="pass' + (on ? ' on' : '') + '" data-pass="' + n + '">' +
+        '<span><input type="radio" name="pass" value="' + n + '"' + (on ? ' checked' : '') + '> <strong>' + labels[n] + '</strong></span>' +
+        '<span>' + fmt(priceFor(n)) + '</span></label>';
+      if (on && n < 3) {
+        var opts = DATA.days.map(function(d){
+          var sel = days.indexOf(d.key) >= 0;
+          return '<span class="chip' + (sel ? ' on' : '') + '" data-day="' + d.key + '">' + esc(d.label) + '</span>';
+        }).join('');
+        html += '<div class="chips">' + opts + '</div>';
+        html += '<p class="note" style="margin:0 0 .4rem">Choose ' + n + ' day' + (n > 1 ? 's' : '') + '.</p>';
+      }
+    });
+    if (passDays === 3) {
+      html += '<div class="chips">' + DATA.days.map(function(d){ return '<span class="chip on locked">' + esc(d.label) + '</span>'; }).join('') + '</div>';
+    }
+    box.innerHTML = html;
+  }
+
+  function renderWsDays(){
+    var box = $('wsDays'); if (!box || !DATA) return;
+    box.innerHTML = DATA.days.map(function(d){
+      return '<span class="chip' + (wsDay === d.key ? ' on' : '') + '" data-wsday="' + d.key + '">' + esc(d.label) + '</span>';
+    }).join('');
+  }
+
+  function workshopRow(w, checked, attr){
+    return '<label class="ws"><input type="checkbox" ' + attr + '="' + w.id + '"' + (checked ? ' checked' : '') + '>' +
+      '<span><span class="t">' + esc(w.time) + '</span><br><span class="n">' + esc(w.session) + '</span>' +
+      (w.facilitator ? '<br><span class="f">' + esc(w.facilitator) + '</span>' : '') + '</span></label>';
+  }
+
+  function renderWorkshops(){
+    var box = $('wsList'); if (!box || !DATA) return;
+    var list = DATA.workshops.filter(function(w){ return w.day === wsDay; });
+    box.innerHTML = list.length
+      ? list.map(function(w){ return workshopRow(w, !!wsIds[w.id], 'data-ws'); }).join('')
+      : '<p class="note">No workshops on this day.</p>';
+  }
+
+  function renderGigs(){
+    var box = $('gigList'); if (!box || !DATA) return;
+    var html = '', lastDay = '';
+    DATA.gigs.forEach(function(g){
+      if (g.dayLabel !== lastDay) { html += '<div class="ws-day">' + esc(g.dayLabel) + '</div>'; lastDay = g.dayLabel; }
+      html += workshopRow(g, !!gigIds[g.id], 'data-gig').replace('<span class="t">' + esc(g.time) + '</span>', '<span class="t">' + esc(g.time) + ' · ' + fmt(g.price) + '</span>');
+    });
+    box.innerHTML = html;
+  }
+
+  function renderQty(){
+    var s = $('qty'); if (!s) return;
+    var html = '';
+    for (var i = 1; i <= 10; i++) html += '<option value="' + i + '"' + (i === qty ? ' selected' : '') + '>' + i + '</option>';
+    s.innerHTML = html;
+  }
+
+  function renderGuests(){
+    var box = $('guests'); if (!box) return;
+    var html = '';
+    for (var i = 0; i < qty; i++) {
+      html += '<div class="guest"><div class="' + (qty > 1 ? '' : 'hidden') + '" style="font-size:.8rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem">Guest ' + (i + 1) + '</div>' +
+        '<label>Full name</label><input type="text" id="g' + i + 'name" autocomplete="name">' +
+        '<div class="row"><div><label>Email</label><input type="email" id="g' + i + 'email" autocomplete="email"></div>' +
+        '<div><label>WhatsApp number</label><input type="tel" id="g' + i + 'phone" autocomplete="tel"></div></div>' +
+        '<div class="row"><div><label>City</label><input type="text" id="g' + i + 'city"></div>' +
+        '<div><label>Age</label><input type="number" id="g' + i + 'age" min="1" max="120"></div></div>' +
+        '<label>Gender</label><select id="g' + i + 'gender"><option value="">Select</option><option>Female</option><option>Male</option></select></div>';
+    }
+    box.innerHTML = html;
+  }
+
+  function collectGuests(){
+    var out = [];
+    for (var i = 0; i < qty; i++) {
+      var tag = qty > 1 ? ' (Guest ' + (i + 1) + ')' : '';
+      var name = ($('g' + i + 'name') || {}).value || '';
+      var email = ($('g' + i + 'email') || {}).value || '';
+      var phone = ($('g' + i + 'phone') || {}).value || '';
+      var city = ($('g' + i + 'city') || {}).value || '';
+      var age = ($('g' + i + 'age') || {}).value || '';
+      var gender = ($('g' + i + 'gender') || {}).value || '';
+      if (!name.trim()) return fail('Please enter full name' + tag + '.');
+      if (!email.trim()) return fail('Please enter email' + tag + '.');
+      if (!phone.trim()) return fail('Please enter WhatsApp number' + tag + '.');
+      if (!age || Number(age) < 1) return fail('Please enter age' + tag + '.');
+      if (!gender) return fail('Please select gender' + tag + '.');
+      out.push({ full_name: name.trim(), email: email.trim(), whatsapp: '+91 ' + phone.trim(), city: city.trim(), age: Number(age), gender: gender });
+    }
+    return out;
+    function fail(m){ setText('payErr', m); return null; }
+  }
+
+  function showStep(n){
+    step = n;
+    var s1 = $('step1'), s2 = $('step2');
+    if (s1) s1.classList.toggle('hidden', n !== 1);
+    if (s2) s2.classList.toggle('hidden', n !== 2);
+    var nb = $('nextBtn');
+    if (nb) nb.textContent = n === 1 ? 'Continue to details' : 'Continue to payment';
+    window.scrollTo(0, 0);
+    refreshSummary();
+  }
+
+  function setMode(m){
+    mode = m;
+    var on = function(el, f){ if (el) el.classList.toggle('on', f); };
+    on($('tabPass'), m === 'pass'); on($('tabWs'), m === 'workshops'); on($('tabGigs'), m === 'gigs');
+    var panels = { pass: 'passPanel', workshops: 'wsPanel', gigs: 'gigPanel' };
+    Object.keys(panels).forEach(function(k){ var el = $(panels[k]); if (el) el.classList.toggle('hidden', k !== m); });
+    refreshSummary();
+  }
+
+  function bind(){
+    var tp = $('tabPass'), tw = $('tabWs'), tg = $('tabGigs');
+    if (tp) tp.addEventListener('click', function(){ setMode('pass'); });
+    if (tw) tw.addEventListener('click', function(){ setMode('workshops'); });
+    if (tg) tg.addEventListener('click', function(){ setMode('gigs'); });
+
+    var pc = $('passCards');
+    if (pc) pc.addEventListener('click', function(e){
+      var card = e.target.closest ? e.target.closest('[data-pass]') : null;
+      var chip = e.target.closest ? e.target.closest('[data-day]') : null;
+      if (chip && passDays && passDays < 3) {
+        var k = chip.getAttribute('data-day');
+        var at = days.indexOf(k);
+        if (at >= 0) days.splice(at, 1);
+        else if (days.length < passDays) days.push(k);
+        else { days = [k]; }
+        renderPasses(); refreshSummary(); return;
+      }
+      if (card) {
+        var n = Number(card.getAttribute('data-pass'));
+        passDays = n;
+        days = n === 3 ? DATA.days.map(function(d){ return d.key; }) : [];
+        renderPasses(); refreshSummary();
+      }
+    });
+
+    var wd = $('wsDays');
+    if (wd) wd.addEventListener('click', function(e){
+      var chip = e.target.closest ? e.target.closest('[data-wsday]') : null;
+      if (!chip) return;
+      wsDay = chip.getAttribute('data-wsday');
+      renderWsDays(); renderWorkshops();
+    });
+
+    var wl = $('wsList');
+    if (wl) wl.addEventListener('change', function(e){
+      var id = e.target.getAttribute && e.target.getAttribute('data-ws');
+      if (!id) return;
+      if (e.target.checked) wsIds[id] = true; else delete wsIds[id];
+      refreshSummary();
+    });
+
+    var gl = $('gigList');
+    if (gl) gl.addEventListener('change', function(e){
+      var id = e.target.getAttribute && e.target.getAttribute('data-gig');
+      if (!id) return;
+      if (e.target.checked) gigIds[id] = true; else delete gigIds[id];
+      refreshSummary();
+    });
+
+    var q = $('qty');
+    if (q) q.addEventListener('change', function(){ qty = Number(q.value) || 1; renderGuests(); refreshSummary(); });
+
+    var back = $('backBtn');
+    if (back) back.addEventListener('click', function(){ setText('payErr', ''); showStep(1); });
+
+    var nb = $('nextBtn');
+    if (nb) nb.addEventListener('click', function(){
+      if (step === 1) { if (selectionReady()) showStep(2); }
+      else pay();
+    });
+  }
+
+  function moonfamPayload(){
+    var m = { mode: mode };
+    if (mode === 'pass') { m.passDays = passDays; m.days = days; }
+    else if (mode === 'workshops') m.workshopIds = Object.keys(wsIds);
+    else m.gigIds = Object.keys(gigIds);
+    return m;
+  }
+
+  async function pay(){
+    setText('payErr', '');
+    if (!DATA || !selectionReady()) return;
+    var guests = collectGuests();
+    if (!guests) return;
+    var b = base() * qty;
+    var btn = $('nextBtn'); if (btn) { btn.disabled = true; btn.textContent = 'Please wait…'; }
+    try {
+      var res = await fetch('/api/bookings/create', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ venue: 'Festival Access', roomType: 'Moon Fam', totalPrice: b, guests: guests, moonfam: moonfamPayload() }) });
+      var data = await res.json().catch(function(){ return {}; });
+      if (!res.ok) { setText('payErr', data.error || 'Something went wrong.'); return; }
+      openRazorpay(data, guests[0], b);
+    } catch (e) {
+      setText('payErr', 'Network error. Please try again.');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = 'Continue to payment'; }
+    }
+  }
+
+  async function openRazorpay(booking, g, b){
+    var key = booking.razorpay_key, orderId = booking.razorpay_order_id, amount = booking.amount;
+    var total = Math.round(b * (1 + (DATA.gst_rate || 0.05)));
+    if (!orderId || !amount) {
+      try {
+        var r = await fetch('/api/bookings/razorpay-order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: booking.booking_ref }) });
+        var d = await r.json();
+        if (!r.ok) throw new Error(d.error || 'Order failed');
+        key = d.key; orderId = d.order_id; amount = d.amount;
+      } catch (e) { setText('payErr', 'Could not open payment. Please try again.'); return; }
+    }
+    try {
+      new window.Razorpay({
+        key: key, amount: amount, currency: 'INR', order_id: orderId,
+        name: 'Moon Festival 2026', description: 'Moon Fam · ' + booking.booking_ref,
+        prefill: { name: g.full_name, email: g.email, contact: g.whatsapp },
+        theme: { color: '#B06030' },
+        handler: async function(response){
+          try { await fetch('/api/bookings/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ razorpay_order_id: response.razorpay_order_id, razorpay_payment_id: response.razorpay_payment_id, razorpay_signature: response.razorpay_signature }) }); } catch (_) {}
+          window.location.href = 'booking-confirmed.html?ref=' + booking.booking_ref + '&method=razorpay&amount=' + total + '&pixel_fired=1';
+        }
+      }).open();
+    } catch (e) { setText('payErr', 'Could not open payment. Please try again.'); }
+  }
+
+  async function load(){
+    try {
+      var r = await fetch('/api/moonfam/data');
+      var d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Could not load tickets');
+      DATA = d;
+      renderPasses(); renderWsDays(); renderWorkshops(); renderGigs(); renderQty(); renderGuests();
+      var sb = $('stickyBar'); if (sb) sb.classList.remove('hidden');
+      refreshSummary();
+    } catch (e) {
+      $('step1').innerHTML = '<section class="card"><p class="note">Tickets could not be loaded. Please refresh the page.</p></section>';
+    }
+  }
+
+  bind();
+  renderQty();
+  renderGuests();
+  setMode('pass');
+  load();
+})();
+</script>
+</body>
+</html>

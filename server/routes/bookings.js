@@ -10,6 +10,7 @@ const { sendConfirmation, sendFailedPaymentAlert, sendUpiAlert, sendUpiPendingGu
 const { checkAvailability, autoAssignRoom, PRICING, bhaktiPairBlockReason } = require('../inventory');
 
 const { resolvePhase } = require('../settings');
+const { quoteMoonFam } = require('../moonfam');
 
 // Ensure days_selected column exists (safe to run every startup)
 try { db.exec("ALTER TABLE bookings ADD COLUMN days_selected TEXT"); } catch(_) {}
@@ -71,7 +72,7 @@ router.get('/promo/:code', (req, res) => {
 // Body: { venue, roomType, totalPrice, guests: [{full_name, whatsapp, email, city, age}] }
 router.post('/create', async (req, res) => {
   try {
-    const { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode, daysSelected, referralSource } = req.body;
+    let { venue, roomType, totalPrice, guests, gstNumber, gstName, addons, organizerNote, promoCode, daysSelected, referralSource } = req.body;
 
     // Derive arrival date from addons — extra day add-on means 26 Nov, otherwise 27 Nov
     const addonNames = addons ? addons.split('|').map(a => a.split(':').slice(1).join(':').trim().toLowerCase()) : [];
@@ -79,6 +80,19 @@ router.post('/create', async (req, res) => {
     const arrival_date = hasExtraDay ? '26 Nov' : '27 Nov';
     if (!venue || !roomType || !totalPrice || !Array.isArray(guests) || !guests.length) {
       return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Moon Fam guest list: the server builds the room, days and amount from the chosen items (client amount ignored)
+    if (req.body.moonfam) {
+      if (promoCode) return res.status(400).json({ error: 'Promo codes cannot be combined with Moon Fam tickets.' });
+      let quote;
+      try { quote = quoteMoonFam(req.body.moonfam, guests.length); }
+      catch (e) { return res.status(400).json({ error: e.message }); }
+      venue = quote.venue;
+      roomType = quote.roomType;
+      totalPrice = quote.totalBase;
+      daysSelected = quote.daysSelected;
+      addons = null;
     }
 
     // Validate gender when provided — allows blank/null but rejects nonsense values
