@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-22 | Bhakti Kutir Private Room / Double Sharing: a paid booking made after go-live (2026-11-22 07:00 UTC) sells out the other type on the public site; cancelled or trashed bookings reopen it; pending bookings don't trigger it; admin unaffected; existing bookings unchanged | server/inventory.js, server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-21 | Manual add-on ticks on paid bookings (admin add-ons only, sets addons_paid_items only; totals unchanged). CLAUDE.md rule 1 exception decided by Varun. Note: checkpoint had flagged the server one commit behind (changelog only); deploy ran anyway and brought it up to date | CLAUDE.md, server/routes/admin.js, server/views/dashboard.html | a8821ab | Yes |
 | 2026-11-21 | Availability: Esha's team bed (MF-0147) now counts in bed availability (Bhakti Triple showed one free bed that was occupied). Sales and revenue figures still exclude MF-0147 | server/inventory.js | (this deploy) | Yes |
 | 2026-11-21 | Add-ons paid through a payment link tick under Booked by guest once Razorpay confirms the payment (snapshot at link creation; links sent before this have no snapshot and will not tick); totals unchanged | server/db.js, server/routes/admin.js, server/routes/bookings.js, server/views/dashboard.html | 461c00d | Yes |

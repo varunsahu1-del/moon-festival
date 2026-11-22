@@ -644,4 +644,26 @@ function validateBookingPrice({ venue, room_type, guest_count, addons, discount,
   return { valid: true };
 }
 
-module.exports = { checkAvailability, getInventoryStats, autoAssignRoom, INVENTORY, ROOM_LABELS, PRICING, VENUE_ROOMS, getPrice, FOOD_PRICE_TOTAL, GST_RATE, renameRoomLabel, validateBookingPrice };
+// ── Bhakti Kutir: Private Room / Double Sharing pair (public site only) ──────
+// Going-forward rule decided by Varun (2026-11-22): once a PAID booking is made in
+// one of the two types after this cutoff, the other type is sold out on the public
+// site. Cancelled or trashed bookings don't count, so the other type reopens.
+// Pending bookings don't trigger it. Existing bookings are not changed.
+// Cutoff is UTC, same format as paid_at (CURRENT_TIMESTAMP).
+const BHAKTI_PAIR_CUTOFF = '2026-11-22 07:00:00';
+
+// Returns a sold-out reason string if this public booking/availability request must be
+// blocked by the pair rule, otherwise null. Admin code paths do not call this.
+function bhaktiPairBlockReason(db, venue, room_type) {
+  if (venue !== 'Bhakti Kutir') return null;
+  const other = room_type === 'Double Sharing' ? 'Private Room'
+              : room_type === 'Private Room'   ? 'Double Sharing'
+              : null;
+  if (!other) return null;
+  const row = db.prepare(`SELECT COUNT(*) as n FROM bookings
+    WHERE venue=? AND room_type=? AND status='paid' AND paid_at >= ?
+      AND (deleted_at IS NULL OR deleted_at='')`).get(venue, other, BHAKTI_PAIR_CUTOFF);
+  return row.n > 0 ? `${venue} ${room_type} is sold out.` : null;
+}
+
+module.exports = { checkAvailability, getInventoryStats, autoAssignRoom, INVENTORY, ROOM_LABELS, PRICING, VENUE_ROOMS, getPrice, FOOD_PRICE_TOTAL, GST_RATE, renameRoomLabel, validateBookingPrice, bhaktiPairBlockReason };

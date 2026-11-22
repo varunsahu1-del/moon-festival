@@ -7,7 +7,7 @@ const multer = require('multer');
 // express is used for raw body parsing on the webhook route
 const { db, nextRef } = require('../db');
 const { sendConfirmation, sendFailedPaymentAlert, sendUpiAlert, sendUpiPendingGuest, sendCustomPaymentAlert, sendNewBookingAlert, sendInvoiceEmail } = require('../email');
-const { checkAvailability, autoAssignRoom, PRICING } = require('../inventory');
+const { checkAvailability, autoAssignRoom, PRICING, bhaktiPairBlockReason } = require('../inventory');
 
 const { resolvePhase } = require('../settings');
 
@@ -121,6 +121,10 @@ router.post('/create', async (req, res) => {
     if (!preCheck.available) {
       return res.status(409).json({ error: preCheck.reason, sold_out: true });
     }
+    const pairBlock = bhaktiPairBlockReason(db, venue, roomType);
+    if (pairBlock) {
+      return res.status(409).json({ error: pairBlock, sold_out: true });
+    }
 
     const booking_ref = nextRef();
 
@@ -223,6 +227,11 @@ router.post('/create', async (req, res) => {
       if (!finalCheck.available) {
         db.exec('ROLLBACK');
         return res.status(409).json({ error: finalCheck.reason, sold_out: true });
+      }
+      const finalPairBlock = bhaktiPairBlockReason(db, venue, roomType);
+      if (finalPairBlock) {
+        db.exec('ROLLBACK');
+        return res.status(409).json({ error: finalPairBlock, sold_out: true });
       }
       const storedPrice = '₹' + baseAmount.toLocaleString('en-IN');
       const { lastInsertRowid } = insertBooking.run(booking_ref, venue, roomType, storedPrice, guests.length, razorpay_order_id, gstNumber || null, gstName || null, addons || null, arrival_date, organizerNote || null, resolvePhase(), promoDiscount || null, validatedPromoCode ? `Promo: ${validatedPromoCode}` : null, validatedPromoCode || null, daysSelected || null, 0, referralSource || null);
@@ -650,13 +659,15 @@ router.get('/lookup', (req, res) => {
 
 // Public endpoint — no auth required
 router.get('/availability', (req, res) => {
-  const { getInventoryStats, checkAvailability } = require('../inventory');
+  const { getInventoryStats, checkAvailability, bhaktiPairBlockReason } = require('../inventory');
   const stats = getInventoryStats(db);
   res.json(stats.map(s => {
     const femaleOnly = s.gender_rule === 'female_only';
-    const maleAvail  = femaleOnly ? false
+    const pairBlocked = !!bhaktiPairBlockReason(db, s.venue, s.room_type);
+    const maleAvail  = (femaleOnly || pairBlocked) ? false
       : checkAvailability(db, s.venue, s.room_type, 1, [{ gender: 'Male' }]).available;
-    const femaleAvail = checkAvailability(db, s.venue, s.room_type, 1, [{ gender: 'Female' }]).available;
+    const femaleAvail = pairBlocked ? false
+      : checkAvailability(db, s.venue, s.room_type, 1, [{ gender: 'Female' }]).available;
 
     // For same_gender rooms compute gender-specific remaining so the badge
     // shows the right count (not total beds, which overstates when one gender's
@@ -701,8 +712,8 @@ router.get('/availability', (req, res) => {
       venue: s.venue,
       room_type: s.room_type,
       available: s.available,
-      sold_out: s.sold_out,
-      remaining,
+      sold_out: s.sold_out || pairBlocked,
+      remaining: pairBlocked ? 0 : remaining,
       male_remaining,
       female_remaining,
       capacity: s.capacity,
