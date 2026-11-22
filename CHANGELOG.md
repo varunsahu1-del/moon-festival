@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-22 | Tickets page: Bhakti Dorm card hidden (4 Bed Mixed Dorm and 6 Bed Dorm, both sold out); data kept, hidden attribute only | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Room shows sold out (no Book button) when neither men nor women can book it, e.g. Destiny Double Sharing | server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Destiny Double Sharing showed "only one left" when women were sold out (remaining count ignored the gender check); now shows 0 when neither gender can book | server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Bhakti Kutir Private Room / Double Sharing: a paid booking made after go-live (2026-11-22 07:00 UTC) sells out the other type on the public site; cancelled or trashed bookings reopen it; pending bookings don't trigger it; admin unaffected; existing bookings unchanged | server/inventory.js, server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
