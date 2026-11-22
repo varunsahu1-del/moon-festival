@@ -109,6 +109,35 @@ const VAL  = 'font-family:' + OPEN + ';font-size:15px;font-weight:500;color:' + 
 const VAL0 = 'font-family:' + OPEN + ';font-size:15px;font-weight:500;color:' + C.text + ';padding:5px 0 22px;line-height:1.5;';
 const DIV  = '<tr><td style="padding:32px 0 0;"><div style="height:1px;background:' + C.terra + ';opacity:0.55;"></div></td></tr>';
 
+// ── Moon Fam: what the guest booked (pass days, or each workshop/gig with its time) ──
+function moonFamScheduleHtml(booking) {
+  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const raw = String(booking.days_selected || booking.daysSelected || '');
+  const roomType = String(booking.room_type || '');
+  const head = '<tr><td class="mob-pad" style="padding:32px 52px 0;">';
+  const tail = '</table></td></tr>';
+  if (roomType === 'Moon Fam Workshops' || roomType === 'Moon Fam Gigs') {
+    const title = roomType === 'Moon Fam Workshops' ? 'Your Workshops' : 'Your Gigs';
+    const items = raw.replace(/^(Workshops|Gigs):\s*/, '').split('; ').filter(Boolean);
+    let rows = '';
+    items.forEach(function(it) {
+      // "Name (27 Nov 09:00–10:00)"
+      const m = it.match(/^(.*) \((\d{1,2} \w{3}) (.*)\)$/);
+      const name = m ? m[1] : it;
+      const when = m ? m[3] + ' · ' + m[2] : '';
+      rows += '<tr><td style="' + LBL + '">' + esc(when) + '</td></tr>'
+           +  '<tr><td style="' + VAL + '">' + esc(name) + '</td></tr>';
+    });
+    return head + '<p style="' + SEC + '">' + title + '</p><table width="100%" cellpadding="0" cellspacing="0">' + rows + tail;
+  }
+  // Day pass: full day(s)
+  return head + '<p style="' + SEC + '">Your Days</p><table width="100%" cellpadding="0" cellspacing="0">'
+    + '<tr><td style="' + LBL + '">Full day</td></tr>'
+    + '<tr><td style="' + VAL0 + '">' + esc(raw || '27 – 29 Nov 2026') + '</td></tr>'
+    + '<tr><td style="' + VAL0 + '">Includes all workshops and gigs on these days.</td></tr>'
+    + tail;
+}
+
 async function sendConfirmation({ booking, guests }) {
   if (!process.env.RESEND_API_KEY) {
     console.log('[email] RESEND_API_KEY not set — skipping email');
@@ -118,6 +147,8 @@ async function sendConfirmation({ booking, guests }) {
   
   const primary  = guests[0];
   const firstName = primary.full_name.split(' ')[0];
+  // Moon Fam guest-list tickets are day passes only: no room, check-in or check-out
+  const isMoonFam = String(booking.room_type || '').startsWith('Moon Fam');
 
   let guestRows = '';
   guests.forEach(function(g, i) {
@@ -218,8 +249,11 @@ async function sendConfirmation({ booking, guests }) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + guestRows
     + '<tr><td style="padding:8px 0 0;"><div style="height:1px;background:' + C.border + ';"></div></td></tr>'
-    + '<tr><td style="' + LBL + '">Accommodation</td></tr>'
-    + '<tr><td style="' + VAL + '">' + booking.venue + ' &nbsp;·&nbsp; ' + booking.room_type + '</td></tr>'
+    + (isMoonFam
+        ? '<tr><td style="' + LBL + '">Tickets</td></tr>'
+          + '<tr><td style="' + VAL + '">' + booking.room_type + '</td></tr>'
+        : '<tr><td style="' + LBL + '">Accommodation</td></tr>'
+          + '<tr><td style="' + VAL + '">' + booking.venue + ' &nbsp;·&nbsp; ' + booking.room_type + '</td></tr>')
     + '<tr><td style="' + LBL + '">Amount Paid</td></tr>'
     + '<tr><td style="' + VAL0 + '">₹' + Math.round((parseFloat(String(booking.total_price).replace(/[^\d.]/g,''))||0) * 1.05).toLocaleString('en-IN') + '<span style="font-size:12px;color:' + C.muted + ';font-weight:300;"> (incl. 5% GST)</span></td></tr>'
     + '</table>'
@@ -229,7 +263,8 @@ async function sendConfirmation({ booking, guests }) {
 
     + DIV
 
-    // ── YOUR ARRIVAL ──────────────────────────────────────────────────────
+    // ── YOUR ARRIVAL (Moon Fam: days only instead of stay times) ──
+    + (isMoonFam ? moonFamScheduleHtml(booking) : ''
     + '<tr><td class="mob-pad" style="padding:32px 52px 0;">'
     + '<p style="' + SEC + '">Your Arrival</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
@@ -242,7 +277,7 @@ async function sendConfirmation({ booking, guests }) {
     + '<tr><td style="' + LBL + '">Check-Out</td></tr>'
     + '<tr><td style="' + VAL0 + '">30th November 2026, 11:00 AM</td></tr>'
     + '</table>'
-    + '</td></tr>'
+    + '</td></tr>')
 
     + DIV
 
