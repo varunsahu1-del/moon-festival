@@ -149,6 +149,10 @@ async function sendConfirmation({ booking, guests }) {
   const firstName = primary.full_name.split(' ')[0];
   // Moon Fam guest-list tickets are day passes only: no room, check-in or check-out
   const isMoonFam = String(booking.room_type || '').startsWith('Moon Fam');
+  // Festival day passes (Single Day, Weekend, Full Festival) also have no room or check-in/out
+  const FESTIVAL_PASSES = ['Full Festival Pass', 'Weekend Pass', 'Single Day Pass'];
+  const isFestivalPass = booking.venue === 'Festival Access' && FESTIVAL_PASSES.includes(booking.room_type);
+  const passOnly = isMoonFam || isFestivalPass;
 
   let guestRows = '';
   guests.forEach(function(g, i) {
@@ -249,7 +253,7 @@ async function sendConfirmation({ booking, guests }) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + guestRows
     + '<tr><td style="padding:8px 0 0;"><div style="height:1px;background:' + C.border + ';"></div></td></tr>'
-    + (isMoonFam
+    + (passOnly
         ? '<tr><td style="' + LBL + '">Tickets</td></tr>'
           + '<tr><td style="' + VAL + '">' + booking.room_type + '</td></tr>'
         : '<tr><td style="' + LBL + '">Accommodation</td></tr>'
@@ -264,7 +268,7 @@ async function sendConfirmation({ booking, guests }) {
     + DIV
 
     // ── YOUR ARRIVAL (Moon Fam: days only instead of stay times) ──
-    + (isMoonFam ? moonFamScheduleHtml(booking) : ''
+    + (passOnly ? moonFamScheduleHtml(booking) : ''
     + '<tr><td class="mob-pad" style="padding:32px 52px 0;">'
     + '<p style="' + SEC + '">Your Arrival</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'

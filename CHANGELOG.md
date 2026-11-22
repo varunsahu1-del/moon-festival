@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-22 | Festival pass confirmation emails (Single Day, Weekend, Full Festival): Tickets and days instead of stay, check-in and check-out details | server/email.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Moon Fam confirmation email: tickets and full-day / workshop / gig schedule instead of stay details (other bookings unchanged) | server/email.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Moon Fam: unlisted guest-list tickets page (/moonfam.html) for facilitators, artists and mooncrew: day passes ₹3,000/₹6,000/₹9,000, workshops ₹650, gigs ₹800/₹1,000; pays via Razorpay | moonfam.html, server/moonfam.js, server/routes/bookings.js, server/inventory.js, server/index.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Tickets page: Room for 3 row now hidden with inline display:none (the hidden attribute was overridden by the row CSS); data kept | tickets.html, CHANGELOG.md | (this deploy) | Yes |
