@@ -696,6 +696,8 @@ router.get('/availability', (req, res) => {
       else if (maleAvail && !femaleAvail) remaining = maleBedsLeft;
       // both available: show the smaller of the two so the badge is conservative
       else if (maleAvail && femaleAvail) remaining = Math.min(maleBedsLeft, femaleBedsLeft);
+      // neither gender can book: nothing left to show
+      else remaining = 0;
     }
 
     const isDormType = (s.room_type || '').toLowerCase().includes('dorm');
