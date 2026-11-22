@@ -714,7 +714,7 @@ router.get('/availability', (req, res) => {
       venue: s.venue,
       room_type: s.room_type,
       available: s.available,
-      sold_out: s.sold_out || pairBlocked,
+      sold_out: s.sold_out || pairBlocked || (!maleAvail && !femaleAvail),
       remaining: pairBlocked ? 0 : remaining,
       male_remaining,
       female_remaining,

@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-22 | Room shows sold out (no Book button) when neither men nor women can book it, e.g. Destiny Double Sharing | server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Destiny Double Sharing showed "only one left" when women were sold out (remaining count ignored the gender check); now shows 0 when neither gender can book | server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Bhakti Kutir Private Room / Double Sharing: a paid booking made after go-live (2026-11-22 07:00 UTC) sells out the other type on the public site; cancelled or trashed bookings reopen it; pending bookings don't trigger it; admin unaffected; existing bookings unchanged | server/inventory.js, server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-21 | Manual add-on ticks on paid bookings (admin add-ons only, sets addons_paid_items only; totals unchanged). CLAUDE.md rule 1 exception decided by Varun. Note: checkpoint had flagged the server one commit behind (changelog only); deploy ran anyway and brought it up to date | CLAUDE.md, server/routes/admin.js, server/views/dashboard.html | a8821ab | Yes |
