@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-22 | Tickets page: Room for 3 row now hidden with inline display:none (the hidden attribute was overridden by the row CSS); data kept | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Tickets page: Bhakti Kutir Room for 3 row hidden (sold out); data kept, hidden attribute only | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Tickets page: Bhakti Dorm card hidden (4 Bed Mixed Dorm and 6 Bed Dorm, both sold out); data kept, hidden attribute only | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Room shows sold out (no Book button) when neither men nor women can book it, e.g. Destiny Double Sharing | server/routes/bookings.js, CHANGELOG.md | (this deploy) | Yes |
