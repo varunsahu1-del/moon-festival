@@ -3663,6 +3663,7 @@ function openDestinyAddonModal(roomType, basePrice, count, max, venueName, extra
     edAmt.textContent  = '₹' + _daoExtraDay.toLocaleString('en-IN');
     edRow.style.display = '';
   } else {
+    edCb.dataset.price = '0';
     edRow.style.display = 'none';
   }
   // Reset checkboxes, then pre-tick extra day and meals
@@ -3670,7 +3671,7 @@ function openDestinyAddonModal(roomType, basePrice, count, max, venueName, extra
   document.querySelectorAll('.dao-addon-row').forEach(r => r.classList.remove('dao-selected'));
   const extraDayCb = document.getElementById('dao-extra-day-cb');
   const mealsCb    = document.getElementById('dao-meals-cb');
-  if (extraDayCb) { extraDayCb.checked = true;  extraDayCb.closest('.dao-addon-row').classList.add('dao-selected'); }
+  if (extraDayCb && _daoExtraDay > 0) { extraDayCb.checked = true;  extraDayCb.closest('.dao-addon-row').classList.add('dao-selected'); }
   if (mealsCb)    { mealsCb.checked = true;    mealsCb.closest('.dao-addon-row').classList.add('dao-selected'); }
   daoUpdateUI();
   document.getElementById('destinyAddonOverlay').style.display = 'block';
@@ -3951,7 +3952,9 @@ function fmtPrice(n) {
       const { active, phase4, extraDay } = prices[venue][roomType];
       // Overwrite all hardcoded data attributes from the single server source
       row.dataset.basePrice = active;
-      row.dataset.extraDay  = extraDay;
+      // Teraria and La Rocha: no early check-in (26 Nov) add-on
+      const noEarlyCheckin = venue === 'Teraria' || venue.startsWith('La Rocha');
+      row.dataset.extraDay  = noEarlyCheckin ? 0 : extraDay;
       const priceEl  = row.querySelector('.room-price');
       const labelEl  = row.querySelector('.price-eb-label');
       const futureEl = row.querySelector('.price-future');
