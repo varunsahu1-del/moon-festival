@@ -92,6 +92,15 @@
   .wa-cc{flex:0 0 auto;border-right:1px solid rgba(176,96,48,.25);margin-right:.6rem}
   .wa-cc .gdd-toggle{width:auto;border:0;padding:.55rem .4rem .55rem 0;font-size:.9rem;white-space:nowrap;gap:.4rem}
   .gdd-menu-cc{right:auto;min-width:210px}
+  /* Gender list opens inline so every option is visible; the country list floats over the row */
+  .gdd:not(.wa-cc) .gdd-menu{position:static;padding-top:.3rem}
+  .wa-row{position:relative}
+  .wa-cc{position:static}
+  .city-wrap{position:relative}
+  .city-box{display:none;position:absolute;top:100%;left:0;right:0;background:#1e1a0e;border:.5px solid rgba(237,212,178,.12);border-radius:2px;z-index:200;max-height:200px;overflow-y:auto}
+  .city-box.open{display:block}
+  .city-box div{padding:.55rem .8rem;font-family:'Open Sans',sans-serif;font-size:.88rem;font-weight:300;color:#EDD4B2;cursor:pointer}
+  .city-box div:hover{background:rgba(176,96,48,.12)}
   .gdd-scroll{max-height:220px;overflow-y:auto}
   .gdd-menu-cc a{text-transform:none;letter-spacing:.02em;font-family:'Open Sans',sans-serif;font-size:.85rem;font-weight:300}
   #step2 .wa-row input.wa-num{flex:1;min-width:0;border:0;border-radius:0;background:transparent;padding:.55rem 0;font-family:'Open Sans',sans-serif;font-weight:300;font-size:16px;color:#EDD4B2}
@@ -364,6 +373,8 @@
 
   // Country codes for WhatsApp numbers (same list as the tickets page)
   var CC_LIST = ["+91 India", "+1 US/Canada", "+44 UK", "+61 Australia", "+64 NZ", "+353 Ireland", "+65 Singapore", "+60 Malaysia", "+66 Thailand", "+62 Indonesia", "+63 Philippines", "+84 Vietnam", "+81 Japan", "+82 Korea", "+971 UAE", "+974 Qatar", "+966 Saudi Arabia", "+92 Pakistan", "+94 Sri Lanka", "+977 Nepal", "+880 Bangladesh", "+49 Germany", "+33 France", "+39 Italy", "+34 Spain", "+31 Netherlands", "+41 Switzerland", "+46 Sweden", "+47 Norway", "+45 Denmark", "+7 Russia", "+27 South Africa", "+254 Kenya", "+234 Nigeria", "+55 Brazil", "+52 Mexico", "+54 Argentina"];
+  // Cities for the city suggestions (same list as the tickets page). Any city can still be typed.
+  var CITY_LIST = ["Agra", "Ahmedabad", "Aizawl", "Ajmer", "Amritsar", "Aurangabad", "Bangalore", "Bhopal", "Bhubaneswar", "Chandigarh", "Chennai", "Coimbatore", "Cuttack", "Dehradun", "Delhi", "Goa", "Guwahati", "Gwalior", "Hyderabad", "Indore", "Jaipur", "Jalandhar", "Jammu", "Jodhpur", "Kanpur", "Kochi", "Kolkata", "Kota", "Kozhikode", "Lucknow", "Ludhiana", "Madurai", "Mangalore", "Meerut", "Mumbai", "Mysore", "Nagpur", "Nashik", "Navi Mumbai", "Patna", "Pune", "Raipur", "Rajkot", "Ranchi", "Surat", "Thiruvananthapuram", "Tiruchirappalli", "Udaipur", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal", "Amsterdam", "Bangkok", "Berlin", "Dubai", "London", "Melbourne", "New York", "Paris", "Singapore", "Sydney", "Tokyo", "Toronto", "Vancouver", "Zurich"];
   var GENDER_CHEVRON = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
   function renderGuests(){
     var box = $('guests'); if (!box) return;
@@ -376,7 +387,7 @@
         '<label>WhatsApp number *</label>' +
         '<div class="wa-row"><div class="gdd wa-cc"><input type="hidden" id="g' + i + 'cc" value="+91"><button type="button" class="gdd-toggle"><span class="gdd-label">+91 India</span>' + GENDER_CHEVRON + '</button><div class="gdd-menu gdd-menu-cc"><div class="gdd-inner gdd-scroll">' + ccMenu + '</div></div></div>' +
         '<input type="tel" inputmode="numeric" class="wa-num" id="g' + i + 'phone" placeholder="00000 00000" autocomplete="tel"></div>' +
-        '<label>City *</label><input type="text" id="g' + i + 'city">' +
+        '<label>City *</label><div class="city-wrap"><input type="text" id="g' + i + 'city" autocomplete="off"><div class="city-box" id="g' + i + 'citybox"></div></div>' +
         '<div class="g-row"><div><label>Gender *</label><div class="gdd"><input type="hidden" id="g' + i + 'gender" value=""><button type="button" class="gdd-toggle"><span class="gdd-label">Select</span>' + GENDER_CHEVRON + '</button><div class="gdd-menu"><div class="gdd-inner"><a data-val="Female">Female</a><a data-val="Male">Male</a></div></div></div></div>' +
         '<div><label>Age *</label><input type="number" id="g' + i + 'age" min="1" max="120"></div></div></div>';
     }
@@ -467,6 +478,29 @@
       if (!chip) return;
       wsDay = chip.getAttribute('data-wsday');
       renderWsDays(); renderWorkshops();
+    });
+
+    // City suggestions: type a few letters, pick from the list, or keep what was typed
+    function showCityBox(input){
+      var box = $(input.id + 'box') || document.getElementById(input.id.replace('city', 'citybox'));
+      if (!box) return;
+      var q = input.value.trim().toLowerCase();
+      var m = q ? CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(q) === 0; }).slice(0, 8) : [];
+      box.innerHTML = m.map(function(c){ return '<div data-city="' + esc(c) + '">' + esc(c) + '</div>'; }).join('');
+      box.classList.toggle('open', m.length > 0);
+    }
+    document.addEventListener('input', function(e){ if (e.target.id && /^g\d+city$/.test(e.target.id)) showCityBox(e.target); });
+    document.addEventListener('focusin', function(e){ if (e.target.id && /^g\d+city$/.test(e.target.id)) showCityBox(e.target); });
+    document.addEventListener('focusout', function(e){
+      if (e.target.id && /^g\d+city$/.test(e.target.id)) setTimeout(function(){ var b = document.getElementById(e.target.id + 'box'); if (b) b.classList.remove('open'); }, 150);
+    });
+    document.addEventListener('mousedown', function(e){
+      var c = e.target.closest ? e.target.closest('.city-box [data-city]') : null;
+      if (!c) return;
+      var box = c.parentElement, inp = document.getElementById(box.id.replace('citybox', 'city'));
+      if (inp) inp.value = c.getAttribute('data-city');
+      box.classList.remove('open');
+      e.preventDefault();
     });
 
     // Gender dropdown (custom, like the site's nav dropdown)
