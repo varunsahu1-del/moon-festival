@@ -31,30 +31,35 @@
   .btn:disabled{opacity:.5;cursor:default}
   .link{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem;text-decoration:underline;padding:0;margin-bottom:1rem}
   .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1rem}
-  .tab{background:transparent;border:1px solid var(--line);color:#fff;padding:.7rem .3rem;border-radius:4px;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+  .tab{background:transparent;border:1px solid var(--line);color:var(--cream);padding:.7rem .3rem;border-radius:4px;cursor:pointer;font-family:'Open Sans',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
   .tab.on{background:var(--hero);border-color:var(--gold)}
   .pass{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border:1px solid var(--line);border-left:3px solid var(--line);border-radius:4px;padding:.8rem;margin-bottom:.5rem;cursor:pointer;background:linear-gradient(135deg,#21150a,#140d05)}
   .pass.on{border-color:var(--gold);border-left-color:var(--gold);background:linear-gradient(135deg,rgba(122,58,24,.5),rgba(122,58,24,.15));box-shadow:inset 0 0 0 1px rgba(176,96,48,.35)}
   .pass input{appearance:none;-webkit-appearance:none;width:16px;height:16px;flex:0 0 16px;margin:0 .5rem 0 0;border:1.5px solid var(--gold);border-radius:50%;background:#0f0a03;display:inline-block;vertical-align:middle;cursor:pointer;position:relative}
   .pass input:checked{background:radial-gradient(circle,var(--cream) 0 3px,var(--gold) 3.5px)}
-  .pass strong{font-family:'Josefin Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#fff}
-  .pass > span:last-child{color:var(--cream);font-size:1.05rem}
+  .pass strong{font-family:'Open Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--cream)}
+  .pass > span:last-child{color:var(--cream);font-size:1.05rem;font-family:'Open Sans',sans-serif}
   .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .6rem 0}
-  .chip{border:1px solid var(--line);border-radius:999px;padding:.4rem .95rem;font-family:'Josefin Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:#0c0803;cursor:pointer;user-select:none;transition:border-color .2s}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:.4rem .95rem;font-family:'Open Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:#0c0803;cursor:pointer;user-select:none;transition:border-color .2s}
   .chip:hover{border-color:var(--gold)}
-  .chip.on{background:linear-gradient(135deg,var(--gold),var(--hero));border-color:var(--gold);color:#fff}
+  @media(max-width:480px){.chips{flex-wrap:nowrap;gap:.3rem}.chip{padding:.4rem .55rem;letter-spacing:.05em;font-size:.66rem;white-space:nowrap}}
+  .chip.on{background:linear-gradient(135deg,var(--gold),var(--hero));border-color:var(--gold);color:var(--cream)}
   .chip.locked{opacity:.85;cursor:default}
-  .ws{display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--line);padding:.6rem 0;cursor:pointer}
+  .stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:4px;background:#0c0803;overflow:hidden}
+  .step{width:38px;height:36px;background:transparent;border:0;color:var(--cream);font-size:1.2rem;cursor:pointer;font-family:'Open Sans',sans-serif}
+  .step:hover{background:rgba(237,212,178,.08)}
+  #qtyVal{min-width:30px;text-align:center;color:var(--cream);font-family:'Open Sans',sans-serif;font-weight:600;font-size:.95rem}
+  .ws{display:flex;gap:.6rem;align-items:flex-start;padding:.35rem 0;cursor:pointer}
   .ws input{margin-top:.35rem;accent-color:var(--gold)}
   .ws input[type=checkbox]{appearance:none;-webkit-appearance:none;width:16px;height:16px;flex:0 0 16px;margin:.35rem 0 0;border:1.5px solid var(--gold);border-radius:3px;background:#0f0a03;cursor:pointer;display:grid;place-content:center}
   .ws input[type=checkbox]:checked{background:var(--gold)}
-  .ws input[type=checkbox]:checked::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
-  .ws-slot{margin-top:1rem}
-  .ws-time{font-family:'Josefin Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
+  .ws input[type=checkbox]:checked::after{content:"";width:8px;height:4px;border-left:2px solid var(--cream);border-bottom:2px solid var(--cream);transform:rotate(-45deg) translate(1px,-1px)}
+  .ws-slot{margin-top:.6rem}
+  .ws-time{font-family:'Open Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:.9rem;font-weight:700;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.45rem 0;margin-bottom:.25rem}
   .ws-slot .n{font-weight:700}
-  .ws .gp{color:var(--cream);font-size:1.05rem;white-space:nowrap;align-self:center}
+  .ws .gp{color:var(--cream);font-size:1.05rem;white-space:nowrap;align-self:center;font-family:'Open Sans',sans-serif}
   .ws .t{color:var(--gold);font-size:.78rem;letter-spacing:.06em;font-weight:700}
-  .ws .n{color:var(--cream);font-size:.92rem}
+  .ws .n{color:var(--cream);font-size:.8rem}
   .ws .f{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
   .ws-day{font-family:'Josefin Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:.8rem;margin:1rem 0 .3rem}
   .sum{display:flex;justify-content:space-between;font-size:.9rem;padding:.25rem 0;gap:1rem}
@@ -63,10 +68,18 @@
   .hidden{display:none !important}
   .guest{border-top:1px solid var(--line);padding-top:.8rem;margin-top:.8rem}
   .guest:first-of-type{border-top:0;margin-top:0;padding-top:0}
-  .sticky{position:fixed;left:0;right:0;bottom:0;background:#120c04;border-top:1px solid var(--line);padding:.7rem 16px;display:flex;justify-content:space-between;align-items:center;gap:1rem;z-index:50}
+  .sticky{position:fixed;left:0;right:0;bottom:0;background:#120c04;border-top:1px solid var(--line);padding:.9rem calc(16px + 1.2rem + 1px);z-index:50}
+  .hint{display:block;font-size:.68rem;letter-spacing:.06em;color:var(--muted);margin-top:0;line-height:1.2}
+  .sticky-row{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .cart-toggle{background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit}
+  .cart-list{display:none;max-height:40vh;overflow:auto;border-bottom:1px solid var(--line);margin-bottom:.5rem;padding-bottom:.4rem}
+  .sticky.open .cart-list{display:block}
+  .cart-row{display:flex;justify-content:space-between;gap:.8rem;padding:.35rem 0;font-size:.88rem;color:var(--cream)}
+  .cart-amt{font-family:'Open Sans',sans-serif;white-space:nowrap}
+  .rm{background:none;border:0;color:var(--gold);font-size:1.1rem;cursor:pointer;margin-left:.4rem;padding:0 .2rem}
   .sticky .s{font-size:.82rem;color:var(--muted)}
-  .sticky .s b{color:var(--cream)}
-  .sticky .btn{white-space:nowrap}
+  .sticky .s b{color:var(--cream);font-size:.9rem;font-weight:700}
+  .sticky .btn{white-space:nowrap;padding:.5rem .9rem;font-size:.68rem}
   .nav-toggle{display:none !important}
   .footer-top-grid > div:not(.footer-social-row):not(.footer-newsletter){display:none !important}
 </style>
@@ -83,8 +96,15 @@
 
   <!-- Step 1: choose tickets -->
   <div id="step1">
+    <section class="card" style="padding:.9rem 1.2rem;margin-bottom:1rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem">
+        <label for="qty" style="margin:0;color:var(--cream);font-family:'Josefin Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;line-height:1.4">How many people in this booking?</label>
+        <select id="qty" hidden></select>
+        <div class="stepper"><button type="button" class="step" id="qtyMinus" aria-label="Fewer people">&minus;</button><span id="qtyVal">1</span><button type="button" class="step" id="qtyPlus" aria-label="More people">+</button></div>
+      </div>
+    </section>
     <section class="card">
-      <h2>What are you booking?</h2>
+      <h2 style="font-size:.7rem">What are you booking?</h2>
       <div class="tabs">
         <button class="tab on" type="button" id="tabPass">Day passes</button>
         <button class="tab" type="button" id="tabWs">Single workshops</button>
@@ -122,8 +142,6 @@
 
     <section class="card">
       <h2>Guest details</h2>
-      <label for="qty">How many people in this booking?</label>
-      <select id="qty"></select>
       <p class="note" style="margin-top:.5rem">Every person in this booking gets the same selection. Book separately if choices differ.</p>
       <div id="guests" style="margin-top:1rem"></div>
       <div class="err" id="payErr"></div>
@@ -132,8 +150,11 @@
 </main>
 
 <div class="sticky hidden" id="stickyBar">
-  <div class="s" id="stickyTxt"></div>
-  <button class="btn" id="nextBtn" type="button">Continue to details</button>
+  <div class="cart-list" id="cartList"></div>
+  <div class="sticky-row">
+    <button class="s cart-toggle" id="cartToggle" type="button"><span id="stickyTxt"></span><span class="hint">See cart details</span></button>
+    <button class="btn" id="nextBtn" type="button">Continue to details</button>
+  </div>
 </div>
 
 
@@ -160,29 +181,54 @@
 
   function priceFor(n){ var p = DATA && DATA.passes.filter(function(x){ return x.passDays === n; })[0]; return p ? p.price : 0; }
 
-  // Per-person base for the current selection (pre-GST)
-  function base(){
-    if (mode === 'pass') return passDays ? priceFor(passDays) : 0;
-    if (mode === 'workshops') return count(wsIds) * DATA.workshop_price;
-    return DATA.gigs.reduce(function(sum, g){ return gigIds[g.id] ? sum + g.price : sum; }, 0);
+  var CART_LABELS = {1:'1 Day Pass', 2:'2 Day Pass', 3:'3 Day Pass'};
+  function passComplete(){ return !!passDays && (passDays === 3 || days.length === passDays); }
+  function coveredDay(key){ return passDays > 0 && days.indexOf(key) >= 0; }
+  function findBy(list, id){ for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
+  // Drop any workshop or gig picks on days the pass now covers (they are included in the pass).
+  function pruneCovered(){
+    Object.keys(wsIds).forEach(function(id){ var w = findBy(DATA.workshops, id); if (!w || coveredDay(w.day)) delete wsIds[id]; });
+    Object.keys(gigIds).forEach(function(id){ var g = findBy(DATA.gigs, id); if (!g || coveredDay(g.day)) delete gigIds[id]; });
   }
+  // Everything in the cart: pass, then workshops, then gigs. counts=false while a pass still needs its days.
+  function cartLines(){
+    var lines = [];
+    if (passDays) lines.push({ kind: 'pass', label: CART_LABELS[passDays] + (days.length ? ' · ' + days.join(', ') : ''), price: priceFor(passDays), counts: passComplete() });
+    Object.keys(wsIds).forEach(function(id){ var w = findBy(DATA.workshops, id); if (w) lines.push({ kind: 'ws', id: id, label: w.session + ' · ' + w.day, price: DATA.workshop_price, counts: true }); });
+    Object.keys(gigIds).forEach(function(id){ var g = findBy(DATA.gigs, id); if (g) lines.push({ kind: 'gig', id: id, label: g.session + ' · ' + g.day, price: g.price, counts: true }); });
+    return lines;
+  }
+  // Per-person base for everything in the cart (pre-GST)
+  function base(){ return cartLines().reduce(function(s, l){ return s + (l.counts ? l.price : 0); }, 0); }
+  function itemCount(){ return cartLines().filter(function(l){ return l.counts; }).length; }
   function selectionReady(){
-    if (mode === 'pass') return !!passDays && (passDays === 3 || days.length === passDays);
-    if (mode === 'workshops') return count(wsIds) > 0;
-    return count(gigIds) > 0;
+    if (passDays && !passComplete()) return false;
+    return itemCount() > 0;
   }
-  function itemsText(){
-    if (mode === 'pass') {
-      var names = {1:'1 Day Pass',2:'2 Day Pass',3:'3 Day Pass'};
-      return (passDays ? names[passDays] + (days.length ? ' · ' + days.join(', ') : '') : 'No pass chosen') + ' × ' + qty;
-    }
-    if (mode === 'workshops') return count(wsIds) + ' workshop' + (count(wsIds) === 1 ? '' : 's') + ' × ' + qty;
-    return count(gigIds) + ' gig' + (count(gigIds) === 1 ? '' : 's') + ' × ' + qty;
+  // Subtotal, GST and total for the cart, shown at the foot of the cart list
+  function cartTotals(lines){
+    var per = lines.reduce(function(s, l){ return s + (l.counts ? l.price : 0); }, 0);
+    var sub = per * qty, gst = Math.round(sub * (DATA ? DATA.gst_rate : 0.05));
+    return '<div class="cart-row" style="margin-top:.3rem;border-top:1px solid var(--line);padding-top:.5rem"><span>Subtotal</span><span class="cart-amt">' + fmt(sub) + '</span></div>' +
+      '<div class="cart-row"><span>GST (5%)</span><span class="cart-amt">' + fmt(gst) + '</span></div>' +
+      '<div class="cart-row" style="font-weight:700"><span>Total incl. GST</span><span class="cart-amt">' + fmt(sub + gst) + '</span></div>' +
+      '<p class="note" style="margin:.3rem 0 0">Prices are per person. Total is for ' + qty + (qty === 1 ? ' person' : ' people') + '.</p>';
   }
-
+  function renderCart(lines){
+    var box = $('cartList'); if (!box) return;
+    lines = lines || cartLines();
+    if (!lines.length) { box.innerHTML = '<p class="note" style="margin:.4rem 0">Nothing in your cart yet.</p>'; return; }
+    box.innerHTML = lines.map(function(l){
+      var rm = l.kind === 'pass' ? 'data-rm-pass="1"' : 'data-rm="' + l.kind + ':' + esc(l.id) + '"';
+      return '<div class="cart-row"><span>' + esc(l.label) + (l.counts ? '' : ' <em style="color:var(--muted)">(choose days)</em>') + '</span>' +
+        '<span class="cart-amt">' + fmt(l.price) + ' <button type="button" class="rm" ' + rm + ' aria-label="Remove">×</button></span></div>';
+    }).join('') + cartTotals(lines);
+  }
   function refreshSummary(){
+    var lines = cartLines();
     var b = base() * qty, g = Math.round(b * (DATA ? DATA.gst_rate : 0.05));
-    setText('sumItems', itemsText());
+    var si = $('sumItems');
+    if (si) si.innerHTML = lines.length ? lines.map(function(l){ return esc(l.label); }).join('<br>') : 'No tickets chosen';
     setText('sumBase', fmt(b));
     setText('sumGst', fmt(g));
     setText('sumTotal', fmt(b + g));
@@ -190,8 +236,9 @@
     var nb = $('nextBtn'); if (nb) nb.disabled = !ready;
     var st = $('stickyTxt');
     if (st) st.innerHTML = step === 1
-      ? (ready ? '<b>' + fmt(b + g) + '</b> incl. GST' : 'Choose your tickets to continue')
+      ? (ready ? '<b>' + fmt(b + g) + '</b> incl. GST' : 'Choose tickets to continue')
       : '<b>' + fmt(b + g) + '</b> incl. GST';
+    renderCart(lines);
   }
 
   function renderPasses(){
@@ -237,6 +284,7 @@
 
   function renderWorkshops(){
     var box = $('wsList'); if (!box || !DATA) return;
+    if (coveredDay(wsDay)) { box.innerHTML = '<p class="note">Included in your day pass for this day.</p>'; return; }
     var list = DATA.workshops.filter(function(w){ return w.day === wsDay; });
     if (!list.length) { box.innerHTML = '<p class="note">No workshops on this day.</p>'; return; }
     // One block per time slot: time heading, then one radio per workshop in that slot (pick one).
@@ -261,6 +309,7 @@
 
   function renderGigs(){
     var box = $('gigList'); if (!box || !DATA) return;
+    if (coveredDay(gigDay)) { box.innerHTML = '<p class="note">Included in your day pass for this day.</p>'; return; }
     var list = DATA.gigs.filter(function(g){ return g.day === gigDay; });
     if (!list.length) { box.innerHTML = '<p class="note">No gigs on this day.</p>'; return; }
     // Time heading, then the gig as a themed checkbox row with the price on the right (like day passes).
@@ -278,6 +327,7 @@
     var html = '';
     for (var i = 1; i <= 10; i++) html += '<option value="' + i + '"' + (i === qty ? ' selected' : '') + '>' + i + '</option>';
     s.innerHTML = html;
+    var qv = $('qtyVal'); if (qv) qv.textContent = qty;
   }
 
   function renderGuests(){
@@ -352,13 +402,13 @@
         if (at >= 0) days.splice(at, 1);
         else if (days.length < passDays) days.push(k);
         else { days = [k]; }
-        renderPasses(); refreshSummary(); return;
+        pruneCovered(); renderPasses(); renderWorkshops(); renderGigs(); refreshSummary(); return;
       }
       if (card) {
         var n = Number(card.getAttribute('data-pass'));
         passDays = n;
         days = n === 3 ? DATA.days.map(function(d){ return d.key; }) : [];
-        renderPasses(); refreshSummary();
+        pruneCovered(); renderPasses(); renderWorkshops(); renderGigs(); refreshSummary();
       }
     });
 
@@ -369,6 +419,20 @@
       wsDay = chip.getAttribute('data-wsday');
       renderWsDays(); renderWorkshops();
     });
+
+    var cl = $('cartList');
+    if (cl) cl.addEventListener('click', function(e){
+      var rb = e.target.closest ? e.target.closest('.rm') : null;
+      if (!rb) return;
+      if (rb.hasAttribute('data-rm-pass')) { passDays = 0; days = []; renderPasses(); }
+      else {
+        var parts = rb.getAttribute('data-rm').split(':'), rid = parts.slice(1).join(':');
+        if (parts[0] === 'ws') { delete wsIds[rid]; renderWorkshops(); } else { delete gigIds[rid]; renderGigs(); }
+      }
+      refreshSummary();
+    });
+    var ct = $('cartToggle');
+    if (ct) ct.addEventListener('click', function(){ var sb = $('stickyBar'); if (sb) sb.classList.toggle('open'); });
 
     var gd = $('gigDays');
     if (gd) gd.addEventListener('click', function(e){
@@ -402,6 +466,16 @@
 
     var q = $('qty');
     if (q) q.addEventListener('change', function(){ qty = Number(q.value) || 1; renderGuests(); refreshSummary(); });
+    function stepQty(d){
+      if (!q) return;
+      var v = Math.min(10, Math.max(1, (Number(q.value) || 1) + d));
+      q.value = String(v);
+      $('qtyVal').textContent = v;
+      q.dispatchEvent(new Event('change'));
+    }
+    var qm = $('qtyMinus'), qp = $('qtyPlus');
+    if (qm) qm.addEventListener('click', function(){ stepQty(-1); });
+    if (qp) qp.addEventListener('click', function(){ stepQty(1); });
 
     var back = $('backBtn');
     if (back) back.addEventListener('click', function(){ setText('payErr', ''); showStep(1); });
@@ -414,10 +488,8 @@
   }
 
   function moonfamPayload(){
-    var m = { mode: mode };
-    if (mode === 'pass') { m.passDays = passDays; m.days = days; }
-    else if (mode === 'workshops') m.workshopIds = Object.keys(wsIds);
-    else m.gigIds = Object.keys(gigIds);
+    var m = { workshopIds: Object.keys(wsIds), gigIds: Object.keys(gigIds) };
+    if (passDays) { m.passDays = passDays; m.days = days; }
     return m;
   }
 

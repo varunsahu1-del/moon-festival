@@ -11,6 +11,7 @@ const PASS_ROOMS = {
   2: { roomType: 'Moon Fam 2 Day Pass', price: 6000, days: 2 },
   3: { roomType: 'Moon Fam 3 Day Pass', price: 9000, days: 3 },
 };
+const CART_ROOM = 'Moon Fam Cart';
 const WORKSHOP_ROOM = 'Moon Fam Workshops';
 const WORKSHOP_PRICE = 650;
 const GIG_ROOM = 'Moon Fam Gigs';
@@ -501,53 +502,62 @@ router.get('/data', (req, res) => {
   });
 });
 
-// Server-side quote used by POST /api/bookings/create. Throws Error(message) when the selection is invalid.
-// Returns the venue/room/base total (pre-GST, per the site convention) that the booking is stored with.
-function quoteMoonFam(input, guestCount) {
-  const mode = input.mode;
-  if (mode === 'pass') {
-    const pass = PASS_ROOMS[Number(input.passDays)];
-    if (!pass) throw new Error('Please choose a 1, 2 or 3 day pass.');
+// Quote for one Moon Fam cart: any mix of a day pass, single workshops and gigs.
+// Days covered by a pass cannot also carry workshops or gigs. Throws Error(message) when invalid.
+function quoteCart(input, guestCount) {
+  const validKeys = FESTIVAL_DAYS.map(d => d.key);
+  const passN = Number(input.passDays) || 0;
+  let pass = null;
+  let passKeys = [];
+  if (passN) {
+    pass = PASS_ROOMS[passN];
+    if (!pass) throw new Error("Please choose a 1, 2 or 3 day pass.");
     const picked = Array.isArray(input.days) ? [...new Set(input.days)] : [];
-    const validKeys = FESTIVAL_DAYS.map(d => d.key);
     if (picked.length !== pass.days || picked.some(d => !validKeys.includes(d))) {
-      throw new Error(`Please choose exactly ${pass.days} festival day${pass.days > 1 ? 's' : ''} for this pass.`);
+      throw new Error(`Please choose exactly ${pass.days} festival day${pass.days > 1 ? "s" : ""} for this pass.`);
     }
-    const ordered = validKeys.filter(k => picked.includes(k));
-    return {
-      venue: 'Festival Access',
-      roomType: pass.roomType,
-      totalBase: pass.price * guestCount,
-      daysSelected: ordered.join(', '),
-    };
+    passKeys = validKeys.filter(k => picked.includes(k));
   }
-  if (mode === 'workshops') {
-    const ids = Array.isArray(input.workshopIds) ? [...new Set(input.workshopIds)] : [];
-    if (!ids.length) throw new Error('Please choose at least one workshop.');
-    const all = loadWorkshops();
-    const chosen = ids.map(id => all.find(w => w.id === id));
-    if (chosen.some(w => !w)) throw new Error('One of the chosen workshops is no longer in the schedule. Please choose again.');
-    return {
-      venue: 'Festival Access',
-      roomType: WORKSHOP_ROOM,
-      totalBase: WORKSHOP_PRICE * chosen.length * guestCount,
-      daysSelected: 'Workshops: ' + chosen.map(w => `${w.session} (${w.day} ${w.time})`).join('; '),
-    };
+  const wsIdList = Array.isArray(input.workshopIds) ? [...new Set(input.workshopIds)] : [];
+  const gigIdList = Array.isArray(input.gigIds) ? [...new Set(input.gigIds)] : [];
+  if (!pass && !wsIdList.length && !gigIdList.length) throw new Error("Please choose a day pass, workshops or gigs.");
+
+  const allW = loadWorkshops();
+  const workshops = wsIdList.map(id => allW.find(w => w.id === id));
+  if (workshops.some(w => !w)) throw new Error("One of the chosen workshops is no longer in the schedule. Please choose again.");
+  const allG = loadGigs();
+  const gigs = gigIdList.map(id => allG.find(g => g.id === id));
+  if (gigs.some(g => !g)) throw new Error("One of the chosen gigs is no longer in the schedule. Please choose again.");
+  if (workshops.some(w => passKeys.includes(w.day)) || gigs.some(g => passKeys.includes(g.day))) {
+    throw new Error("Sessions on a pass day are already included in your pass. Please remove them.");
   }
-  if (mode === 'gigs') {
-    const ids = Array.isArray(input.gigIds) ? [...new Set(input.gigIds)] : [];
-    if (!ids.length) throw new Error('Please choose at least one gig.');
-    const all = loadGigs();
-    const chosen = ids.map(id => all.find(g => g.id === id));
-    if (chosen.some(g => !g)) throw new Error('One of the chosen gigs is no longer in the schedule. Please choose again.');
-    return {
-      venue: 'Festival Access',
-      roomType: GIG_ROOM,
-      totalBase: chosen.reduce((sum, g) => sum + g.price, 0) * guestCount,
-      daysSelected: 'Gigs: ' + chosen.map(g => `${g.session} (${g.day} ${g.time})`).join('; '),
-    };
-  }
-  throw new Error('Please choose day passes, workshops or gigs.');
+
+  const perPerson = (pass ? pass.price : 0) + workshops.length * WORKSHOP_PRICE + gigs.reduce((s, g) => s + g.price, 0);
+  const kinds = (pass ? 1 : 0) + (workshops.length ? 1 : 0) + (gigs.length ? 1 : 0);
+  let roomType;
+  if (kinds > 1) roomType = CART_ROOM;
+  else if (pass) roomType = pass.roomType;
+  else if (workshops.length) roomType = WORKSHOP_ROOM;
+  else roomType = GIG_ROOM;
+
+  const parts = [];
+  if (pass) parts.push(kinds > 1 ? "Pass: " + passKeys.join(", ") : passKeys.join(", "));
+  if (workshops.length) parts.push("Workshops: " + workshops.map(w => `${w.session} (${w.day} ${w.time})`).join("; "));
+  if (gigs.length) parts.push("Gigs: " + gigs.map(g => `${g.session} (${g.day} ${g.time})`).join("; "));
+  return {
+    venue: "Festival Access",
+    roomType,
+    totalBase: perPerson * guestCount,
+    daysSelected: parts.join(" | "),
+  };
 }
 
-module.exports = { router, quoteMoonFam, PASS_ROOMS, WORKSHOP_ROOM, FESTIVAL_DAYS };
+// Older page versions send one mode at a time; map them onto the cart quote.
+function quoteMoonFam(input, guestCount) {
+  if (input.mode === "pass") return quoteCart({ passDays: input.passDays, days: input.days }, guestCount);
+  if (input.mode === "workshops") return quoteCart({ workshopIds: input.workshopIds }, guestCount);
+  if (input.mode === "gigs") return quoteCart({ gigIds: input.gigIds }, guestCount);
+  return quoteCart(input, guestCount);
+}
+
+module.exports = { router, quoteMoonFam, quoteCart, PASS_ROOMS, WORKSHOP_ROOM, FESTIVAL_DAYS };

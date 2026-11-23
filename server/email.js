@@ -111,31 +111,35 @@ const DIV  = '<tr><td style="padding:32px 0 0;"><div style="height:1px;backgroun
 
 // ── Moon Fam: what the guest booked (pass days, or each workshop/gig with its time) ──
 function moonFamScheduleHtml(booking) {
-  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const raw = String(booking.days_selected || booking.daysSelected || '');
-  const roomType = String(booking.room_type || '');
+  const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const raw = String(booking.days_selected || booking.daysSelected || "");
   const head = '<tr><td class="mob-pad" style="padding:32px 52px 0;">';
-  const tail = '</table></td></tr>';
-  if (roomType === 'Moon Fam Workshops' || roomType === 'Moon Fam Gigs') {
-    const title = roomType === 'Moon Fam Workshops' ? 'Your Workshops' : 'Your Gigs';
-    const items = raw.replace(/^(Workshops|Gigs):\s*/, '').split('; ').filter(Boolean);
-    let rows = '';
-    items.forEach(function(it) {
-      // "Name (27 Nov 09:00–10:00)"
+  const tail = "</table></td></tr>";
+  // A cart is "Pass: ... | Workshops: ... | Gigs: ..."; older bookings have one part with no label.
+  const listBlock = (title, body) => {
+    let rows = "";
+    body.split("; ").filter(Boolean).forEach(function(it) {
+      // "Name (27 Nov 09:00 – 10:00 AM)"
       const m = it.match(/^(.*) \((\d{1,2} \w{3}) (.*)\)$/);
       const name = m ? m[1] : it;
-      const when = m ? m[3] + ' · ' + m[2] : '';
-      rows += '<tr><td style="' + LBL + '">' + esc(when) + '</td></tr>'
-           +  '<tr><td style="' + VAL + '">' + esc(name) + '</td></tr>';
+      const when = m ? m[3] + " · " + m[2] : "";
+      rows += "<tr><td style=\"" + LBL + "\">" + esc(when) + "</td></tr>"
+           +  "<tr><td style=\"" + VAL + "\">" + esc(name) + "</td></tr>";
     });
-    return head + '<p style="' + SEC + '">' + title + '</p><table width="100%" cellpadding="0" cellspacing="0">' + rows + tail;
-  }
-  // Day pass: full day(s)
-  return head + '<p style="' + SEC + '">Your Days</p><table width="100%" cellpadding="0" cellspacing="0">'
-    + '<tr><td style="' + LBL + '">Full day</td></tr>'
-    + '<tr><td style="' + VAL0 + '">' + esc(raw || '27 – 29 Nov 2026') + '</td></tr>'
-    + '<tr><td style="' + VAL0 + '">Includes all workshops and gigs on these days.</td></tr>'
+    return head + "<p style=\"" + SEC + "\">" + title + "</p><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">" + rows + tail;
+  };
+  const dayBlock = (days) => head + "<p style=\"" + SEC + "\">Your Days</p><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">"
+    + "<tr><td style=\"" + LBL + "\">Full day</td></tr>"
+    + "<tr><td style=\"" + VAL0 + "\">" + esc(days || "27 – 29 Nov 2026") + "</td></tr>"
+    + "<tr><td style=\"" + VAL0 + "\">Includes all workshops and gigs on these days.</td></tr>"
     + tail;
+  let html = "";
+  raw.split(" | ").filter(Boolean).forEach(function(seg) {
+    if (/^Workshops:/.test(seg)) html += listBlock("Your Workshops", seg.replace(/^Workshops:\s*/, ""));
+    else if (/^Gigs:/.test(seg)) html += listBlock("Your Gigs", seg.replace(/^Gigs:\s*/, ""));
+    else html += dayBlock(seg.replace(/^Pass:\s*/, ""));
+  });
+  return html || dayBlock("");
 }
 
 async function sendConfirmation({ booking, guests }) {

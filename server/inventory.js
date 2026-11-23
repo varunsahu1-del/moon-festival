@@ -57,6 +57,7 @@ const INVENTORY = [
   { venue: 'Festival Access', room_type: 'Moon Fam 3 Day Pass',         unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
   { venue: 'Festival Access', room_type: 'Moon Fam Workshops',          unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
   { venue: 'Festival Access', room_type: 'Moon Fam Gigs',              unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
+  { venue: 'Festival Access', room_type: 'Moon Fam Cart',              unit: 'beds', capacity: 500, room_size: 1, gender_rule: 'any', label: 'guest list' },
 ];
 
 // Predefined room labels for each venue/type
