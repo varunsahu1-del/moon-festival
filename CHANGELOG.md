@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Moon Fam: × remove on each item in the selection card (step 2), amounts aligned in one column | moonfam.html, CHANGELOG.md | 6c3d5e3 (remove button 1347b22) | Yes |
 | 2026-11-23 | Moon Fam: guest form: WhatsApp country code dropdown; all guest fields compulsory and marked *; email and WhatsApp format checks; gender and age on one line; gender as a custom dropdown; selection card amounts aligned with remove buttons | moonfam.html, CHANGELOG.md | 64b63d1 | Yes |
 | 2026-11-23 | Moon Fam: details step restyled to match the tickets booking form (fonts, labels, underlined fields, summary box); selection card shows each item's amount, total to pay in caps; attendees label; shorter header band | moonfam.html, CHANGELOG.md | f8c730a | Yes |
 | 2026-11-23 | Moon Fam: "See cart details" hidden until the cart has items | moonfam.html, CHANGELOG.md | acea095 | Yes |
