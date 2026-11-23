@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Tickets page: Destiny card hidden (display only; data kept, bookings unchanged) | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Tickets page: La Rocha Sea View card hidden (display only; data kept, bookings unchanged) | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | La Rocha Sea View: Double Sharing (LRS-D01) removed from inventory, room labels, pricing and the tickets page; Solo room unchanged. No booking edited | server/inventory.js, tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Admin dashboard: La La Land venues hidden from bookings list and inventory (display only; data and public site unchanged) | server/views/dashboard.html, CHANGELOG.md | (this deploy) | Yes |
