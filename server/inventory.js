@@ -21,9 +21,9 @@ const INVENTORY = [
   // 4 double rooms (DT-D01..D04). DT-D04 is the flexible last room: it can be booked private or double.
   { venue: 'Destiny', room_type: 'Double Sharing', unit: 'beds',  capacity: 8,  rooms: 4, room_size: 2, gender_rule: 'same_gender', label: '4 rooms × 2 beds (DT-D04 also private)' },
   { venue: 'Destiny', room_type: 'Private Room',   unit: 'rooms', capacity: 1,  rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
-  // Ourem Palace (9 rooms: 5 private + 4 double)
-  { venue: 'Ourem Palace', room_type: 'Double Sharing', unit: 'beds',  capacity: 8,  rooms: 4,  room_size: 2, gender_rule: 'same_gender', label: '4 rooms × 2 beds' },
-  { venue: 'Ourem Palace', room_type: 'Private Room',   unit: 'rooms', capacity: 5,  rooms: 5,  room_size: 1, gender_rule: 'any',         label: '5 rooms' },
+  // Ourem Palace (9 rooms: 6 private + 3 double). OW-D04 was converted to private room OW-P07 (2026-11-23).
+  { venue: 'Ourem Palace', room_type: 'Double Sharing', unit: 'beds',  capacity: 6,  rooms: 3,  room_size: 2, gender_rule: 'same_gender', label: '3 rooms × 2 beds' },
+  { venue: 'Ourem Palace', room_type: 'Private Room',   unit: 'rooms', capacity: 6,  rooms: 6,  room_size: 1, gender_rule: 'any',         label: '6 rooms' },
   // Teraria (combined pool of 5 rooms)
   { venue: 'Teraria', room_type: 'Double Sharing', unit: 'beds',  capacity: 4,  rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'Teraria', room_type: 'Triple Sharing', unit: 'beds',  capacity: 3,  rooms: 1, room_size: 3, gender_rule: 'same_gender', label: '1 room × 3 beds' },
@@ -69,8 +69,8 @@ const ROOM_LABELS = {
     'T-1', 'T-2', 'T-3', 'T-4', 'T-5',
   ],
   'Ourem Palace': {
-    'Double Sharing': ['OW-D01','OW-D02','OW-D03','OW-D04'],
-    'Private Room':   ['OW-P01','OW-P02','OW-P03','OW-P04','OW-P06'],
+    'Double Sharing': ['OW-D01','OW-D02','OW-D03'],
+    'Private Room':   ['OW-P01','OW-P02','OW-P03','OW-P04','OW-P06','OW-P07'],
   },
   'La La Land Chalets': {
     'Double Sharing': ['LLC-D01','LLC-D02','LLC-D03','LLC-D04','LLC-D05','LLC-D06','LLC-D07'],

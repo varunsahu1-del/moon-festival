@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Ourem Palace: room OW-D04 converted to a private room OW-P07. Double Sharing now 3 rooms (6 beds), Private Room now 6 rooms; pool still 9 rooms, no prices changed | server/inventory.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Bhakti Kutir Double Sharing is now women only (uses the existing female_only rule, as the dorm does); new male bookings refused, existing bookings unchanged | server/inventory.js, server/test-inventory.js, CHANGELOG.md | 555c4c6 | Yes |
 | 2026-11-23 | Bhakti Kutir Room for 2 card on the tickets page now reads "Women only · Share a room with 1 other person" | tickets.html, CHANGELOG.md | 51861e1 | Yes |
 | 2026-11-23 | Tickets: low-stock badge on women-only rooms now reads "Women only · 1 left" / "Women only · Last N rooms" (was "Only one left" / "Last N rooms"); Bhakti Room for 2 and Bhakti Dorm | tickets.html, CHANGELOG.md | b53e61d | Yes |
