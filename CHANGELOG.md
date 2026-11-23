@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Event tickets: the three gig cards (Martin, Bageecha, Annida) showed ₹1,000 as typed text while checkout charged ₹1,200; card labels now read ₹1,200 + GST | tickets.html, CHANGELOG.md | aa2b84b | Yes |
 | 2026-11-23 | Individual Event Tickets: Martin Ecstatic Ceremony (Sat 28 Nov), Bageecha Hindi Film Retro Band and Annida Ecstatic Ceremony (Sun 29 Nov) raised from ₹1,000 to ₹1,200 per ticket (+ GST); other event cards unchanged | tickets.html, CHANGELOG.md | 0657799 | Yes |
 | 2026-11-23 | Bhakti Kutir Double Sharing (Room for 2) Phase 4 price raised from 42,000 to 42,500 (new bookings only; existing bookings unchanged) | server/inventory.js, CHANGELOG.md | c7c0cb6 | Yes |
 | 2026-11-23 | Bhakti Kutir Double Sharing (Room for 2) Phase 4 price raised from 37,900 to 42,000 (price for new bookings only; existing bookings unchanged) | server/inventory.js, CHANGELOG.md | 3a9a285 | Yes |
