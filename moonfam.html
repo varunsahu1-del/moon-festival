@@ -33,13 +33,15 @@
   .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1rem}
   .tab{background:transparent;border:1px solid var(--line);color:var(--cream);padding:.7rem .3rem;border-radius:4px;cursor:pointer;font-family:'Josefin Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
   .tab.on{background:var(--hero);border-color:var(--gold)}
-  .pass{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:4px;padding:.8rem;margin-bottom:.5rem;cursor:pointer}
-  .pass.on{border-color:var(--gold);background:rgba(122,58,24,.25)}
-  .pass input{accent-color:var(--gold)}
+  .pass{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border:1px solid var(--line);border-left:3px solid var(--line);border-radius:4px;padding:.8rem;margin-bottom:.5rem;cursor:pointer;background:linear-gradient(135deg,#21150a,#140d05)}
+  .pass.on{border-color:var(--gold);border-left-color:var(--gold);background:linear-gradient(135deg,rgba(122,58,24,.5),rgba(122,58,24,.15));box-shadow:inset 0 0 0 1px rgba(176,96,48,.35)}
+  .pass input{appearance:none;-webkit-appearance:none;width:16px;height:16px;flex:0 0 16px;margin:0 .5rem 0 0;border:1.5px solid var(--gold);border-radius:50%;background:#0f0a03;display:inline-block;vertical-align:middle;cursor:pointer;position:relative}
+  .pass input:checked{background:radial-gradient(circle,var(--cream) 0 3px,var(--gold) 3.5px)}
   .pass strong{font-family:'Josefin Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
   .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .6rem 0}
-  .chip{border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;font-size:.8rem;cursor:pointer;user-select:none}
-  .chip.on{background:var(--gold);border-color:var(--gold);color:#fff}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:.4rem .95rem;font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(237,212,178,.04);cursor:pointer;user-select:none;transition:border-color .2s}
+  .chip:hover{border-color:var(--gold)}
+  .chip.on{background:linear-gradient(135deg,var(--gold),var(--hero));border-color:var(--gold);color:#fff}
   .chip.locked{opacity:.85;cursor:default}
   .ws{display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--line);padding:.6rem 0;cursor:pointer}
   .ws input{margin-top:.35rem;accent-color:var(--gold)}
