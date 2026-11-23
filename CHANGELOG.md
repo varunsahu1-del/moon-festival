@@ -4,7 +4,8 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
-| 2026-11-23 | Bhakti Kutir Double Sharing is now women only (uses the existing female_only rule, as the dorm does); new male bookings refused, existing bookings unchanged | server/inventory.js, server/test-inventory.js, CHANGELOG.md | (this deploy) | Yes |
+| 2026-11-23 | Bhakti Kutir Double Sharing is now women only (uses the existing female_only rule, as the dorm does); new male bookings refused, existing bookings unchanged | server/inventory.js, server/test-inventory.js, CHANGELOG.md | 555c4c6 | Yes |
+| 2026-11-23 | Bhakti Kutir Room for 2 card on the tickets page now reads "Women only · Share a room with 1 other person" | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Event tickets: Luna Viajera Latin Fusion Band added as a gig card (Fri 27 Nov, ₹1,200 + GST, photo from facilitators page); start times added to all four gig cards (Luna 8:15 PM, Martin 2:45 PM, Bageecha 9:00 PM, Annida 5:00 PM, from schedule.html) | tickets.html, CHANGELOG.md | 03d4e62 | Yes |
 | 2026-11-23 | Event tickets: the three gig cards (Martin, Bageecha, Annida) showed ₹1,000 as typed text while checkout charged ₹1,200; card labels now read ₹1,200 + GST | tickets.html, CHANGELOG.md | aa2b84b | Yes |
 | 2026-11-23 | Individual Event Tickets: Martin Ecstatic Ceremony (Sat 28 Nov), Bageecha Hindi Film Retro Band and Annida Ecstatic Ceremony (Sun 29 Nov) raised from ₹1,000 to ₹1,200 per ticket (+ GST); other event cards unchanged | tickets.html, CHANGELOG.md | 0657799 | Yes |
