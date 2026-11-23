@@ -66,6 +66,14 @@
   .sum.total{border-top:1px solid var(--line);margin-top:.4rem;padding-top:.6rem;font-size:.97rem;font-weight:700;text-transform:uppercase}
   .err{color:#f0a070;font-size:.85rem;margin-top:.6rem;min-height:1.2em}
   .hidden{display:none !important}
+  /* Details step: same look as the main tickets booking form */
+  #step2 .card:first-of-type{background:rgba(176,96,48,.06);border:.5px solid rgba(176,96,48,.18)}
+  #step2 .sum{font-family:'Open Sans',sans-serif;font-weight:300;font-size:.8rem;color:rgba(237,212,178,.55);padding:.2rem 0}
+  #step2 .sum.total{font-weight:600;color:#EDD4B2;border-top:1px solid rgba(176,96,48,.2);font-size:.9rem}
+  #step2 .note{font-family:'Open Sans',sans-serif;font-weight:300;font-size:.8rem;color:rgba(237,212,178,.45)}
+  #step2 input[type=text],#step2 input[type=email],#step2 input[type=tel],#step2 input[type=number],#step2 select{background:transparent;border:0;border-bottom:1px solid rgba(176,96,48,.3);border-radius:0;padding:.55rem 0;font-family:'Open Sans',sans-serif;font-weight:300;font-size:16px;color:#EDD4B2}
+  #step2 label{font-family:'Josefin Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#EDD4B2;margin:1.1rem 0 .2rem}
+  #step2 h2{color:#B06030;font-size:.62rem;letter-spacing:.2em}
   .guest{border-top:1px solid var(--line);padding-top:.8rem;margin-top:.8rem}
   .guest:first-of-type{border-top:0;margin-top:0;padding-top:0}
   .sticky{position:fixed;left:0;right:0;bottom:0;background:#120c04;border-top:1px solid var(--line);padding:.9rem calc(16px + 1.2rem + 1px);z-index:50}
@@ -142,7 +150,7 @@
     </section>
 
     <section class="card">
-      <h2>Guest details</h2>
+      <h2>Your details</h2>
       <p class="note" style="margin-top:.5rem">Every person in this booking gets the same selection. Book separately if choices differ.</p>
       <div id="guests" style="margin-top:1rem"></div>
       <div class="err" id="payErr"></div>
