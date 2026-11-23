@@ -77,6 +77,17 @@
   #step2 h2{color:#B06030;font-size:.62rem;letter-spacing:.2em}
   .guest{border-top:1px solid var(--line);padding-top:.8rem;margin-top:.8rem}
   .g-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  /* Custom dropdown, styled like the site's nav dropdown */
+  .gdd{position:relative}
+  .gdd-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:transparent;border:0;border-bottom:1px solid rgba(176,96,48,.3);padding:.55rem 0;font-family:'Open Sans',sans-serif;font-weight:300;font-size:1rem;color:#EDD4B2;cursor:pointer;text-align:left}
+  .gdd-toggle svg{transition:transform .2s;flex:0 0 auto}
+  .gdd.open .gdd-toggle svg{transform:rotate(180deg)}
+  .gdd-toggle:hover{color:#B06030}
+  .gdd-menu{display:none;position:absolute;top:100%;left:0;right:0;padding-top:.4rem;z-index:200}
+  .gdd.open .gdd-menu{display:block}
+  .gdd-inner{background:#1e1a0e;border:.5px solid rgba(237,212,178,.12);border-radius:2px;padding:.4rem 0}
+  .gdd-menu a{display:block;font-family:'DM Sans',system-ui,sans-serif;font-size:.72rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,212,178,.7);padding:.65em 1.2em;cursor:pointer}
+  .gdd-menu a:hover,.gdd-menu a.on{color:#EDD4B2;background:rgba(176,96,48,.12)}
   .guest:first-of-type{border-top:0;margin-top:0;padding-top:0}
   .sticky{position:fixed;left:0;right:0;bottom:0;background:#120c04;border-top:1px solid var(--line);padding:.9rem calc(16px + 1.2rem + 1px);z-index:50}
   .hint{display:block;font-size:.68rem;letter-spacing:.06em;color:var(--muted);margin-top:0;line-height:1.2}
@@ -353,7 +364,7 @@
         '<label>Email</label><input type="email" id="g' + i + 'email" autocomplete="email">' +
         '<label>WhatsApp number (+91)</label><input type="tel" inputmode="numeric" maxlength="14" id="g' + i + 'phone" autocomplete="tel">' +
         '<label>City</label><input type="text" id="g' + i + 'city">' +
-        '<div class="g-row"><div><label>Gender</label><select id="g' + i + 'gender"><option value="">Select</option><option>Female</option><option>Male</option></select></div>' +
+        '<div class="g-row"><div><label>Gender</label><div class="gdd"><input type="hidden" id="g' + i + 'gender" value=""><button type="button" class="gdd-toggle"><span class="gdd-label">Select</span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="gdd-menu"><div class="gdd-inner"><a data-val="Female">Female</a><a data-val="Male">Male</a></div></div></div></div>' +
         '<div><label>Age</label><input type="number" id="g' + i + 'age" min="1" max="120"></div></div></div>';
     }
     box.innerHTML = html;
@@ -436,6 +447,21 @@
       if (!chip) return;
       wsDay = chip.getAttribute('data-wsday');
       renderWsDays(); renderWorkshops();
+    });
+
+    // Gender dropdown (custom, like the site's nav dropdown)
+    document.addEventListener('click', function(e){
+      var t = e.target.closest ? e.target.closest('.gdd-toggle') : null;
+      var opt = e.target.closest ? e.target.closest('.gdd-menu a') : null;
+      document.querySelectorAll('.gdd.open').forEach(function(d){ if (!d.contains(e.target)) d.classList.remove('open'); });
+      if (t) { t.parentElement.classList.toggle('open'); return; }
+      if (opt) {
+        var box = opt.closest('.gdd'), v = opt.getAttribute('data-val');
+        box.querySelector('input[type=hidden]').value = v;
+        box.querySelector('.gdd-label').textContent = v;
+        box.querySelectorAll('.gdd-menu a').forEach(function(a){ a.classList.toggle('on', a === opt); });
+        box.classList.remove('open');
+      }
     });
 
     // Remove an item from the cart (bottom cart list, and the selection card on the details step)
