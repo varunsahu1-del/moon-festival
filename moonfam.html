@@ -31,20 +31,28 @@
   .btn:disabled{opacity:.5;cursor:default}
   .link{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem;text-decoration:underline;padding:0;margin-bottom:1rem}
   .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1rem}
-  .tab{background:transparent;border:1px solid var(--line);color:var(--cream);padding:.7rem .3rem;border-radius:4px;cursor:pointer;font-family:'Josefin Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+  .tab{background:transparent;border:1px solid var(--line);color:#fff;padding:.7rem .3rem;border-radius:4px;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
   .tab.on{background:var(--hero);border-color:var(--gold)}
   .pass{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border:1px solid var(--line);border-left:3px solid var(--line);border-radius:4px;padding:.8rem;margin-bottom:.5rem;cursor:pointer;background:linear-gradient(135deg,#21150a,#140d05)}
   .pass.on{border-color:var(--gold);border-left-color:var(--gold);background:linear-gradient(135deg,rgba(122,58,24,.5),rgba(122,58,24,.15));box-shadow:inset 0 0 0 1px rgba(176,96,48,.35)}
   .pass input{appearance:none;-webkit-appearance:none;width:16px;height:16px;flex:0 0 16px;margin:0 .5rem 0 0;border:1.5px solid var(--gold);border-radius:50%;background:#0f0a03;display:inline-block;vertical-align:middle;cursor:pointer;position:relative}
   .pass input:checked{background:radial-gradient(circle,var(--cream) 0 3px,var(--gold) 3.5px)}
-  .pass strong{font-family:'Josefin Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+  .pass strong{font-family:'Josefin Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#fff}
+  .pass > span:last-child{color:var(--cream);font-size:1.05rem}
   .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .6rem 0}
-  .chip{border:1px solid var(--line);border-radius:999px;padding:.4rem .95rem;font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(237,212,178,.04);cursor:pointer;user-select:none;transition:border-color .2s}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:.4rem .95rem;font-family:'Josefin Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:#0c0803;cursor:pointer;user-select:none;transition:border-color .2s}
   .chip:hover{border-color:var(--gold)}
   .chip.on{background:linear-gradient(135deg,var(--gold),var(--hero));border-color:var(--gold);color:#fff}
   .chip.locked{opacity:.85;cursor:default}
   .ws{display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--line);padding:.6rem 0;cursor:pointer}
   .ws input{margin-top:.35rem;accent-color:var(--gold)}
+  .ws input[type=checkbox]{appearance:none;-webkit-appearance:none;width:16px;height:16px;flex:0 0 16px;margin:.35rem 0 0;border:1.5px solid var(--gold);border-radius:3px;background:#0f0a03;cursor:pointer;display:grid;place-content:center}
+  .ws input[type=checkbox]:checked{background:var(--gold)}
+  .ws input[type=checkbox]:checked::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+  .ws-slot{margin-top:1rem}
+  .ws-time{font-family:'Josefin Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
+  .ws-slot .n{font-weight:700}
+  .ws .gp{color:var(--cream);font-size:1.05rem;white-space:nowrap;align-self:center}
   .ws .t{color:var(--gold);font-size:.78rem;letter-spacing:.06em;font-weight:700}
   .ws .n{color:var(--cream);font-size:.92rem}
   .ws .f{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
@@ -95,7 +103,8 @@
       </div>
 
       <div id="gigPanel" class="hidden">
-        <p class="note" style="margin-bottom:.4rem">Pick the gigs you want. Each is a separate ticket.</p>
+        <p class="note" style="margin-bottom:.4rem">Pick a day, then the gigs you want. Each is a separate ticket.</p>
+        <div class="chips" id="gigDays"></div>
         <div id="gigList"></div>
       </div>
     </section>
@@ -138,6 +147,7 @@
   var passDays = 0;           // 1 | 2 | 3
   var days = [];              // chosen pass day keys
   var wsDay = '27 Nov';       // workshop day being browsed
+  var gigDay = '27 Nov';      // gig day being browsed
   var wsIds = {};             // workshop id -> true
   var gigIds = {};            // gig id -> true
   var qty = 1;
@@ -215,28 +225,52 @@
     }).join('');
   }
 
-  function workshopRow(w, checked, attr){
-    return '<label class="ws"><input type="checkbox" ' + attr + '="' + w.id + '"' + (checked ? ' checked' : '') + '>' +
-      '<span><span class="t">' + esc(w.time) + '</span><br><span class="n">' + esc(w.session) + '</span>' +
-      (w.facilitator ? '<br><span class="f">' + esc(w.facilitator) + '</span>' : '') + '</span></label>';
+  function workshopRow(w, checked, attr, group){
+    // group = radio group name (workshop slots: one pick per slot); without it a checkbox with the time shown.
+    var input = group
+      ? '<input type="checkbox" name="' + group + '" ' + attr + '="' + w.id + '"' + (checked ? ' checked' : '') + '>'
+      : '<input type="checkbox" ' + attr + '="' + w.id + '"' + (checked ? ' checked' : '') + '>';
+    return '<label class="ws">' + input +
+      '<span>' + (group ? '' : '<span class="t">' + esc(w.time) + '</span><br>') + '<span class="n">' + esc(w.session) + '</span>' +
+      (w.facilitator ? (group ? ' <span class="f">| ' + esc(w.facilitator) + '</span>' : '<br><span class="f">' + esc(w.facilitator) + '</span>') : '') + '</span></label>';
   }
 
   function renderWorkshops(){
     var box = $('wsList'); if (!box || !DATA) return;
     var list = DATA.workshops.filter(function(w){ return w.day === wsDay; });
-    box.innerHTML = list.length
-      ? list.map(function(w){ return workshopRow(w, !!wsIds[w.id], 'data-ws'); }).join('')
-      : '<p class="note">No workshops on this day.</p>';
+    if (!list.length) { box.innerHTML = '<p class="note">No workshops on this day.</p>'; return; }
+    // One block per time slot: time heading, then one radio per workshop in that slot (pick one).
+    var html = '', lastTime = '', slotNo = 0;
+    list.forEach(function(w){
+      if (w.time !== lastTime) {
+        if (lastTime) html += '</div>';
+        slotNo++; lastTime = w.time;
+        html += '<div class="ws-slot"><div class="ws-time">' + esc(w.time) + '</div>';
+      }
+      html += workshopRow(w, !!wsIds[w.id], 'data-ws', 'slot-' + slotNo);
+    });
+    box.innerHTML = html + '</div>';
+  }
+
+  function renderGigDays(){
+    var box = $('gigDays'); if (!box || !DATA) return;
+    box.innerHTML = DATA.days.map(function(d){
+      return '<span class="chip' + (gigDay === d.key ? ' on' : '') + '" data-gigday="' + d.key + '">' + esc(d.label) + '</span>';
+    }).join('');
   }
 
   function renderGigs(){
     var box = $('gigList'); if (!box || !DATA) return;
-    var html = '', lastDay = '';
-    DATA.gigs.forEach(function(g){
-      if (g.dayLabel !== lastDay) { html += '<div class="ws-day">' + esc(g.dayLabel) + '</div>'; lastDay = g.dayLabel; }
-      html += workshopRow(g, !!gigIds[g.id], 'data-gig').replace('<span class="t">' + esc(g.time) + '</span>', '<span class="t">' + esc(g.time) + ' · ' + fmt(g.price) + '</span>');
-    });
-    box.innerHTML = html;
+    var list = DATA.gigs.filter(function(g){ return g.day === gigDay; });
+    if (!list.length) { box.innerHTML = '<p class="note">No gigs on this day.</p>'; return; }
+    // Time heading, then the gig as a themed checkbox row with the price on the right (like day passes).
+    box.innerHTML = list.map(function(g){
+      return '<div class="ws-slot"><div class="ws-time">' + esc(g.time) + '</div>' +
+        '<label class="ws"><input type="checkbox" name="gig-slot" data-gig="' + g.id + '"' + (gigIds[g.id] ? ' checked' : '') + '>' +
+        '<span style="flex:1"><span class="n">' + esc(g.session) + '</span>' +
+        (g.facilitator ? ' <span class="f">| ' + esc(g.facilitator) + '</span>' : '') + '</span>' +
+        '<span class="gp">' + fmt(g.price) + '</span></label></div>';
+    }).join('');
   }
 
   function renderQty(){
@@ -336,10 +370,24 @@
       renderWsDays(); renderWorkshops();
     });
 
+    var gd = $('gigDays');
+    if (gd) gd.addEventListener('click', function(e){
+      var chip = e.target.closest ? e.target.closest('[data-gigday]') : null;
+      if (!chip) return;
+      gigDay = chip.getAttribute('data-gigday');
+      renderGigDays(); renderGigs();
+    });
+
     var wl = $('wsList');
     if (wl) wl.addEventListener('change', function(e){
       var id = e.target.getAttribute && e.target.getAttribute('data-ws');
       if (!id) return;
+      if (e.target.checked && e.target.name && e.target.name.indexOf('slot-') === 0) {
+        // One selection per time slot: untick the others in this slot's group.
+        wl.querySelectorAll('input[name="' + e.target.name + '"]').forEach(function(i){
+          if (i !== e.target) { i.checked = false; delete wsIds[i.getAttribute('data-ws')]; }
+        });
+      }
       if (e.target.checked) wsIds[id] = true; else delete wsIds[id];
       refreshSummary();
     });
@@ -424,7 +472,7 @@
       var d = await r.json();
       if (!r.ok) throw new Error(d.error || 'Could not load tickets');
       DATA = d;
-      renderPasses(); renderWsDays(); renderWorkshops(); renderGigs(); renderQty(); renderGuests();
+      renderPasses(); renderWsDays(); renderWorkshops(); renderGigDays(); renderGigs(); renderQty(); renderGuests();
       var sb = $('stickyBar'); if (sb) sb.classList.remove('hidden');
       refreshSummary();
     } catch (e) {
