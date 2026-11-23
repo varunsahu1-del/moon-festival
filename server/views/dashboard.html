@@ -1996,7 +1996,7 @@ async function loadInventoryDetail() {
 
   // Derived from inventory — no hardcoding needed
   const rl = window.__ROOM_LABELS || {};
-  const VENUE_ORDER  = Object.keys(window.VENUE_ROOMS || {});
+  const VENUE_ORDER  = Object.keys(window.VENUE_ROOMS || {}).filter(v => !isHiddenAdminVenue(v));
   const COMBINED     = VENUE_ORDER.filter(v => Array.isArray(rl[v]));
   const COMBINED_CAP = Object.fromEntries(COMBINED.map(v => [v, (rl[v]||[]).length]));
   const BEDS_VENUES  = VENUE_ORDER.filter(v => rl[v] && !Array.isArray(rl[v]));
@@ -2747,9 +2747,13 @@ function updateVenueCounts() {
   });
 }
 
+// Venues hidden from this dashboard only (display). Data and public site are unchanged.
+const HIDDEN_ADMIN_VENUE_PREFIXES = ['La La Land'];
+const isHiddenAdminVenue = v => HIDDEN_ADMIN_VENUE_PREFIXES.some(p => String(v || '').startsWith(p));
+
 async function loadBookings() {
   const r = await fetch('/admin/api/bookings');
-  allBookings = await r.json();
+  allBookings = (await r.json()).filter(b => !isHiddenAdminVenue(b.venue));
   populateFilterMenus();
   renderTable();
   renderCharts();
