@@ -107,7 +107,7 @@ const ROOM_LABELS = {
 // food add-on is flat ₹3000/day (brunch + dinner), handled client-side
 const PRICING = {
   'Bhakti Kutir': {
-    'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 36000, phase4: 42000, extraDay: 2500 },
+    'Double Sharing': { earlyBird: 34500, phase2: 34500, phase3: 36000, phase4: 42500, extraDay: 2500 },
     'Triple Sharing': { earlyBird: 29500, phase2: 29500, phase3: 30500, phase4: 32100, extraDay: 1500 },
     'Private Room':    { earlyBird: 46500, phase2: 48000, phase3: 48500, phase4: 51000, extraDay: 3000 },
     '4 Bed Dorm':     { earlyBird: 25500, phase2: 25500, phase3: 26500, phase4: 26900, extraDay: 800  },

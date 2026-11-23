@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Bhakti Kutir Double Sharing (Room for 2) Phase 4 price raised from 42,000 to 42,500 (new bookings only; existing bookings unchanged) | server/inventory.js, CHANGELOG.md | (not deployed) | No |
 | 2026-11-23 | Bhakti Kutir Double Sharing (Room for 2) Phase 4 price raised from 37,900 to 42,000 (price for new bookings only; existing bookings unchanged) | server/inventory.js, CHANGELOG.md | 3a9a285 | Yes |
 | 2026-11-22 | Admin dashboard: Top Cities chart shows every city label (was skipping alternate ones) | server/views/dashboard.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-22 | Tickets page: early check-in (Arrive Early 26 Nov) add-on removed for Teraria and La Rocha; add-on dialog no longer carries a previous room's price | tickets.html, CHANGELOG.md | (this deploy) | Yes |
