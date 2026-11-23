@@ -3442,7 +3442,7 @@ document.addEventListener('keydown', e => {
           const isDorm = roomType.toLowerCase().includes('dorm');
           const displayCount = isDorm ? s.remaining : Math.max(1, Math.floor(s.remaining / (s.room_size || 1)));
           const unit = isDorm ? (displayCount === 1 ? ' bed' : ' beds') : (displayCount === 1 ? ' room' : ' rooms');
-          addBadge('inv-badge--low', displayCount === 1 ? 'Only one left' : 'Last ' + displayCount + unit);
+          addBadge('inv-badge--low', displayCount === 1 ? 'Women only · 1 left' : 'Women only · Last ' + displayCount + unit);
         }
         return;
       }
