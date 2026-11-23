@@ -63,7 +63,7 @@
   .ws .f{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
   .ws-day{font-family:'Josefin Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:.8rem;margin:1rem 0 .3rem}
   .sum{display:flex;justify-content:space-between;font-size:.9rem;padding:.25rem 0;gap:1rem}
-  .sum.total{border-top:1px solid var(--line);margin-top:.4rem;padding-top:.6rem;font-size:1.05rem}
+  .sum.total{border-top:1px solid var(--line);margin-top:.4rem;padding-top:.6rem;font-size:.97rem;font-weight:700;text-transform:uppercase}
   .err{color:#f0a070;font-size:.85rem;margin-top:.6rem;min-height:1.2em}
   .hidden{display:none !important}
   .guest{border-top:1px solid var(--line);padding-top:.8rem;margin-top:.8rem}
@@ -135,7 +135,8 @@
     <button class="link" type="button" id="backBtn">← Back to tickets</button>
     <section class="card">
       <h2>Your selection</h2>
-      <div class="sum"><span id="sumItems"></span><span id="sumBase"></span></div>
+      <div id="sumItems"></div>
+      <div class="sum"><span>Subtotal</span><span id="sumBase"></span></div>
       <div class="sum"><span>GST (5%)</span><span id="sumGst"></span></div>
       <div class="sum total"><span>Total to pay</span><span id="sumTotal"></span></div>
     </section>
@@ -228,7 +229,9 @@
     var lines = cartLines();
     var b = base() * qty, g = Math.round(b * (DATA ? DATA.gst_rate : 0.05));
     var si = $('sumItems');
-    if (si) si.innerHTML = lines.length ? lines.map(function(l){ return esc(l.label); }).join('<br>') : 'No tickets chosen';
+    if (si) si.innerHTML = lines.length
+      ? lines.map(function(l){ return '<div class="sum"><span>' + esc(l.label) + '</span><span>' + fmt(l.price * qty) + '</span></div>'; }).join('')
+      : '<p class="note">No tickets chosen</p>';
     setText('sumBase', fmt(b));
     setText('sumGst', fmt(g));
     setText('sumTotal', fmt(b + g));
