@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Moon Fam: removed the duplicate "27 · 28 · 29 Nov '26 | South Goa" line under the title (dates already in the site header) | moonfam.html, CHANGELOG.md | 81729bb | Yes |
 | 2026-11-23 | Moon Fam: workshop slots (one pick per time slot) and gigs now copied from schedule.html; Ecstatic Dance sessions ₹800, other gigs ₹1,000; Unity Circle and Moon Choir sold as single workshops | server/moonfam.js, CHANGELOG.md | 4fc1bbd | Yes |
 | 2026-11-23 | Removed unused schedule/schedule.json (nothing read it; schedule.html is the source of truth) | schedule/schedule.json, CHANGELOG.md | e312224 | Yes |
 | 2026-11-23 | Ourem Palace: room OW-D04 converted to a private room OW-P07. Double Sharing now 3 rooms (6 beds), Private Room now 6 rooms; pool still 9 rooms, no prices changed | server/inventory.js, CHANGELOG.md | (this deploy) | Yes |
