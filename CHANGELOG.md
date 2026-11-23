@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Moon Fam: "See cart details" hidden until the cart has items | moonfam.html, CHANGELOG.md | acea095 | Yes |
 | 2026-11-23 | Moon Fam: one cart for passes, workshops and gigs (running total, cart list with remove, subtotal, GST and total; pass days block their own workshops and gigs; mixed carts booked as Moon Fam Cart and listed separately in the email) | moonfam.html, server/moonfam.js, server/email.js, server/inventory.js, CHANGELOG.md | 03a40ef | Yes |
 | 2026-11-23 | Moon Fam: all gigs now ₹900 (was ₹800 Ecstatic Dance, ₹1,000 others); workshops stay ₹650 | server/moonfam.js, CHANGELOG.md | a5b815f | Yes |
 | 2026-11-23 | Moon Fam page styling and layout: themed pass cards, day chips and check boxes; single workshops grouped by time slot (one pick per slot, artist on the same line, bigger bold times); gigs get a day picker and price on the right; tabs and pass names brighter and bolder | moonfam.html, CHANGELOG.md | 1ecf3e7 | Yes |
