@@ -152,7 +152,7 @@
 <div class="sticky hidden" id="stickyBar">
   <div class="cart-list" id="cartList"></div>
   <div class="sticky-row">
-    <button class="s cart-toggle" id="cartToggle" type="button"><span id="stickyTxt"></span><span class="hint">See cart details</span></button>
+    <button class="s cart-toggle" id="cartToggle" type="button"><span id="stickyTxt"></span><span class="hint" id="cartHint">See cart details</span></button>
     <button class="btn" id="nextBtn" type="button">Continue to details</button>
   </div>
 </div>
@@ -238,6 +238,7 @@
     if (st) st.innerHTML = step === 1
       ? (ready ? '<b>' + fmt(b + g) + '</b> incl. GST' : 'Choose tickets to continue')
       : '<b>' + fmt(b + g) + '</b> incl. GST';
+    var ch = $('cartHint'); if (ch) ch.style.display = lines.length ? '' : 'none';
     renderCart(lines);
   }
 
