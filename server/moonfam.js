@@ -462,8 +462,9 @@ const GIGS = [
     "venue": "Space"
   }
 ];
-// Ecstatic Dance sessions are 800, all other gigs 1000.
-const gigPrice = name => (name.startsWith("Ecstatic Dance") ? 800 : 1000);
+// All gigs are 900.
+const GIG_PRICE = 900;
+const gigPrice = () => GIG_PRICE;
 
 let workshopCache = null;
 let gigCache = null;
