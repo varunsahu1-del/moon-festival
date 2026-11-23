@@ -35,7 +35,6 @@ const INVENTORY = [
   { venue: 'La La Land Cottages', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'La La Land Cottages', room_type: 'Private Room',   unit: 'rooms', capacity: 3, rooms: 3, room_size: 1, gender_rule: 'any',         label: '3 rooms' },
   // La Rocha (3 categories, 3 rooms each: 2 double sharing + 1 private)
-  { venue: 'La Rocha · Sea View',       room_type: 'Double Sharing', unit: 'beds',  capacity: 2, rooms: 1, room_size: 2, gender_rule: 'same_gender', label: '1 room × 2 beds' },
   { venue: 'La Rocha · Sea View',       room_type: 'Private Room',   unit: 'rooms', capacity: 2, rooms: 2, room_size: 1, gender_rule: 'any',         label: '2 rooms' },
   { venue: 'La Rocha · Upper Sea View', room_type: 'Double Sharing', unit: 'beds',  capacity: 4, rooms: 2, room_size: 2, gender_rule: 'same_gender', label: '2 rooms × 2 beds' },
   { venue: 'La Rocha · Upper Sea View', room_type: 'Private Room',   unit: 'rooms', capacity: 1, rooms: 1, room_size: 1, gender_rule: 'any',         label: '1 room' },
@@ -90,7 +89,6 @@ const ROOM_LABELS = {
     'Room for 4':     ['BK-Q01'],
   },
   'La Rocha · Sea View': {
-    'Double Sharing': ['LRS-D01'],
     'Private Room':   ['LRS-P01','LRS-P02'],
   },
   'La Rocha · Upper Sea View': {
@@ -153,7 +151,6 @@ const PRICING = {
     'Private Room':   { earlyBird: 54400, phase2: 54400, phase3: 54400, phase4: 56700, extraDay: 6500 },
   },
   'La Rocha · Sea View': {
-    'Double Sharing': { earlyBird: 52500, phase2: 52500, phase3: 52500, phase4: 52500, extraDay: 4500 },
     'Private Room':   { earlyBird: 69900, phase2: 69900, phase3: 69900, phase4: 69900, extraDay: 7000 },
   },
   'La Rocha · Upper Sea View': {

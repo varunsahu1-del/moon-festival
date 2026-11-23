@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | La Rocha Sea View: Double Sharing (LRS-D01) removed from inventory, room labels, pricing and the tickets page; Solo room unchanged. No booking edited | server/inventory.js, tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Admin dashboard: La La Land venues hidden from bookings list and inventory (display only; data and public site unchanged) | server/views/dashboard.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Moon Fam: city suggestions as you type (any city can still be typed); gender list opens fully visible on phones | moonfam.html, CHANGELOG.md | e9619fd | Yes |
 | 2026-11-23 | Moon Fam: × remove on each item in the selection card (step 2), amounts aligned in one column | moonfam.html, CHANGELOG.md | 6c3d5e3 (remove button 1347b22) | Yes |
