@@ -93,17 +93,18 @@ const DORM = '4 Bed Mixed Dorm';
 // ══════════════════════════════════════════════════════════════════════════════
 section(`BK Double Sharing (${BK_DS} rooms × 2) — last room holds a male`);
 reset();
-for (let i = 0; i < BK_DS - 1; i++) seed('Bhakti Kutir', 'Double Sharing', ['Male', 'Male']);
-seed('Bhakti Kutir', 'Double Sharing', ['Male']); // partial male in the last room
-test('Female single blocked — last room holds a male', false, 'Bhakti Kutir', 'Double Sharing', [F('A')]);
-test('Male single joins the partial room',              true,  'Bhakti Kutir', 'Double Sharing', [M('A')]);
+for (let i = 0; i < BK_DS - 1; i++) seed('Bhakti Kutir', 'Double Sharing', ['Female', 'Female']);
+seed('Bhakti Kutir', 'Double Sharing', ['Female']); // partial female in the last room
+test('Female single joins the partial room',            true,  'Bhakti Kutir', 'Double Sharing', [F('A')]);
+test('Male single blocked — Bhakti Double is women only', false, 'Bhakti Kutir', 'Double Sharing', [M('A')]);
 test('Mixed couple blocked — no free room left',        false, 'Bhakti Kutir', 'Double Sharing', [M('A'), F('B')]);
 
 section(`BK Double Sharing (${BK_DS} rooms × 2) — last room empty`);
 reset();
 for (let i = 0; i < BK_DS - 1; i++) seed('Bhakti Kutir', 'Double Sharing', ['Male', 'Male']);
-test('Female single takes the empty last room',         true,  'Bhakti Kutir', 'Double Sharing', [F('A')]);
-test('Mixed couple fills the empty last room',          true,  'Bhakti Kutir', 'Double Sharing', [M('A'), F('B')]);
+test('Female single takes the empty last room',           true,  'Bhakti Kutir', 'Double Sharing', [F('A')]);
+test('Mixed couple blocked — Bhakti Double is women only', false, 'Bhakti Kutir', 'Double Sharing', [M('A'), F('B')]);
+test('Male single blocked — Bhakti Double is women only', false, 'Bhakti Kutir', 'Double Sharing', [M('A')]);
 
 section(`BK Double Sharing (${BK_DS} rooms × 2) — sold out`);
 reset();
@@ -222,10 +223,10 @@ test('Female blocked — sold out',                       false, 'Teraria', 'Dou
 // ══════════════════════════════════════════════════════════════════════════════
 section('Pending bookings hold beds');
 reset();
-for (let i = 0; i < BK_DS - 1; i++) seed('Bhakti Kutir', 'Double Sharing', ['Male', 'Male'], 'paid');
-seed('Bhakti Kutir', 'Double Sharing', ['Male'], 'pending'); // pending male in the last room
-test('Male joins the pending male\'s room',             true,  'Bhakti Kutir', 'Double Sharing', [M('A')]);
-test('Female blocked — last room held by a pending male', false, 'Bhakti Kutir', 'Double Sharing', [F('A')]);
+for (let i = 0; i < BK_DS - 1; i++) seed('Bhakti Kutir', 'Double Sharing', ['Female', 'Female'], 'paid');
+seed('Bhakti Kutir', 'Double Sharing', ['Female'], 'pending'); // pending female in the last room
+test('Female joins the pending female\'s room',          true,  'Bhakti Kutir', 'Double Sharing', [F('A')]);
+test('Male blocked — Bhakti Double is women only',      false, 'Bhakti Kutir', 'Double Sharing', [M('A')]);
 
 // ══════════════════════════════════════════════════════════════════════════════
 // RESULTS

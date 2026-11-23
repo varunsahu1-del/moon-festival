@@ -8,7 +8,8 @@
 
 const INVENTORY = [
   // Bhakti Kutir
-  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 26, rooms: 13, room_size: 2, gender_rule: 'same_gender', label: '13 rooms × 2' },
+  // female_only: women only (since 2026-11-23). Existing male bookings are untouched; new male bookings are refused.
+  { venue: 'Bhakti Kutir', room_type: 'Double Sharing', unit: 'beds',  capacity: 26, rooms: 13, room_size: 2, gender_rule: 'female_only', label: '13 rooms × 2' },
   { venue: 'Bhakti Kutir', room_type: 'Triple Sharing', unit: 'beds',  capacity: 15, rooms: 5,  room_size: 3, gender_rule: 'same_gender', label: '5 rooms × 3' },
   // Was 3 rooms; the third was converted into the 'Room for 4' below (2026-11-15).
   { venue: 'Bhakti Kutir', room_type: 'Private Room',   unit: 'rooms', capacity: 4,  rooms: 4,  room_size: 1, gender_rule: 'any',         label: '4 rooms' },
