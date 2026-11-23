@@ -65,3 +65,4 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-22 | Public schedule: Dr Kanchan talk titles, Kaprila contact improvisation Saturday 9:15 (Asteroid), Varun Sunday talk title, Varun Saturday 8am removed | schedule.html | e1e348c | Yes |
 | 2026-11-22 | Public schedule: final sync with planning grid (Friday Clownery and Japanese fabric art to Hornbill, Sunday rooms and talks, Saturday Forest Mask/Bachata and tote bag moves) | schedule.html | 6059491 | Yes |
 | 2026-11-23 | Public schedule: Thursday open mic description, Thursday sunset at Patnem Beach (Nada Brahma), Varun Sunday talk retitled | schedule.html | 6fd6736 | Yes |
+| 2026-11-23 | Public schedule: venues added to All Together events, Sunday dinner at Stardust, Sunday Tote Bag moved to 9:15 Hornbill | schedule.html | 1bbe01f | Yes |
