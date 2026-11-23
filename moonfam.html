@@ -75,6 +75,7 @@
   #step2 label{font-family:'Josefin Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#EDD4B2;margin:1.1rem 0 .2rem}
   #step2 h2{color:#B06030;font-size:.62rem;letter-spacing:.2em}
   .guest{border-top:1px solid var(--line);padding-top:.8rem;margin-top:.8rem}
+  .g-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   .guest:first-of-type{border-top:0;margin-top:0;padding-top:0}
   .sticky{position:fixed;left:0;right:0;bottom:0;background:#120c04;border-top:1px solid var(--line);padding:.9rem calc(16px + 1.2rem + 1px);z-index:50}
   .hint{display:block;font-size:.68rem;letter-spacing:.06em;color:var(--muted);margin-top:0;line-height:1.2}
@@ -348,11 +349,11 @@
     for (var i = 0; i < qty; i++) {
       html += '<div class="guest"><div class="' + (qty > 1 ? '' : 'hidden') + '" style="font-size:.8rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem">Guest ' + (i + 1) + '</div>' +
         '<label>Full name</label><input type="text" id="g' + i + 'name" autocomplete="name">' +
-        '<div class="row"><div><label>Email</label><input type="email" id="g' + i + 'email" autocomplete="email"></div>' +
-        '<div><label>WhatsApp number</label><input type="tel" id="g' + i + 'phone" autocomplete="tel"></div></div>' +
-        '<div class="row"><div><label>City</label><input type="text" id="g' + i + 'city"></div>' +
-        '<div><label>Age</label><input type="number" id="g' + i + 'age" min="1" max="120"></div></div>' +
-        '<label>Gender</label><select id="g' + i + 'gender"><option value="">Select</option><option>Female</option><option>Male</option></select></div>';
+        '<label>Email</label><input type="email" id="g' + i + 'email" autocomplete="email">' +
+        '<label>WhatsApp number (+91)</label><input type="tel" inputmode="numeric" maxlength="14" id="g' + i + 'phone" autocomplete="tel">' +
+        '<label>City</label><input type="text" id="g' + i + 'city">' +
+        '<div class="g-row"><div><label>Gender</label><select id="g' + i + 'gender"><option value="">Select</option><option>Female</option><option>Male</option></select></div>' +
+        '<div><label>Age</label><input type="number" id="g' + i + 'age" min="1" max="120"></div></div></div>';
     }
     box.innerHTML = html;
   }
@@ -369,10 +370,14 @@
       var gender = ($('g' + i + 'gender') || {}).value || '';
       if (!name.trim()) return fail('Please enter full name' + tag + '.');
       if (!email.trim()) return fail('Please enter email' + tag + '.');
+      // Same checks as the tickets page (name, email, WhatsApp, gender), plus format checks
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) return fail('Please enter a valid email' + tag + '.');
+      var digits = phone.replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '');
       if (!phone.trim()) return fail('Please enter WhatsApp number' + tag + '.');
-      if (!age || Number(age) < 1) return fail('Please enter age' + tag + '.');
+      if (!/^[6-9]\d{9}$/.test(digits)) return fail('Please enter a valid 10-digit WhatsApp number' + tag + '.');
       if (!gender) return fail('Please select gender' + tag + '.');
-      out.push({ full_name: name.trim(), email: email.trim(), whatsapp: '+91 ' + phone.trim(), city: city.trim(), age: Number(age), gender: gender });
+      if (!age || Number(age) < 1 || Number(age) > 120) return fail('Please enter a valid age' + tag + '.');
+      out.push({ full_name: name.trim(), email: email.trim(), whatsapp: '+91 ' + digits, city: city.trim(), age: Number(age), gender: gender });
     }
     return out;
     function fail(m){ setText('payErr', m); return null; }
