@@ -3,8 +3,6 @@
 // Prices live here (not in PRICING) so they are not exposed through /api/public/pricing.
 const express = require('express');
 const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
 
 const router = express.Router();
 
@@ -16,57 +14,478 @@ const PASS_ROOMS = {
 const WORKSHOP_ROOM = 'Moon Fam Workshops';
 const WORKSHOP_PRICE = 650;
 const GIG_ROOM = 'Moon Fam Gigs';
-const GIG_PRICES = { 'Ecstatic Dance & Cacao': 800 }; // all other gigs are 1000
-const GIG_DEFAULT_PRICE = 1000;
-const gigPrice = name => GIG_PRICES[name] || GIG_DEFAULT_PRICE;
-// Evening shows / gigs sold on the Moon Fam page (matched by session name in schedule.json)
-const GIG_NAMES = ['Latin Fusion', 'Ecstatic Dance & Cacao', 'The Elevate Show', 'Hindi Film Retro Band', 'Moon Musician Jam'];
+// Schedule source of truth: schedule.html (the public schedule page). Copied here so this page
+// does not parse HTML at runtime. When schedule.html changes, update WORKSHOP_SLOTS and GIGS below.
 const FESTIVAL_DAYS = [
-  { date: '2026-11-27', key: '27 Nov', label: 'Fri 27 Nov' },
-  { date: '2026-11-28', key: '28 Nov', label: 'Sat 28 Nov' },
-  { date: '2026-11-29', key: '29 Nov', label: 'Sun 29 Nov' },
+  { date: "2026-11-27", key: "27 Nov", label: "Fri 27 Nov" },
+  { date: "2026-11-28", key: "28 Nov", label: "Sat 28 Nov" },
+  { date: "2026-11-29", key: "29 Nov", label: "Sun 29 Nov" },
 ];
-// Sessions sold as workshops that are not listed inside a "sessions" block in schedule.json
-const EXTRA_WORKSHOPS = ['Unity Circle', 'Moon Choir'];
-const SCHEDULE_PATH = path.join(__dirname, '..', 'schedule', 'schedule.json');
+// Time slots sold as Moon Fam workshops (one pick per slot). Unity Circle and Moon Choir are single sessions.
+const WORKSHOP_SLOTS = [
+  {
+    "day": "27 Nov",
+    "time": "9:00 – 10:00 AM",
+    "sessions": [
+      {
+        "session": "Heart Centered Breathwork",
+        "facilitator": "Karishma",
+        "venue": "Space"
+      },
+      {
+        "session": "Tai Chi",
+        "facilitator": "Hinoki-Dogu",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Kalaripayattu",
+        "facilitator": "Tre",
+        "venue": "Comet"
+      },
+      {
+        "session": "Hatha Yoga - Asana & Pranayama",
+        "facilitator": "Varun",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Mat Pilates",
+        "facilitator": "Pooja",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Aerial Yoga",
+        "facilitator": "Sonia",
+        "venue": "Nebula"
+      }
+    ]
+  },
+  {
+    "day": "27 Nov",
+    "time": "10:15 – 11:15 AM",
+    "sessions": [
+      {
+        "session": "Bhangra",
+        "facilitator": "Folking Desi",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Bellydance Basics",
+        "facilitator": "Aakriti",
+        "venue": "Comet"
+      },
+      {
+        "session": "Voice Activation",
+        "facilitator": "Lauren-Leonie",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Sensual Bollywood",
+        "facilitator": "Dhanisa",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Clownery",
+        "facilitator": "Alice",
+        "venue": "Sky"
+      }
+    ]
+  },
+  {
+    "day": "27 Nov",
+    "time": "1:00 – 2:30 PM",
+    "sessions": [
+      {
+        "session": "Unity Circle",
+        "facilitator": "Chris",
+        "venue": "Space"
+      }
+    ]
+  },
+  {
+    "day": "27 Nov",
+    "time": "3:00 – 4:00 PM",
+    "sessions": [
+      {
+        "session": "Sufi Singing",
+        "facilitator": "Anushaw",
+        "venue": "Space"
+      },
+      {
+        "session": "Bharatnatyam Fusion",
+        "facilitator": "Disha",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Kirtan",
+        "facilitator": "Ananda Flow",
+        "venue": "Comet"
+      },
+      {
+        "session": "Tantric Death Meditation — Viraja Homam",
+        "facilitator": "Pradesh Raj",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Afro Dance",
+        "facilitator": "Sadashiv",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Tye & Dye Art",
+        "facilitator": "Shreya",
+        "venue": "Nebula"
+      },
+      {
+        "session": "Japanese fabric art",
+        "facilitator": "Shital",
+        "venue": "Sky"
+      }
+    ]
+  },
+  {
+    "day": "27 Nov",
+    "time": "4:15 – 5:15 PM",
+    "sessions": [
+      {
+        "session": "Ayurveda Talk — Why was protein never mentioned in Ayurveda?",
+        "facilitator": "Dr Kanchan",
+        "venue": "Space"
+      },
+      {
+        "session": "Bachata",
+        "facilitator": "Maya",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Contact Improvisation",
+        "facilitator": "Kaprila",
+        "venue": "Comet"
+      },
+      {
+        "session": "Throat Singing",
+        "facilitator": "Martin",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Somatic Movement",
+        "facilitator": "Sonia",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Animal Flow",
+        "facilitator": "Vipindas",
+        "venue": "Nebula"
+      }
+    ]
+  },
+  {
+    "day": "28 Nov",
+    "time": "8:00 – 9:00 AM",
+    "sessions": [
+      {
+        "session": "Mobility via Kalari",
+        "facilitator": "Tre",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Expressions & Hand Gestures",
+        "facilitator": "Disha",
+        "venue": "Comet"
+      },
+      {
+        "session": "Animal Flow",
+        "facilitator": "Vipindas",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Mat Pilates",
+        "facilitator": "Pooja",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Yoga",
+        "facilitator": "Pradesh Raj",
+        "venue": "Nebula"
+      }
+    ]
+  },
+  {
+    "day": "28 Nov",
+    "time": "9:15 – 10:15 AM",
+    "sessions": [
+      {
+        "session": "Sufi Singing",
+        "facilitator": "Anushaw",
+        "venue": "Space"
+      },
+      {
+        "session": "Contact Improvisation",
+        "facilitator": "Kaprila",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Indo Contemporary",
+        "facilitator": "Dhanisa",
+        "venue": "Comet"
+      },
+      {
+        "session": "Somatic Movement",
+        "facilitator": "Sonia",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Aaja Nachle - Bellydance choreography",
+        "facilitator": "Aakriti",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Cyanotype Tote Bag",
+        "facilitator": "Shreya",
+        "venue": "Nebula"
+      },
+      {
+        "session": "Shamanic Rose Healing",
+        "facilitator": "Karishma",
+        "venue": "Sky"
+      }
+    ]
+  },
+  {
+    "day": "28 Nov",
+    "time": "12:15 – 1:15 PM",
+    "sessions": [
+      {
+        "session": "Kirtan",
+        "facilitator": "Nad Mandala",
+        "venue": "Space"
+      },
+      {
+        "session": "Trippy Yoga Nidra",
+        "facilitator": "Varun, Ankit & Marco",
+        "venue": "Asteroid"
+      }
+    ]
+  },
+  {
+    "day": "28 Nov",
+    "time": "1:30 – 2:30 PM",
+    "sessions": [
+      {
+        "session": "Bhangra",
+        "facilitator": "Folking Desi",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Afro Dance",
+        "facilitator": "Sadashiv",
+        "venue": "Comet"
+      },
+      {
+        "session": "Bachata",
+        "facilitator": "Maya",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Forest Mask",
+        "facilitator": "Dryad",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Ayurveda Talk — Ayurvedic Practices for gut health that actually work!",
+        "facilitator": "Dr Kanchan",
+        "venue": "Sky"
+      }
+    ]
+  },
+  {
+    "day": "29 Nov",
+    "time": "8:00 – 9:00 AM",
+    "sessions": [
+      {
+        "session": "Animal Flow",
+        "facilitator": "Vipindas",
+        "venue": "Space"
+      },
+      {
+        "session": "Kalaripayattu",
+        "facilitator": "Tre",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Throat Singing",
+        "facilitator": "Martin",
+        "venue": "Comet"
+      },
+      {
+        "session": "Hatha Yoga - Asana & Pranayama",
+        "facilitator": "Varun",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Sufi Singing",
+        "facilitator": "Anushaw",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Aerial Yoga",
+        "facilitator": "Sonia",
+        "venue": "Nebula"
+      }
+    ]
+  },
+  {
+    "day": "29 Nov",
+    "time": "9:15 – 10:15 AM",
+    "sessions": [
+      {
+        "session": "Soul Kirtan",
+        "facilitator": "Gouranga",
+        "venue": "Space"
+      },
+      {
+        "session": "Bhangra",
+        "facilitator": "Folking Desi",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "STRONG CORE (Strength & Conditioning)",
+        "facilitator": "Dhanisa",
+        "venue": "Comet"
+      },
+      {
+        "session": "Inner waters (somatic movement and flow)",
+        "facilitator": "Aakriti",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Tai Chi",
+        "facilitator": "Hinoki-Dogu",
+        "venue": "Meteor"
+      },
+      {
+        "session": "Mat Pilates",
+        "facilitator": "Pooja",
+        "venue": "Nebula"
+      },
+      {
+        "session": "Tote Bag",
+        "facilitator": "Shreya",
+        "venue": "Sky"
+      }
+    ]
+  },
+  {
+    "day": "29 Nov",
+    "time": "12:00 – 1:30 PM",
+    "sessions": [
+      {
+        "session": "Moon Choir",
+        "facilitator": "Kaprila",
+        "venue": "Space"
+      }
+    ]
+  },
+  {
+    "day": "29 Nov",
+    "time": "3:15 – 4:30 PM",
+    "sessions": [
+      {
+        "session": "Moon Olympics — Strengthening the Soul",
+        "facilitator": "Chris",
+        "venue": "Space"
+      },
+      {
+        "session": "Sensual Bollywood",
+        "facilitator": "Dhanisa",
+        "venue": "Asteroid"
+      },
+      {
+        "session": "Clownery",
+        "facilitator": "Alice",
+        "venue": "Comet"
+      },
+      {
+        "session": "Bachata",
+        "facilitator": "Maya",
+        "venue": "Stardust"
+      },
+      {
+        "session": "Should I Destroy My Ego? Ego to Instrument",
+        "facilitator": "Varun",
+        "venue": "Sky"
+      }
+    ]
+  }
+]
+// Evening shows and dances sold as Moon Fam gigs.
+const GIGS = [
+  {
+    "day": "27 Nov",
+    "time": "8:15 – 10:00 PM",
+    "session": "Luna Viajera — Latin Fusion Band",
+    "facilitator": "",
+    "venue": "Space"
+  },
+  {
+    "day": "28 Nov",
+    "time": "2:45 – 4:15 PM",
+    "session": "Ecstatic Dance",
+    "facilitator": "Martin",
+    "venue": "Space"
+  },
+  {
+    "day": "28 Nov",
+    "time": "8:00 – 10:00 PM",
+    "session": "The Elevate Show",
+    "facilitator": "Chris",
+    "venue": "Space"
+  },
+  {
+    "day": "29 Nov",
+    "time": "5:00 – 6:30 PM",
+    "session": "Ecstatic Dance & Cacao",
+    "facilitator": "Annida",
+    "venue": "Space"
+  },
+  {
+    "day": "29 Nov",
+    "time": "8:00 PM",
+    "session": "Moon Musician Jam",
+    "facilitator": "",
+    "venue": "Space"
+  },
+  {
+    "day": "29 Nov",
+    "time": "9:00 PM",
+    "session": "Bageecha — Hindi Film Retro",
+    "facilitator": "",
+    "venue": "Space"
+  }
+];
+// Ecstatic Dance sessions are 800, all other gigs 1000.
+const gigPrice = name => (name.startsWith("Ecstatic Dance") ? 800 : 1000);
 
 let workshopCache = null;
 let gigCache = null;
+const slotId = (...parts) => crypto.createHash("sha1").update(parts.join("|")).digest("hex").slice(0, 12);
+function fullDay(key) { return FESTIVAL_DAYS.find(d => d.key === key); }
 function loadGigs() {
   if (gigCache) return gigCache;
-  const sched = JSON.parse(fs.readFileSync(SCHEDULE_PATH, 'utf8'));
-  const out = [];
-  for (const day of sched.days) {
-    const fd = FESTIVAL_DAYS.find(d => d.date === day.date);
-    if (!fd) continue;
-    for (const slot of day.slots) {
-      if (!GIG_NAMES.includes(slot.session)) continue;
-      const id = crypto.createHash('sha1').update(`gig|${day.date}|${slot.time}|${slot.session}`).digest('hex').slice(0, 12);
-      out.push({ id, day: fd.key, dayLabel: fd.label, time: slot.time, session: slot.session, facilitator: slot.facilitator || '', price: gigPrice(slot.session) });
-    }
-  }
-  gigCache = out;
-  return out;
+  gigCache = GIGS.map(g => ({
+    id: slotId("gig", fullDay(g.day).date, g.time, g.session),
+    day: g.day, dayLabel: fullDay(g.day).label, time: g.time, session: g.session,
+    facilitator: g.facilitator, price: gigPrice(g.session),
+  }));
+  return gigCache;
 }
 function loadWorkshops() {
   if (workshopCache) return workshopCache;
-  const sched = JSON.parse(fs.readFileSync(SCHEDULE_PATH, 'utf8'));
-  const out = [];
-  for (const day of sched.days) {
-    const fd = FESTIVAL_DAYS.find(d => d.date === day.date);
-    if (!fd) continue;
-    for (const slot of day.slots) {
-      const items = Array.isArray(slot.sessions)
-        ? slot.sessions
-        : (EXTRA_WORKSHOPS.includes(slot.session) ? [{ session: slot.session, facilitator: slot.facilitator, venue: slot.venue }] : []);
-      for (const s of items) {
-        const id = crypto.createHash('sha1').update(`${day.date}|${slot.time}|${s.session}`).digest('hex').slice(0, 12);
-        out.push({ id, day: fd.key, dayLabel: fd.label, time: slot.time, session: s.session, facilitator: s.facilitator || '', venue: s.venue || '' });
-      }
-    }
-  }
-  workshopCache = out;
-  return out;
+  workshopCache = WORKSHOP_SLOTS.flatMap(slot => slot.sessions.map(s => ({
+    id: slotId(fullDay(slot.day).date, slot.time, s.session),
+    day: slot.day, dayLabel: fullDay(slot.day).label, time: slot.time,
+    session: s.session, facilitator: s.facilitator || "", venue: s.venue || "",
+  })));
+  return workshopCache;
 }
 
 // GET /api/moonfam/data → passes, days, workshops for the Moon Fam page
