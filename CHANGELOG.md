@@ -4,6 +4,8 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Moon Fam: workshop slots (one pick per time slot) and gigs now copied from schedule.html; Ecstatic Dance sessions ₹800, other gigs ₹1,000; Unity Circle and Moon Choir sold as single workshops | server/moonfam.js, CHANGELOG.md | 4fc1bbd | Yes |
+| 2026-11-23 | Removed unused schedule/schedule.json (nothing read it; schedule.html is the source of truth) | schedule/schedule.json, CHANGELOG.md | e312224 | Yes |
 | 2026-11-23 | Ourem Palace: room OW-D04 converted to a private room OW-P07. Double Sharing now 3 rooms (6 beds), Private Room now 6 rooms; pool still 9 rooms, no prices changed | server/inventory.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Bhakti Kutir Double Sharing is now women only (uses the existing female_only rule, as the dorm does); new male bookings refused, existing bookings unchanged | server/inventory.js, server/test-inventory.js, CHANGELOG.md | 555c4c6 | Yes |
 | 2026-11-23 | Bhakti Kutir Room for 2 card on the tickets page now reads "Women only · Share a room with 1 other person" | tickets.html, CHANGELOG.md | 51861e1 | Yes |
