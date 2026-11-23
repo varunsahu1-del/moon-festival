@@ -238,7 +238,7 @@
     var b = base() * qty, g = Math.round(b * (DATA ? DATA.gst_rate : 0.05));
     var si = $('sumItems');
     if (si) si.innerHTML = lines.length
-      ? lines.map(function(l){ return '<div class="sum"><span>' + esc(l.label) + '</span><span>' + fmt(l.price * qty) + '</span></div>'; }).join('')
+      ? lines.map(function(l){ return '<div class="sum"><span>' + esc(l.label) + '</span><span>' + fmt(l.price * qty) + ' <button type="button" class="rm" ' + (l.kind === 'pass' ? 'data-rm-pass="1"' : 'data-rm="' + l.kind + ':' + esc(l.id) + '"') + ' aria-label="Remove">×</button></span></div>'; }).join('')
       : '<p class="note">No tickets chosen</p>';
     setText('sumBase', fmt(b));
     setText('sumGst', fmt(g));
@@ -432,8 +432,8 @@
       renderWsDays(); renderWorkshops();
     });
 
-    var cl = $('cartList');
-    if (cl) cl.addEventListener('click', function(e){
+    // Remove an item from the cart (bottom cart list, and the selection card on the details step)
+    var removeItem = function(e){
       var rb = e.target.closest ? e.target.closest('.rm') : null;
       if (!rb) return;
       if (rb.hasAttribute('data-rm-pass')) { passDays = 0; days = []; renderPasses(); }
@@ -442,7 +442,8 @@
         if (parts[0] === 'ws') { delete wsIds[rid]; renderWorkshops(); } else { delete gigIds[rid]; renderGigs(); }
       }
       refreshSummary();
-    });
+    };
+    ['cartList', 'sumItems'].forEach(function(id){ var el = $(id); if (el) el.addEventListener('click', removeItem); });
     var ct = $('cartToggle');
     if (ct) ct.addEventListener('click', function(){ var sb = $('stickyBar'); if (sb) sb.classList.toggle('open'); });
 
