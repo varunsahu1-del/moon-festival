@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-23 | Moon Fam: guest form: WhatsApp country code dropdown; all guest fields compulsory and marked *; email and WhatsApp format checks; gender and age on one line; gender as a custom dropdown; selection card amounts aligned with remove buttons | moonfam.html, CHANGELOG.md | 64b63d1 | Yes |
 | 2026-11-23 | Moon Fam: details step restyled to match the tickets booking form (fonts, labels, underlined fields, summary box); selection card shows each item's amount, total to pay in caps; attendees label; shorter header band | moonfam.html, CHANGELOG.md | f8c730a | Yes |
 | 2026-11-23 | Moon Fam: "See cart details" hidden until the cart has items | moonfam.html, CHANGELOG.md | acea095 | Yes |
 | 2026-11-23 | Moon Fam: one cart for passes, workshops and gigs (running total, cart list with remove, subtotal, GST and total; pass days block their own workshops and gigs; mixed carts booked as Moon Fam Cart and listed separately in the email) | moonfam.html, server/moonfam.js, server/email.js, server/inventory.js, CHANGELOG.md | 03a40ef | Yes |
