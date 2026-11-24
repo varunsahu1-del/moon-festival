@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-24 | Dashboard: Shital Seth (MF-0189) shows as Team, like Esha (MF-0147). Display only; no booking changed | server/views/dashboard.html, CHANGELOG.md | 5420a41 | Yes |
 | 2026-11-24 | Tickets page: Bhakti Room for 2 low-stock badge now names the open gender (e.g. Men · Only one left). No booking changed | tickets.html, CHANGELOG.md | 0ee1f4a | Yes |
 | 2026-11-24 | Bhakti Kutir Double Sharing: availability count now room by room, so the open spot shows for men. No booking changed | server/inventory.js, server/routes/bookings.js, CHANGELOG.md | 1d91c79 | Yes |
 | 2026-11-24 | Bhakti Kutir: same-gender check now counts beds room by room, so the empty room is open to men; tests updated to the same-gender rule. No booking changed | server/inventory.js, server/test-inventory.js, CHANGELOG.md | d78028f | Yes |
