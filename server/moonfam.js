@@ -418,6 +418,50 @@ const WORKSHOP_SLOTS = [
     ]
   }
 ];
+const GIGS = [
+  {
+    "day": "27 Nov",
+    "time": "8:15 – 10:00 PM",
+    "session": "Luna Viajera — Latin Fusion Band",
+    "facilitator": "",
+    "venue": "Space"
+  },
+  {
+    "day": "28 Nov",
+    "time": "2:45 – 4:15 PM",
+    "session": "Ecstatic Dance",
+    "facilitator": "Martin",
+    "venue": "Space"
+  },
+  {
+    "day": "28 Nov",
+    "time": "8:00 – 10:00 PM",
+    "session": "The Elevate Show",
+    "facilitator": "Chris",
+    "venue": "Space"
+  },
+  {
+    "day": "29 Nov",
+    "time": "5:00 – 6:30 PM",
+    "session": "Ecstatic Dance & Cacao",
+    "facilitator": "Annida",
+    "venue": "Space"
+  },
+  {
+    "day": "29 Nov",
+    "time": "8:00 PM",
+    "session": "Moon Musician Jam",
+    "facilitator": "",
+    "venue": "Space"
+  },
+  {
+    "day": "29 Nov",
+    "time": "9:00 PM",
+    "session": "Bageecha — Hindi Film Retro",
+    "facilitator": "",
+    "venue": "Space"
+  }
+];
 // All gigs are 900.
 const GIG_PRICE = 900;
 const gigPrice = () => GIG_PRICE;
