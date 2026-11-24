@@ -704,12 +704,19 @@ router.get('/availability', (req, res) => {
       const femaleBedsLeft  = femaleSpare + emptyRooms * s.room_size;
       // Only count SPARE beds in partial rooms — empty rooms are fungible (one gender
       // will get the whole room) so don't claim them for both genders simultaneously.
-      male_remaining   = maleAvail   ? maleSpare   : 0;
-      female_remaining = femaleAvail ? femaleSpare : 0;
-      if (!maleAvail && femaleAvail)  remaining = femaleBedsLeft;
-      else if (maleAvail && !femaleAvail) remaining = maleBedsLeft;
+      // Room-by-room count where the room list is known (see genderFreeBeds in inventory.js).
+      const { genderFreeBeds, ROOM_LABELS: RL } = require('../inventory');
+      const labels = (RL[s.venue] || {})[s.room_type];
+      const mRoom = Array.isArray(labels) && labels.length ? genderFreeBeds(db, s.venue, s.room_type, labels, s.room_size, 'Male') : null;
+      const fRoom = Array.isArray(labels) && labels.length ? genderFreeBeds(db, s.venue, s.room_type, labels, s.room_size, 'Female') : null;
+      const maleLeft   = mRoom !== null ? mRoom : maleBedsLeft;
+      const femaleLeft = fRoom !== null ? fRoom : femaleBedsLeft;
+      male_remaining   = maleAvail   ? (mRoom !== null ? mRoom : maleSpare)   : 0;
+      female_remaining = femaleAvail ? (fRoom !== null ? fRoom : femaleSpare) : 0;
+      if (!maleAvail && femaleAvail)  remaining = femaleLeft;
+      else if (maleAvail && !femaleAvail) remaining = maleLeft;
       // both available: show the smaller of the two so the badge is conservative
-      else if (maleAvail && femaleAvail) remaining = Math.min(maleBedsLeft, femaleBedsLeft);
+      else if (maleAvail && femaleAvail) remaining = Math.min(maleLeft, femaleLeft);
       // neither gender can book: nothing left to show
       else remaining = 0;
     }

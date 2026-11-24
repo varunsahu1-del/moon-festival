@@ -713,4 +713,4 @@ function bhaktiPairBlockReason(db, venue, room_type) {
   return row.n > 0 ? `${venue} ${room_type} is sold out.` : null;
 }
 
-module.exports = { checkAvailability, getInventoryStats, autoAssignRoom, INVENTORY, ROOM_LABELS, PRICING, VENUE_ROOMS, getPrice, FOOD_PRICE_TOTAL, GST_RATE, renameRoomLabel, validateBookingPrice, bhaktiPairBlockReason };
+module.exports = { checkAvailability, getInventoryStats, autoAssignRoom, INVENTORY, ROOM_LABELS, PRICING, VENUE_ROOMS, getPrice, FOOD_PRICE_TOTAL, GST_RATE, renameRoomLabel, validateBookingPrice, bhaktiPairBlockReason, genderFreeBeds };
