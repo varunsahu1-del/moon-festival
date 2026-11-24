@@ -62,7 +62,7 @@ function computeBreakdown(booking) {
   const includedExtras = collected && booking.addons_collection_method === 'included';
   const subtotal   = storedTotal;
   const baseGst    = booking.no_gst ? 0 : Math.round(subtotal * GST_RATE);
-  const extraGst   = (booking.no_gst || legacyExtras || includedExtras) ? 0 : Math.round(extraAddonTotal * GST_RATE);
+  const extraGst   = (legacyExtras || includedExtras) ? 0 : Math.round(extraAddonTotal * GST_RATE);
   const gst        = baseGst + extraGst;
   const taxable    = subtotal + (legacyExtras ? 0 : extraAddonTotal);
   const grandTotal = subtotal + gst + (includedExtras ? 0 : extraAddonTotal);
