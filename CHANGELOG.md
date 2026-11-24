@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-24 | Tickets page: Bhakti Kutir Room for 3 (Triple) row shown again; 3 beds open after BK-T05 was cleared. Bookings unchanged | tickets.html, CHANGELOG.md | dfd547a | Yes |
 | 2026-11-24 | Bhakti Kutir: BK-D06 added as a real Double Sharing room (14 rooms, 28 beds) so it can be used for room moves. No booking changed | server/inventory.js, CHANGELOG.md | 8988841 | Yes |
 | 2026-11-24 | Moon Fam: added Sunday Drum Circle (1:45-3:00 PM, Aditya, Asteroid) as a single workshop, copied from schedule.html | server/moonfam.js, CHANGELOG.md | fbacd36 | Yes |
 | 2026-11-24 | Moon Fam: workshop slots re-synced from schedule.html (Friday 3:00 and 4:15, Saturday 8:00 and 9:15, Sunday 9:15 rooms and sessions) | server/moonfam.js, CHANGELOG.md | 30f4725 | Yes |
