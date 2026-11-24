@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-24 | Moon Fam: added Sunday Drum Circle (1:45-3:00 PM, Aditya, Asteroid) as a single workshop, copied from schedule.html | server/moonfam.js, CHANGELOG.md | fbacd36 | Yes |
 | 2026-11-24 | Moon Fam: workshop slots re-synced from schedule.html (Friday 3:00 and 4:15, Saturday 8:00 and 9:15, Sunday 9:15 rooms and sessions) | server/moonfam.js, CHANGELOG.md | 30f4725 | Yes |
 | 2026-11-24 | Moon Fam hotfix: the schedule sync had dropped the gig list, so /api/moonfam/data returned 500; gig list restored from the previous version (same gigs and prices) | server/moonfam.js, CHANGELOG.md | 93ce6fd | Yes |
 | 2026-11-23 | Bhakti Kutir Double Sharing reopened to men (same-gender again, was set to women-only earlier today). Existing bookings unchanged | server/inventory.js, CHANGELOG.md | (this deploy) | Yes |
