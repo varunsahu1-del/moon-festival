@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-24 | Tickets page: sold-out Solo Room rows hidden (Bhakti Kutir, La Rocha Sea View, La Rocha Upper Sea View, Ourem Palace, Destiny); data kept, bookings unchanged | tickets.html, CHANGELOG.md | 1ca475d | Yes |
 | 2026-11-24 | Bhakti Kutir: BK-S04 removed from private rooms (3 rooms, no inventory). No booking changed | server/inventory.js, CHANGELOG.md | 4ed8f91 | Yes |
 | 2026-11-24 | Bill: GST waiver now covers only the booking; admin add-ons on a waived booking carry 5% GST. Stored amounts unchanged | server/breakdown.js, CHANGELOG.md | 10adebf | Yes |
 | 2026-11-24 | Tickets page: Bhakti Kutir Room for 3 (Triple) row shown again; 3 beds open after BK-T05 was cleared. Bookings unchanged | tickets.html, CHANGELOG.md | dfd547a | Yes |
