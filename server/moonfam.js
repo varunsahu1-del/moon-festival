@@ -44,8 +44,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Comet"
       },
       {
-        "session": "Hatha Yoga - Asana & Pranayama",
-        "facilitator": "Varun",
+        "session": "Animal Flow",
+        "facilitator": "Vipindas",
         "venue": "Stardust"
       },
       {
@@ -65,6 +65,11 @@ const WORKSHOP_SLOTS = [
     "time": "10:15 – 11:15 AM",
     "sessions": [
       {
+        "session": "Clownery",
+        "facilitator": "Alice",
+        "venue": "Space"
+      },
+      {
         "session": "Bhangra",
         "facilitator": "Folking Desi",
         "venue": "Asteroid"
@@ -83,11 +88,6 @@ const WORKSHOP_SLOTS = [
         "session": "Sensual Bollywood",
         "facilitator": "Dhanisa",
         "venue": "Meteor"
-      },
-      {
-        "session": "Clownery",
-        "facilitator": "Alice",
-        "venue": "Sky"
       }
     ]
   },
@@ -107,8 +107,8 @@ const WORKSHOP_SLOTS = [
     "time": "3:00 – 4:00 PM",
     "sessions": [
       {
-        "session": "Sufi Singing",
-        "facilitator": "Anushaw",
+        "session": "Ayurveda Talk — Why was protein never mentioned in Ayurveda?",
+        "facilitator": "Dr Kanchan",
         "venue": "Space"
       },
       {
@@ -122,13 +122,13 @@ const WORKSHOP_SLOTS = [
         "venue": "Comet"
       },
       {
-        "session": "Tantric Death Meditation — Viraja Homam",
-        "facilitator": "Pradesh Raj",
+        "session": "Afro Dance",
+        "facilitator": "Sadashiv",
         "venue": "Stardust"
       },
       {
-        "session": "Afro Dance",
-        "facilitator": "Sadashiv",
+        "session": "Tantric Death Meditation — Viraja Homam",
+        "facilitator": "Pradesh Raj",
         "venue": "Meteor"
       },
       {
@@ -137,8 +137,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Nebula"
       },
       {
-        "session": "Japanese fabric art",
-        "facilitator": "Shital",
+        "session": "Sufi Singing",
+        "facilitator": "Anushaw",
         "venue": "Sky"
       }
     ]
@@ -148,13 +148,13 @@ const WORKSHOP_SLOTS = [
     "time": "4:15 – 5:15 PM",
     "sessions": [
       {
-        "session": "Ayurveda Talk — Why was protein never mentioned in Ayurveda?",
-        "facilitator": "Dr Kanchan",
+        "session": "Japanese fabric art",
+        "facilitator": "Shital",
         "venue": "Space"
       },
       {
-        "session": "Bachata",
-        "facilitator": "Maya",
+        "session": "Somatic Movement",
+        "facilitator": "Sonia",
         "venue": "Asteroid"
       },
       {
@@ -163,19 +163,19 @@ const WORKSHOP_SLOTS = [
         "venue": "Comet"
       },
       {
-        "session": "Throat Singing",
-        "facilitator": "Martin",
+        "session": "Hatha Yoga - Asana & Pranayama",
+        "facilitator": "Varun",
         "venue": "Stardust"
       },
       {
-        "session": "Somatic Movement",
-        "facilitator": "Sonia",
+        "session": "Bachata",
+        "facilitator": "Maya",
         "venue": "Meteor"
       },
       {
-        "session": "Animal Flow",
-        "facilitator": "Vipindas",
-        "venue": "Nebula"
+        "session": "Throat Singing",
+        "facilitator": "Martin",
+        "venue": "Sky"
       }
     ]
   },
@@ -194,8 +194,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Comet"
       },
       {
-        "session": "Animal Flow",
-        "facilitator": "Vipindas",
+        "session": "Yoga",
+        "facilitator": "Pradesh Raj",
         "venue": "Stardust"
       },
       {
@@ -204,8 +204,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Meteor"
       },
       {
-        "session": "Yoga",
-        "facilitator": "Pradesh Raj",
+        "session": "Animal Flow",
+        "facilitator": "Vipindas",
         "venue": "Nebula"
       }
     ]
@@ -235,8 +235,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Stardust"
       },
       {
-        "session": "Aaja Nachle - Bellydance choreography",
-        "facilitator": "Aakriti",
+        "session": "Shamanic Rose Healing",
+        "facilitator": "Karishma",
         "venue": "Meteor"
       },
       {
@@ -245,8 +245,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Nebula"
       },
       {
-        "session": "Shamanic Rose Healing",
-        "facilitator": "Karishma",
+        "session": "Aaja Nachle - Bellydance choreography",
+        "facilitator": "Aakriti",
         "venue": "Sky"
       }
     ]
@@ -349,8 +349,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Asteroid"
       },
       {
-        "session": "STRONG CORE (Strength & Conditioning)",
-        "facilitator": "Dhanisa",
+        "session": "Tai Chi",
+        "facilitator": "Hinoki-Dogu",
         "venue": "Comet"
       },
       {
@@ -359,8 +359,8 @@ const WORKSHOP_SLOTS = [
         "venue": "Stardust"
       },
       {
-        "session": "Tai Chi",
-        "facilitator": "Hinoki-Dogu",
+        "session": "STRONG CORE (Strength & Conditioning)",
+        "facilitator": "Dhanisa",
         "venue": "Meteor"
       },
       {
@@ -416,51 +416,6 @@ const WORKSHOP_SLOTS = [
         "venue": "Sky"
       }
     ]
-  }
-]
-// Evening shows and dances sold as Moon Fam gigs.
-const GIGS = [
-  {
-    "day": "27 Nov",
-    "time": "8:15 – 10:00 PM",
-    "session": "Luna Viajera — Latin Fusion Band",
-    "facilitator": "",
-    "venue": "Space"
-  },
-  {
-    "day": "28 Nov",
-    "time": "2:45 – 4:15 PM",
-    "session": "Ecstatic Dance",
-    "facilitator": "Martin",
-    "venue": "Space"
-  },
-  {
-    "day": "28 Nov",
-    "time": "8:00 – 10:00 PM",
-    "session": "The Elevate Show",
-    "facilitator": "Chris",
-    "venue": "Space"
-  },
-  {
-    "day": "29 Nov",
-    "time": "5:00 – 6:30 PM",
-    "session": "Ecstatic Dance & Cacao",
-    "facilitator": "Annida",
-    "venue": "Space"
-  },
-  {
-    "day": "29 Nov",
-    "time": "8:00 PM",
-    "session": "Moon Musician Jam",
-    "facilitator": "",
-    "venue": "Space"
-  },
-  {
-    "day": "29 Nov",
-    "time": "9:00 PM",
-    "session": "Bageecha — Hindi Film Retro",
-    "facilitator": "",
-    "venue": "Space"
   }
 ];
 // All gigs are 900.

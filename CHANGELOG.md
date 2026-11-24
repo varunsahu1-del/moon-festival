@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-24 | Moon Fam: workshop slots re-synced from schedule.html (Friday 3:00 and 4:15, Saturday 8:00 and 9:15, Sunday 9:15 rooms and sessions) | server/moonfam.js, CHANGELOG.md | (not deployed) | No |
 | 2026-11-23 | Bhakti Kutir Double Sharing reopened to men (same-gender again, was set to women-only earlier today). Existing bookings unchanged | server/inventory.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Tickets page: Destiny card hidden (display only; data kept, bookings unchanged) | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-23 | Tickets page: La Rocha Sea View card hidden (display only; data kept, bookings unchanged) | tickets.html, CHANGELOG.md | (this deploy) | Yes |
