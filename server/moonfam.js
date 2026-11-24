@@ -388,6 +388,17 @@ const WORKSHOP_SLOTS = [
   },
   {
     "day": "29 Nov",
+    "time": "1:45 – 3:00 PM",
+    "sessions": [
+      {
+        "session": "Drum Circle",
+        "facilitator": "Aditya",
+        "venue": "Asteroid"
+      }
+    ]
+  },
+  {
+    "day": "29 Nov",
     "time": "3:15 – 4:30 PM",
     "sessions": [
       {
