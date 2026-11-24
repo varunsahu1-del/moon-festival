@@ -93,3 +93,4 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-22 | Public schedule: final sync with planning grid (Friday Clownery and Japanese fabric art to Hornbill, Sunday rooms and talks, Saturday Forest Mask/Bachata and tote bag moves) | schedule.html | 6059491 | Yes |
 | 2026-11-23 | Public schedule: Thursday open mic description, Thursday sunset at Patnem Beach (Nada Brahma), Varun Sunday talk retitled | schedule.html | 6fd6736 | Yes |
 | 2026-11-23 | Public schedule: venues added to All Together events, Sunday dinner at Stardust, Sunday Tote Bag moved to 9:15 Hornbill | schedule.html | 1bbe01f | Yes |
+| 2026-11-24 | Public schedule: final planning-grid sync (Friday rooms and times, Ayurveda to Main Stage 3pm, Sufi Singing to Hornbill, Varun Saturday meditation renamed, Sunday Tai Chi and STRONG CORE swapped) | schedule.html | ea13204 | Yes |
