@@ -293,6 +293,35 @@ function dsRoomsUsed(db, venue, room_type, room_size) {
 
 // ── Main availability check ───────────────────────────────────────────────────
 // guests = [{ gender: 'Male'|'Female'|'' }, ...]
+// Free beds for one gender, counted room by room (same-gender rooms).
+// Live guests are placed by their effective room (guest room, else booking room).
+// If any guest has no room yet, returns null and the caller uses the old count.
+function genderFreeBeds(db, venue, room_type, labels, room_size, gender) {
+  const rows = db.prepare(`
+    SELECT COALESCE(g.room_number, b.room_number) AS rn, g.gender AS gender, COUNT(*) AS n
+    FROM guests g JOIN bookings b ON b.id = g.booking_id
+    WHERE b.venue = ? AND b.room_type = ? AND b.status IN ('paid','pending','upi_pending')
+      AND (b.deleted_at IS NULL OR b.deleted_at = '')
+      AND COALESCE(g.notes,'') NOT LIKE 'CANCELLED%'
+    GROUP BY rn, g.gender`).all(venue, room_type);
+  const byRoom = {};
+  let unplaced = 0;
+  for (const r of rows) {
+    if (!r.rn || labels.indexOf(r.rn) < 0) { unplaced += r.n; continue; }
+    if (!byRoom[r.rn]) byRoom[r.rn] = { total: 0, other: 0 };
+    byRoom[r.rn].total += r.n;
+    if (r.gender !== gender) byRoom[r.rn].other += r.n;
+  }
+  let free = 0;
+  for (const label of labels) {
+    const occ = byRoom[label] || { total: 0, other: 0 };
+    if (occ.other > 0) continue;
+    free += Math.max(0, room_size - occ.total);
+  }
+  if (unplaced > 0) return null;
+  return free;
+}
+
 function checkAvailability(db, venue, room_type, guestCount, guests = []) {
   const config = INVENTORY.find(i => i.venue === venue && i.room_type === room_type);
   if (!config) return { available: false, reason: `Unknown venue or room type: ${venue} · ${room_type}` };
@@ -378,15 +407,29 @@ function checkAvailability(db, venue, room_type, guestCount, guests = []) {
       return { available: false, reason: `${venue} ${room_type} requires all guests in a booking to be the same gender when sharing with others. Please make separate bookings for male and female guests, or book the entire room.` };
     }
     if (config.unit === 'beds' && config.room_size && config.rooms) {
-      // Only count partial-booking beds in gender-room math.
-      // Full-room bookings already have their own room; adding them again would double-count.
-      const newPartialMale   = partialMaleBeds + newMales;
-      const newPartialFemale = partialFemaleBeds + newFemales;
-      const roomsNeeded = fullRooms + Math.ceil(newPartialMale / config.room_size) + Math.ceil(newPartialFemale / config.room_size);
-      if (roomsNeeded > config.rooms) {
-        const genderLabel = newMales > 0 ? 'male' : 'female';
-        const otherGender = newMales > 0 ? 'female' : 'male';
-        return { available: false, reason: `Not enough ${genderLabel} beds available in ${venue} ${room_type}. The remaining beds are reserved for ${otherGender} guests.` };
+      const labels = (ROOM_LABELS[venue] || {})[room_type];
+      const roomFree = (Array.isArray(labels) && labels.length)
+        ? genderFreeBeds(db, venue, room_type, labels, config.room_size, newMales > 0 ? 'Male' : 'Female')
+        : null;
+      if (roomFree !== null) {
+        // Room by room: a room can take the new guests only if it holds no guest of the other gender.
+        const need = newMales + newFemales;
+        if (roomFree < need) {
+          const genderLabel = newMales > 0 ? 'male' : 'female';
+          const otherGender = newMales > 0 ? 'female' : 'male';
+          return { available: false, reason: `Not enough ${genderLabel} beds available in ${venue} ${room_type}. The remaining beds are reserved for ${otherGender} guests.` };
+        }
+      } else {
+        // Only count partial-booking beds in gender-room math.
+        // Full-room bookings already have their own room; adding them again would double-count.
+        const newPartialMale   = partialMaleBeds + newMales;
+        const newPartialFemale = partialFemaleBeds + newFemales;
+        const roomsNeeded = fullRooms + Math.ceil(newPartialMale / config.room_size) + Math.ceil(newPartialFemale / config.room_size);
+        if (roomsNeeded > config.rooms) {
+          const genderLabel = newMales > 0 ? 'male' : 'female';
+          const otherGender = newMales > 0 ? 'female' : 'male';
+          return { available: false, reason: `Not enough ${genderLabel} beds available in ${venue} ${room_type}. The remaining beds are reserved for ${otherGender} guests.` };
+        }
       }
     }
   }

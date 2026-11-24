@@ -103,8 +103,8 @@ section(`BK Double Sharing (${BK_DS} rooms × 2) — last room empty`);
 reset();
 for (let i = 0; i < BK_DS - 1; i++) seed('Bhakti Kutir', 'Double Sharing', ['Male', 'Male']);
 test('Female single takes the empty last room',           true,  'Bhakti Kutir', 'Double Sharing', [F('A')]);
-test('Mixed couple blocked — Bhakti Double is women only', false, 'Bhakti Kutir', 'Double Sharing', [M('A'), F('B')]);
-test('Male single blocked — Bhakti Double is women only', false, 'Bhakti Kutir', 'Double Sharing', [M('A')]);
+test('Mixed couple takes the empty last room (full-room booking)', true, 'Bhakti Kutir', 'Double Sharing', [M('A'), F('B')]);
+test('Male single takes the empty last room (same gender rule)', true, 'Bhakti Kutir', 'Double Sharing', [M('A')]);
 
 section(`BK Double Sharing (${BK_DS} rooms × 2) — sold out`);
 reset();
