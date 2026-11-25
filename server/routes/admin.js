@@ -1473,7 +1473,8 @@ router.get('/api/reports/massage', requireAdmin, (req, res) => {
     JOIN bookings b ON b.id = g.booking_id
     LEFT JOIN room_hotel_numbers rhn ON rhn.venue = b.venue AND rhn.label = COALESCE(g.room_number, b.room_number)
     WHERE b.status IN ('paid','pending','upi_pending')
-      AND b.addons LIKE '%Ayurvedic Massage%'
+      AND b.deleted_at IS NULL
+      AND (b.addons LIKE '%Ayurvedic Massage%' OR b.extra_addons LIKE '%Ayurvedic Massage%')
     ORDER BY g.full_name
   `).all();
   res.json(rows.map(r => ({ ...r, hotel_number: r.hotel_number || '' })));

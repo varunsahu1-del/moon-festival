@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-26 | Admin: massage report counts admin-added massages (extra add-ons) and skips trashed bookings. No booking changed | server/routes/admin.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-26 | Admin: scooter report skips trashed bookings (both queries filter deleted_at). No booking changed | server/routes/admin.js, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-26 | Tickets page: Teraria card hidden as a whole (data kept, bookings unchanged). Also brings the server up to date with the 4d76666 and 7cb5898 changelog commits | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-25 | Tickets page: pass note in site orange and on one line. No booking changed | tickets.html, CHANGELOG.md | 137161f | Yes |
