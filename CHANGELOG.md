@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-25 | La Rocha Upper Sea View: Double Sharing 2 rooms to 1 (LRU-D02 removed); Private Room 1 to 2 (LRU-P02 added). Prices unchanged. No booking changed | server/inventory.js, CHANGELOG.md | 945c1a5 | Yes |
 | 2026-11-25 | Tickets page: Bhakti Dorm card (6 Bed Mixed Dorm, 1 bed open after a cancellation) unhidden. No booking changed | tickets.html, CHANGELOG.md | fcece12 | Yes |
 | 2026-11-24 | Admin stats: Shital Seth (MF-0189) excluded from sales, bed counts and average bed price, like Esha (MF-0147). No booking changed | server/routes/admin.js, CHANGELOG.md | 0c92b4e | Yes |
 | 2026-11-24 | Dashboard: Shital Seth (MF-0189) shows as Team, like Esha (MF-0147). Display only; no booking changed | server/views/dashboard.html, CHANGELOG.md | 5420a41 | Yes |
