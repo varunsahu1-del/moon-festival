@@ -1507,6 +1507,7 @@ router.get('/api/reports/scooter', requireAdmin, (req, res) => {
     JOIN bookings b ON b.id = g.booking_id
     LEFT JOIN room_hotel_numbers rhn ON rhn.venue = b.venue AND rhn.label = COALESCE(g.room_number, b.room_number)
     WHERE b.status IN ('paid','pending','upi_pending')
+      AND b.deleted_at IS NULL
       AND b.addons LIKE '%Scooter Rental%'
       AND g.guest_number = 1
   `).all();
@@ -1521,6 +1522,7 @@ router.get('/api/reports/scooter', requireAdmin, (req, res) => {
     JOIN bookings b ON b.id = g.booking_id
     LEFT JOIN room_hotel_numbers rhn ON rhn.venue = b.venue AND rhn.label = COALESCE(g.room_number, b.room_number)
     WHERE b.status IN ('paid','pending','upi_pending')
+      AND b.deleted_at IS NULL
       AND b.extra_addons LIKE '%Scooter Rental%'
       AND (b.addons IS NULL OR b.addons NOT LIKE '%Scooter Rental%')
       AND g.guest_number = 1
