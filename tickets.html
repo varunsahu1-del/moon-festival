@@ -3953,8 +3953,8 @@ function fmtPrice(n) {
       const { active, phase4, extraDay } = prices[venue][roomType];
       // Overwrite all hardcoded data attributes from the single server source
       row.dataset.basePrice = active;
-      // Teraria and La Rocha: no early check-in (26 Nov) add-on
-      const noEarlyCheckin = venue === 'Teraria' || venue.startsWith('La Rocha');
+      // Teraria and La Rocha: no early check-in (26 Nov) add-on, except La Rocha Upper Sea View Private Room
+      const noEarlyCheckin = venue === 'Teraria' || (venue.startsWith('La Rocha') && !(venue === 'La Rocha · Upper Sea View' && roomType === 'Private Room'));
       row.dataset.extraDay  = noEarlyCheckin ? 0 : extraDay;
       const priceEl  = row.querySelector('.room-price');
       const labelEl  = row.querySelector('.price-eb-label');
