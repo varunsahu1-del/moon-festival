@@ -158,8 +158,8 @@ const PRICING = {
     'Private Room':   { earlyBird: 67900, phase2: 67900, phase3: 67900, phase4: 67900, extraDay: 6000 },
   },
   'La Rocha · Deluxe': {
-    'Double Sharing': { earlyBird: 39900, phase2: 39900, phase3: 39900, phase4: 39900, extraDay: 3000 },
-    'Private Room':   { earlyBird: 51500, phase2: 51500, phase3: 51500, phase4: 51500, extraDay: 6000 },
+    'Double Sharing': { earlyBird: 32000, phase2: 32000, phase3: 32000, phase4: 32000, extraDay: 3000 },
+    'Private Room':   { earlyBird: 41000, phase2: 41000, phase3: 41000, phase4: 41000, extraDay: 6000 },
   },
   'Festival Access': {
     'Full Festival Pass':         { flat: 21000, extraDay: 0 },
