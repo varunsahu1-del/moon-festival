@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-25 | Bhakti Kutir: BK-D12 removed from Double Sharing (13 rooms, 26 beds); BK-T06 added to Triple Sharing (6 rooms, 18 beds). No booking changed | server/inventory.js, CHANGELOG.md | 53be30c | Yes |
 | 2026-11-25 | Tickets page: La Rocha Upper Sea View card hidden as a whole (Room for 2 and Solo Room sold out); Bhakti Room for 4 card hidden as a whole. Data kept, bookings unchanged | tickets.html, CHANGELOG.md | b5b6733 | Yes |
 | 2026-11-25 | Tickets page: sold-out Bhakti Room for 4 and La Rocha Upper Sea View Room for 2 rows hidden; data kept, bookings unchanged | tickets.html, CHANGELOG.md | 6c975c6 | Yes |
 | 2026-11-25 | Tickets page: early check-in (26 Nov) add-on enabled for La Rocha Upper Sea View Private Room (₹6,000 per person, existing price). No booking changed | tickets.html, CHANGELOG.md | 255eea0 | Yes |
