@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-25 | Tickets page: bold note under the two pass cards about single workshop, day passes, gigs and ecstatic tickets at the gate. No booking changed | tickets.html, CHANGELOG.md | a469e22 | Yes |
 | 2026-11-25 | Tickets page: Bhakti same-gender badges count beds (e.g. Women · 3 spots left) instead of rooms. No booking changed | tickets.html, CHANGELOG.md | 1fd7527 | Yes |
 | 2026-11-25 | Bhakti Kutir: BK-D12 removed from Double Sharing (13 rooms, 26 beds); BK-T06 added to Triple Sharing (6 rooms, 18 beds). No booking changed | server/inventory.js, CHANGELOG.md | 53be30c | Yes |
 | 2026-11-25 | Tickets page: La Rocha Upper Sea View card hidden as a whole (Room for 2 and Solo Room sold out); Bhakti Room for 4 card hidden as a whole. Data kept, bookings unchanged | tickets.html, CHANGELOG.md | b5b6733 | Yes |
