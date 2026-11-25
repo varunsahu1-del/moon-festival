@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-25 | Tickets page: Bhakti Dorm card (6 Bed Mixed Dorm, 1 bed open after a cancellation) unhidden. No booking changed | tickets.html, CHANGELOG.md | fcece12 | Yes |
 | 2026-11-24 | Admin stats: Shital Seth (MF-0189) excluded from sales, bed counts and average bed price, like Esha (MF-0147). No booking changed | server/routes/admin.js, CHANGELOG.md | 0c92b4e | Yes |
 | 2026-11-24 | Dashboard: Shital Seth (MF-0189) shows as Team, like Esha (MF-0147). Display only; no booking changed | server/views/dashboard.html, CHANGELOG.md | 5420a41 | Yes |
 | 2026-11-24 | Tickets page: Bhakti Room for 2 low-stock badge now names the open gender (e.g. Men · Only one left). No booking changed | tickets.html, CHANGELOG.md | 0ee1f4a | Yes |
