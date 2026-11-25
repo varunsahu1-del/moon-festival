@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-25 | Tickets page: La Rocha Upper Sea View card hidden as a whole (Room for 2 and Solo Room sold out); Bhakti Room for 4 card hidden as a whole. Data kept, bookings unchanged | tickets.html, CHANGELOG.md | b5b6733 | Yes |
 | 2026-11-25 | Tickets page: sold-out Bhakti Room for 4 and La Rocha Upper Sea View Room for 2 rows hidden; data kept, bookings unchanged | tickets.html, CHANGELOG.md | 6c975c6 | Yes |
 | 2026-11-25 | Tickets page: early check-in (26 Nov) add-on enabled for La Rocha Upper Sea View Private Room (₹6,000 per person, existing price). No booking changed | tickets.html, CHANGELOG.md | 255eea0 | Yes |
 | 2026-11-25 | Tickets page: Solo Room row shown on La Rocha Upper Sea View card (₹67,900, private room). No booking changed | tickets.html, CHANGELOG.md | afe055a | Yes |
