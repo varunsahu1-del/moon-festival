@@ -4,7 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
-| 2026-11-25 | Tickets page: pass note in site orange and on one line. No booking changed | tickets.html, CHANGELOG.md | (this deploy) | Yes |
+| 2026-11-25 | Tickets page: pass note in site orange and on one line. No booking changed | tickets.html, CHANGELOG.md | 137161f | Yes |
 | 2026-11-25 | Tickets page: pass note styled like the Stay with us line, with equal spacing. No booking changed | tickets.html, CHANGELOG.md | ff4cc37 | Yes |
 | 2026-11-25 | Tickets page: bold note under the two pass cards about single workshop, day passes, gigs and ecstatic tickets at the gate. No booking changed | tickets.html, CHANGELOG.md | a469e22 | Yes |
 | 2026-11-25 | Tickets page: Bhakti same-gender badges count beds (e.g. Women · 3 spots left) instead of rooms. No booking changed | tickets.html, CHANGELOG.md | 1fd7527 | Yes |
