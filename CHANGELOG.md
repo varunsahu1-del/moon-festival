@@ -130,3 +130,4 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-24 | Public schedule: Saturday 8am rooms (Yoga to Round Shala, Animal Flow to Down Shala) and 9:15 rooms (Aaja Nachle to Hornbill, Shamanic Rose Healing to Tree Shala) | schedule.html | 06510a0 | Yes |
 | 2026-11-26 | Hide La Rocha: Upper Sea View and Deluxe cards hidden on tickets page; new La Rocha bookings refused. Existing bookings unchanged | server/routes/bookings.js, tickets.html | e0d85cc | Yes |
 | 2026-11-27 | Hide Stay + Festival section on tickets page (Festival Only is the default and only pass shown); hide Ourem Palace card on tickets and stay pages. Kept in code for 2027 | tickets.html, stay.html | d863da4 | Yes |
+| 2026-11-27 | Tickets: hide the Two Ways to Join Moon banner | tickets.html | cd808ab | Yes |
