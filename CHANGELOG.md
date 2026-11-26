@@ -131,3 +131,4 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-26 | Hide La Rocha: Upper Sea View and Deluxe cards hidden on tickets page; new La Rocha bookings refused. Existing bookings unchanged | server/routes/bookings.js, tickets.html | e0d85cc | Yes |
 | 2026-11-27 | Hide Stay + Festival section on tickets page (Festival Only is the default and only pass shown); hide Ourem Palace card on tickets and stay pages. Kept in code for 2027 | tickets.html, stay.html | d863da4 | Yes |
 | 2026-11-27 | Tickets: hide the Two Ways to Join Moon banner | tickets.html | cd808ab | Yes |
+| 2026-11-27 | Tickets: wording changed from three to four events available as standalone tickets | tickets.html | 5aaa099 | Yes |
