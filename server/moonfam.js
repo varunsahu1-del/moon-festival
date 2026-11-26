@@ -552,8 +552,9 @@ function quoteCart(input, guestCount) {
 
   const parts = [];
   if (pass) parts.push(kinds > 1 ? "Pass: " + passKeys.join(", ") : passKeys.join(", "));
-  if (workshops.length) parts.push("Workshops: " + workshops.map(w => `${w.session} (${w.day} ${w.time})`).join("; "));
-  if (gigs.length) parts.push("Gigs: " + gigs.map(g => `${g.session} (${g.day} ${g.time})`).join("; "));
+  const withFac = s => (s.facilitator ? `${s.session} · ${s.facilitator}` : s.session);
+  if (workshops.length) parts.push("Workshops: " + workshops.map(w => `${withFac(w)} (${w.day} ${w.time})`).join("; "));
+  if (gigs.length) parts.push("Gigs: " + gigs.map(g => `${withFac(g)} (${g.day} ${g.time})`).join("; "));
   return {
     venue: "Festival Access",
     roomType,
