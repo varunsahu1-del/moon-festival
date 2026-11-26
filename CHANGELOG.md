@@ -128,3 +128,4 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 | 2026-11-24 | Public schedule: final planning-grid sync (Friday rooms and times, Ayurveda to Main Stage 3pm, Sufi Singing to Hornbill, Varun Saturday meditation renamed, Sunday Tai Chi and STRONG CORE swapped) | schedule.html | ea13204 | Yes |
 | 2026-11-24 | Public schedule: Friday 4:15 rooms (Throat Singing to Hornbill, Hatha Yoga to Round Shala, Somatic Movement and Bachata swapped) | schedule.html | 7ba2ded | Yes |
 | 2026-11-24 | Public schedule: Saturday 8am rooms (Yoga to Round Shala, Animal Flow to Down Shala) and 9:15 rooms (Aaja Nachle to Hornbill, Shamanic Rose Healing to Tree Shala) | schedule.html | 06510a0 | Yes |
+| 2026-11-26 | Hide La Rocha: Upper Sea View and Deluxe cards hidden on tickets page; new La Rocha bookings refused. Existing bookings unchanged | server/routes/bookings.js, tickets.html | e0d85cc | Yes |
