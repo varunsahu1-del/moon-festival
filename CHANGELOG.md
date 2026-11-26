@@ -4,6 +4,7 @@ One line per change, newest first. Add a line after every deploy, and for anythi
 
 | Date (IST) | Asked for | Files changed | Version | Live? |
 |---|---|---|---|---|
+| 2026-11-26 | Tickets page: Bhakti Kutir Room for 3 / Room for 2 card hidden (style display:none, same as Teraria). No booking changed | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-26 | Tickets page: La Rocha · Deluxe card cover photo changed to img_4536 (bed photo). No booking changed | tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-26 | Prices: La Rocha · Deluxe Room for 2 ₹39,900 → ₹32,000 and Solo Room ₹51,500 → ₹41,000, all phases (server/inventory.js PRICING and tickets.html cards). No booking changed | server/inventory.js, tickets.html, CHANGELOG.md | (this deploy) | Yes |
 | 2026-11-26 | Admin: massage report counts admin-added massages (extra add-ons) and skips trashed bookings. No booking changed | server/routes/admin.js, CHANGELOG.md | (this deploy) | Yes |
