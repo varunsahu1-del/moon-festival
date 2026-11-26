@@ -95,6 +95,11 @@ router.post('/create', async (req, res) => {
       addons = null;
     }
 
+    // La Rocha is closed to new bookings (hidden from the site)
+    if (typeof venue === 'string' && venue.startsWith('La Rocha')) {
+      return res.status(400).json({ error: 'La Rocha is no longer available for booking.' });
+    }
+
     // Validate gender when provided — allows blank/null but rejects nonsense values
     const VALID_GENDERS = new Set(['Male', 'Female', '', null, undefined]);
     for (const g of guests) {
