@@ -1553,8 +1553,8 @@
   <div id="join-cards" style="display:flex;gap:clamp(0.8rem,2vw,1.2rem);max-width:720px;margin:0 auto clamp(2.5rem,5vw,4rem);padding:0 clamp(0.6rem,3vw,1.2rem);">
 
     <!-- Card 1: Stay + Festival -->
-    <div class="join-card-outer">
-      <button class="join-card join-card--active" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
+    <div class="join-card-outer" hidden style="display:none">
+      <button class="join-card" id="jcard-acco" onclick="selectJoinCard('acco')" aria-label="Stay + Festival Pass">
         <svg width="38" height="38" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.75rem;opacity:0.75;"><path d="M2 10 L10 3 L18 10" stroke="#B06030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 9 L4 17 L16 17 L16 9" stroke="#B06030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="12" width="4" height="5" rx="0.5" stroke="#B06030" stroke-width="0.8"/></svg>
         <div class="jcard-num">Stay + Festival Pass</div>
       </button>
@@ -1562,7 +1562,7 @@
 
     <!-- Card 2: Festival Only -->
     <div class="join-card-outer">
-      <button class="join-card" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
+      <button class="join-card join-card--active" id="jcard-festival" onclick="selectJoinCard('festival')" aria-label="Festival Only Pass">
         <svg width="38" height="38" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 0.75rem;opacity:0.75;"><path d="M3 10 C3 10 5 8 7 10 C9 12 11 8 13 10 C15 12 17 8 19 10 C21 12 23 10 25 10" stroke="#B06030" stroke-width="1" stroke-linecap="round"/><rect x="3" y="12" width="22" height="12" rx="1.5" stroke="#B06030" stroke-width="1"/><line x1="9" y1="12" x2="9" y2="24" stroke="#B06030" stroke-width="0.75"/><line x1="19" y1="12" x2="19" y2="24" stroke="#B06030" stroke-width="0.75"/><circle cx="14" cy="18" r="2" stroke="#B06030" stroke-width="0.9"/></svg>
         <div class="jcard-num">Festival Only Pass</div>
       </button>
@@ -1573,8 +1573,8 @@
   <p class="join-note" style="font-family:'Open Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.18rem);font-weight:600;line-height:1.85;color:#B06030;text-align:center;margin:2.5rem auto 2.5rem;max-width:none;white-space:nowrap;padding:0 1rem;">Single workshop, day passes, gigs and ecstatic tickets available at the gate</p>
 
   <div class="ticket-tabs-bar">
-    <button class="ticket-tab active" data-tab="acco">Stay + Festival Pass</button>
-    <button class="ticket-tab" data-tab="festival">Festival Only Pass</button>
+    <button class="ticket-tab" data-tab="acco" hidden style="display:none">Stay + Festival Pass</button>
+    <button class="ticket-tab active" data-tab="festival">Festival Only Pass</button>
   </div>
 </section>
 
@@ -1657,7 +1657,7 @@
     </div>
 
     <!-- Panel: Acco -->
-    <div class="ticket-panel active" id="panel-acco">
+    <div class="ticket-panel" id="panel-acco" hidden style="display:none">
 
 
     <div style="text-align:center;margin-top:clamp(2.8rem,6vw,4rem);margin-bottom:clamp(1.5rem,3vw,2.5rem);">
@@ -2016,7 +2016,7 @@
     </div>
 
     <!-- ── OUREM PALACE ───────────────────────────────── -->
-    <div class="venue-card" data-venue="Ourem Palace">
+    <div class="venue-card" data-venue="Ourem Palace" hidden style="display:none">
       <div class="venue-hero-wrap"><div class="venue-hero-badges"><span class="venue-hero-badge">3 Mins Walk</span><span class="venue-hero-badge venue-hero-badge--ac">AC</span></div>
       <img class="venue-hero-img" src="/img/Stay Page Images/Ourem Palace 2/DSC02580.jpg?w=800" alt="Ourem Palace" loading="lazy" />
       <div style="position:absolute;bottom:12px;right:12px;z-index:10;background:#1a1008;padding:6px 12px 6px 10px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,0.7);">
@@ -2391,7 +2391,7 @@
     </div><!-- /panel-acco -->
 
     <!-- Panel: Festival Only -->
-    <div class="ticket-panel" id="panel-festival">
+    <div class="ticket-panel active" id="panel-festival">
 
     <div style="text-align:center;margin-top:clamp(1rem,2vw,1.5rem);margin-bottom:clamp(0.8rem,1.5vw,1.2rem);">
       <h2 class="venues-title section-heading-main" style="margin-bottom:0.3rem;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;color:#EDD4B2;">Festival Only Pass</h2>
